@@ -13,7 +13,7 @@ namespace SAE_DEV_PROJ
         // TEXTURES 
         private string _skinBoss1 = "boss";
         private Texture2D _textureBoss;
-
+        private Texture2D _textureBullet;
         // TAILLE FENETRE
         public const int _LARGEUR_FENETRE = 1920;
         public const int _HAUTEUR_FENETRE = 1000;
@@ -44,6 +44,7 @@ namespace SAE_DEV_PROJ
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _texturePerso = Content.Load<Texture2D>("perso");
+            _textureBullet = Content.Load<Texture2D>("bullet");
             _textureBoss = Content.Load<Texture2D>(_skinBoss1);
 
             // TODO: use this.Content to load your game content here
