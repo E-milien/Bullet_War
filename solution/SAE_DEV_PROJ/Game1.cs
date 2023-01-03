@@ -8,6 +8,7 @@ namespace SAE_DEV_PROJ
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private Texture2D _texturePerso;
 
         // TAILLE FENETRE
         public const int _LARGEUR_FENETRE = 1920;
@@ -24,13 +25,14 @@ namespace SAE_DEV_PROJ
         {
             // TODO: Add your initialization logic here
             SetupWindow();
+            InitializePerso();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            _texturePerso = Content.Load<Texture2D>("pereNoelDroite");
             // TODO: use this.Content to load your game content here
         }
 
@@ -38,7 +40,7 @@ namespace SAE_DEV_PROJ
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -49,7 +51,9 @@ namespace SAE_DEV_PROJ
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(_texturePerso, new Vector2(500,500), Color.White);
+            _spriteBatch.End();
             base.Draw(gameTime);
         }
         private void SetupWindow()
@@ -58,5 +62,16 @@ namespace SAE_DEV_PROJ
             _graphics.PreferredBackBufferHeight = _HAUTEUR_FENETRE;
             _graphics.ApplyChanges();
         }
+        
+        private void InitializePerso()
+        {
+            Perso hero = new Perso(true, 10, "perso", 1, new Vector2(1, 1), new Vector2(500,500));
+        }
+
+
+
+
+
+
     }
 }
