@@ -17,7 +17,6 @@ namespace SAE_DEV_PROJ
         // TAILLE FENETRE
         public const int _LARGEUR_FENETRE = 1920;
         public const int _HAUTEUR_FENETRE = 1000;
-        public const int _HAUTEUR_FENETRE = 1080;
         public const int _VITESSE_BULLETS1 = 100;
 
         // BOSS
