@@ -9,6 +9,10 @@ namespace SAE_DEV_PROJ
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        // TAILLE FENETRE
+        public const double LARGEUR_FENETRE = 1920;
+        public const double HAUTEUR_FENETRE = 1080;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
