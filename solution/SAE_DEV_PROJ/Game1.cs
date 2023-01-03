@@ -18,6 +18,7 @@ namespace SAE_DEV_PROJ
         public const int _LARGEUR_FENETRE = 1920;
         public const int _HAUTEUR_FENETRE = 1000;
         public const int _VITESSE_BULLETS1 = 100;
+        public const int _LARGEUR_BULLETS = 10;
 
         // BOSS
         Vector2 bossPos = new Vector2(_LARGEUR_FENETRE / 2, _HAUTEUR_FENETRE / 2);
@@ -77,7 +78,7 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_textureBoss, bossPos, Color.White);
             for (int i = 0; i < tabBullets.Length; i++)
             {
-                _spriteBatch.Draw(_textureBullet, tabBullets[i].BulletPosition, Color.Black);
+                _spriteBatch.Draw(_textureBullet, tabBullets[i].BulletPosition - new Vector2(_LARGEUR_BULLETS/2,0), Color.Black);
             }
             _spriteBatch.End();
             base.Draw(gameTime);
