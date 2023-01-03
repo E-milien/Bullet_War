@@ -12,14 +12,14 @@ namespace SAE_DEV_PROJ
     internal class Bullet
     {
         private int _vitesse, _hauteur, _largeur;
-        private String _color;
+        private String _skin;
 
-        public Bullet(int vitesse, int hauteur, int largeur, string color)
+        public Bullet(int vitesse, int hauteur, int largeur, string skin)
         {
             this.Vitesse = vitesse;
             this.Hauteur = hauteur;
             this.Largeur = largeur;
-            this.Color = color;
+            this.Skin = skin;
         }
 
         public int Vitesse
@@ -61,21 +61,17 @@ namespace SAE_DEV_PROJ
             }
         }
 
-        public string Color
+        public string Skin
         {
             get
             {
-                return this._color;
+                return this._skin;
             }
 
             set
             {
-                this._color = value;
+                this._skin = value;
             }
-        }
-        public void getPosition()
-        {
-            //_positionCadeau  = new Vector2((new Random()).Next(0, GraphicsDevice.Viewport.Width - LARGEUR_CADEAU), 0);
         }
     }
 }
