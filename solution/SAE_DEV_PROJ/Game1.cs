@@ -44,7 +44,6 @@ namespace SAE_DEV_PROJ
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _texturePerso = Content.Load<Texture2D>("perso");
-            _textureBoss = Content.Load<Texture2D>(_skinBoss);
             _textureBullet = Content.Load<Texture2D>("bullet");
             _textureBoss = Content.Load<Texture2D>(_skinBoss1);
 
