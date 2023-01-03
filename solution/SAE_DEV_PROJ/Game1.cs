@@ -10,8 +10,8 @@ namespace SAE_DEV_PROJ
         private SpriteBatch _spriteBatch;
 
         // TAILLE FENETRE
-        const int _LARGEUR_FENETRE = 1920;
-        const int _HAUTEUR_FENETRE = 1080;
+        public const int _LARGEUR_FENETRE = 1920;
+        public const int _HAUTEUR_FENETRE = 1080;
 
         public Game1()
         {
