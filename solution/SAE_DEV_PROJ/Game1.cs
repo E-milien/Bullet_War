@@ -32,7 +32,7 @@ namespace SAE_DEV_PROJ
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _texturePerso = Content.Load<Texture2D>("pereNoelDroite");
+            _texturePerso = Content.Load<Texture2D>("perso");
             // TODO: use this.Content to load your game content here
         }
 
@@ -67,19 +67,6 @@ namespace SAE_DEV_PROJ
         {
             Perso hero = new Perso(true, 10, "perso", 1, new Vector2(1, 1), new Vector2(500,500));
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         public void InitializeBoss()
