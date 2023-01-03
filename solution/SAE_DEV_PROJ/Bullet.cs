@@ -75,7 +75,7 @@ namespace SAE_DEV_PROJ
         }
         public void getPosition()
         {
-            _positionCadeau  = new Vector2((new Random()).Next(0, GraphicsDevice.Viewport.Width - LARGEUR_CADEAU), 0);
+            //_positionCadeau  = new Vector2((new Random()).Next(0, GraphicsDevice.Viewport.Width - LARGEUR_CADEAU), 0);
         }
     }
 }
