@@ -11,14 +11,14 @@ namespace SAE_DEV_PROJ
 {
     internal class Bullet
     {
-        private int _vitesse, _hauteur, _largeur;
+        private int _vitesse;
+        private Vector2 _bulletPosition;
         private String _skin;
 
-        public Bullet(int vitesse, int hauteur, int largeur, string skin)
+        public Bullet(int vitesse, Vector2 bulletPosition, string skin)
         {
             this.Vitesse = vitesse;
-            this.Hauteur = hauteur;
-            this.Largeur = largeur;
+            this.BulletPosition = bulletPosition;
             this.Skin = skin;
         }
 
@@ -35,32 +35,6 @@ namespace SAE_DEV_PROJ
             }
         }
 
-        public int Hauteur
-        {
-            get
-            {
-                return this._hauteur;
-            }
-
-            set
-            {
-                this._hauteur = value;
-            }
-        }
-
-        public int Largeur
-        {
-            get
-            {
-                return this._largeur;
-            }
-
-            set
-            {
-                this._largeur = value;
-            }
-        }
-
         public string Skin
         {
             get
@@ -71,6 +45,19 @@ namespace SAE_DEV_PROJ
             set
             {
                 this._skin = value;
+            }
+        }
+
+        public Vector2 BulletPosition
+        {
+            get
+            {
+                return this._bulletPosition;
+            }
+
+            set
+            {
+                this._bulletPosition = value;
             }
         }
     }

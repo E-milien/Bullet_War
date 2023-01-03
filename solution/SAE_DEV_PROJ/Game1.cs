@@ -82,5 +82,14 @@ namespace SAE_DEV_PROJ
 
             Boss boss = new Boss(5000, 1, _skinBoss, bossPos);
         }
+
+        private void InitializeBullets()
+        {
+            Bullet[] tabBullets = new Bullet[10];
+            for (int i = 0; i < tabBullets.Length; i++)
+            {
+                tabBullets[i] = new Bullet(10, new Vector2(960, 0), "bullet");
+            }
+        }
     }
 }
