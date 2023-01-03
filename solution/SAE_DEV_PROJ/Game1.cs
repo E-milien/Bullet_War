@@ -10,10 +10,12 @@ namespace SAE_DEV_PROJ
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
         private Bullet[] tabBullets = new Bullet[10];
+
         // TEXTURES 
         private string _skinBoss1 = "boss";
         private Texture2D _textureBoss;
         private Texture2D _textureBullet;
+
         // TAILLE FENETRE
         public const int _LARGEUR_FENETRE = 1920;
         public const int _HAUTEUR_FENETRE = 1000;
@@ -21,6 +23,13 @@ namespace SAE_DEV_PROJ
 
         // BOSS
         Vector2 bossPos = new Vector2(_LARGEUR_FENETRE / 2, _HAUTEUR_FENETRE / 2);
+
+        // PERSO
+        private int _sensPersoX;
+        private int _sensPersoY;
+        private int _vitessePerso;
+        private Vector2 _positionPerso;
+        private KeyboardState _keyboardState;
 
         public Game1()
         {
@@ -34,6 +43,10 @@ namespace SAE_DEV_PROJ
             // TODO: Add your initialization logic here
             SetupWindow();
             InitializePerso();
+
+            _positionPerso = new Vector2(500, 500);
+            _vitessePerso = 500;
+
 
             // BOSS INITIALIZE
             Boss boss1 = new Boss(5000, 1, _skinBoss1, bossPos);
@@ -62,8 +75,18 @@ namespace SAE_DEV_PROJ
                 Exit();
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             // TODO: Add your update logic here
+
             for (int i = 0; i < tabBullets.Length; i++)
                 tabBullets[i].BulletPosition += new Vector2(0,tabBullets[i].Vitesse * deltaTime);
+
+            DeplacementPerso();
+
+            _positionPerso.X += _sensPersoX * _vitessePerso * deltaTime;
+            _sensPersoX = 0;
+
+            _positionPerso.Y += _sensPersoY * _vitessePerso * deltaTime;
+            _sensPersoY = 0;
+
             base.Update(gameTime);
         }
 
@@ -73,7 +96,7 @@ namespace SAE_DEV_PROJ
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_texturePerso, new Vector2(500,500), Color.White);
+            _spriteBatch.Draw(_texturePerso, _positionPerso, Color.White);
             _spriteBatch.Draw(_textureBoss, bossPos, Color.White);
             for (int i = 0; i < tabBullets.Length; i++)
             {
@@ -92,6 +115,21 @@ namespace SAE_DEV_PROJ
         private void InitializePerso()
         {
             Perso hero = new Perso(true, 10, "perso", 1, new Vector2(1, 1), new Vector2(500,500));
+        }
+        private void DeplacementPerso()
+        {
+            if (_keyboardState.IsKeyDown(Keys.Q))
+                _sensPersoX = -1;
+
+            else if (_keyboardState.IsKeyDown(Keys.D))
+                _sensPersoX = 1;
+
+            if (_keyboardState.IsKeyDown(Keys.Z))
+                _sensPersoY = -1;
+
+            else if (_keyboardState.IsKeyDown(Keys.S))
+                _sensPersoY = 1;
+
         }
     }
 }
