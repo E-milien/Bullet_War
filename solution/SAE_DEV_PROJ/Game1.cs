@@ -93,14 +93,5 @@ namespace SAE_DEV_PROJ
         {
             Perso hero = new Perso(true, 10, "perso", 1, new Vector2(1, 1), new Vector2(500,500));
         }
-
-
-        public void InitializeBoss()
-        {
-            Vector2 bossPos = new Vector2(_LARGEUR_FENETRE / 2 - GraphicsDevice.Viewport.Width/2, _HAUTEUR_FENETRE / 2 - GraphicsDevice.Viewport.Height / 2);
-
-            Boss boss = new Boss(5000, 1, _skinBoss1, bossPos);
-        }
-
     }
 }
