@@ -81,7 +81,7 @@ namespace SAE_DEV_PROJ
             set
             {
                 // Boss en dehors de la fenetre
-                if (value.X < 0 || value.X > Game1.LARGEUR_FENETRE|| value.Y < 0 || value.Y > Game1.HAUTEUR_FENETRE)
+                if (value.X < 0 || value.X > Game1._LARGEUR_FENETRE|| value.Y < 0 || value.Y > Game1._HAUTEUR_FENETRE)
                     throw new ArgumentOutOfRangeException("Position en dehors de la fenetre");
 
                 this._bossPosition = value;
