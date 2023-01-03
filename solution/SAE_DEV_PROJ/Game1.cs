@@ -9,6 +9,10 @@ namespace SAE_DEV_PROJ
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        // TEXTURES 
+        private string _skinBoss = "boss.png";
+        private Texture2D _textureBoss;
+
         // TAILLE FENETRE
         public const int _LARGEUR_FENETRE = 1920;
         public const int _HAUTEUR_FENETRE = 1080;
@@ -24,12 +28,14 @@ namespace SAE_DEV_PROJ
         {
             // TODO: Add your initialization logic here
             SetupWindow();
+            InitializeBoss();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _textureBoss = Content.Load<Texture2D>(_skinBoss);
 
             // TODO: use this.Content to load your game content here
         }
@@ -71,7 +77,7 @@ namespace SAE_DEV_PROJ
         {
             Vector2 bossPos = new Vector2(_LARGEUR_FENETRE / 2, _HAUTEUR_FENETRE / 2);
 
-            Boss boss = new Boss(5000, 1, "boss.png", bossPos);
+            Boss boss = new Boss(5000, 1, _skinBoss, bossPos);
         }
     }
 }
