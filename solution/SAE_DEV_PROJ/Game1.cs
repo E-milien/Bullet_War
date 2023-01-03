@@ -11,7 +11,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _texturePerso;
 
         // TEXTURES 
-        private string _skinBoss = "boss";
+        private string _skinBoss1 = "boss";
         private Texture2D _textureBoss;
         private Texture2D _textureBullet;
         // TAILLE FENETRE
@@ -35,7 +35,7 @@ namespace SAE_DEV_PROJ
             InitializePerso();
 
             // BOSS INITIALIZE
-            Boss boss1 = new Boss(5000, 1, _skinBoss, bossPos);
+            Boss boss1 = new Boss(5000, 1, _skinBoss1, bossPos);
 
             base.Initialize();
         }
@@ -46,6 +46,7 @@ namespace SAE_DEV_PROJ
             _texturePerso = Content.Load<Texture2D>("perso");
             _textureBoss = Content.Load<Texture2D>(_skinBoss);
             _textureBullet = Content.Load<Texture2D>("bullet");
+            _textureBoss = Content.Load<Texture2D>(_skinBoss1);
 
             // TODO: use this.Content to load your game content here
         }
@@ -88,7 +89,7 @@ namespace SAE_DEV_PROJ
         {
             Vector2 bossPos = new Vector2(_LARGEUR_FENETRE / 2, _HAUTEUR_FENETRE / 2);
 
-            Boss boss = new Boss(5000, 1, _skinBoss, bossPos);
+            Boss boss = new Boss(5000, 1, _skinBoss1, bossPos);
         }
 
         private void InitializeBullets()
