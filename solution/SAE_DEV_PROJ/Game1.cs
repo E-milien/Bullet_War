@@ -87,7 +87,7 @@ namespace SAE_DEV_PROJ
         {
             Vector2 bossPos = new Vector2(_LARGEUR_FENETRE / 2, _HAUTEUR_FENETRE / 2);
 
-            Boss boss = new Boss(5000, 1, _skinBoss, bossPos);
+            Boss boss = new Boss(5000, 1, _skinBoss1, bossPos);
         }
 
         private void InitializeBullets()
