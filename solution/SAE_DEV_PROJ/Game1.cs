@@ -9,7 +9,7 @@ namespace SAE_DEV_PROJ
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
-
+        private Bullet[] tabBullets = new Bullet[10];
         // TEXTURES 
         private string _skinBoss1 = "boss";
         private Texture2D _textureBoss;
@@ -17,6 +17,7 @@ namespace SAE_DEV_PROJ
         // TAILLE FENETRE
         public const int _LARGEUR_FENETRE = 1920;
         public const int _HAUTEUR_FENETRE = 1080;
+        public const int _VITESSE_BULLETS1 = 100;
 
         // BOSS
         Vector2 bossPos = new Vector2(_LARGEUR_FENETRE / 2, _HAUTEUR_FENETRE / 2);
@@ -37,6 +38,11 @@ namespace SAE_DEV_PROJ
             // BOSS INITIALIZE
             Boss boss1 = new Boss(5000, 1, _skinBoss1, bossPos);
 
+            // Bullets initialize
+            for (int i = 0; i < tabBullets.Length; i++)
+            {
+                tabBullets[i] = new Bullet(_VITESSE_BULLETS1, new Vector2(_LARGEUR_FENETRE /2, 0), "bullet");
+            }
             base.Initialize();
         }
 
@@ -56,7 +62,8 @@ namespace SAE_DEV_PROJ
                 Exit();
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             // TODO: Add your update logic here
-
+            for (int i = 0; i < tabBullets.Length; i++)
+                tabBullets[i].BulletPosition += new Vector2(0,tabBullets[i].Vitesse * deltaTime);
             base.Update(gameTime);
         }
 
@@ -68,6 +75,10 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Begin();
             _spriteBatch.Draw(_texturePerso, new Vector2(500,500), Color.White);
             _spriteBatch.Draw(_textureBoss, bossPos, Color.White);
+            for (int i = 0; i < tabBullets.Length; i++)
+            {
+                _spriteBatch.Draw(_textureBullet, tabBullets[i].BulletPosition, Color.Black);
+            }
             _spriteBatch.End();
             base.Draw(gameTime);
         }
@@ -91,13 +102,5 @@ namespace SAE_DEV_PROJ
             Boss boss = new Boss(5000, 1, _skinBoss1, bossPos);
         }
 
-        private void InitializeBullets()
-        {
-            Bullet[] tabBullets = new Bullet[10];
-            for (int i = 0; i < tabBullets.Length; i++)
-            {
-                tabBullets[i] = new Bullet(10, new Vector2(960, 0), "bullet");
-            }
-        }
     }
 }
