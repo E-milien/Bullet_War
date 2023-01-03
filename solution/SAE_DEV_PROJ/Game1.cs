@@ -11,12 +11,15 @@ namespace SAE_DEV_PROJ
         private Texture2D _texturePerso;
 
         // TEXTURES 
-        private string _skinBoss = "boss.png";
+        private string _skinBoss = "boss";
         private Texture2D _textureBoss;
 
         // TAILLE FENETRE
         public const int _LARGEUR_FENETRE = 1920;
         public const int _HAUTEUR_FENETRE = 1080;
+
+        // BOSS
+        Vector2 bossPos = new Vector2(_LARGEUR_FENETRE / 2, _HAUTEUR_FENETRE / 2);
 
         public Game1()
         {
@@ -30,7 +33,10 @@ namespace SAE_DEV_PROJ
             // TODO: Add your initialization logic here
             SetupWindow();
             InitializePerso();
-            InitializeBoss();
+
+            // BOSS INITIALIZE
+            Boss boss1 = new Boss(5000, 1, _skinBoss, bossPos);
+
             base.Initialize();
         }
 
@@ -60,6 +66,7 @@ namespace SAE_DEV_PROJ
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             _spriteBatch.Draw(_texturePerso, new Vector2(500,500), Color.White);
+            _spriteBatch.Draw(_textureBoss, bossPos, Color.White);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
