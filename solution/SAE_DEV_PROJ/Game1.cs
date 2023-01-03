@@ -10,8 +10,8 @@ namespace SAE_DEV_PROJ
         private SpriteBatch _spriteBatch;
 
         // TAILLE FENETRE
-        public const double LARGEUR_FENETRE = 1920;
-        public const double HAUTEUR_FENETRE = 1080;
+        const int _LARGEUR_FENETRE = 1920;
+        const int _HAUTEUR_FENETRE = 1080;
 
         public Game1()
         {
@@ -23,7 +23,7 @@ namespace SAE_DEV_PROJ
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            SetupWindow();
             base.Initialize();
         }
 
@@ -51,6 +51,12 @@ namespace SAE_DEV_PROJ
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+        }
+        private void SetupWindow()
+        {
+            _graphics.PreferredBackBufferWidth = _LARGEUR_FENETRE;
+            _graphics.PreferredBackBufferHeight = _HAUTEUR_FENETRE;
+            _graphics.ApplyChanges();
         }
     }
 }
