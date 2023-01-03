@@ -81,5 +81,22 @@ namespace SAE_DEV_PROJ
         {
             Perso hero = new Perso(true, 10, "perso", 1, new Vector2(1, 1), new Vector2(500,500));
         }
+
+
+        public void InitializeBoss()
+        {
+            Vector2 bossPos = new Vector2(_LARGEUR_FENETRE / 2, _HAUTEUR_FENETRE / 2);
+
+            Boss boss = new Boss(5000, 1, _skinBoss, bossPos);
+        }
+
+        private void InitializeBullets()
+        {
+            Bullet[] tabBullets = new Bullet[10];
+            for (int i = 0; i < tabBullets.Length; i++)
+            {
+                tabBullets[i] = new Bullet(10, new Vector2(960, 0), "bullet");
+            }
+        }
     }
 }
