@@ -16,6 +16,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureBullet;
         // TAILLE FENETRE
         public const int _LARGEUR_FENETRE = 1920;
+        public const int _HAUTEUR_FENETRE = 1000;
         public const int _HAUTEUR_FENETRE = 1080;
         public const int _VITESSE_BULLETS1 = 100;
 
@@ -97,7 +98,7 @@ namespace SAE_DEV_PROJ
 
         public void InitializeBoss()
         {
-            Vector2 bossPos = new Vector2(_LARGEUR_FENETRE / 2, _HAUTEUR_FENETRE / 2);
+            Vector2 bossPos = new Vector2(_LARGEUR_FENETRE / 2 - GraphicsDevice.Viewport.Width/2, _HAUTEUR_FENETRE / 2 - GraphicsDevice.Viewport.Height / 2);
 
             Boss boss = new Boss(5000, 1, _skinBoss1, bossPos);
         }
