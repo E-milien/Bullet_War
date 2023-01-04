@@ -17,6 +17,8 @@ namespace SAE_DEV_PROJ
         private Texture2D _texturePerso;
         internal Bullet[] _tabBullets = new Bullet[10];
         internal Bullet[] _tabBulletPerso = new Bullet[20];
+        internal Boss boss1;
+        internal Perso hero;
 
         // TEXTURES 
         private string _skinBoss1 = "boss";
@@ -30,7 +32,6 @@ namespace SAE_DEV_PROJ
         // PERSO
         private int _sensPersoX;
         private int _sensPersoY;
-        private int _vitessePerso;
         private KeyboardState _keyboardState;
 
         // pour récupérer une référence à l’objet game pour avoir accès à tout ce qui est
@@ -46,16 +47,16 @@ namespace SAE_DEV_PROJ
             // TODO: Add your initialization logic here
 
             _persoPos = new Vector2(500, 500);
-            _vitessePerso = 500;
 
             // BOSS INITIALIZE
             Boss boss1 = new Boss(5000, 1, _skinBoss1, _bossPos);
-            Perso hero = new Perso(true, 10, "perso", 1, new Vector2(1, 1), _persoPos);
+            Perso hero = new Perso(true, 100, "perso", 1, 500, _persoPos);
 
-            // Bullets1 initialize
+            // Bullets initialize
+
             for (int i = 0; i < _tabBullets.Length; i++)
             {
-                _tabBullets[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2((new Random()).Next(0, Constantes._LARGEUR_FENETRE), 0), "bullet");
+                _tabBullets[i] = new Bullet(Constantes._VITESSE_BULLETS1,new Vector2(_bossPos.X, _bossPos.Y), "bullet");
             }
             // BulletsAlliées initialize
             for (int i = 0; i < _tabBulletPerso.Length; i++)
@@ -67,9 +68,10 @@ namespace SAE_DEV_PROJ
 
         public override void LoadContent()
         {
+            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _texturePerso = Content.Load<Texture2D>("perso");
-            _textureBullet = Content.Load<Texture2D>("bullet");
+            _texturePerso = Content.Load<Texture2D>(hero.SkinPerso);
+            _textureBullet = Content.Load<Texture2D>(_tabBullets[0].Skin);
             _textureBoss = Content.Load<Texture2D>(_skinBoss1);
 
 
@@ -89,16 +91,15 @@ namespace SAE_DEV_PROJ
             //tirs alliés
             for (int i = 0; i < _tabBulletPerso.Length; i++)
                 _tabBulletPerso[i].BulletPosition -= new Vector2(0, _tabBulletPerso[i].Vitesse * deltaTime);
+            Patern(deltaTime);
             DeplacementPerso();
+            DeplacementPerso(deltaTime);
 
 
             _persoPos.X += _sensPersoX * _vitessePerso * deltaTime;
             _sensPersoX = 0;
 
-            _persoPos.Y += _sensPersoY * _vitessePerso * deltaTime;
-            _sensPersoY = 0;
-            if (Collision()) //touché
-                _persoPos = new Vector2(500, 500);
+            Collision();
         }
         public override void Draw(GameTime gameTime)
         {
@@ -121,7 +122,7 @@ namespace SAE_DEV_PROJ
             _spriteBatch.End();
         }
 
-        private void DeplacementPerso()
+        private void DeplacementPerso(float deltaTime)
         {
             _keyboardState = Keyboard.GetState();
             if (_keyboardState.IsKeyDown(Keys.Q) && !(_keyboardState.IsKeyDown(Keys.D)) && _persoPos.X >= 0)
@@ -134,10 +135,15 @@ namespace SAE_DEV_PROJ
                 _sensPersoY = -1;
 
             else if (_keyboardState.IsKeyDown(Keys.S) && !(_keyboardState.IsKeyDown(Keys.Z)) && _persoPos.Y <= Constantes._HAUTEUR_FENETRE - Constantes._HAUTEUR_PERSO)
-                _sensPersoY = 1; 
+                _sensPersoY = 1;
 
+            _persoPos.X += _sensPersoX * hero.DeplacementPerso * deltaTime;
+            _sensPersoX = 0;
+
+            _persoPos.Y += _sensPersoY * hero.DeplacementPerso * deltaTime;
+            _sensPersoY = 0;
         }
-        public bool Collision()
+        public void Collision()
         {
             bool tmp = false;
             for (int i = 0; i < _tabBullets.Length; i++)
@@ -150,7 +156,16 @@ namespace SAE_DEV_PROJ
                     tmp = true;
                 }
             }
-            return tmp;
+            
+        }
+
+        public void Patern(float deltaTime)
+        {
+            Random rdn = new Random();
+            for (int i = 0; i < _tabBullets.Length; i++)
+            {
+                _tabBullets[i].BulletPosition += new Vector2(rdn.Next(-50,50), _tabBullets[i].Vitesse * deltaTime);
+            }
         }
     }
 }

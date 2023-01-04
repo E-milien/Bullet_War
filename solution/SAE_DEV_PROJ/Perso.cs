@@ -17,17 +17,17 @@ namespace SAE_DEV_PROJ
         private bool _godMod;
         private string _skinPerso;
         private double _multiplicationVitesse;
-        private Vector2 _deplacementPerso;
+        private int _deplacementPerso;
         private Vector2 _positionDepartPerso;
 
-        public Perso(bool godMod, int pvPerso, string skinPerso, double multiplicationVitesse, Vector2 deplacementPerso, Vector2 positionDepartPerso)
+        public Perso(bool godMod, int pvPerso, string skinPerso, double multiplicationVitesse, int deplacementPerso, Vector2 positionDepartPerso)
         {
             this.GodMod = godMod;
             this.PvPerso = pvPerso;
             this.SkinPerso = skinPerso;
             this.MultiplicationVitesse = multiplicationVitesse;
             this.DeplacementPerso = deplacementPerso;
-            this.DositionDepartPerso = positionDepartPerso;
+            this.PositionDepartPerso = positionDepartPerso;
         }
 
         
@@ -93,7 +93,7 @@ namespace SAE_DEV_PROJ
             }
         }
 
-        public Vector2 DeplacementPerso
+        public int DeplacementPerso
         {
             get
             {
@@ -105,16 +105,16 @@ namespace SAE_DEV_PROJ
                 this._deplacementPerso = value;
             }
         }
-        public Vector2 DositionDepartPerso
+        public Vector2 PositionDepartPerso
         {
             get
             {
-                return this._deplacementPerso;
+                return this._positionDepartPerso;
             }
 
             set
             {
-                this._deplacementPerso = value;
+                this._positionDepartPerso = value;
             }
         }
     }
