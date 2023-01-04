@@ -264,13 +264,14 @@ namespace SAE_DEV_PROJ
         {
             Random rdn = new Random();
 
-            
-                for (int j = 0; j < _tabBullets.GetLength(1)-2; j++)
+            for (int z = 0; z <= i; z++)
+            {
+                for (int j = 0; j < _tabBullets.GetLength(1) - 2; j++)
                 {
-                   
-                    _tabBullets[i, j].BulletPosition += new Vector2(rdn.Next(-5, 5), _tabBullets[i, j].Vitesse * deltaTime);
-                }
 
+                    _tabBullets[z, j].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[z, j].Vitesse * deltaTime);
+                }
+            }
         }
 
     }
