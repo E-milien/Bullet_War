@@ -16,6 +16,9 @@ namespace SAE_DEV_PROJ
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
         internal Bullet[] _tabBullets = new Bullet[10];
+        internal Bullet[] _tabBulletPerso = new Bullet[20];
+        internal Boss boss1;
+        internal Perso hero;
 
         // TEXTURES 
         private string _skinBoss1 = "boss";
@@ -45,9 +48,8 @@ namespace SAE_DEV_PROJ
 
             _persoPos = new Vector2(500, 500);
 
-            // BOSS INITIALIZE
-            Boss boss1 = new Boss(5000, 1, _skinBoss1, _bossPos);
-            Perso hero = new Perso(true, 100, "perso", 1, 500, _persoPos);
+            boss1 = new Boss(5000, 1, _skinBoss1, _bossPos);
+            hero = new Perso(true, 100, "perso", 1, 500, _persoPos);
 
             // Bullets initialize
 
@@ -55,7 +57,11 @@ namespace SAE_DEV_PROJ
             {
                 _tabBullets[i] = new Bullet(Constantes._VITESSE_BULLETS1,new Vector2(_bossPos.X, _bossPos.Y), "bullet");
             }
-
+            // BulletsAlliées initialize
+            for (int i = 0; i < _tabBulletPerso.Length; i++)
+            {
+                _tabBulletPerso[i] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(_persoPos.X, _persoPos.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
+            }
             base.Initialize();
         }
 
@@ -77,10 +83,19 @@ namespace SAE_DEV_PROJ
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             // TODO: Add your update logic here
 
+            //10 bullets aléatoires qui descendent
+            for (int i = 0; i < _tabBullets.Length; i++)
+                _tabBullets[i].BulletPosition += new Vector2(0, _tabBullets[i].Vitesse * deltaTime);
 
+            //tirs alliés
+            for (int i = 0; i < _tabBulletPerso.Length; i++)
+                _tabBulletPerso[i].BulletPosition -= new Vector2(0, _tabBulletPerso[i].Vitesse * deltaTime);
             Patern(deltaTime);
             DeplacementPerso(deltaTime);
 
+
+            _persoPos.X += _sensPersoX * hero.DeplacementPerso * deltaTime;
+            _sensPersoX = 0;
 
             Collision();
         }
@@ -90,14 +105,18 @@ namespace SAE_DEV_PROJ
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_texturePerso, _persoPos, Color.White);
+            _spriteBatch.Draw(_texturePerso, _persoPos - new Vector2(Constantes._LARGEUR_PERSO / 2, 0), Color.White);
             _spriteBatch.Draw(_textureBoss, _bossPos - new Vector2(Constantes._LARGEUR_BOSS / 2, 0), Color.White);
-
+            //Bullets adverses
             for (int i = 0; i < _tabBullets.Length; i++)
             {
                 _spriteBatch.Draw(_textureBullet, _tabBullets[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
             }
-
+            //Bullets adverses
+            for (int i = 0; i < _tabBulletPerso.Length; i++)
+            {
+                _spriteBatch.Draw(_textureBullet, _tabBulletPerso[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+            }
             _spriteBatch.End();
         }
 
