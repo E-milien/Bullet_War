@@ -187,14 +187,13 @@ namespace SAE_DEV_PROJ
             {
                 for (int j = 0; j < _tabBullets.GetLength(1); j++)
                 {
-                    Rectangle rect1 = new Rectangle((int)_tabBullets[i,j].BulletPosition.X, (int)_tabBullets[i, j].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
-                    Rectangle rect2 = new Rectangle((int)_persoPos.X, (int)_persoPos.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);
-
-                if (rect1.Intersects(rect2))
-                {
-                    hero.PvPerso -= 20;
+                    Rectangle rect1 = new Rectangle((int)_tabBullets[i, j].BulletPosition.X, (int)_tabBullets[i, j].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
+                    Rectangle rect2 = new Rectangle((int)_persoPos.X, (int)_persoPos.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);               
+                    if (rect1.Intersects(rect2))
+                        hero.PvPerso -= 20;
                 }
             }  
+            return tmp;
         }
         public void CollisionBoss()
         {
