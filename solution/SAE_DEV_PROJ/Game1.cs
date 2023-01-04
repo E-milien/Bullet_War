@@ -20,9 +20,6 @@ namespace SAE_DEV_PROJ
         {
             _screenManager = new ScreenManager();
             Components.Add(_screenManager);
-
-
-
         }
 
         protected override void LoadContent()
