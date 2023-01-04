@@ -13,7 +13,7 @@ namespace SAE_DEV_PROJ
     public class PlayScreen : GameScreen
     {
         private Game1 _myGame;
-
+        private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
         private Bullet[] tabBullets = new Bullet[10];

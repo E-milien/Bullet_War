@@ -12,7 +12,7 @@ namespace SAE_DEV_PROJ
         private readonly ScreenManager _screenManager;
         HomeScreen _homeScreen;
         PlayScreen _playScreen;
-        private GraphicsDeviceManager _graphics;
+        
 
         public SpriteBatch SpriteBatch { get; set; }
 
