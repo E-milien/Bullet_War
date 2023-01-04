@@ -55,7 +55,7 @@ namespace SAE_DEV_PROJ
 
             for (int i = 0; i < _tabBullets.Length; i++)
             {
-                _tabBullets[i] = new Bullet(Constantes._VITESSE_BULLETS1,new Vector2(_bossPos.X, _bossPos.Y), "bullet");
+                _tabBullets[i] = new Bullet(Constantes._VITESSE_BULLETS1,new Vector2(_bossPos.X, _bossPos.Y + Constantes._HAUTEUR_BOSS), "bullet");
             }
             // BulletsAlliées initialize
             for (int i = 0; i < _tabBulletPerso.Length; i++)
