@@ -14,7 +14,6 @@ namespace SAE_DEV_PROJ
     {
         private Game1 _myGame;
 
-        private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
         private Bullet[] tabBullets = new Bullet[10];
