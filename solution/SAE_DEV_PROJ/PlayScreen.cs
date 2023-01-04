@@ -112,7 +112,7 @@ namespace SAE_DEV_PROJ
             DeplacementPerso(deltaTime);
             BulletAllieReset();
             if (hero.PvPerso <= 0)
-            Collision();
+            //Collision();
             CollisionBoss();
 
         }
@@ -176,12 +176,7 @@ namespace SAE_DEV_PROJ
             }
             
             
-                    if (rect1.Intersects(rect2))
-                    {
-                        tmp = true;
-                    }
-                }
-            }
+ 
             
         }
         public void CollisionBoss()
