@@ -90,13 +90,13 @@ namespace SAE_DEV_PROJ
             // TODO: Add your update logic here
 
             //10 bullets aléatoires qui descendent
-            for (int i = 0; i < _tabBullets.GetLength(0); i++)
+            /*for (int i = 0; i < _tabBullets.GetLength(0); i++)
             {
                 for (int j = 0; j < _tabBullets.GetLength(1); j++)
                 {
                     _tabBullets[i,j].BulletPosition += new Vector2(0, _tabBullets[i,j].Vitesse * deltaTime);
                 }
-            }
+            }*/
             //tirs alliés
             for (int i = 0; i < _tabBulletPerso.Length; i++)
             {
@@ -150,6 +150,7 @@ namespace SAE_DEV_PROJ
                     _spriteBatch.Draw(_textureBullet, _tabBullets[i,j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
                 }
             }
+
             //Bullets alliées
             for (int i = 0; i < _tabBulletPerso.Length; i++)
             {
@@ -225,23 +226,14 @@ namespace SAE_DEV_PROJ
             Random rdn = new Random();
             float tmp = 0;
 
-            for (int i = 1; i < _tabBullets.GetLength(0); i++)
+            for (int i = 0; i < _tabBullets.GetLength(0); i++)
             {
                 for (int j = 0; j < _tabBullets.GetLength(1); j++)
                 {
-                    tmp += deltaTime;
-
-                    if (tmp > 1)
-                    {
-                        _tabBullets[i, j].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[i, j].Vitesse * deltaTime);
-                        throw new ArgumentException();
-                        tmp = 0;
-                    }
-
-                    
-                    _tabBullets[0, j].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[i, j].Vitesse * deltaTime);
-
-
+                   
+                    _tabBullets[i, j].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[i, j].Vitesse * deltaTime);
+                    tmp = 0;
+                
                 }
             }
         }
