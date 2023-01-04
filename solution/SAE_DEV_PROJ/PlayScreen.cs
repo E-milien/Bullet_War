@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,11 +16,13 @@ namespace SAE_DEV_PROJ
         private Game1 _myGame;
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
-        internal Bullet[] _tabBullets = new Bullet[10];
-        internal Bullet[] _tabBulletPerso = new Bullet[200];
+        internal Bullet[,] _tabBullets = new Bullet[10,10];
+        internal Bullet[] _tabBulletPerso = new Bullet[20];
         internal Boss boss1;
         internal Perso hero;
-
+        private double _tmp;
+        private bool _redemption;
+        private int _vieAvantRedemption;
         // TEXTURES 
         private Texture2D _textureBoss;
         private Texture2D _textureBullet;
@@ -53,9 +56,12 @@ namespace SAE_DEV_PROJ
 
             // Bullets initialize
 
-            for (int i = 0; i < _tabBullets.Length; i++)
+            for (int i = 0; i < _tabBullets.GetLength(0); i++)
             {
-                _tabBullets[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(_bossPos.X, _bossPos.Y), "bullet");
+                for (int j = 0; j < _tabBullets.GetLength(1); j++)
+                {
+                    _tabBullets[i,j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(_bossPos.X, _bossPos.Y + Constantes._HAUTEUR_BOSS), "bullet");
+                }
             }
             // BulletsAlliées initialize
             for (int i = 0; i < _tabBulletPerso.Length; i++)
@@ -67,10 +73,10 @@ namespace SAE_DEV_PROJ
 
         public override void LoadContent()
         {
-
+            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _texturePerso = Content.Load<Texture2D>(hero.SkinPerso);
-            _textureBullet = Content.Load<Texture2D>(_tabBullets[0].Skin);
+            _texturePerso = Content.Load<Texture2D>("perso");
+            _textureBullet = Content.Load<Texture2D>(_tabBullets[0,0].Skin);
             _textureBoss = Content.Load<Texture2D>(boss1.SkinBoss);
 
 
@@ -84,9 +90,13 @@ namespace SAE_DEV_PROJ
             // TODO: Add your update logic here
 
             //10 bullets aléatoires qui descendent
-            for (int i = 0; i < _tabBullets.Length; i++)
-                _tabBullets[i].BulletPosition += new Vector2(0, _tabBullets[i].Vitesse * deltaTime);
-
+            for (int i = 0; i < _tabBullets.GetLength(0); i++)
+            {
+                for (int j = 0; j < _tabBullets.GetLength(1); j++)
+                {
+                    _tabBullets[i,j].BulletPosition += new Vector2(0, _tabBullets[i,j].Vitesse * deltaTime);
+                }
+            }
             //tirs alliés
             for (int i = 0; i < _tabBulletPerso.Length; i++)
             {
@@ -97,11 +107,30 @@ namespace SAE_DEV_PROJ
                 }
                 _tabBulletPerso[i].BulletPosition -= new Vector2(0, _tabBulletPerso[i].Vitesse * deltaTime);
             }
-
+            
             Patern(deltaTime);
             DeplacementPerso(deltaTime);
             BulletAllieReset();
-            Collision();
+            if (Collision())
+            {
+                _persoPos = new Vector2(500, 500);
+                hero.PvPerso -= 20;
+                _redemption = true;
+                _vieAvantRedemption = hero.PvPerso;
+                hero.PvPerso = 1000000;
+            }
+            if(_redemption)
+            {
+                _tmp += deltaTime;
+            }
+            if(_tmp>=3)
+            {
+                _tmp = 0;
+                hero.PvPerso = _vieAvantRedemption;
+                _redemption = false;
+            }
+            if (hero.PvPerso <= 0)
+                _persoPos = new Vector2(0, 0);
             CollisionBoss();
 
         }
@@ -114,9 +143,12 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_texturePerso, _persoPos, Color.White);
             _spriteBatch.Draw(_textureBoss, _bossPos, Color.White);
             //Bullets adverses
-            for (int i = 0; i < _tabBullets.Length; i++)
+            for (int i = 0; i < _tabBullets.GetLength(0); i++)
             {
-                _spriteBatch.Draw(_textureBullet, _tabBullets[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
+                for (int j = 0; j < _tabBullets.GetLength(1); j++)
+                {
+                    _spriteBatch.Draw(_textureBullet, _tabBullets[i,j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
+                }
             }
             //Bullets alliées
             for (int i = 0; i < _tabBulletPerso.Length; i++)
@@ -142,19 +174,21 @@ namespace SAE_DEV_PROJ
             else if (_keyboardState.IsKeyDown(Keys.S) && !(_keyboardState.IsKeyDown(Keys.Z)) && _persoPos.Y <= Constantes._HAUTEUR_FENETRE - Constantes._HAUTEUR_PERSO)
                 _sensPersoY = 1;
 
-            _persoPos.X += _sensPersoX * (int)Math.Round(hero.DeplacementPerso * hero.MultiplicationVitesse, 0) * deltaTime;
+            _persoPos.X += _sensPersoX * (int)Math.Round(hero.DeplacementPerso * hero.MultiplicationVitesse,0) * deltaTime;
             _sensPersoX = 0;
 
             _persoPos.Y += _sensPersoY * (int)Math.Round(hero.DeplacementPerso * hero.MultiplicationVitesse, 0) * deltaTime;
             _sensPersoY = 0;
         }
-        public void Collision()
+        public bool Collision()
         {
             bool tmp = false;
-            for (int i = 0; i < _tabBullets.Length; i++)
+            for (int i = 0; i < _tabBullets.GetLength(0); i++)
             {
-                Rectangle rect1 = new Rectangle((int)_tabBullets[i].BulletPosition.X, (int)_tabBullets[i].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
-                Rectangle rect2 = new Rectangle((int)_persoPos.X, (int)_persoPos.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);
+                for (int j = 0; j < _tabBullets.GetLength(1); j++)
+                {
+                    Rectangle rect1 = new Rectangle((int)_tabBullets[i,j].BulletPosition.X, (int)_tabBullets[i, j].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
+                    Rectangle rect2 = new Rectangle((int)_persoPos.X, (int)_persoPos.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);
 
                 if (rect1.Intersects(rect2))
                 {
@@ -178,8 +212,8 @@ namespace SAE_DEV_PROJ
         }
         public void BulletAllieReset()
         {
-            // Une fois arrivée en bas , les bullets sont remises en-dessous de la fenêtre
-            for (int i = 0; i < _tabBulletPerso.Length; i++)
+        // Une fois arrivée en bas , les bullets sont remises en-dessous de la fenêtre
+            for (int i = 0; i<_tabBulletPerso.Length; i++)
             {
                 if (_tabBulletPerso[i].BulletPosition.Y <= 0)
                 {
@@ -190,10 +224,29 @@ namespace SAE_DEV_PROJ
         public void Patern(float deltaTime)
         {
             Random rdn = new Random();
-            for (int i = 0; i < _tabBullets.Length; i++)
+            float tmp = 0;
+
+            for (int i = 1; i < _tabBullets.GetLength(0); i++)
             {
-                _tabBullets[i].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[i].Vitesse * deltaTime);
+                for (int j = 0; j < _tabBullets.GetLength(1); j++)
+                {
+                    tmp += deltaTime;
+
+                    if (tmp > 1)
+                    {
+                        _tabBullets[i, j].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[i, j].Vitesse * deltaTime);
+                        throw new ArgumentException();
+                        tmp = 0;
+                    }
+
+                    
+                    _tabBullets[0, j].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[i, j].Vitesse * deltaTime);
+
+
+                }
             }
         }
+
     }
 }
+
