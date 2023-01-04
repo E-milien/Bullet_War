@@ -23,13 +23,13 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureBullet;
 
         // BOSS
-        Vector2 bossPos = new Vector2(Variables._LARGEUR_FENETRE / 2, Variables._HAUTEUR_FENETRE / 2);
+        Vector2 _bossPos = new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 2);
+        Vector2 _persoPos;
 
         // PERSO
         private int _sensPersoX;
         private int _sensPersoY;
         private int _vitessePerso;
-        private Vector2 _positionPerso;
         private KeyboardState _keyboardState;
 
         // pour récupérer une référence à l’objet game pour avoir accès à tout ce qui est
@@ -43,19 +43,18 @@ namespace SAE_DEV_PROJ
         public override void Initialize()
         {
             // TODO: Add your initialization logic here
-            InitializePerso();
 
-            _positionPerso = new Vector2(500, 500);
+            _persoPos = new Vector2(500, 500);
             _vitessePerso = 500;
 
-
             // BOSS INITIALIZE
-            Boss boss1 = new Boss(5000, 1, _skinBoss1, bossPos);
-
+            Boss boss1 = new Boss(5000, 1, _skinBoss1, _bossPos);
+            Perso hero = new Perso(true, 10, "perso", 1, new Vector2(1, 1), _persoPos);
+            
             // Bullets initialize
             for (int i = 0; i < _tabBullets.Length; i++)
             {
-                _tabBullets[i] = new Bullet(Variables._VITESSE_BULLETS1, new Vector2((new Random()).Next(0, Variables._LARGEUR_FENETRE), 0), "bullet");
+                tabBullets[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2((new Random()).Next(0, Constantes._LARGEUR_FENETRE), 0), "bullet");
             }
 
             base.Initialize();
@@ -83,10 +82,10 @@ namespace SAE_DEV_PROJ
 
             DeplacementPerso();
 
-            _positionPerso.X += _sensPersoX * _vitessePerso * deltaTime;
+            _persoPos.X += _sensPersoX * _vitessePerso * deltaTime;
             _sensPersoX = 0;
 
-            _positionPerso.Y += _sensPersoY * _vitessePerso * deltaTime;
+            _persoPos.Y += _sensPersoY * _vitessePerso * deltaTime;
             _sensPersoY = 0;
         }
         public override void Draw(GameTime gameTime)
@@ -95,31 +94,28 @@ namespace SAE_DEV_PROJ
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_texturePerso, new Vector2(500, 500), Color.White);
-            _spriteBatch.Draw(_textureBoss, bossPos - new Vector2(Variables._LARGEUR_BOSS / 2, 0), Color.White);
-            for (int i = 0; i < _tabBullets.Length; i++)
+            _spriteBatch.Draw(_texturePerso, _persoPos, Color.White);
+            _spriteBatch.Draw(_textureBoss, _bossPos - new Vector2(Constantes._LARGEUR_BOSS / 2, 0), Color.White);
+            for (int i = 0; i < tabBullets.Length; i++)
             {
                 _spriteBatch.Draw(_textureBullet, _tabBullets[i].BulletPosition - new Vector2(Variables._LARGEUR_BULLETS / 2, 0), Color.Black);
             }
             _spriteBatch.End();
         }
 
-        private void InitializePerso()
-        {
-            Perso hero = new Perso(true, 10, "perso", 1, new Vector2(1, 1), new Vector2(500, 500));
-        }
         private void DeplacementPerso()
         {
-            if (_keyboardState.IsKeyDown(Keys.Q))
+            _keyboardState = Keyboard.GetState();
+            if (_keyboardState.IsKeyDown(Keys.Q) && !(_keyboardState.IsKeyDown(Keys.D)))
                 _sensPersoX = -1;
 
-            else if (_keyboardState.IsKeyDown(Keys.D))
+            else if (_keyboardState.IsKeyDown(Keys.D) && !(_keyboardState.IsKeyDown(Keys.Q)))
                 _sensPersoX = 1;
 
-            if (_keyboardState.IsKeyDown(Keys.Z))
+            if (_keyboardState.IsKeyDown(Keys.Z) && !(_keyboardState.IsKeyDown(Keys.S)))
                 _sensPersoY = -1;
 
-            else if (_keyboardState.IsKeyDown(Keys.S))
+            else if (_keyboardState.IsKeyDown(Keys.S) && !(_keyboardState.IsKeyDown(Keys.Z)))
                 _sensPersoY = 1; 
 
         }

@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SAE_DEV_PROJ
 {
-    internal class Variables
+    internal class Constantes
     {
         
 
@@ -18,8 +18,12 @@ namespace SAE_DEV_PROJ
         public const int _HAUTEUR_FENETRE = 1000;
         public const int _VITESSE_BULLETS1 = 100;
         public const int _LARGEUR_BULLETS = 10;
+        public const int _HAUTEUR_BULLETS = 10;
         public const int _LARGEUR_BOSS = 50;
+        public const int _HAUTEUR_BOSS = 50;
+        public const int _LARGEUR_PERSO = 50;
+        public const int _HAUTEUR_PERSO = 50;
 
-       
+
     }
 }

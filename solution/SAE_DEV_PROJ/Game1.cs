@@ -65,8 +65,8 @@ namespace SAE_DEV_PROJ
 
         public void SetupWindow()
         {
-            _graphics.PreferredBackBufferWidth = Variables._LARGEUR_FENETRE;
-            _graphics.PreferredBackBufferHeight = Variables._HAUTEUR_FENETRE;
+            _graphics.PreferredBackBufferWidth = Constantes._LARGEUR_FENETRE;
+            _graphics.PreferredBackBufferHeight = Constantes._HAUTEUR_FENETRE;
             _graphics.ApplyChanges();
         }
 
