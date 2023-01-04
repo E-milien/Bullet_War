@@ -106,17 +106,17 @@ namespace SAE_DEV_PROJ
         private void DeplacementPerso()
         {
             _keyboardState = Keyboard.GetState();
-            if (_keyboardState.IsKeyDown(Keys.Q) && !(_keyboardState.IsKeyDown(Keys.D)))
+            if (_keyboardState.IsKeyDown(Keys.Q) && !(_keyboardState.IsKeyDown(Keys.D)) && _persoPos.X >= 0)
                 _sensPersoX = -1;
 
-            else if (_keyboardState.IsKeyDown(Keys.D) && !(_keyboardState.IsKeyDown(Keys.Q)))
+            else if (_keyboardState.IsKeyDown(Keys.D) && !(_keyboardState.IsKeyDown(Keys.Q)) && _persoPos.X <= Constantes._LARGEUR_FENETRE - Constantes._LARGEUR_PERSO)
                 _sensPersoX = 1;
 
-            if (_keyboardState.IsKeyDown(Keys.Z) && !(_keyboardState.IsKeyDown(Keys.S)))
+            if (_keyboardState.IsKeyDown(Keys.Z) && !(_keyboardState.IsKeyDown(Keys.S)) && _persoPos.Y >= 0)
                 _sensPersoY = -1;
 
-            else if (_keyboardState.IsKeyDown(Keys.S) && !(_keyboardState.IsKeyDown(Keys.Z)))
-                _sensPersoY = 1;
+            else if (_keyboardState.IsKeyDown(Keys.S) && !(_keyboardState.IsKeyDown(Keys.Z)) && _persoPos.Y <= Constantes._HAUTEUR_FENETRE - Constantes._HAUTEUR_PERSO)
+                _sensPersoY = 1; 
 
         }
         public bool Colision()
