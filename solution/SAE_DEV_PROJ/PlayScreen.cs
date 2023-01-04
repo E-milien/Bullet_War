@@ -88,8 +88,15 @@ namespace SAE_DEV_PROJ
 
             //tirs alliés
             for (int i = 0; i < _tabBulletPerso.Length; i++)
+            {
+                if (_tabBulletPerso[i].BulletPosition.Y > _persoPos.Y)
+                {
+                    if (_tabBulletPerso[i].BulletPosition.X != _persoPos.X)
+                        _tabBulletPerso[i].BulletPosition = new Vector2(_persoPos.X, _tabBulletPerso[i].BulletPosition.Y);
+                }
                 _tabBulletPerso[i].BulletPosition -= new Vector2(0, _tabBulletPerso[i].Vitesse * deltaTime);
-
+            }
+            
             Patern(deltaTime);
             DeplacementPerso(deltaTime);
             BulletAllieReset();
