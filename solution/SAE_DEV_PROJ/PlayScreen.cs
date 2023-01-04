@@ -23,7 +23,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureBullet;
 
         // BOSS
-        Vector2 _bossPos = new Vector2(_LARGEUR_FENETRE / 2, _HAUTEUR_FENETRE / 2);
+        Vector2 _bossPos = new Vector2(Variables._LARGEUR_FENETRE / 2, Variables._HAUTEUR_FENETRE / 2);
         Vector2 _persoPos;
 
         // PERSO
@@ -95,7 +95,7 @@ namespace SAE_DEV_PROJ
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             _spriteBatch.Draw(_texturePerso, _persoPos, Color.White);
-            _spriteBatch.Draw(_textureBoss, _bossPos - new Vector2(_LARGEUR_BOSS / 2, 0), Color.White);
+            _spriteBatch.Draw(_textureBoss, _bossPos - new Vector2(Variables._LARGEUR_BOSS / 2, 0), Color.White);
             for (int i = 0; i < tabBullets.Length; i++)
             {
                 _spriteBatch.Draw(_textureBullet, tabBullets[i].BulletPosition - new Vector2(Variables._LARGEUR_BULLETS / 2, 0), Color.Black);
@@ -106,16 +106,16 @@ namespace SAE_DEV_PROJ
         private void DeplacementPerso()
         {
             _keyboardState = Keyboard.GetState();
-            if (_keyboardState.IsKeyDown(Keys.Q))
+            if (_keyboardState.IsKeyDown(Keys.Q) && !(_keyboardState.IsKeyDown(Keys.D)))
                 _sensPersoX = -1;
 
-            else if (_keyboardState.IsKeyDown(Keys.D))
+            else if (_keyboardState.IsKeyDown(Keys.D) && !(_keyboardState.IsKeyDown(Keys.Q)))
                 _sensPersoX = 1;
 
-            if (_keyboardState.IsKeyDown(Keys.Z))
+            if (_keyboardState.IsKeyDown(Keys.Z) && !(_keyboardState.IsKeyDown(Keys.S)))
                 _sensPersoY = -1;
 
-            else if (_keyboardState.IsKeyDown(Keys.S))
+            else if (_keyboardState.IsKeyDown(Keys.S) && !(_keyboardState.IsKeyDown(Keys.Z)))
                 _sensPersoY = 1; 
 
         }
