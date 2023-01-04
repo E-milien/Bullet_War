@@ -94,7 +94,7 @@ namespace SAE_DEV_PROJ
             DeplacementPerso(deltaTime);
 
 
-            _persoPos.X += _sensPersoX * _vitessePerso * deltaTime;
+            _persoPos.X += _sensPersoX * hero.DeplacementPerso * deltaTime;
             _sensPersoX = 0;
 
             Collision();
