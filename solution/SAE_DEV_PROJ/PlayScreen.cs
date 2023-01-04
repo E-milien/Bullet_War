@@ -23,7 +23,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureBullet;
 
         // BOSS
-        Vector2 _bossPos = new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 2);
+        Vector2 _bossPos = new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5);
         Vector2 _persoPos;
 
         // PERSO
@@ -87,6 +87,8 @@ namespace SAE_DEV_PROJ
 
             _persoPos.Y += _sensPersoY * _vitessePerso * deltaTime;
             _sensPersoY = 0;
+            if (Collision()) //touché
+                _persoPos = new Vector2(500, 500);
         }
         public override void Draw(GameTime gameTime)
         {
@@ -119,12 +121,12 @@ namespace SAE_DEV_PROJ
                 _sensPersoY = 1; 
 
         }
-        public bool Colision()
+        public bool Collision()
         {
             bool tmp = false;
             for (int i = 0; i < _tabBullets.Length; i++)
             {
-                Rectangle rect1 = new Rectangle((int)_tabBullets[1].BulletPosition.X, (int)_tabBullets[1].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
+                Rectangle rect1 = new Rectangle((int)_tabBullets[i].BulletPosition.X, (int)_tabBullets[i].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
                 Rectangle rect2 = new Rectangle((int)_persoPos.X, (int)_persoPos.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);
 
                 if (rect1.Intersects(rect2))
