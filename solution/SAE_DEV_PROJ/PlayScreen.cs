@@ -47,9 +47,8 @@ namespace SAE_DEV_PROJ
 
             _persoPos = new Vector2(500, 500);
 
-            // BOSS INITIALIZE
-            Boss boss1 = new Boss(5000, 1, _skinBoss1, _bossPos);
-            Perso hero = new Perso(true, 100, "perso", 1, 500, _persoPos);
+            boss1 = new Boss(5000, 1, _skinBoss1, _bossPos);
+            hero = new Perso(true, 100, "perso", 1, 500, _persoPos);
 
             // Bullets initialize
 
@@ -81,7 +80,6 @@ namespace SAE_DEV_PROJ
 
 
             Patern(deltaTime);
-            DeplacementPerso();
             DeplacementPerso(deltaTime);
 
 
