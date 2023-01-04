@@ -23,6 +23,13 @@ namespace SAE_DEV_PROJ
         private double _tmp;
         private bool _redemption;
         private int _vieAvantRedemption;
+        private double _chrono;
+        private int _i;
+        private bool _t;
+        private bool _t1;
+        private bool _t2;
+        private bool _t3;
+
         // TEXTURES 
         private Texture2D _textureBoss;
         private Texture2D _textureBullet;
@@ -46,8 +53,13 @@ namespace SAE_DEV_PROJ
 
         public override void Initialize()
         {
+            _i = 0;
+            _t = false;
+            _t1 = false;
+            _t2 = false;
+            _t3 = false;
             // TODO: Add your initialization logic here
-
+            _chrono = 0;
             _persoPos = new Vector2(500, 500) - new Vector2(Constantes._LARGEUR_PERSO / 2,0);
             _bossPos = new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0);
 
@@ -88,7 +100,34 @@ namespace SAE_DEV_PROJ
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             // TODO: Add your update logic here
+            _chrono += deltaTime;
+            if(_chrono >=2 && _i<8&&_t==false)
+            {
+                _i++;
+                _t = true;
+            }
+            
+            if (_chrono >= 4 && _i < 8&&_t1==false)
+            {
+                _i++;
+                _t1 = true;
+            }
+            if (_chrono >= 6 && _i < 8&&_t2==false)
+            {
+                _i++;
+                _t2 = true;
+            }
+            if (_chrono >= 8 && _i < 8&&_t3==false)
+            {
+                _i++;
+                _t3 = true;
+            }
+            if (_chrono >= 10 && _i < 8)
+            {
+                _i++;
 
+            }
+            Patern(deltaTime, _i);
             //10 bullets aléatoires qui descendent
             /*for (int i = 0; i < _tabBullets.GetLength(0); i++)
             {
@@ -108,7 +147,6 @@ namespace SAE_DEV_PROJ
                 _tabBulletPerso[i].BulletPosition -= new Vector2(0, _tabBulletPerso[i].Vitesse * deltaTime);
             }
             
-            Patern(deltaTime);
             DeplacementPerso(deltaTime);
             BulletAllieReset();
             if (Collision()&&_redemption==false)
@@ -143,11 +181,12 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_texturePerso, _persoPos, Color.White);
             _spriteBatch.Draw(_textureBoss, _bossPos, Color.White);
             //Bullets adverses
-            for (int i = 0; i < _tabBullets.GetLength(0); i++)
+
+            for (int z = 0; z <= _i; z++)
             {
                 for (int j = 0; j < _tabBullets.GetLength(1); j++)
                 {
-                    _spriteBatch.Draw(_textureBullet, _tabBullets[i,j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
+                    _spriteBatch.Draw(_textureBullet, _tabBullets[z, j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
                 }
             }
 
@@ -221,20 +260,17 @@ namespace SAE_DEV_PROJ
                 }
             }
         }
-        public void Patern(float deltaTime)
+        public void Patern(float deltaTime, int i)
         {
-            Random rdn = new Random();;
+            Random rdn = new Random();
+
             
-            if(_tmp >=2)
-            {
-                for (int i = 0; i < _tabBullets.GetLength(0); i++)
+                for (int j = 0; j < _tabBullets.GetLength(1)-2; j++)
                 {
-                    for (int j = 0; j < _tabBullets.GetLength(1); j++)
-                    {
-                        _tabBullets[i, j].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[i, j].Vitesse * deltaTime);
-                    }
+                   
+                    _tabBullets[i, j].BulletPosition += new Vector2(rdn.Next(-5, 5), _tabBullets[i, j].Vitesse * deltaTime);
                 }
-            }
+
         }
 
     }
