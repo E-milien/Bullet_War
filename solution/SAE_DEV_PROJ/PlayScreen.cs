@@ -106,16 +106,16 @@ namespace SAE_DEV_PROJ
         private void DeplacementPerso()
         {
             _keyboardState = Keyboard.GetState();
-            if (_keyboardState.IsKeyDown(Keys.Q))
+            if (_keyboardState.IsKeyDown(Keys.Q) && !(_keyboardState.IsKeyDown(Keys.D)))
                 _sensPersoX = -1;
 
-            else if (_keyboardState.IsKeyDown(Keys.D))
+            else if (_keyboardState.IsKeyDown(Keys.D) && !(_keyboardState.IsKeyDown(Keys.Q)))
                 _sensPersoX = 1;
 
-            if (_keyboardState.IsKeyDown(Keys.Z))
+            if (_keyboardState.IsKeyDown(Keys.Z) && !(_keyboardState.IsKeyDown(Keys.S)))
                 _sensPersoY = -1;
 
-            else if (_keyboardState.IsKeyDown(Keys.S))
+            else if (_keyboardState.IsKeyDown(Keys.S) && !(_keyboardState.IsKeyDown(Keys.Z)))
                 _sensPersoY = 1; 
 
         }
