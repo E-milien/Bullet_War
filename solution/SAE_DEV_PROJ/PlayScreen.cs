@@ -16,7 +16,7 @@ namespace SAE_DEV_PROJ
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
         internal Bullet[] _tabBullets = new Bullet[10];
-        internal Bullet[] _tabBulletPerso = new Bullet[20];
+        internal Bullet[] _tabBulletPerso = new Bullet[200];
         internal Boss boss1;
         internal Perso hero;
 
@@ -101,6 +101,8 @@ namespace SAE_DEV_PROJ
             DeplacementPerso(deltaTime);
             BulletAllieReset();
             Collision();
+            CollisionBoss();
+
         }
         public override void Draw(GameTime gameTime)
         {
@@ -160,12 +162,26 @@ namespace SAE_DEV_PROJ
             }
             
         }
+        public void CollisionBoss()
+        {
+            for (int i = 0; i < _tabBulletPerso.Length; i++)
+            {
+                Rectangle rect1 = new Rectangle((int)_tabBulletPerso[i].BulletPosition.X, (int)_tabBulletPerso[i].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
+                Rectangle rect2 = new Rectangle((int)_bossPos.X, (int)_bossPos.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);
+
+                if (rect1.Intersects(rect2))
+                {
+                    //boss1.BossHP -= 100;
+                    _tabBulletPerso[i].BulletPosition = new Vector2(_persoPos.X, _persoPos.Y + i * Constantes._HAUTEUR_BULLETS * 2);
+                }
+            }
+        }
         public void BulletAllieReset()
         {
         // Une fois arrivée en bas , les bullets sont remises en-dessous de la fenêtre
             for (int i = 0; i<_tabBulletPerso.Length; i++)
             {
-                if (_tabBulletPerso[i].BulletPosition.Y <= 0)
+                if (_tabBulletPerso[i].BulletPosition.Y <= 0) 
                 {
                     _tabBulletPerso[i].BulletPosition = new Vector2(_persoPos.X, _persoPos.Y + i * Constantes._HAUTEUR_BULLETS * 2);
                 }
