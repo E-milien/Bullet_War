@@ -19,7 +19,9 @@ namespace SAE_DEV_PROJ
         internal Bullet[] _tabBulletPerso = new Bullet[200];
         internal Boss boss1;
         internal Perso hero;
-
+        private double _tmp;
+        private bool _redemption;
+        private int _vieAvantRedemption;
         // TEXTURES 
         private Texture2D _textureBoss;
         private Texture2D _textureBullet;
@@ -44,9 +46,9 @@ namespace SAE_DEV_PROJ
         public override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            _redemption = false;
             _persoPos = new Vector2(500, 500);
-
+            _tmp = 0;
             boss1 = new Boss(5000, 1, "boss", _bossPos);
             hero = new Perso(true, 100, "perso", 1, 500, _persoPos);
 
@@ -100,7 +102,26 @@ namespace SAE_DEV_PROJ
             Patern(deltaTime);
             DeplacementPerso(deltaTime);
             BulletAllieReset();
-            Collision();
+            if (Collision())
+            {
+                _persoPos = new Vector2(500, 500);
+                hero.PvPerso -= 20;
+                _redemption = true;
+                _vieAvantRedemption = hero.PvPerso;
+                hero.PvPerso = 1000000;
+            }
+            if(_redemption)
+            {
+                _tmp += deltaTime;
+            }
+            if(_tmp>=3)
+            {
+                _tmp = 0;
+                hero.PvPerso = _vieAvantRedemption;
+                _redemption = false;
+            }
+            if (hero.PvPerso <= 0)
+                _persoPos = new Vector2(0, 0);
             CollisionBoss();
 
         }
@@ -147,7 +168,7 @@ namespace SAE_DEV_PROJ
             _persoPos.Y += _sensPersoY * (int)Math.Round(hero.DeplacementPerso * hero.MultiplicationVitesse, 0) * deltaTime;
             _sensPersoY = 0;
         }
-        public void Collision()
+        public bool Collision()
         {
             bool tmp = false;
             for (int i = 0; i < _tabBullets.Length; i++)
@@ -156,14 +177,9 @@ namespace SAE_DEV_PROJ
                 Rectangle rect2 = new Rectangle((int)_persoPos.X, (int)_persoPos.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);
 
                 if (rect1.Intersects(rect2))
-                {
-                    hero.PvPerso -= 20;
-                }
+                    tmp = true;
             }
-            
-            
- 
-            
+            return tmp;
         }
         public void CollisionBoss()
         {
@@ -198,5 +214,7 @@ namespace SAE_DEV_PROJ
                 _tabBullets[i].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[i].Vitesse * deltaTime);
             }
         }
+
+
     }
 }
