@@ -111,7 +111,7 @@ namespace SAE_DEV_PROJ
             Patern(deltaTime);
             DeplacementPerso(deltaTime);
             BulletAllieReset();
-            if (Collision())
+            if (Collision()&&_redemption==false)
             {
                 _persoPos = new Vector2(500, 500);
                 hero.PvPerso -= 20;
@@ -188,9 +188,9 @@ namespace SAE_DEV_PROJ
                 for (int j = 0; j < _tabBullets.GetLength(1); j++)
                 {
                     Rectangle rect1 = new Rectangle((int)_tabBullets[i, j].BulletPosition.X, (int)_tabBullets[i, j].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
-                    Rectangle rect2 = new Rectangle((int)_persoPos.X, (int)_persoPos.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);               
+                    Rectangle rect2 = new Rectangle((int)_persoPos.X, (int)_persoPos.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);
                     if (rect1.Intersects(rect2))
-                        hero.PvPerso -= 20;
+                        tmp = true;
                 }
             }  
             return tmp;
@@ -234,7 +234,7 @@ namespace SAE_DEV_PROJ
                     if (tmp > 1)
                     {
                         _tabBullets[i, j].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[i, j].Vitesse * deltaTime);
-                        throw new ArgumentException();
+                        
                         tmp = 0;
                     }
 
