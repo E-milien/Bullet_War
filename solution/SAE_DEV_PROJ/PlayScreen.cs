@@ -16,6 +16,7 @@ namespace SAE_DEV_PROJ
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
         internal Bullet[] _tabBullets = new Bullet[10];
+        internal Bullet[] _tabBulletPerso = new Bullet[20];
 
         // TEXTURES 
         private string _skinBoss1 = "boss";
@@ -51,12 +52,16 @@ namespace SAE_DEV_PROJ
             Boss boss1 = new Boss(5000, 1, _skinBoss1, _bossPos);
             Perso hero = new Perso(true, 10, "perso", 1, new Vector2(1, 1), _persoPos);
 
-            // Bullets initialize
+            // Bullets1 initialize
             for (int i = 0; i < _tabBullets.Length; i++)
             {
                 _tabBullets[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2((new Random()).Next(0, Constantes._LARGEUR_FENETRE), 0), "bullet");
             }
-
+            // BulletsAlliées initialize
+            for (int i = 0; i < _tabBulletPerso.Length; i++)
+            {
+                _tabBulletPerso[i] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(_persoPos.X, _persoPos.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
+            }
             base.Initialize();
         }
 
@@ -77,10 +82,15 @@ namespace SAE_DEV_PROJ
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             // TODO: Add your update logic here
 
+            //10 bullets aléatoires qui descendent
             for (int i = 0; i < _tabBullets.Length; i++)
                 _tabBullets[i].BulletPosition += new Vector2(0, _tabBullets[i].Vitesse * deltaTime);
 
+            //tirs alliés
+            for (int i = 0; i < _tabBulletPerso.Length; i++)
+                _tabBulletPerso[i].BulletPosition -= new Vector2(0, _tabBulletPerso[i].Vitesse * deltaTime);
             DeplacementPerso();
+
 
             _persoPos.X += _sensPersoX * _vitessePerso * deltaTime;
             _sensPersoX = 0;
@@ -96,11 +106,17 @@ namespace SAE_DEV_PROJ
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_texturePerso, _persoPos, Color.White);
+            _spriteBatch.Draw(_texturePerso, _persoPos - new Vector2(Constantes._LARGEUR_PERSO / 2, 0), Color.White);
             _spriteBatch.Draw(_textureBoss, _bossPos - new Vector2(Constantes._LARGEUR_BOSS / 2, 0), Color.White);
+            //Bullets adverses
             for (int i = 0; i < _tabBullets.Length; i++)
             {
                 _spriteBatch.Draw(_textureBullet, _tabBullets[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
+            }
+            //Bullets adverses
+            for (int i = 0; i < _tabBulletPerso.Length; i++)
+            {
+                _spriteBatch.Draw(_textureBullet, _tabBulletPerso[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
             }
             _spriteBatch.End();
         }

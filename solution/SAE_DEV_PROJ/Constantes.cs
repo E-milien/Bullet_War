@@ -17,6 +17,7 @@ namespace SAE_DEV_PROJ
         public const int _LARGEUR_FENETRE = 1920;
         public const int _HAUTEUR_FENETRE = 1000;
         public const int _VITESSE_BULLETS1 = 100;
+        public const int _VITESSE_BULLETS_PERSO = 1000;
         public const int _LARGEUR_BULLETS = 10;
         public const int _HAUTEUR_BULLETS = 10;
         public const int _LARGEUR_BOSS = 50;
