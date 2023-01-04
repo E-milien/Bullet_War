@@ -25,7 +25,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureBullet;
 
         // BOSS
-        Vector2 _bossPos = new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5);
+        Vector2 _bossPos;
         Vector2 _persoPos;
 
         // PERSO
@@ -45,7 +45,8 @@ namespace SAE_DEV_PROJ
         {
             // TODO: Add your initialization logic here
 
-            _persoPos = new Vector2(500, 500);
+            _persoPos = new Vector2(500, 500) - new Vector2(Constantes._LARGEUR_PERSO / 2,0);
+            _bossPos = new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0);
 
             boss1 = new Boss(5000, 1, "boss", _bossPos);
             hero = new Perso(true, 100, "perso", 1, 500, _persoPos);
@@ -59,7 +60,7 @@ namespace SAE_DEV_PROJ
             // BulletsAlliées initialize
             for (int i = 0; i < _tabBulletPerso.Length; i++)
             {
-                _tabBulletPerso[i] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(_persoPos.X, _persoPos.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
+                _tabBulletPerso[i] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(_persoPos.X + Constantes._LARGEUR_PERSO / 2, _persoPos.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
             }
             base.Initialize();
         }
@@ -92,7 +93,7 @@ namespace SAE_DEV_PROJ
                 if (_tabBulletPerso[i].BulletPosition.Y > _persoPos.Y)
                 {
                     if (_tabBulletPerso[i].BulletPosition.X != _persoPos.X)
-                        _tabBulletPerso[i].BulletPosition = new Vector2(_persoPos.X, _tabBulletPerso[i].BulletPosition.Y);
+                        _tabBulletPerso[i].BulletPosition = new Vector2(_persoPos.X + Constantes._LARGEUR_PERSO / 2, _tabBulletPerso[i].BulletPosition.Y);
                 }
                 _tabBulletPerso[i].BulletPosition -= new Vector2(0, _tabBulletPerso[i].Vitesse * deltaTime);
             }
@@ -110,8 +111,8 @@ namespace SAE_DEV_PROJ
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_texturePerso, _persoPos - new Vector2(Constantes._LARGEUR_PERSO / 2, 0), Color.White);
-            _spriteBatch.Draw(_textureBoss, _bossPos - new Vector2(Constantes._LARGEUR_BOSS / 2, 0), Color.White);
+            _spriteBatch.Draw(_texturePerso, _persoPos, Color.White);
+            _spriteBatch.Draw(_textureBoss, _bossPos, Color.White);
             //Bullets adverses
             for (int i = 0; i < _tabBullets.Length; i++)
             {
@@ -159,11 +160,7 @@ namespace SAE_DEV_PROJ
                 {
                     hero.PvPerso -= 20;
                 }
-            }
-            
-            
- 
-            
+            }  
         }
         public void CollisionBoss()
         {
@@ -175,7 +172,7 @@ namespace SAE_DEV_PROJ
                 if (rect1.Intersects(rect2))
                 {
                     //boss1.BossHP -= 100;
-                    _tabBulletPerso[i].BulletPosition = new Vector2(_persoPos.X, _persoPos.Y + i * Constantes._HAUTEUR_BULLETS * 2);
+                    _tabBulletPerso[i].BulletPosition = new Vector2(_persoPos.X + Constantes._LARGEUR_PERSO / 2, _persoPos.Y + i * Constantes._HAUTEUR_BULLETS * 2);
                 }
             }
         }
@@ -186,7 +183,7 @@ namespace SAE_DEV_PROJ
             {
                 if (_tabBulletPerso[i].BulletPosition.Y <= 0)
                 {
-                    _tabBulletPerso[i].BulletPosition = new Vector2(_persoPos.X, _persoPos.Y + i * Constantes._HAUTEUR_BULLETS * 2);
+                    _tabBulletPerso[i].BulletPosition = new Vector2(_persoPos.X + Constantes._LARGEUR_PERSO / 2, _persoPos.Y + i * Constantes._HAUTEUR_BULLETS * 2);
                 }
             }
         }
