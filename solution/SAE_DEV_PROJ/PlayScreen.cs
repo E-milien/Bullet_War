@@ -166,13 +166,29 @@ namespace SAE_DEV_PROJ
                     Rectangle rect1 = new Rectangle((int)_tabBullets[i,j].BulletPosition.X, (int)_tabBullets[i, j].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
                     Rectangle rect2 = new Rectangle((int)_persoPos.X, (int)_persoPos.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);
 
-                    if (rect1.Intersects(rect2))
-                    {
-                        tmp = true;
-                    }
+                if (rect1.Intersects(rect2))
+                {
+                    hero.PvPerso -= 20;
                 }
             }
             
+            
+ 
+            
+        }
+        public void CollisionBoss()
+        {
+            for (int i = 0; i < _tabBulletPerso.Length; i++)
+            {
+                Rectangle rect1 = new Rectangle((int)_tabBulletPerso[i].BulletPosition.X, (int)_tabBulletPerso[i].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
+                Rectangle rect2 = new Rectangle((int)_bossPos.X, (int)_bossPos.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);
+
+                if (rect1.Intersects(rect2))
+                {
+                    //boss1.BossHP -= 100;
+                    _tabBulletPerso[i].BulletPosition = new Vector2(_persoPos.X, _persoPos.Y + i * Constantes._HAUTEUR_BULLETS * 2);
+                }
+            }
         }
         public void BulletAllieReset()
         {
