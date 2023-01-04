@@ -19,6 +19,12 @@ namespace SAE_DEV_PROJ
         internal Bullet[] _tabBulletPerso = new Bullet[20];
         internal Boss boss1;
         internal Perso hero;
+        public bool _estMort;
+        
+
+        // PV BOSS & PERSO
+        private SpriteFont _police;
+
 
         // TEXTURES 
         private Texture2D _textureBoss;
@@ -38,18 +44,15 @@ namespace SAE_DEV_PROJ
         public PlayScreen(Game1 game) : base(game)
         {
             _myGame = game;
-
         }
 
         public override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            _estMort = false;
             _persoPos = new Vector2(500, 500);
-
             boss1 = new Boss(5000, 1, "boss", _bossPos);
             hero = new Perso(true, 100, "perso", 1, 500, _persoPos);
-
             // Bullets initialize
 
             for (int i = 0; i < _tabBullets.Length; i++)
@@ -91,7 +94,7 @@ namespace SAE_DEV_PROJ
                 _tabBulletPerso[i].BulletPosition -= new Vector2(0, _tabBulletPerso[i].Vitesse * deltaTime);
             Patern(deltaTime);
             DeplacementPerso(deltaTime);
-
+            if (hero.PvPerso <= 0)
             Collision();
         }
         public override void Draw(GameTime gameTime)
@@ -139,7 +142,6 @@ namespace SAE_DEV_PROJ
         }
         public void Collision()
         {
-            bool tmp = false;
             for (int i = 0; i < _tabBullets.Length; i++)
             {
                 Rectangle rect1 = new Rectangle((int)_tabBullets[i].BulletPosition.X, (int)_tabBullets[i].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
@@ -147,9 +149,10 @@ namespace SAE_DEV_PROJ
 
                 if (rect1.Intersects(rect2))
                 {
-                    tmp = true;
+                    hero.PvPerso -= 20;
                 }
             }
+            
             
         }
         public void BulletAllieReset()

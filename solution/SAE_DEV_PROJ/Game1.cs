@@ -14,6 +14,7 @@ namespace SAE_DEV_PROJ
         HomeScreen _homeScreen;
         PlayScreen _playScreen;
         
+        
 
         public SpriteBatch SpriteBatch { get; set; }
 
@@ -46,13 +47,11 @@ namespace SAE_DEV_PROJ
             KeyboardState keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.Left))
             {
-                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice,
-                Color.Black));
+                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
             else if (keyboardState.IsKeyDown(Keys.Right))
             {
-                _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice,
-                Color.Black));
+                _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
 
             base.Update(gameTime);

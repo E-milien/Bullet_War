@@ -24,7 +24,8 @@ namespace SAE_DEV_PROJ
         public const int _HAUTEUR_BOSS = 50;
         public const int _LARGEUR_PERSO = 50;
         public const int _HAUTEUR_PERSO = 50;
+        private bool _estMort;
 
-
+        public bool EstMort { get => _estMort; set => _estMort = value; }
     }
 }
