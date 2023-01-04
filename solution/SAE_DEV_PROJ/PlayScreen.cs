@@ -46,7 +46,31 @@ namespace SAE_DEV_PROJ
         public PlayScreen(Game1 game) : base(game)
         {
             _myGame = game;
+
         }
+
+        public override void Initialize()
+        {
+            // TODO: Add your initialization logic here
+            SetupWindow();
+            InitializePerso();
+
+            _positionPerso = new Vector2(500, 500);
+            _vitessePerso = 500;
+
+
+            // BOSS INITIALIZE
+            Boss boss1 = new Boss(5000, 1, _skinBoss1, bossPos);
+
+            // Bullets initialize
+            for (int i = 0; i < tabBullets.Length; i++)
+            {
+                tabBullets[i] = new Bullet(_VITESSE_BULLETS1, new Vector2((new Random()).Next(0, _LARGEUR_FENETRE), 0), "bullet");
+            }
+
+            base.Initialize();
+        }
+
         public override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -61,8 +85,7 @@ namespace SAE_DEV_PROJ
 
         public override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             // TODO: Add your update logic here
 

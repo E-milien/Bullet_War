@@ -20,44 +20,20 @@ namespace SAE_DEV_PROJ
             _screenManager = new ScreenManager();
             Components.Add(_screenManager);
 
-            _graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            IsMouseVisible = true;
-        }
-
-        protected override void Initialize()
-        {
-            // TODO: Add your initialization logic here
-            SetupWindow();
-            InitializePerso();
-
-            _positionPerso = new Vector2(500, 500);
-            _vitessePerso = 500;
 
 
-            // BOSS INITIALIZE
-            Boss boss1 = new Boss(5000, 1, _skinBoss1, bossPos);
-
-            // Bullets initialize
-            for (int i = 0; i < tabBullets.Length; i++)
-            {
-                tabBullets[i] = new Bullet(_VITESSE_BULLETS1, new Vector2((new Random()).Next(0, _LARGEUR_FENETRE), 0), "bullet");
-            }
-            base.Initialize();
         }
 
         protected override void LoadContent()
         {
-
             _homeScreen = new HomeScreen(this); // en leur donnant une référence au Game
             _playScreen = new PlayScreen(this);
+
             // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
-            
-
             KeyboardState keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.Left))
             {
