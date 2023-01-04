@@ -42,7 +42,7 @@ namespace SAE_DEV_PROJ
             // Bullets initialize
             for (int i = 0; i < tabBullets.Length; i++)
             {
-                tabBullets[i] = new Bullet(_VITESSE_BULLETS1, new Vector2((new Random()).Next(0, _LARGEUR_FENETRE), 0), "bullet");
+                Variables.tab[i] = new Bullet(Variables._VITESSE_BULLETS1, new Vector2((new Random()).Next(0, Variables._LARGEUR_FENETRE), 0), "bullet");
             }
             base.Initialize();
         }
