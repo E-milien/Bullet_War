@@ -26,15 +26,10 @@ namespace SAE_DEV_PROJ
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
-        public void SetupWindow()
-        {
-            _graphics.PreferredBackBufferWidth = Variables._LARGEUR_FENETRE;
-            _graphics.PreferredBackBufferHeight = Variables._HAUTEUR_FENETRE;
-            _graphics.ApplyChanges();
-        }
 
         protected override void Initialize()
         {
+            SetupWindow();
             base.Initialize();
         }
 
@@ -67,6 +62,13 @@ namespace SAE_DEV_PROJ
         {
             base.Draw(gameTime);
         }
-        
+
+        public void SetupWindow()
+        {
+            _graphics.PreferredBackBufferWidth = Variables._LARGEUR_FENETRE;
+            _graphics.PreferredBackBufferHeight = Variables._HAUTEUR_FENETRE;
+            _graphics.ApplyChanges();
+        }
+
     }
 }
