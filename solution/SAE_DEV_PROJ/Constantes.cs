@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SAE_DEV_PROJ
 {
-    internal class Variables
+    internal class Constantes
     {
         
 
