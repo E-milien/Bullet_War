@@ -10,6 +10,7 @@ namespace SAE_DEV_PROJ
     public class Game1 : Game
     {
         private readonly ScreenManager _screenManager;
+        private GraphicsDeviceManager _graphics;
         HomeScreen _homeScreen;
         PlayScreen _playScreen;
         
@@ -21,8 +22,20 @@ namespace SAE_DEV_PROJ
             _screenManager = new ScreenManager();
             Components.Add(_screenManager);
 
+            _graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+            IsMouseVisible = true;
+        }
+        public void SetupWindow()
+        {
+            _graphics.PreferredBackBufferWidth = Variables._LARGEUR_FENETRE;
+            _graphics.PreferredBackBufferHeight = Variables._HAUTEUR_FENETRE;
+            _graphics.ApplyChanges();
+        }
 
-
+        protected override void Initialize()
+        {
+            base.Initialize();
         }
 
         protected override void LoadContent()

@@ -51,7 +51,6 @@ namespace SAE_DEV_PROJ
         public override void Initialize()
         {
             // TODO: Add your initialization logic here
-            SetupWindow();
             InitializePerso();
 
             _positionPerso = new Vector2(500, 500);
@@ -111,12 +110,6 @@ namespace SAE_DEV_PROJ
                 _spriteBatch.Draw(_textureBullet, tabBullets[i].BulletPosition - new Vector2(_LARGEUR_BULLETS / 2, 0), Color.Black);
             }
             _spriteBatch.End();
-        }
-        private void SetupWindow()
-        {
-            _graphics.PreferredBackBufferWidth = _LARGEUR_FENETRE;
-            _graphics.PreferredBackBufferHeight = _HAUTEUR_FENETRE;
-            _graphics.ApplyChanges();
         }
 
         private void InitializePerso()
