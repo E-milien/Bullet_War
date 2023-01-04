@@ -17,7 +17,7 @@ namespace SAE_DEV_PROJ
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
         internal Bullet[,] _tabBullets = new Bullet[10,10];
-        internal Bullet[] _tabBulletPerso = new Bullet[20];
+        internal Bullet[] _tabBulletPerso = new Bullet[200];
         internal Boss boss1;
         internal Perso hero;
         private double _tmp;
@@ -240,7 +240,6 @@ namespace SAE_DEV_PROJ
 
                     
                     _tabBullets[0, j].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[i, j].Vitesse * deltaTime);
-
 
                 }
             }
