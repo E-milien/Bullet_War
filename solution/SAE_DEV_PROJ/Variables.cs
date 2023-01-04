@@ -86,7 +86,11 @@ namespace SAE_DEV_PROJ
 
             set
             {
-                this.tabBullets = value;
+                // Bullets initialize
+                for (int i = 0; i < tabBullets.Length; i++)
+                {
+                    this.tabBullets[i] = new Bullet(_VITESSE_BULLETS1, new Vector2((new Random()).Next(0, _LARGEUR_FENETRE), 0), "bullet");
+                }
             }
         }
 
