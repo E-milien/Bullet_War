@@ -111,7 +111,7 @@ namespace SAE_DEV_PROJ
                 _sensPersoY = -1;
 
             else if (_keyboardState.IsKeyDown(Keys.S))
-                _sensPersoY = 1;
+                _sensPersoY = 1; 
 
         }
     }
