@@ -13,7 +13,7 @@ namespace SAE_DEV_PROJ
     public class PlayScreen : GameScreen
     {
         private Game1 _myGame;
-
+        private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
         private Bullet[] tabBullets = new Bullet[10];
@@ -45,7 +45,31 @@ namespace SAE_DEV_PROJ
         public PlayScreen(Game1 game) : base(game)
         {
             _myGame = game;
+
         }
+
+        public override void Initialize()
+        {
+            // TODO: Add your initialization logic here
+            SetupWindow();
+            InitializePerso();
+
+            _positionPerso = new Vector2(500, 500);
+            _vitessePerso = 500;
+
+
+            // BOSS INITIALIZE
+            Boss boss1 = new Boss(5000, 1, _skinBoss1, bossPos);
+
+            // Bullets initialize
+            for (int i = 0; i < tabBullets.Length; i++)
+            {
+                tabBullets[i] = new Bullet(_VITESSE_BULLETS1, new Vector2((new Random()).Next(0, _LARGEUR_FENETRE), 0), "bullet");
+            }
+
+            base.Initialize();
+        }
+
         public override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
