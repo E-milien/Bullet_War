@@ -13,7 +13,6 @@ namespace SAE_DEV_PROJ
     public class PlayScreen : GameScreen
     {
         private Game1 _myGame;
-        private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
         private Bullet[] tabBullets = new Bullet[10];
@@ -23,15 +22,8 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureBoss;
         private Texture2D _textureBullet;
 
-        // TAILLE FENETRE
-        public const int _LARGEUR_FENETRE = 1920;
-        public const int _HAUTEUR_FENETRE = 1000;
-        public const int _VITESSE_BULLETS1 = 100;
-        public const int _LARGEUR_BULLETS = 10;
-        public const int _LARGEUR_BOSS = 50;
-
         // BOSS
-        Vector2 bossPos = new Vector2(_LARGEUR_FENETRE / 2, _HAUTEUR_FENETRE / 2);
+        Vector2 bossPos = new Vector2(Variables._LARGEUR_FENETRE / 2, Variables._HAUTEUR_FENETRE / 2);
 
         // PERSO
         private int _sensPersoX;
@@ -63,7 +55,7 @@ namespace SAE_DEV_PROJ
             // Bullets initialize
             for (int i = 0; i < tabBullets.Length; i++)
             {
-                tabBullets[i] = new Bullet(_VITESSE_BULLETS1, new Vector2((new Random()).Next(0, _LARGEUR_FENETRE), 0), "bullet");
+                tabBullets[i] = new Bullet(Variables._VITESSE_BULLETS1, new Vector2((new Random()).Next(0, Variables._LARGEUR_FENETRE), 0), "bullet");
             }
 
             base.Initialize();
@@ -104,10 +96,10 @@ namespace SAE_DEV_PROJ
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             _spriteBatch.Draw(_texturePerso, new Vector2(500, 500), Color.White);
-            _spriteBatch.Draw(_textureBoss, bossPos - new Vector2(_LARGEUR_BOSS / 2, 0), Color.White);
+            _spriteBatch.Draw(_textureBoss, bossPos - new Vector2(Variables._LARGEUR_BOSS / 2, 0), Color.White);
             for (int i = 0; i < tabBullets.Length; i++)
             {
-                _spriteBatch.Draw(_textureBullet, tabBullets[i].BulletPosition - new Vector2(_LARGEUR_BULLETS / 2, 0), Color.Black);
+                _spriteBatch.Draw(_textureBullet, tabBullets[i].BulletPosition - new Vector2(Variables._LARGEUR_BULLETS / 2, 0), Color.Black);
             }
             _spriteBatch.End();
         }
