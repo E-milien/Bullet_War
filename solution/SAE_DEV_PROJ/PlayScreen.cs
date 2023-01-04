@@ -90,9 +90,10 @@ namespace SAE_DEV_PROJ
             //tirs alliés
             for (int i = 0; i < _tabBulletPerso.Length; i++)
                 _tabBulletPerso[i].BulletPosition -= new Vector2(0, _tabBulletPerso[i].Vitesse * deltaTime);
+
             Patern(deltaTime);
             DeplacementPerso(deltaTime);
-
+            BulletAllieReset();
             Collision();
         }
         public override void Draw(GameTime gameTime)
@@ -108,7 +109,7 @@ namespace SAE_DEV_PROJ
             {
                 _spriteBatch.Draw(_textureBullet, _tabBullets[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
             }
-            //Bullets adverses
+            //Bullets alliées
             for (int i = 0; i < _tabBulletPerso.Length; i++)
             {
                 if (!(_tabBulletPerso[i].BulletPosition.Y > _persoPos.Y))
@@ -158,13 +159,13 @@ namespace SAE_DEV_PROJ
         // Une fois arrivée en bas , les bullets sont remises en-dessous de la fenêtre
             for (int i = 0; i<_tabBulletPerso.Length; i++)
             {
-                if (_tabBulletPerso[i].BulletPosition.Y >= Constantes._HAUTEUR_FENETRE)
+                if (_tabBulletPerso[i].BulletPosition.Y <= 0)
                 {
                     _tabBulletPerso[i].BulletPosition = new Vector2(_persoPos.X, _persoPos.Y + i * Constantes._HAUTEUR_BULLETS * 2);
                 }
             }
         }
-public void Patern(float deltaTime)
+        public void Patern(float deltaTime)
         {
             Random rdn = new Random();
             for (int i = 0; i < _tabBullets.Length; i++)
