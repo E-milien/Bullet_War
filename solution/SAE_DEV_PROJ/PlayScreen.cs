@@ -92,10 +92,6 @@ namespace SAE_DEV_PROJ
             Patern(deltaTime);
             DeplacementPerso(deltaTime);
 
-
-            _persoPos.X += _sensPersoX * hero.DeplacementPerso * deltaTime;
-            _sensPersoX = 0;
-
             Collision();
         }
         public override void Draw(GameTime gameTime)
@@ -114,7 +110,8 @@ namespace SAE_DEV_PROJ
             //Bullets adverses
             for (int i = 0; i < _tabBulletPerso.Length; i++)
             {
-                _spriteBatch.Draw(_textureBullet, _tabBulletPerso[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+                if (!(_tabBulletPerso[i].BulletPosition.Y > _persoPos.Y))
+                    _spriteBatch.Draw(_textureBullet, _tabBulletPerso[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
             }
             _spriteBatch.End();
         }
@@ -155,8 +152,18 @@ namespace SAE_DEV_PROJ
             }
             
         }
-
-        public void Patern(float deltaTime)
+        public void BulletAllieReset()
+        {
+        // Une fois arrivée en bas , les bullets sont remises en-dessous de la fenêtre
+            for (int i = 0; i<_tabBulletPerso.Length; i++)
+            {
+                if (_tabBulletPerso[i].BulletPosition.Y >= Constantes._HAUTEUR_FENETRE)
+                {
+                    _tabBulletPerso[i].BulletPosition = new Vector2(_persoPos.X, _persoPos.Y + i * Constantes._HAUTEUR_BULLETS * 2);
+                }
+            }
+        }
+public void Patern(float deltaTime)
         {
             Random rdn = new Random();
             for (int i = 0; i < _tabBullets.Length; i++)
