@@ -52,9 +52,10 @@ namespace SAE_DEV_PROJ
             Perso hero = new Perso(true, 100, "perso", 1, 500, _persoPos);
 
             // Bullets initialize
+
             for (int i = 0; i < _tabBullets.Length; i++)
             {
-                _tabBullets[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2((new Random()).Next(0, Constantes._LARGEUR_FENETRE), 0), "bullet");
+                _tabBullets[i] = new Bullet(Constantes._VITESSE_BULLETS1,new Vector2(_bossPos.X, _bossPos.Y), "bullet");
             }
 
             base.Initialize();
@@ -78,9 +79,9 @@ namespace SAE_DEV_PROJ
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             // TODO: Add your update logic here
 
-            for (int i = 0; i < _tabBullets.Length; i++)
-                _tabBullets[i].BulletPosition += new Vector2(0, _tabBullets[i].Vitesse * deltaTime);
 
+            Patern(deltaTime);
+            DeplacementPerso();
             DeplacementPerso(deltaTime);
 
 
@@ -94,10 +95,12 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Begin();
             _spriteBatch.Draw(_texturePerso, _persoPos, Color.White);
             _spriteBatch.Draw(_textureBoss, _bossPos - new Vector2(Constantes._LARGEUR_BOSS / 2, 0), Color.White);
+
             for (int i = 0; i < _tabBullets.Length; i++)
             {
                 _spriteBatch.Draw(_textureBullet, _tabBullets[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
             }
+
             _spriteBatch.End();
         }
 
@@ -136,6 +139,15 @@ namespace SAE_DEV_PROJ
                 }
             }
             
+        }
+
+        public void Patern(float deltaTime)
+        {
+            Random rdn = new Random();
+            for (int i = 0; i < _tabBullets.Length; i++)
+            {
+                _tabBullets[i].BulletPosition += new Vector2(rdn.Next(-50,50), _tabBullets[i].Vitesse * deltaTime);
+            }
         }
     }
 }
