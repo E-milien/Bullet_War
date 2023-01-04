@@ -54,7 +54,7 @@ namespace SAE_DEV_PROJ
             // Bullets initialize
             for (int i = 0; i < _tabBullets.Length; i++)
             {
-                tabBullets[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2((new Random()).Next(0, Constantes._LARGEUR_FENETRE), 0), "bullet");
+                _tabBullets[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2((new Random()).Next(0, Constantes._LARGEUR_FENETRE), 0), "bullet");
             }
 
             base.Initialize();
@@ -96,9 +96,9 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Begin();
             _spriteBatch.Draw(_texturePerso, _persoPos, Color.White);
             _spriteBatch.Draw(_textureBoss, _bossPos - new Vector2(Constantes._LARGEUR_BOSS / 2, 0), Color.White);
-            for (int i = 0; i < tabBullets.Length; i++)
+            for (int i = 0; i < _tabBullets.Length; i++)
             {
-                _spriteBatch.Draw(_textureBullet, _tabBullets[i].BulletPosition - new Vector2(Variables._LARGEUR_BULLETS / 2, 0), Color.Black);
+                _spriteBatch.Draw(_textureBullet, _tabBullets[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
             }
             _spriteBatch.End();
         }
