@@ -29,8 +29,10 @@ namespace SAE_DEV_PROJ
             this.DeplacementPerso = deplacementPerso;
             this.PositionDepartPerso = positionDepartPerso;
         }
+        public Perso()
+        { }
 
-        
+
 
         public bool GodMod
         {
