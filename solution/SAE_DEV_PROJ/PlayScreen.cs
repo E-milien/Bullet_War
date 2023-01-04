@@ -14,7 +14,6 @@ namespace SAE_DEV_PROJ
     {
         private Game1 _myGame;
 
-        private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
         private Bullet[] tabBullets = new Bullet[10];
@@ -85,7 +84,6 @@ namespace SAE_DEV_PROJ
 
         public override void Update(GameTime gameTime)
         {
-
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             // TODO: Add your update logic here
 
@@ -137,7 +135,7 @@ namespace SAE_DEV_PROJ
                 _sensPersoY = -1;
 
             else if (_keyboardState.IsKeyDown(Keys.S))
-                _sensPersoY = 1;
+                _sensPersoY = 1; 
 
         }
     }
