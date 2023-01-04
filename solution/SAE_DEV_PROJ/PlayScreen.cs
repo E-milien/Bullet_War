@@ -232,9 +232,6 @@ namespace SAE_DEV_PROJ
                 {
                    
                     _tabBullets[i, j].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[i, j].Vitesse * deltaTime);
-                    tmp = 0;
-                
-
                 }
             }
         }
