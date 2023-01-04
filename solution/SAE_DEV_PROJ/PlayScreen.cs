@@ -21,7 +21,6 @@ namespace SAE_DEV_PROJ
         internal Perso hero;
 
         // TEXTURES 
-        private string _skinBoss1 = "boss";
         private Texture2D _textureBoss;
         private Texture2D _textureBullet;
 
@@ -48,7 +47,7 @@ namespace SAE_DEV_PROJ
 
             _persoPos = new Vector2(500, 500);
 
-            boss1 = new Boss(5000, 1, _skinBoss1, _bossPos);
+            boss1 = new Boss(5000, 1, "boss", _bossPos);
             hero = new Perso(true, 100, "perso", 1, 500, _persoPos);
 
             // Bullets initialize
@@ -71,7 +70,7 @@ namespace SAE_DEV_PROJ
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _texturePerso = Content.Load<Texture2D>(hero.SkinPerso);
             _textureBullet = Content.Load<Texture2D>(_tabBullets[0].Skin);
-            _textureBoss = Content.Load<Texture2D>(_skinBoss1);
+            _textureBoss = Content.Load<Texture2D>(boss1.SkinBoss);
 
 
             // TODO: use this.Content to load your game content here
@@ -133,10 +132,10 @@ namespace SAE_DEV_PROJ
             else if (_keyboardState.IsKeyDown(Keys.S) && !(_keyboardState.IsKeyDown(Keys.Z)) && _persoPos.Y <= Constantes._HAUTEUR_FENETRE - Constantes._HAUTEUR_PERSO)
                 _sensPersoY = 1;
 
-            _persoPos.X += _sensPersoX * hero.DeplacementPerso * deltaTime;
+            _persoPos.X += _sensPersoX * (int)Math.Round(hero.DeplacementPerso * hero.MultiplicationVitesse,0) * deltaTime;
             _sensPersoX = 0;
 
-            _persoPos.Y += _sensPersoY * hero.DeplacementPerso * deltaTime;
+            _persoPos.Y += _sensPersoY * (int)Math.Round(hero.DeplacementPerso * hero.MultiplicationVitesse, 0) * deltaTime;
             _sensPersoY = 0;
         }
         public void Collision()
