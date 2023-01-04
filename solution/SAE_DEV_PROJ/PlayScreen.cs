@@ -16,8 +16,6 @@ namespace SAE_DEV_PROJ
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
         internal Bullet[] _tabBullets = new Bullet[10];
-        internal Boss boss1;
-        internal Perso hero;
 
         // TEXTURES 
         private string _skinBoss1 = "boss";
@@ -65,7 +63,7 @@ namespace SAE_DEV_PROJ
         {
             
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _texturePerso = Content.Load<Texture2D>(hero.SkinPerso);
+            _texturePerso = Content.Load<Texture2D>("perso");
             _textureBullet = Content.Load<Texture2D>(_tabBullets[0].Skin);
             _textureBoss = Content.Load<Texture2D>(_skinBoss1);
 
@@ -81,7 +79,6 @@ namespace SAE_DEV_PROJ
 
 
             Patern(deltaTime);
-            DeplacementPerso();
             DeplacementPerso(deltaTime);
 
 
