@@ -15,7 +15,7 @@ namespace SAE_DEV_PROJ
         private Game1 _myGame;
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
-        private Bullet[] tabBullets = new Bullet[10];
+        private Bullet[] _tabBullets = new Bullet[10];
 
         // TEXTURES 
         private string _skinBoss1 = "boss";
@@ -23,7 +23,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureBullet;
 
         // BOSS
-        Vector2 _bossPos = new Vector2(Variables._LARGEUR_FENETRE / 2, Variables._HAUTEUR_FENETRE / 2);
+        Vector2 _bossPos = new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 2);
         Vector2 _persoPos;
 
         // PERSO
@@ -52,9 +52,9 @@ namespace SAE_DEV_PROJ
             Perso hero = new Perso(true, 10, "perso", 1, new Vector2(1, 1), _persoPos);
             
             // Bullets initialize
-            for (int i = 0; i < tabBullets.Length; i++)
+            for (int i = 0; i < _tabBullets.Length; i++)
             {
-                tabBullets[i] = new Bullet(Variables._VITESSE_BULLETS1, new Vector2((new Random()).Next(0, Variables._LARGEUR_FENETRE), 0), "bullet");
+                tabBullets[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2((new Random()).Next(0, Constantes._LARGEUR_FENETRE), 0), "bullet");
             }
 
             base.Initialize();
@@ -77,8 +77,8 @@ namespace SAE_DEV_PROJ
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             // TODO: Add your update logic here
 
-            for (int i = 0; i < tabBullets.Length; i++)
-                tabBullets[i].BulletPosition += new Vector2(0, tabBullets[i].Vitesse * deltaTime);
+            for (int i = 0; i < _tabBullets.Length; i++)
+                _tabBullets[i].BulletPosition += new Vector2(0, _tabBullets[i].Vitesse * deltaTime);
 
             DeplacementPerso();
 
@@ -95,10 +95,10 @@ namespace SAE_DEV_PROJ
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             _spriteBatch.Draw(_texturePerso, _persoPos, Color.White);
-            _spriteBatch.Draw(_textureBoss, _bossPos - new Vector2(Variables._LARGEUR_BOSS / 2, 0), Color.White);
+            _spriteBatch.Draw(_textureBoss, _bossPos - new Vector2(Constantes._LARGEUR_BOSS / 2, 0), Color.White);
             for (int i = 0; i < tabBullets.Length; i++)
             {
-                _spriteBatch.Draw(_textureBullet, tabBullets[i].BulletPosition - new Vector2(Variables._LARGEUR_BULLETS / 2, 0), Color.Black);
+                _spriteBatch.Draw(_textureBullet, _tabBullets[i].BulletPosition - new Vector2(Variables._LARGEUR_BULLETS / 2, 0), Color.Black);
             }
             _spriteBatch.End();
         }
@@ -119,6 +119,21 @@ namespace SAE_DEV_PROJ
                 _sensPersoY = 1; 
 
         }
+        public bool Colision(Perso hero)
+        {
+            bool tmp = false;
+            for (int i = 0; i < _tabBullets.Length; i++)
+            {
+                Rectangle rect1 = new Rectangle((int)_tabBullets[i].BulletPosition.X, (int))_tabBullets[i].BulletPosition.Y, _LARGEUR_BULLETS, _HAUTEUR_BULLETS);
+                Rectangle rect2 = new Rectangle((int)hero._persoPos.X, (int)hero._persoPos.Y, _LARGEUR_PERSO, _HAUTEUR_PERSO);
+                if (rect1.Intersects(rect2))
+                {
+                    tmp = true;
+                }
+            }
+            return tmp;
+        }
+
     }
 }
 
