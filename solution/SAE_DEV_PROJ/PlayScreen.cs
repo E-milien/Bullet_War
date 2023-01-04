@@ -21,7 +21,6 @@ namespace SAE_DEV_PROJ
         internal Perso hero;
 
         // TEXTURES 
-        private string _skinBoss1 = "boss";
         private Texture2D _textureBoss;
         private Texture2D _textureBullet;
 
@@ -48,7 +47,7 @@ namespace SAE_DEV_PROJ
 
             _persoPos = new Vector2(500, 500);
 
-            boss1 = new Boss(5000, 1, _skinBoss1, _bossPos);
+            boss1 = new Boss(5000, 1, "boss", _bossPos);
             hero = new Perso(true, 100, "perso", 1, 500, _persoPos);
 
             // Bullets initialize
@@ -71,7 +70,7 @@ namespace SAE_DEV_PROJ
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _texturePerso = Content.Load<Texture2D>("perso");
             _textureBullet = Content.Load<Texture2D>(_tabBullets[0].Skin);
-            _textureBoss = Content.Load<Texture2D>(_skinBoss1);
+            _textureBoss = Content.Load<Texture2D>(boss1.SkinBoss);
 
 
             // TODO: use this.Content to load your game content here
@@ -93,10 +92,6 @@ namespace SAE_DEV_PROJ
             Patern(deltaTime);
             DeplacementPerso(deltaTime);
 
-
-            _persoPos.X += _sensPersoX * hero.DeplacementPerso * deltaTime;
-            _sensPersoX = 0;
-
             Collision();
         }
         public override void Draw(GameTime gameTime)
@@ -115,7 +110,8 @@ namespace SAE_DEV_PROJ
             //Bullets adverses
             for (int i = 0; i < _tabBulletPerso.Length; i++)
             {
-                _spriteBatch.Draw(_textureBullet, _tabBulletPerso[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+                if (!(_tabBulletPerso[i].BulletPosition.Y > _persoPos.Y))
+                    _spriteBatch.Draw(_textureBullet, _tabBulletPerso[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
             }
             _spriteBatch.End();
         }
@@ -135,10 +131,10 @@ namespace SAE_DEV_PROJ
             else if (_keyboardState.IsKeyDown(Keys.S) && !(_keyboardState.IsKeyDown(Keys.Z)) && _persoPos.Y <= Constantes._HAUTEUR_FENETRE - Constantes._HAUTEUR_PERSO)
                 _sensPersoY = 1;
 
-            _persoPos.X += _sensPersoX * hero.DeplacementPerso * deltaTime;
+            _persoPos.X += _sensPersoX * (int)Math.Round(hero.DeplacementPerso * hero.MultiplicationVitesse,0) * deltaTime;
             _sensPersoX = 0;
 
-            _persoPos.Y += _sensPersoY * hero.DeplacementPerso * deltaTime;
+            _persoPos.Y += _sensPersoY * (int)Math.Round(hero.DeplacementPerso * hero.MultiplicationVitesse, 0) * deltaTime;
             _sensPersoY = 0;
         }
         public void Collision()
@@ -156,8 +152,18 @@ namespace SAE_DEV_PROJ
             }
             
         }
-
-        public void Patern(float deltaTime)
+        public void BulletAllieReset()
+        {
+        // Une fois arrivée en bas , les bullets sont remises en-dessous de la fenêtre
+            for (int i = 0; i<_tabBulletPerso.Length; i++)
+            {
+                if (_tabBulletPerso[i].BulletPosition.Y >= Constantes._HAUTEUR_FENETRE)
+                {
+                    _tabBulletPerso[i].BulletPosition = new Vector2(_persoPos.X, _persoPos.Y + i * Constantes._HAUTEUR_BULLETS * 2);
+                }
+            }
+        }
+public void Patern(float deltaTime)
         {
             Random rdn = new Random();
             for (int i = 0; i < _tabBullets.Length; i++)
