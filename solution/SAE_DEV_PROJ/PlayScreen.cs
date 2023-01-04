@@ -223,15 +223,16 @@ namespace SAE_DEV_PROJ
         }
         public void Patern(float deltaTime)
         {
-            Random rdn = new Random();
-            float tmp = 0;
-
-            for (int i = 0; i < _tabBullets.GetLength(0); i++)
+            Random rdn = new Random();;
+            
+            if(_tmp >=2)
             {
-                for (int j = 0; j < _tabBullets.GetLength(1); j++)
+                for (int i = 0; i < _tabBullets.GetLength(0); i++)
                 {
-                   
-                    _tabBullets[i, j].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[i, j].Vitesse * deltaTime);
+                    for (int j = 0; j < _tabBullets.GetLength(1); j++)
+                    {
+                        _tabBullets[i, j].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[i, j].Vitesse * deltaTime);
+                    }
                 }
             }
         }
