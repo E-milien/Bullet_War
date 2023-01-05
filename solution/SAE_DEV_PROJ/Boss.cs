@@ -14,7 +14,6 @@ namespace SAE_DEV_PROJ
         private double _bossHP;
         private double _damageBoss;
         private string _skinBoss;
-
         private Vector2 _bossPosition;
 
         public Boss(double bossHP, double damageBoss, string skinBoss, Vector2 bossPosition)
@@ -78,8 +77,8 @@ namespace SAE_DEV_PROJ
             set
             {
                 // Boss en dehors de la fenetre
-                if (value.X < 0 || value.X > Constantes._LARGEUR_FENETRE|| value.Y < 0 || value.Y > Constantes._HAUTEUR_FENETRE)
-                    throw new ArgumentOutOfRangeException("Position en dehors de la fenetre");
+                //if (value.X < 0 || value.X > Constantes._LARGEUR_FENETRE|| value.Y < 0 || value.Y > Constantes._HAUTEUR_FENETRE)
+                    //throw new ArgumentOutOfRangeException("Position en dehors de la fenetre");
 
                 this._bossPosition = value;
             }

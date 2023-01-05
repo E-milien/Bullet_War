@@ -13,23 +13,25 @@ namespace SAE_DEV_PROJ
     {
         const int _tailleX=0;
         const int _tailleY=0;
-        private int _pvPerso;
+        private double _pvPerso;
         private int _damagePerso;
         private bool _godMod;
         private string _skinPerso;
         private double _multiplicationVitesse;
         private int _deplacementPerso;
-        private Vector2 _positionDepartPerso;
+        private Vector2 _positionPerso;
+        private int score;
 
-        public Perso(bool godMod, int pvPerso, int damagePerso, string skinPerso, double multiplicationVitesse, int deplacementPerso, Vector2 positionDepartPerso)
+        public Perso(bool godMod, double pvPerso, int damagePerso, int score, string skinPerso, double multiplicationVitesse, int deplacementPerso, Vector2 positionPerso)
         {
             this.GodMod = godMod;
             this.PvPerso = pvPerso;
             this.DamagePerso = damagePerso;
+            this.Score = score;
             this.SkinPerso = skinPerso;
             this.MultiplicationVitesse = multiplicationVitesse;
             this.DeplacementPerso = deplacementPerso;
-            this.PositionDepartPerso = positionDepartPerso;
+            this.PositionPerso = positionPerso;
         }
 
 
@@ -47,7 +49,7 @@ namespace SAE_DEV_PROJ
                 this._godMod = value;
             }
         }
-        public int PvPerso
+        public double PvPerso
         {
             get
             {
@@ -58,7 +60,8 @@ namespace SAE_DEV_PROJ
             {
                 if (GodMod == true)
                     this._pvPerso = 1000000000;
-                this._pvPerso = value;
+                else
+                    this._pvPerso = value;
             }
         }
 
@@ -104,16 +107,16 @@ namespace SAE_DEV_PROJ
                 this._deplacementPerso = value;
             }
         }
-        public Vector2 PositionDepartPerso
+        public Vector2 PositionPerso
         {
             get
             {
-                return this._positionDepartPerso;
+                return this._positionPerso;
             }
 
             set
             {
-                this._positionDepartPerso = value;
+                this._positionPerso = value;
             }
         }
 
@@ -127,6 +130,19 @@ namespace SAE_DEV_PROJ
             set
             {
                 this._damagePerso = value;
+            }
+        }
+
+        public int Score
+        {
+            get
+            {
+                return this.score;
+            }
+
+            set
+            {
+                this.score = value;
             }
         }
     }
