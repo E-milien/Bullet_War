@@ -124,31 +124,13 @@ namespace SAE_DEV_PROJ
                 }
                 _tabBulletPerso[i].BulletPosition -= new Vector2(0, _tabBulletPerso[i].Vitesse * deltaTime);
             }
-            
-            
+
+            Redemption(deltaTime);
             Pattern2(deltaTime);
             DeplacementPerso(deltaTime);
             BulletAllieReset();
-            if (Collision(_redemption)&&_redemption==false)
-            {
-                _persoPos = new Vector2(500, 500);
-                hero.PvPerso -= (int)boss1.DamageBoss;
-                _redemption = true;
-            }
-            if(_redemption)
-            {
-                _tmp += deltaTime;
-            }
-            if(_tmp>=3)
-            {
-                _tmp = 0;
-                _redemption = false;
-            }
-            if (hero.PvPerso <= 0)
-            {
-                _persoPos = new Vector2(0, 0);
-            }
-                
+            
+
             CollisionBoss();
 
         }
@@ -278,6 +260,28 @@ namespace SAE_DEV_PROJ
                     _tabBullets2[i].BulletPosition += new Vector2(i * deltaTime, i * 3 * deltaTime);
                 else
                     _tabBullets2[i].BulletPosition += new Vector2(-i * deltaTime, i * 3 * deltaTime);
+            }
+        }
+        public void Redemption(float deltaTime)
+        {
+            if (Collision(_redemption) && _redemption == false)
+            {
+                _persoPos = new Vector2(500, 500);
+                hero.PvPerso -= (int)boss1.DamageBoss;
+                _redemption = true;
+            }
+            if (_redemption)
+            {
+                _tmp += deltaTime;
+            }
+            if (_tmp >= 2)
+            {
+                _tmp = 0;
+                _redemption = false;
+            }
+            if (hero.PvPerso <= 0)
+            {
+                _persoPos = new Vector2(0, 0);
             }
         }
     }
