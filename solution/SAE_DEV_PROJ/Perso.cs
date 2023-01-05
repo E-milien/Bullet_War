@@ -29,7 +29,7 @@ namespace SAE_DEV_PROJ
             this.SkinPerso = skinPerso;
             this.MultiplicationVitesse = multiplicationVitesse;
             this.DeplacementPerso = deplacementPerso;
-            this.PositionPerso = positionDepartPerso;
+            this.PositionPerso = positionPerso;
         }
 
 
