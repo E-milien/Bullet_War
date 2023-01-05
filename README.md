@@ -1,2 +1,2 @@
-# SAE_DEV
-# voici un jeu de type Bullet Hell.
+# Bullet War
+# Voici un jeu de type Bullet Hell.
