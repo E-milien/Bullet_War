@@ -18,6 +18,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _texturePerso;
         internal Bullet[,] _tabBullets = new Bullet[10,10];
         internal Bullet[] _tabBulletPerso = new Bullet[200];
+        internal Bullet[] _tabBullets2 = new Bullet[40];
         internal Boss boss1;
         internal Perso hero;
         private double _tmp;
@@ -74,6 +75,11 @@ namespace SAE_DEV_PROJ
             {
                 _tabBulletPerso[i] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(_persoPos.X + Constantes._LARGEUR_PERSO / 2, _persoPos.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
             }
+            // Bullets pattern 2 initialize
+            for (int i = 0; i < _tabBullets2.Length; i++)
+            {
+                _tabBullets2[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(_bossPos.X + Constantes._LARGEUR_BOSS / 2, _bossPos.Y + Constantes._HAUTEUR_BOSS), "bullet");
+            }
             base.Initialize();
         }
 
@@ -113,6 +119,8 @@ namespace SAE_DEV_PROJ
                 _tabBulletPerso[i].BulletPosition -= new Vector2(0, _tabBulletPerso[i].Vitesse * deltaTime);
             }
             
+            
+            Pattern2(deltaTime);
             DeplacementPerso(deltaTime);
             BulletAllieReset();
             if (Collision()&&_redemption==false)
@@ -161,6 +169,12 @@ namespace SAE_DEV_PROJ
             {
                 if (!(_tabBulletPerso[i].BulletPosition.Y > _persoPos.Y))
                     _spriteBatch.Draw(_textureBullet, _tabBulletPerso[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+            }
+
+            //Bullets pattern2
+            for (int i = 0; i < _tabBullets2.Length; i++)
+            {
+                _spriteBatch.Draw(_textureBullet, _tabBullets2[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
             }
             _spriteBatch.End();
         }
@@ -240,6 +254,20 @@ namespace SAE_DEV_PROJ
             }
         }
 
+        public void Pattern2(float deltaTime)
+        {
+            for (int i = 0; i < _tabBullets2.Length; i++)
+            {
+                if (i % 4 == 0)
+                    _tabBullets2[i].BulletPosition += new Vector2(i * 2 * deltaTime,i * 2 * deltaTime);
+                else if (i % 4 == 1)
+                    _tabBullets2[i].BulletPosition += new Vector2(-i * 2 * deltaTime, i * 2 * deltaTime);
+                else if (i % 4 == 2)
+                    _tabBullets2[i].BulletPosition += new Vector2(i * deltaTime, i * 3 * deltaTime);
+                else
+                    _tabBullets2[i].BulletPosition += new Vector2(-i * deltaTime, i * 3 * deltaTime);
+            }
+        }
     }
 }
 
