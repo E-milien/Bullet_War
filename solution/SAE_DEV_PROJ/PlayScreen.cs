@@ -23,7 +23,6 @@ namespace SAE_DEV_PROJ
         internal Perso hero;
         private double _tmp;
         private bool _redemption;
-        private int _vieAvantRedemption;
         private double _chrono;
         private int _i;
         private int var;
@@ -112,9 +111,9 @@ namespace SAE_DEV_PROJ
                 var += 2;
                 _i++;
             }
+            if (_chrono<25)
+                Pattern1(deltaTime, _i, _chrono);
 
-            if (_chrono <=22)
-                Patern(deltaTime, _i);
             //tirs alliés
             for (int i = 0; i < _tabBulletPerso.Length; i++)
             {
@@ -250,16 +249,29 @@ namespace SAE_DEV_PROJ
                 }
             }
         }
-        public void Patern(float deltaTime, int i)
+        public void Pattern1(float deltaTime, int i, double chrono)
         {
             Random rdn = new Random();
-
-            for (int z = 0; z <= i; z++)
+            if (chrono < 24)
             {
-                for (int j = 0; j < _tabBullets.GetLength(1) - 2; j++)
+                for (int z = 0; z <= i; z++)
                 {
+                    for (int j = 0; j < _tabBullets.GetLength(1) - 2; j++)
+                    {
 
-                    _tabBullets[z, j].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[z, j].Vitesse * deltaTime);
+                        _tabBullets[z, j].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[z, j].Vitesse * deltaTime);
+                    }
+                }
+            }
+            else
+            {
+                for (int z = 0; z <= i; z++)
+                {
+                    for (int j = 0; j < _tabBullets.GetLength(1) - 2; j++)
+                    {
+
+                        _tabBullets[z, j].BulletPosition = new Vector2(-20,-20);
+                    }
                 }
             }
         }
