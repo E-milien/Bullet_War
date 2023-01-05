@@ -37,6 +37,13 @@
 /processorParam:TextureFormat=Color
 /build:bullet.png
 
+#begin Font.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Font.spritefont
+
 #begin perso.png
 /importer:TextureImporter
 /processor:TextureProcessor

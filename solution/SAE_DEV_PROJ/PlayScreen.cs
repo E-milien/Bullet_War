@@ -27,10 +27,13 @@ namespace SAE_DEV_PROJ
         private double _chrono;
         private int _i;
         private int var;
+        private Vector2 _positionPv = new Vector2(20, 20);
 
         // TEXTURES 
         private Texture2D _textureBoss;
         private Texture2D _textureBullet;
+        private SpriteFont _police; 
+
 
         // BOSS
         Vector2 _bossPos;
@@ -58,7 +61,7 @@ namespace SAE_DEV_PROJ
             _persoPos = new Vector2(500, 500) - new Vector2(Constantes._LARGEUR_PERSO / 2,0);
             _bossPos = new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0);
 
-            boss1 = new Boss(5000, 1, "boss", _bossPos);
+            boss1 = new Boss(5000, 20, "boss", _bossPos);
             hero = new Perso(true, 100, "perso", 1, 500, _persoPos);
 
             // Bullets initialize
@@ -80,6 +83,9 @@ namespace SAE_DEV_PROJ
             {
                 _tabBullets2[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(_bossPos.X + Constantes._LARGEUR_BOSS / 2, _bossPos.Y + Constantes._HAUTEUR_BOSS), "bullet");
             }
+
+            _police = Content.Load<SpriteFont>("Font");
+
             base.Initialize();
         }
 
@@ -123,13 +129,11 @@ namespace SAE_DEV_PROJ
             Pattern2(deltaTime);
             DeplacementPerso(deltaTime);
             BulletAllieReset();
-            if (Collision()&&_redemption==false)
+            if (Collision(_redemption)&&_redemption==false)
             {
                 _persoPos = new Vector2(500, 500);
-                hero.PvPerso -= 20;
+                hero.PvPerso -= (int)boss1.DamageBoss;
                 _redemption = true;
-                _vieAvantRedemption = hero.PvPerso;
-                hero.PvPerso = 1000000;
             }
             if(_redemption)
             {
@@ -138,14 +142,17 @@ namespace SAE_DEV_PROJ
             if(_tmp>=3)
             {
                 _tmp = 0;
-                hero.PvPerso = _vieAvantRedemption;
                 _redemption = false;
             }
             if (hero.PvPerso <= 0)
+            {
                 _persoPos = new Vector2(0, 0);
+            }
+                
             CollisionBoss();
 
         }
+
         public override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -154,6 +161,7 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Begin();
             _spriteBatch.Draw(_texturePerso, _persoPos, Color.White);
             _spriteBatch.Draw(_textureBoss, _bossPos, Color.White);
+            _spriteBatch.DrawString(_police, $"Vie Hero : {hero.PvPerso}", _positionPv, Color.White);
             //Bullets adverses
 
             for (int z = 0; z <= _i; z++)
@@ -200,9 +208,13 @@ namespace SAE_DEV_PROJ
             _persoPos.Y += _sensPersoY * (int)Math.Round(hero.DeplacementPerso * hero.MultiplicationVitesse, 0) * deltaTime;
             _sensPersoY = 0;
         }
-        public bool Collision()
+        public bool Collision(bool ok)
         {
             bool tmp = false;
+
+            if (ok == true)
+                return false;
+
             for (int i = 0; i < _tabBullets.GetLength(0); i++)
             {
                 for (int j = 0; j < _tabBullets.GetLength(1); j++)
