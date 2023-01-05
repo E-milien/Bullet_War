@@ -14,16 +14,18 @@ namespace SAE_DEV_PROJ
         const int _tailleX=0;
         const int _tailleY=0;
         private int _pvPerso;
+        private int _damagePerso;
         private bool _godMod;
         private string _skinPerso;
         private double _multiplicationVitesse;
         private int _deplacementPerso;
         private Vector2 _positionDepartPerso;
 
-        public Perso(bool godMod, int pvPerso, string skinPerso, double multiplicationVitesse, int deplacementPerso, Vector2 positionDepartPerso)
+        public Perso(bool godMod, int pvPerso, int damagePerso, string skinPerso, double multiplicationVitesse, int deplacementPerso, Vector2 positionDepartPerso)
         {
             this.GodMod = godMod;
             this.PvPerso = pvPerso;
+            this.DamagePerso = damagePerso;
             this.SkinPerso = skinPerso;
             this.MultiplicationVitesse = multiplicationVitesse;
             this.DeplacementPerso = deplacementPerso;
@@ -112,6 +114,19 @@ namespace SAE_DEV_PROJ
             set
             {
                 this._positionDepartPerso = value;
+            }
+        }
+
+        public int DamagePerso
+        {
+            get
+            {
+                return this._damagePerso;
+            }
+
+            set
+            {
+                this._damagePerso = value;
             }
         }
     }
