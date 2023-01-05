@@ -107,11 +107,12 @@ namespace SAE_DEV_PROJ
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             // TODO: Add your update logic here
             _chrono += deltaTime;
-            if (_chrono >= var)
+            if (_chrono >= var && _i<_tabBullets.GetLength(0))
             {
                 var += 2;
                 _i++;
             }
+
 
             Patern(deltaTime, _i);
             //tirs alliés
