@@ -30,7 +30,7 @@ namespace SAE_DEV_PROJ
 
         public override void Update(GameTime gameTime)
         {
-
+            _myGame._actif = true;
         }
         public override void Draw(GameTime gameTime)
         {

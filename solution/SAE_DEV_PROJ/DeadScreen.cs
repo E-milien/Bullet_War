@@ -15,8 +15,8 @@ namespace SAE_DEV_PROJ
         private SpriteBatch _spriteBatch;
         private Game1 _myGame;
         private SpriteFont _police;
-        // pour récupérer une référence à l’objet game pour avoir accès à tout ce qui est
-        // défini dans Game1
+
+
         public DeadScreen(Game1 game) : base(game)
         {
             _police = Content.Load<SpriteFont>("Font");
@@ -30,7 +30,7 @@ namespace SAE_DEV_PROJ
 
         public override void Update(GameTime gameTime)
         {
-
+            _myGame._actif = true;
         }
         public override void Draw(GameTime gameTime)
         {

@@ -36,8 +36,9 @@ namespace SAE_DEV_PROJ
         private Vector2 _positionPvBoss = new Vector2(20, 80);
         private Vector2 _positionScore = new Vector2(20, 200);
         private int _damagePerso;
-        public bool _alive =true;
         bool test = false;
+        public bool _alive=true;
+        public bool _bossAlive=true;
 
         // TEXTURES 
         private Texture2D _textureBoss;
@@ -67,6 +68,7 @@ namespace SAE_DEV_PROJ
 
         public override void Initialize()
         {
+            _bossAlive = true;
             _alive = true;
             var = 0;
             _i = -1;
@@ -130,6 +132,10 @@ namespace SAE_DEV_PROJ
 
         public override void Update(GameTime gameTime)
         {
+            _myGame._screenDeathOk = false;
+            _myGame._screenWinOk = false;
+            _myGame._actif = false;
+            Console.WriteLine((hero.PvPerso / _pvDepart) * 100);
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             //pattern1 pour les différentes "vague de bullets"
             _chrono += deltaTime;
@@ -167,6 +173,7 @@ namespace SAE_DEV_PROJ
             DeplacementPerso(deltaTime);
             BulletAllieReset();
             CollisionBoss();
+            CheckBossDead(boss1);
         }
 
         public override void Draw(GameTime gameTime)
@@ -421,6 +428,7 @@ namespace SAE_DEV_PROJ
         {
             if (Collision(_redemption, _tabBullets2)||Collision(_redemption, _tabBullets) && _redemption == false)
             {
+                //_alive = true; // pour etre sur
                 hero.PvPerso -= (int)boss1.DamageBoss;
                 _redemption = true;
             }
@@ -438,6 +446,14 @@ namespace SAE_DEV_PROJ
             if (hero.PvPerso <= 0)
             {
                 _alive = false;
+            }
+        }
+        internal void CheckBossDead(Boss boss)
+        {
+            if (boss.BossHP<=0)
+            {
+                _bossAlive = false;
+                boss.BossHP = 0;
             }
         }
     }
