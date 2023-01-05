@@ -146,7 +146,7 @@ namespace SAE_DEV_PROJ
 
         public override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.BlueViolet);
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
