@@ -29,7 +29,7 @@ namespace SAE_DEV_PROJ
         private int var;
         private float angle = 0f;
         private double _pvDepart;
-        private Vector2 _positionPv = new Vector2(20, 20);
+        private Vector2 _positionPv = new Vector2(300, 30);
         private Vector2 _positionScore = new Vector2(20, 100);
         private int _damagePerso;
 
@@ -161,7 +161,6 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Begin();
             _spriteBatch.Draw(_texturePerso, hero.PositionPerso, Color.White);
             _spriteBatch.Draw(_textureBoss, boss1.BossPosition, Color.White);
-            _spriteBatch.DrawString(_police, $"Vie Hero : {hero.PvPerso}", _positionPv, Color.White);
             _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionScore, Color.White);
 
             //Bullets adverses
@@ -190,24 +189,25 @@ namespace SAE_DEV_PROJ
             }
 
             // HP 
-            if(Math.Round((hero.PvPerso / _pvDepart) * 100) >= 80)
-                _spriteBatch.Draw(_texture_Full, _positionPv, Color.White);
+            if(Math.Round((hero.PvPerso / _pvDepart) * 100) > 80)
+                _spriteBatch.Draw(_texture_Full, new Vector2(_positionPv.X/2,_positionPv.Y-10), Color.White);
 
-            else if(Math.Round((hero.PvPerso / _pvDepart) * 100) >= 60)
-                _spriteBatch.Draw(_texture_High, _positionPv, Color.White);
+            else if(Math.Round((hero.PvPerso / _pvDepart) * 100) > 60)
+                _spriteBatch.Draw(_texture_High, new Vector2(_positionPv.X / 2, _positionPv.Y - 10), Color.White);
 
-            else if(Math.Round((hero.PvPerso / _pvDepart) * 100) >= 40)
-                _spriteBatch.Draw(_texture_Mid, _positionPv, Color.White);
+            else if(Math.Round((hero.PvPerso / _pvDepart) * 100) > 40)
+                _spriteBatch.Draw(_texture_Mid, new Vector2(_positionPv.X / 2, _positionPv.Y - 10), Color.White);
 
-            else if (Math.Round((hero.PvPerso / _pvDepart) * 100) >= 20)
-                _spriteBatch.Draw(_texture_Low, _positionPv, Color.White);
+            else if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 20)
+                _spriteBatch.Draw(_texture_Low, new Vector2(_positionPv.X / 2, _positionPv.Y - 10), Color.White);
 
             else if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 0)
-                _spriteBatch.Draw(_texture_VeryLow, _positionPv, Color.White);
+                _spriteBatch.Draw(_texture_VeryLow, new Vector2(_positionPv.X / 2, _positionPv.Y - 10), Color.White);
 
             else
-                _spriteBatch.Draw(_texture_Dead, _positionPv, Color.White);
+                _spriteBatch.Draw(_texture_Dead, _positionPv/2, Color.White);
 
+            _spriteBatch.DrawString(_police, $"{hero.PvPerso} / {_pvDepart}", _positionPv, Color.Black);
 
             //Bullets patternSpiral
             for (int i = 0; i < _tabBulletsCercle.Length; i++)
