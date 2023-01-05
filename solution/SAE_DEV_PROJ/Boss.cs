@@ -34,9 +34,6 @@ namespace SAE_DEV_PROJ
 
             set
             {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException("HP < 0");
-
                 this._bossHP = value;
             }
         }
