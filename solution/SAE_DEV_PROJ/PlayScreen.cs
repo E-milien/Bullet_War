@@ -108,19 +108,20 @@ namespace SAE_DEV_PROJ
             // Bullets pattern cercle initialize
             for (int i = 0; i < _tabBulletsCercle.Length; i++)
             {
-                _tabBulletsCercle[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(_bossPos.X + Constantes._LARGEUR_BOSS / 2, _bossPos.Y + Constantes._HAUTEUR_BOSS), "bulletSpiral");
+                _tabBulletsCercle[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS), "bulletSpiral");
             }
             // Bullets pattern spirale initialize (gerer les spawns avec i (?))
             for (int i = 0; i < _tabBulletsSpirale.Length; i++)
-                _tabBulletsCercle[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(_bossPos.X + Constantes._LARGEUR_BOSS / 2, _bossPos.Y + Constantes._HAUTEUR_BOSS / 2), "bulletCercle");
-            base.Initialize();
+            {
+                _tabBulletsCercle[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bulletCercle");
                 float bulletDirectionX = MathF.Sin(_angle * MathF.PI / 180f);
                 float bulletDirectionY = MathF.Cos(_angle * MathF.PI / 180f);
                 Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY);
 
-                _tabBulletsSpirale[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(_bossPos.X + Constantes._LARGEUR_BOSS / 2, _bossPos.Y + Constantes._HAUTEUR_BOSS / 2) - bulletDirection*i*2, "bulletSpiral");
+                _tabBulletsSpirale[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2) - bulletDirection*i*2, "bulletSpiral");
                 _angle += 10f;
             }
+
             _angle = 0f;
             // Initialize timer spirale
             _timer = new System.Timers.Timer(100);
@@ -192,8 +193,6 @@ namespace SAE_DEV_PROJ
                 Pattern2(deltaTime);
             
             DeplacementPerso(deltaTime);
-            PatternCercle(deltaTime, angle);
-            DeplacementPerso(deltaTime);
 
             PatternCercle(_angle);
             PatternSpirale(_angle);
@@ -206,16 +205,14 @@ namespace SAE_DEV_PROJ
             GraphicsDevice.Clear(Color.BlueViolet);
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_texturePerso, _persoPos, Color.White);
-            _spriteBatch.Draw(_textureBoss, _bossPos, Color.White);
             _spriteBatch.DrawString(_police, $"Vie Hero : {hero.PvPerso}", _positionPv, Color.White);
             _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionScore, Color.White);
-            if(Collision() == true)
+            if (Collision() == true)
             {
                 test = true;
             }
 
-            if(test == true)
+            if (test == true)
             {
                 _chrono2 += deltaTime;
                 _spriteBatch.DrawString(_police, $"Score + {hero.Score}", _positionScore, Color.White);
@@ -226,7 +223,7 @@ namespace SAE_DEV_PROJ
                     test = false;
                 }
             }
-            
+
 
             //Bullets adverses
             for (int z = 0; z <= _i; z++)
@@ -238,7 +235,7 @@ namespace SAE_DEV_PROJ
             }
 
             //Bullets alliées
-            if (_redemption == false) 
+            if (_redemption == false)
             {
                 for (int i = 0; i < _tabBulletPerso.Length; i++)
                 {
@@ -253,28 +250,30 @@ namespace SAE_DEV_PROJ
                 _spriteBatch.Draw(_textureBullet, _tabBullets2[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
             }
 
-            //Bullets patternSpiral
+            //HP
             for (int i = 0; i < _tabBulletsCercle.Length; i++)
             {
-                _spriteBatch.Draw(_textureBullet, _tabBulletsCercle[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
-            else if(Math.Round((hero.PvPerso / _pvDepart) * 100) > 60)
-                _spriteBatch.Draw(_texture_High, _positionPv, Color.White);
+                if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 80)
+                    _spriteBatch.Draw(_texture_Full, _positionPv, Color.White);
 
-            else if(Math.Round((hero.PvPerso / _pvDepart) * 100) > 40)
-                _spriteBatch.Draw(_texture_Mid, _positionPv, Color.White);
+                else if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 60)
+                    _spriteBatch.Draw(_texture_High, _positionPv, Color.White);
 
-            else if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 20)
-                _spriteBatch.Draw(_texture_Low, _positionPv, Color.White);
+                else if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 40)
+                    _spriteBatch.Draw(_texture_Mid, _positionPv, Color.White);
 
-            else if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 0)
-                _spriteBatch.Draw(_texture_VeryLow, _positionPv, Color.White);
+                else if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 20)
+                    _spriteBatch.Draw(_texture_Low, _positionPv, Color.White);
 
-            else
-                _spriteBatch.Draw(_texture_Dead, _positionPv, Color.White);
+                else if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 0)
+                    _spriteBatch.Draw(_texture_VeryLow, _positionPv, Color.White);
 
-            _spriteBatch.DrawString(_police, $"{hero.PvPerso} / {_pvDepart}", new Vector2(_positionPv.X*10,_positionPv.Y +10), Color.Black);
+                else
+                    _spriteBatch.Draw(_texture_Dead, _positionPv, Color.White);
 
-            //Bullets patternSpiral
+                _spriteBatch.DrawString(_police, $"{hero.PvPerso} / {_pvDepart}", new Vector2(_positionPv.X * 10, _positionPv.Y + 10), Color.Black);
+            }
+            //Bullets patternCercle
             for (int i = 0; i < _tabBulletsCercle.Length; i++)
             {
                 _spriteBatch.Draw(_textureBullet, _tabBulletsCercle[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
@@ -282,15 +281,16 @@ namespace SAE_DEV_PROJ
 
             //Bullets patternSpiral
             for (int i = 0; i < _tabBulletsSpirale.Length; i++)
-            {          
+            {
                 _spriteBatch.Draw(_textureBullet, _tabBulletsSpirale[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
             }
 
-            _spriteBatch.Draw(_textureBoss, _bossPos, Color.White);
-            _spriteBatch.Draw(_texturePerso, _persoPos, Color.White);
-            _spriteBatch.End();
-        }
+            _spriteBatch.Draw(_textureBoss, boss1.BossPosition, Color.White);
+            _spriteBatch.Draw(_texturePerso, hero.PositionPerso, Color.White);
 
+            _spriteBatch.End();
+            
+        }
         private void DeplacementPerso(float deltaTime)
         {
             _keyboardState = Keyboard.GetState();
