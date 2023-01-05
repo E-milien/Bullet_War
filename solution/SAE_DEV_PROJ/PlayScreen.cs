@@ -193,7 +193,7 @@ namespace SAE_DEV_PROJ
                 Pattern2(deltaTime);
             
             DeplacementPerso(deltaTime);
-
+            CollisionBoss();
             PatternCercle(_angle);
             PatternSpirale(_angle);
             CheckBossDead(boss1);
