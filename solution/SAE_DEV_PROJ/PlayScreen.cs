@@ -25,18 +25,15 @@ namespace SAE_DEV_PROJ
         private double _tmp;
         private bool _redemption;
         private double _chrono;
-        private double _chrono2;
         private int _i;
         private int var;
         private int var2;
-        private int var3;
         private float angle = 0f;
         private double _pvDepart;
         private Vector2 _positionPv = new Vector2(20, 30);
-        private Vector2 _positionPvBoss = new Vector2(20, 80);
+        private Vector2 _positionPvBoss = new Vector2(20, 100);
         private Vector2 _positionScore = new Vector2(20, 200);
         private int _damagePerso;
-        bool test = false;
         public bool _alive=true;
         public bool _bossAlive=true;
 
@@ -73,9 +70,7 @@ namespace SAE_DEV_PROJ
             var = 0;
             _i = -1;
             _chrono = 0;
-            _chrono2 = 0;
             var2 = 2;
-            var3 = 2;
 
             boss1 = new Boss(5000, 20, "boss", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
             hero = new Perso(false, 100, 5, 0, "perso", 1, 500, new Vector2(500, 500) - new Vector2(Constantes._LARGEUR_PERSO / 2, 0));
@@ -135,7 +130,6 @@ namespace SAE_DEV_PROJ
             _myGame._screenDeathOk = false;
             _myGame._screenWinOk = false;
             _myGame._actif = false;
-            Console.WriteLine((hero.PvPerso / _pvDepart) * 100);
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             //pattern1 pour les différentes "vague de bullets"
             _chrono += deltaTime;
@@ -185,23 +179,8 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_texturePerso, hero.PositionPerso, Color.White);
             _spriteBatch.Draw(_textureBoss, boss1.BossPosition, Color.White);
             _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionPvBoss, Color.White);
+            _spriteBatch.DrawString(_police, $"Score : {hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), Color.White);
 
-            if(Collision() == true)
-            {
-                test = true;
-            }
-
-            if(test == true)
-            {
-                _chrono2 += deltaTime;
-                _spriteBatch.DrawString(_police, $"Score + {hero.Score}", _positionScore, Color.White);
-
-                if (_chrono2 >= var3)
-                {
-                    _chrono2 = 0;
-                    test = false;
-                }
-            }
             
 
             //Bullets adverses
@@ -338,22 +317,6 @@ namespace SAE_DEV_PROJ
             }
         }
 
-        // Collision pour le score
-        public bool Collision()
-        {
-            bool tmp = false;
-            for (int i = 0; i < _tabBulletPerso.Length; i++)
-            {
-                
-                Rectangle rect1 = new Rectangle((int)_tabBulletPerso[i].BulletPosition.X, (int)_tabBulletPerso[i].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
-                Rectangle rect2 = new Rectangle((int)boss1.BossPosition.X, (int)boss1.BossPosition.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);
-                if (rect1.Intersects(rect2))
-                {
-                    tmp = true;
-                }
-            }
-            return tmp;
-        }
 
         public void BulletAllieReset()
         {
