@@ -26,14 +26,22 @@ namespace SAE_DEV_PROJ
         private double _chrono;
         private int _i;
         private int var;
+        private double _pvDepart;
         private Vector2 _positionPv = new Vector2(20, 20);
-        private Vector2 _positionScore = new Vector2(20, 60);
+        private Vector2 _positionScore = new Vector2(20, 100);
         private int _damagePerso;
         // TEXTURES 
         private Texture2D _textureBoss;
         private Texture2D _textureBullet;
-        private SpriteFont _police; 
+        private SpriteFont _police;
 
+        // TEXTURES HP
+        private Texture2D _texture_Full;
+        private Texture2D _texture_High;
+        private Texture2D _texture_Mid;
+        private Texture2D _texture_Low;
+        private Texture2D _texture_VeryLow;
+        private Texture2D _texture_Dead;
 
         // BOSS
         Vector2 _bossPos;
@@ -65,6 +73,7 @@ namespace SAE_DEV_PROJ
             hero = new Perso(true, 100, 5, "perso", 1, 500, _persoPos);
 
             _damagePerso = hero.DamagePerso;
+            _pvDepart = hero.PvPerso;
             // Bullets initialize
 
             for (int i = 0; i < _tabBullets.GetLength(0); i++)
@@ -98,13 +107,19 @@ namespace SAE_DEV_PROJ
             _textureBullet = Content.Load<Texture2D>(_tabBullets[0,0].Skin);
             _textureBoss = Content.Load<Texture2D>(boss1.SkinBoss);
 
-
+            _texture_Full = Content.Load<Texture2D>("Full");
+            _texture_High = Content.Load<Texture2D>("High");
+            _texture_Mid = Content.Load<Texture2D>("Mid");
+            _texture_Low = Content.Load<Texture2D>("Low");
+            _texture_VeryLow = Content.Load<Texture2D>("VeryLow");
+            _texture_Dead = Content.Load<Texture2D>("Dead");
             // TODO: use this.Content to load your game content here
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
+            Console.WriteLine((hero.PvPerso / _pvDepart) * 100);
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             // TODO: Add your update logic here
             _chrono += deltaTime;
@@ -126,7 +141,6 @@ namespace SAE_DEV_PROJ
                 }
                 _tabBulletPerso[i].BulletPosition -= new Vector2(0, _tabBulletPerso[i].Vitesse * deltaTime);
             }
-
             Redemption(deltaTime);
             if(_chrono>=22)
                 Pattern2(deltaTime);
@@ -143,7 +157,7 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Begin();
             _spriteBatch.Draw(_texturePerso, _persoPos, Color.White);
             _spriteBatch.Draw(_textureBoss, _bossPos, Color.White);
-            _spriteBatch.DrawString(_police, $"Vie Hero : {hero.PvPerso}", _positionPv, Color.White);
+            //_spriteBatch.DrawString(_police, $"Vie Hero : {hero.PvPerso}", _positionPv, Color.White);
             _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionScore, Color.White);
             //Bullets adverses
 
@@ -170,6 +184,26 @@ namespace SAE_DEV_PROJ
             {
                 _spriteBatch.Draw(_textureBullet, _tabBullets2[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
             }
+
+            // HP 
+            if(Math.Round((hero.PvPerso / _pvDepart) * 100) >= 80)
+                _spriteBatch.Draw(_texture_Full, _positionPv, Color.White);
+
+            else if(Math.Round((hero.PvPerso / _pvDepart) * 100) >= 60)
+                _spriteBatch.Draw(_texture_High, _positionPv, Color.White);
+
+            else if(Math.Round((hero.PvPerso / _pvDepart) * 100) >= 40)
+                _spriteBatch.Draw(_texture_Mid, _positionPv, Color.White);
+
+            else if (Math.Round((hero.PvPerso / _pvDepart) * 100) >= 20)
+                _spriteBatch.Draw(_texture_Low, _positionPv, Color.White);
+
+            else if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 0)
+                _spriteBatch.Draw(_texture_VeryLow, _positionPv, Color.White);
+
+            else
+                _spriteBatch.Draw(_texture_Dead, _positionPv, Color.White);
+
             _spriteBatch.End();
         }
 
@@ -285,7 +319,6 @@ namespace SAE_DEV_PROJ
         }
         public void Redemption(float deltaTime)
         {
-            Console.WriteLine(_damagePerso);
             if (Collision(_redemption, _tabBullets2)||Collision(_redemption, _tabBullets) && _redemption == false)
             {
                 _persoPos = new Vector2(500, 500);
