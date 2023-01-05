@@ -13,6 +13,7 @@ namespace SAE_DEV_PROJ
         private GraphicsDeviceManager _graphics;
         HomeScreen _homeScreen;
         PlayScreen _playScreen;
+        private bool _loaded;
         
         
 
@@ -30,6 +31,7 @@ namespace SAE_DEV_PROJ
 
         protected override void Initialize()
         {
+            _loaded = false;
             SetupWindow();
             base.Initialize();
         }
@@ -44,12 +46,18 @@ namespace SAE_DEV_PROJ
 
         protected override void Update(GameTime gameTime)
         {
+            if (!_loaded)
+            {
+                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
+                _loaded = true;
+            }
+            
             KeyboardState keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.Left))
             {
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-            else if (keyboardState.IsKeyDown(Keys.Right))
+            else if (keyboardState.IsKeyDown(Keys.Enter))
             {
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }

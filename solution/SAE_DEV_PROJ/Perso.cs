@@ -19,7 +19,7 @@ namespace SAE_DEV_PROJ
         private string _skinPerso;
         private double _multiplicationVitesse;
         private int _deplacementPerso;
-        private Vector2 _positionDepartPerso;
+        private Vector2 _positionPerso;
 
         public Perso(bool godMod, double pvPerso, int damagePerso, string skinPerso, double multiplicationVitesse, int deplacementPerso, Vector2 positionDepartPerso)
         {
@@ -29,7 +29,7 @@ namespace SAE_DEV_PROJ
             this.SkinPerso = skinPerso;
             this.MultiplicationVitesse = multiplicationVitesse;
             this.DeplacementPerso = deplacementPerso;
-            this.PositionDepartPerso = positionDepartPerso;
+            this.PositionPerso = positionPerso;
         }
 
 
@@ -58,7 +58,8 @@ namespace SAE_DEV_PROJ
             {
                 if (GodMod == true)
                     this._pvPerso = 1000000000;
-                this._pvPerso = value;
+                else
+                    this._pvPerso = value;
             }
         }
 
@@ -104,16 +105,16 @@ namespace SAE_DEV_PROJ
                 this._deplacementPerso = value;
             }
         }
-        public Vector2 PositionDepartPerso
+        public Vector2 PositionPerso
         {
             get
             {
-                return this._positionDepartPerso;
+                return this._positionPerso;
             }
 
             set
             {
-                this._positionDepartPerso = value;
+                this._positionPerso = value;
             }
         }
 

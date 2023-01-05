@@ -12,16 +12,20 @@ namespace SAE_DEV_PROJ
 {
     public class HomeScreen : GameScreen
     {
+        private SpriteBatch _spriteBatch;
         private Game1 _myGame;
+        private SpriteFont _police;
         // pour récupérer une référence à l’objet game pour avoir accès à tout ce qui est
         // défini dans Game1
         public HomeScreen(Game1 game) : base(game)
         {
+            _police = Content.Load<SpriteFont>("Font");
             _myGame = game;
         }
         public override void LoadContent()
-        { 
-        base.LoadContent();
+        {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
@@ -30,9 +34,14 @@ namespace SAE_DEV_PROJ
         }
         public override void Draw(GameTime gameTime)
         {
-            _myGame.GraphicsDevice.Clear(Color.Red); // on utilise la reference vers
-                                                     // Game1 pour chnager le graphisme
+
+            _myGame.GraphicsDevice.Clear(Color.MediumVioletRed); // on utilise la reference vers Game1 pour chnager le graphisme
+            _spriteBatch.Begin();
+            _spriteBatch.DrawString(_police, "Bullets WAR", new Vector2(20, 20), Color.White);
+            _spriteBatch.DrawString(_police, "Press ENTER to start", new Vector2(500,500), Color.Black);
+
+            _spriteBatch.End();
         }
-        }
+    }
 }
 
