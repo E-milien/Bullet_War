@@ -14,6 +14,7 @@ namespace SAE_DEV_PROJ
         HomeScreen _homeScreen;
         PlayScreen _playScreen;
         DeadScreen _deadScreen;
+        WinScreen _winScreen;
         private bool _loaded;
         
         
@@ -42,6 +43,7 @@ namespace SAE_DEV_PROJ
             _homeScreen = new HomeScreen(this); // en leur donnant une référence au Game
             _playScreen = new PlayScreen(this);
             _deadScreen = new DeadScreen(this);
+            _winScreen = new WinScreen(this);
             // TODO: use this.Content to load your game content here
         }
 
@@ -62,7 +64,10 @@ namespace SAE_DEV_PROJ
             {
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-
+            if (keyboardState.IsKeyDown(Keys.Q))
+            {
+                Exit();
+            }
 
             base.Update(gameTime);
         }

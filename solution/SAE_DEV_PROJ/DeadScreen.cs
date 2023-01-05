@@ -38,8 +38,8 @@ namespace SAE_DEV_PROJ
             _myGame.GraphicsDevice.Clear(Color.Orange); // on utilise la reference vers Game1 pour chnager le graphisme
             _spriteBatch.Begin();
             _spriteBatch.DrawString(_police, "You're dead", new Vector2(20, 20), Color.White);
-            _spriteBatch.DrawString(_police, "Press ENTER to start", new Vector2(500, 500), Color.Black);
-
+            _spriteBatch.DrawString(_police, "Press ENTER to play again", new Vector2(500, 500), Color.Black);
+            _spriteBatch.DrawString(_police, "Press Q to quit", new Vector2(500, 530), Color.Black);
             _spriteBatch.End();
         }
     }
