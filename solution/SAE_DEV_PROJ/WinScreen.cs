@@ -35,7 +35,7 @@ namespace SAE_DEV_PROJ
         public override void Draw(GameTime gameTime)
         {
 
-            _myGame.GraphicsDevice.Clear(Color.Orange); // on utilise la reference vers Game1 pour chnager le graphisme
+            _myGame.GraphicsDevice.Clear(Color.Yellow); // on utilise la reference vers Game1 pour chnager le graphisme
             _spriteBatch.Begin();
             _spriteBatch.DrawString(_police, "You won !", new Vector2(20, 20), Color.White);
             _spriteBatch.DrawString(_police, "Press ENTER to play again", new Vector2(500, 500), Color.Black);
