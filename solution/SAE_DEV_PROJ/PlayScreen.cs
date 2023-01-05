@@ -32,6 +32,7 @@ namespace SAE_DEV_PROJ
         private Vector2 _positionPv = new Vector2(20, 30);
         private Vector2 _positionScore = new Vector2(20, 100);
         private int _damagePerso;
+        public bool _alive =true;
 
         // TEXTURES 
         private Texture2D _textureBoss;
@@ -61,6 +62,7 @@ namespace SAE_DEV_PROJ
 
         public override void Initialize()
         {
+            _alive = true;
             var = 0;
             _i = -1;
             _chrono = 0;
@@ -143,11 +145,10 @@ namespace SAE_DEV_PROJ
                 _tabBulletPerso[i].BulletPosition -= new Vector2(0, _tabBulletPerso[i].Vitesse * deltaTime);
             }
             Redemption(deltaTime);
+
             //lancer pattern2 au bout de 24 sec
             if(_chrono>=22)
                 Pattern2(deltaTime);
-            
-            
             PatternCercle(deltaTime, angle);
             DeplacementPerso(deltaTime);
             BulletAllieReset();
@@ -361,7 +362,6 @@ namespace SAE_DEV_PROJ
         {
             if (Collision(_redemption, _tabBullets2)||Collision(_redemption, _tabBullets) && _redemption == false)
             {
-                hero.PositionPerso = new Vector2(500, 500);
                 hero.PvPerso -= (int)boss1.DamageBoss;
                 _redemption = true;
             }
@@ -378,7 +378,7 @@ namespace SAE_DEV_PROJ
             }
             if (hero.PvPerso <= 0)
             {
-                hero.PositionPerso = new Vector2(0, 0);
+                _alive = false;
             }
         }
     }

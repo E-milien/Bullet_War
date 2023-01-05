@@ -48,27 +48,32 @@ namespace SAE_DEV_PROJ
         }
 
         protected override void Update(GameTime gameTime)
-        {
+        { 
+            KeyboardState keyboardState = Keyboard.GetState();
             if (!_loaded)
             {
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
                 _loaded = true;
             }
-            
-            KeyboardState keyboardState = Keyboard.GetState();
-            if (keyboardState.IsKeyDown(Keys.Left))
+            if (true)
             {
-                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
+                if (keyboardState.IsKeyDown(Keys.Left))
+                {
+                    _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
+                }
+                if (keyboardState.IsKeyDown(Keys.Enter))
+                {
+                    _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
+                }
+                if (keyboardState.IsKeyDown(Keys.M))
+                {
+                    Exit();
+                }
             }
-            if (keyboardState.IsKeyDown(Keys.Enter))
+            if (!_playScreen._alive)
             {
-                _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
+                _screenManager.LoadScreen(_deadScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-            if (keyboardState.IsKeyDown(Keys.Q))
-            {
-                Exit();
-            }
-
             base.Update(gameTime);
         }
 
