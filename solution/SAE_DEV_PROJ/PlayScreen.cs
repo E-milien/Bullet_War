@@ -64,7 +64,7 @@ namespace SAE_DEV_PROJ
             _bossPos = new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0);
 
             boss1 = new Boss(5000, 20, "boss", _bossPos);
-            hero = new Perso(true, 100, 5, "perso", 1, 500, _persoPos);
+            hero = new Perso(false, 100, 5, "perso", 1, 500, _persoPos);
 
             _damagePerso = hero.DamagePerso;
             // Bullets initialize

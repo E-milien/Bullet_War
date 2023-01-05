@@ -58,7 +58,8 @@ namespace SAE_DEV_PROJ
             {
                 if (GodMod == true)
                     this._pvPerso = 1000000000;
-                this._pvPerso = value;
+                else
+                    this._pvPerso = value;
             }
         }
 
