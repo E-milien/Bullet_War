@@ -16,8 +16,11 @@ namespace SAE_DEV_PROJ
         DeadScreen _deadScreen;
         WinScreen _winScreen;
         private bool _loaded;
-        
-        
+        public bool _screenDeathOk;
+        public bool _screenWinOk;
+        public bool _actif;
+
+
 
         public SpriteBatch SpriteBatch { get; set; }
 
@@ -33,6 +36,9 @@ namespace SAE_DEV_PROJ
 
         protected override void Initialize()
         {
+            _actif = false;
+            _screenDeathOk = false;
+            _screenWinOk = false;
             _loaded = false;
             SetupWindow();
             base.Initialize();
@@ -55,24 +61,31 @@ namespace SAE_DEV_PROJ
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
                 _loaded = true;
             }
-            if (true)
+            if (_actif)
             {
-                if (keyboardState.IsKeyDown(Keys.Left))
+                if (keyboardState.IsKeyDown(Keys.Back))
                 {
                     _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
                 }
                 if (keyboardState.IsKeyDown(Keys.Enter))
                 {
                     _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
+                    
                 }
-                if (keyboardState.IsKeyDown(Keys.M))
+                if (keyboardState.IsKeyDown(Keys.Q))
                 {
                     Exit();
                 }
             }
-            if (!_playScreen._alive)
+            if (!_playScreen._alive && !_screenDeathOk)
             {
                 _screenManager.LoadScreen(_deadScreen, new FadeTransition(GraphicsDevice, Color.Black));
+                _screenDeathOk = true;
+            }
+            if (!_playScreen._bossAlive && !_screenWinOk)
+            {
+                _screenManager.LoadScreen(_winScreen, new FadeTransition(GraphicsDevice, Color.Black));
+                _screenWinOk = true;
             }
             base.Update(gameTime);
         }
