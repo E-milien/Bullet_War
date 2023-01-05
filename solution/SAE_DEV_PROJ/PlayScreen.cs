@@ -107,14 +107,14 @@ namespace SAE_DEV_PROJ
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             // TODO: Add your update logic here
             _chrono += deltaTime;
-            if (_chrono >= var && _i<_tabBullets.GetLength(0))
+            if (_chrono >= var && _i<_tabBullets.GetLength(0)-1)
             {
                 var += 2;
                 _i++;
             }
 
-
-            Patern(deltaTime, _i);
+            if (_chrono <=22)
+                Patern(deltaTime, _i);
             //tirs alliés
             for (int i = 0; i < _tabBulletPerso.Length; i++)
             {
@@ -127,13 +127,11 @@ namespace SAE_DEV_PROJ
             }
 
             Redemption(deltaTime);
-            Pattern2(deltaTime);
+            if(_chrono>=22)
+                Pattern2(deltaTime);
             DeplacementPerso(deltaTime);
             BulletAllieReset();
-            
-
             CollisionBoss();
-
         }
 
         public override void Draw(GameTime gameTime)
@@ -195,23 +193,40 @@ namespace SAE_DEV_PROJ
             _persoPos.Y += _sensPersoY * (int)Math.Round(hero.DeplacementPerso * hero.MultiplicationVitesse, 0) * deltaTime;
             _sensPersoY = 0;
         }
-        public bool Collision(bool ok)
+        internal bool Collision(bool ok, Bullet[,] _tableau)
         {
             bool tmp = false;
 
             if (ok == true)
                 return false;
 
-            for (int i = 0; i < _tabBullets.GetLength(0); i++)
+            for (int i = 0; i < _tableau.GetLength(0); i++)
             {
-                for (int j = 0; j < _tabBullets.GetLength(1); j++)
+                for (int j = 0; j < _tableau.GetLength(1); j++)
                 {
-                    Rectangle rect1 = new Rectangle((int)_tabBullets[i, j].BulletPosition.X, (int)_tabBullets[i, j].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
+                    Rectangle rect1 = new Rectangle((int)_tableau[i, j].BulletPosition.X, (int)_tableau[i, j].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
                     Rectangle rect2 = new Rectangle((int)_persoPos.X, (int)_persoPos.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);
                     if (rect1.Intersects(rect2))
                         tmp = true;
                 }
             }  
+            return tmp;
+        }
+        internal bool Collision(bool ok, Bullet[] _tableau)
+        {
+            bool tmp = false;
+
+            if (ok == true)
+                return false;
+
+            for (int i = 0; i < _tableau.GetLength(0); i++)
+            {
+                Rectangle rect1 = new Rectangle((int)_tableau[i].BulletPosition.X, (int)_tableau[i].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
+                Rectangle rect2 = new Rectangle((int)_persoPos.X, (int)_persoPos.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);
+                if (rect1.Intersects(rect2))
+                    tmp = true;
+            
+            }
             return tmp;
         }
         public void CollisionBoss()
@@ -269,7 +284,7 @@ namespace SAE_DEV_PROJ
         }
         public void Redemption(float deltaTime)
         {
-            if (Collision(_redemption) && _redemption == false)
+            if (Collision(_redemption, _tabBullets2)||Collision(_redemption, _tabBullets) && _redemption == false)
             {
                 _persoPos = new Vector2(500, 500);
                 hero.PvPerso -= (int)boss1.DamageBoss;
