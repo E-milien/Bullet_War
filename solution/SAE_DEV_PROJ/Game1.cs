@@ -65,7 +65,7 @@ namespace SAE_DEV_PROJ
                 {
                     _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
                 }
-                if (keyboardState.IsKeyDown(Keys.Q))
+                if (keyboardState.IsKeyDown(Keys.M))
                 {
                     Exit();
                 }
