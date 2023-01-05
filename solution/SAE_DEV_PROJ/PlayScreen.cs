@@ -19,6 +19,7 @@ namespace SAE_DEV_PROJ
         internal Bullet[,] _tabBullets = new Bullet[10,10];
         internal Bullet[] _tabBulletPerso = new Bullet[200];
         internal Bullet[] _tabBullets2 = new Bullet[40];
+        internal Bullet[] _tabBulletsCercle = new Bullet[36];
         internal Boss boss1;
         internal Perso hero;
         private double _tmp;
@@ -27,6 +28,7 @@ namespace SAE_DEV_PROJ
         private double _chrono;
         private int _i;
         private int var;
+        private float angle = 0f;
         private Vector2 _positionPv = new Vector2(20, 20);
 
         // TEXTURES 
@@ -83,7 +85,11 @@ namespace SAE_DEV_PROJ
             {
                 _tabBullets2[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(_bossPos.X + Constantes._LARGEUR_BOSS / 2, _bossPos.Y + Constantes._HAUTEUR_BOSS), "bullet");
             }
-
+            // Bullets pattern spiral initialize
+            for (int i = 0; i < _tabBulletsCercle.Length; i++)
+            {
+                _tabBulletsCercle[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(_bossPos.X + Constantes._LARGEUR_BOSS / 2, _bossPos.Y + Constantes._HAUTEUR_BOSS), "bulletSpiral");
+            }
             _police = Content.Load<SpriteFont>("Font");
 
             base.Initialize();
@@ -113,7 +119,7 @@ namespace SAE_DEV_PROJ
                 _i++;
             }
 
-            Patern(deltaTime, _i);
+            //Patern(deltaTime, _i);
             //tirs alliés
             for (int i = 0; i < _tabBulletPerso.Length; i++)
             {
@@ -126,7 +132,8 @@ namespace SAE_DEV_PROJ
             }
             
             
-            Pattern2(deltaTime);
+            //Pattern2(deltaTime);
+            PatternCercle(deltaTime, angle);
             DeplacementPerso(deltaTime);
             BulletAllieReset();
             if (Collision(_redemption)&&_redemption==false)
@@ -183,6 +190,12 @@ namespace SAE_DEV_PROJ
             for (int i = 0; i < _tabBullets2.Length; i++)
             {
                 _spriteBatch.Draw(_textureBullet, _tabBullets2[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
+            }
+
+            //Bullets patternSpiral
+            for (int i = 0; i < _tabBulletsCercle.Length; i++)
+            {
+                _spriteBatch.Draw(_textureBullet, _tabBulletsCercle[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
             }
             _spriteBatch.End();
         }
@@ -270,14 +283,31 @@ namespace SAE_DEV_PROJ
         {
             for (int i = 0; i < _tabBullets2.Length; i++)
             {
-                if (i % 4 == 0)
+                if (i % 5 == 0)
                     _tabBullets2[i].BulletPosition += new Vector2(i * 2 * deltaTime,i * 2 * deltaTime);
-                else if (i % 4 == 1)
+                else if (i % 5 == 1)
                     _tabBullets2[i].BulletPosition += new Vector2(-i * 2 * deltaTime, i * 2 * deltaTime);
-                else if (i % 4 == 2)
+                else if (i % 5 == 2)
                     _tabBullets2[i].BulletPosition += new Vector2(i * deltaTime, i * 3 * deltaTime);
-                else
+                else if (i % 5 == 3)
                     _tabBullets2[i].BulletPosition += new Vector2(-i * deltaTime, i * 3 * deltaTime);
+                else
+                    _tabBullets2[i].BulletPosition += new Vector2(0, i * 3 * deltaTime);
+            }
+        }
+
+        //Ca c'est la galère ptdr aled
+        public void PatternCercle(float deltaTime, float angle)
+        {
+            for (int i = 0; i < _tabBulletsCercle.Length; i++)
+            {
+                float bulletDirectionX = MathF.Sin(angle * MathF.PI / 180f);
+                float bulletDirectionY = MathF.Cos(angle * MathF.PI / 180f);
+                Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY);
+
+                _tabBulletsCercle[i].BulletPosition += bulletDirection;
+
+                angle += 10f;
             }
         }
     }
