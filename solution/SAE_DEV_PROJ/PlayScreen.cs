@@ -54,7 +54,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _texture_Low;
         private Texture2D _texture_VeryLow;
         private Texture2D _texture_Dead;
-        private Texture2D _textureFond;
+        private Texture2D _textureFondTMP;
 
         // PERSO
         private int _sensPersoX;
@@ -143,7 +143,6 @@ namespace SAE_DEV_PROJ
             _texture_Low = Content.Load<Texture2D>("Low");
             _texture_VeryLow = Content.Load<Texture2D>("VeryLow");
             _texture_Dead = Content.Load<Texture2D>("Dead");
-            _textureFond = Content.Load<Texture2D>("fond2");
 
             base.LoadContent();
         }
@@ -212,7 +211,7 @@ namespace SAE_DEV_PROJ
         public override void Draw(GameTime gameTime)
         {
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_textureFond, new Vector2(0, 0), Color.White);
+            _spriteBatch.Draw(_myGame._textureFond, new Vector2(0, 0), Color.White);
             _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionPvBoss, Color.White);
             _spriteBatch.DrawString(_police, $"Score : {hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), Color.White);
 

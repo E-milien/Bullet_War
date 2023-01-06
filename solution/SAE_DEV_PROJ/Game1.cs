@@ -31,6 +31,11 @@ namespace SAE_DEV_PROJ
         public Keys _behind;
         public Keys _left;
 
+        public Texture2D _textureFond;
+        public Texture2D _textureFond1;
+        public Texture2D _textureFond2;
+        public Texture2D _textureFond3;
+
         public SpriteBatch SpriteBatch { get; set; }
 
         public Game1()
@@ -61,6 +66,7 @@ namespace SAE_DEV_PROJ
             SetupWindow();
             _widthPlayButton = 1000;
             _heighPlayButton = 150;
+            _textureFond = Content.Load<Texture2D>("fond1");
             base.Initialize();
         }
 
@@ -71,11 +77,14 @@ namespace SAE_DEV_PROJ
             _deadScreen = new DeadScreen(this);
             _winScreen = new WinScreen(this);
             _settingScreen = new SettingScreen(this);
+            _textureFond1 = Content.Load<Texture2D>("fond1");
+            _textureFond2 = Content.Load<Texture2D>("fond2");
+            _textureFond3 = Content.Load<Texture2D>("fond3");
         }
 
         protected override void Update(GameTime gameTime)
         { 
-            KeyboardState keyboardState = Keyboard.GetState();
+            KeyboardState _keyboardState = Keyboard.GetState();
             if (!_loaded)
             {
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
@@ -103,6 +112,11 @@ namespace SAE_DEV_PROJ
             Rectangle hitboxSettingButtonQ = new Rectangle(0, 308, 550, 50);
             Rectangle hitboxSettingButtonS = new Rectangle(0, 408, 550, 50);
 
+            Rectangle hitboxPic1 = new Rectangle(750, 50, 200, 112);
+            Rectangle hitboxPic2 = new Rectangle(1050, 50, 200, 112);
+            Rectangle hitboxPic3 = new Rectangle(1350, 50, 200, 112);
+
+
             // MENU PRINCIPAL 
             if (_actif && ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(ms.X, ms.Y))
             {
@@ -117,6 +131,17 @@ namespace SAE_DEV_PROJ
             {
                 Exit();
             }
+
+
+            // A SUPPRIMER 
+            if (_keyboardState.IsKeyDown(Keys.O))
+                _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            if(_keyboardState.IsKeyDown(Keys.P))
+            {
+                _screenManager.LoadScreen(_settingScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
+            // 
+
 
             // DEATH SCENE
             if(_screenDeathOk && ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(ms.X, ms.Y))
@@ -148,11 +173,19 @@ namespace SAE_DEV_PROJ
             {
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-            if(_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonZ.Contains(ms.X, ms.Y))
+            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxPic1.Contains(ms.X, ms.Y))
             {
-                
+                _textureFond = _textureFond1;
             }
-           
+            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxPic2.Contains(ms.X, ms.Y))
+            {
+                _textureFond = _textureFond2;
+            }
+            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxPic3.Contains(ms.X, ms.Y))
+            {
+                _textureFond = _textureFond3;
+            }
+
 
 
             base.Update(gameTime);
