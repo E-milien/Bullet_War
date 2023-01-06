@@ -41,6 +41,7 @@ namespace SAE_DEV_PROJ
         const int _DEBUTPAT3 = 24;
         const int _DEBUTPAT4 = 50;
         private bool _cheat1;
+        private Color _couleur;
 
         // TEXTURES 
         private Texture2D _textureBoss;
@@ -77,6 +78,7 @@ namespace SAE_DEV_PROJ
 
 
             // initialisation toutes les veriables
+            _couleur = Color.White;
             _cheat1 = false;
             _ok1 = false;
             _ok2 = false;
@@ -152,8 +154,10 @@ namespace SAE_DEV_PROJ
 
         public override void Update(GameTime gameTime)
         {
-            //Keyboard.GetState().IsKeyDown(KeyState);
-            _myGame._screenDeathOk = false;
+            if (_keyboardState.IsKeyDown(Keys.P) && _keyboardState.IsKeyDown(Keys.I))
+                _couleur = Color.DeepPink;
+
+                _myGame._screenDeathOk = false;
             _myGame._screenWinOk = false;
             _myGame._actif = false;
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -214,9 +218,9 @@ namespace SAE_DEV_PROJ
         public override void Draw(GameTime gameTime)
         {
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_textureFond, new Vector2(0, 0), Color.White);
-            _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionPvBoss, Color.White);
-            _spriteBatch.DrawString(_police, $"Score : {hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), Color.White);
+            _spriteBatch.Draw(_textureFond, new Vector2(0, 0), _couleur);
+            _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionPvBoss, _couleur);
+            _spriteBatch.DrawString(_police, $"Score : {hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), _couleur);
 
 
             //HP
@@ -288,8 +292,8 @@ namespace SAE_DEV_PROJ
                 }
             }
 
-            _spriteBatch.Draw(_textureBoss, boss1.BossPosition, Color.White);
-            _spriteBatch.Draw(_texturePerso, hero.PositionPerso, Color.White);
+            _spriteBatch.Draw(_textureBoss, boss1.BossPosition, _couleur);
+            _spriteBatch.Draw(_texturePerso, hero.PositionPerso, _couleur);
 
             _spriteBatch.End();
 
