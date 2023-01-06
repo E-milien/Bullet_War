@@ -192,19 +192,19 @@ namespace SAE_DEV_PROJ
             
             CheckBossDead(boss1);
             BulletAllieReset();
+
         }
 
         public override void Draw(GameTime gameTime)
         {
 
             GraphicsDevice.Clear(Color.BlueViolet);
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             _spriteBatch.Begin();
             _spriteBatch.Draw(_texturePerso, hero.PositionPerso, Color.White);
             _spriteBatch.Draw(_textureBoss, boss1.BossPosition, Color.White);
             _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionPvBoss, Color.White);
             _spriteBatch.DrawString(_police, $"Score : {hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), Color.White);
-
+            
             //HP
             if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 80)
                 _spriteBatch.Draw(_texture_Full, _positionPv, Color.White);
@@ -272,7 +272,7 @@ namespace SAE_DEV_PROJ
 
             _spriteBatch.Draw(_textureBoss, boss1.BossPosition, Color.White);
             _spriteBatch.Draw(_texturePerso, hero.PositionPerso, Color.White);
-
+            
             _spriteBatch.End();
             
         }
