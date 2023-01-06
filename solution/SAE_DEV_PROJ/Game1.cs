@@ -84,7 +84,6 @@ namespace SAE_DEV_PROJ
             Rectangle hitboxPlayButton = new Rectangle(500, 200, _widthPlayButton, _heighPlayButton);
             Rectangle hitboxOptionButton = new Rectangle(500, 400, _widthPlayButton, _heighPlayButton);
             Rectangle hitboxLeaveButton = new Rectangle(500, 600, _widthPlayButton, _heighPlayButton);
-            Console.WriteLine(_actif);
             // MENU PRINCIPAL 
             if (_actif && ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(ms.X, ms.Y))
             {
@@ -107,6 +106,10 @@ namespace SAE_DEV_PROJ
             }
             if(_screenDeathOk && ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(ms.X, ms.Y))
             {
+                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
+            if(_screenDeathOk && ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(ms.X, ms.Y))
+            {
                 Exit();
             }
 
@@ -115,11 +118,11 @@ namespace SAE_DEV_PROJ
             {
                 _screenManager.LoadScreen(_winScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-
-            if(_screenWinOk && ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(ms.X, ms.Y))
+            if (_screenWinOk && ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(ms.X, ms.Y))
             {
-                Exit();
+                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
+
 
             // SETTINGS SCREEN
             if(_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(ms.X, ms.Y))

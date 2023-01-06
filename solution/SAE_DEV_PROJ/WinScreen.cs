@@ -48,10 +48,12 @@ namespace SAE_DEV_PROJ
             _spriteBatch.DrawString(_police, "You won !", new Vector2(20, 20), Color.White);
 
             _spriteBatch.Draw(_textureRePlayButton, new Vector2(500, 200), Color.White);
-            _spriteBatch.DrawString(_police, "Click to play again", new Vector2(900, 260), Color.Black);
+            _spriteBatch.DrawString(_police, "Play Again", new Vector2(900, 260), Color.White);
 
-            _spriteBatch.Draw(_textureLeaveButton, new Vector2(500, 400), Color.White);
-            _spriteBatch.DrawString(_police, "Click to quit", new Vector2(900, 460), Color.Black);
+            _spriteBatch.Draw(_textureOptionButton, new Vector2(500, 400), Color.White);
+            _spriteBatch.DrawString(_police, "Exit to main menu", new Vector2(860, 460), Color.White);
+
+
             _spriteBatch.End();
         }
     }
