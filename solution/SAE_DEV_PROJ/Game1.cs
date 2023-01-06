@@ -19,8 +19,9 @@ namespace SAE_DEV_PROJ
         public bool _screenDeathOk;
         public bool _screenWinOk;
         public bool _actif;
-
-
+        
+        public int _widthPlayButton;
+        public int _heighPlayButton;
 
         public SpriteBatch SpriteBatch { get; set; }
 
@@ -41,6 +42,8 @@ namespace SAE_DEV_PROJ
             _screenWinOk = false;
             _loaded = false;
             SetupWindow();
+            _widthPlayButton = 1000;
+            _heighPlayButton = 150;
             base.Initialize();
         }
 
@@ -87,11 +90,32 @@ namespace SAE_DEV_PROJ
                 _screenManager.LoadScreen(_winScreen, new FadeTransition(GraphicsDevice, Color.Black));
                 _screenWinOk = true;
             }
+            MouseState ms = Mouse.GetState();
+            Rectangle hitboxPlayButton = new Rectangle(500, 200, _widthPlayButton, _heighPlayButton);
+            Rectangle hitboxOptionButton = new Rectangle(500, 400, _widthPlayButton, _heighPlayButton);
+            Rectangle hitboxLeaveButton = new Rectangle(500, 600, _widthPlayButton, _heighPlayButton);
+
+            if (_actif && ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(ms.X, ms.Y))
+            {
+                _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
+            if(_actif && ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(ms.X, ms.Y))
+            {
+                // A FAIRE 
+            }
+            if (_actif && ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(ms.X, ms.Y))
+            {
+                Exit();
+            }
+
+
+
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
+
             base.Draw(gameTime);
         }
 

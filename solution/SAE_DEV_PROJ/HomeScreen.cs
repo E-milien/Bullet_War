@@ -15,11 +15,18 @@ namespace SAE_DEV_PROJ
         private SpriteBatch _spriteBatch;
         private Game1 _myGame;
         private SpriteFont _police;
+        private Texture2D _texturePlayButton;
+        private Texture2D _textureOptionButton;
+        private Texture2D _textureLeaveButton;
+
         // pour récupérer une référence à l’objet game pour avoir accès à tout ce qui est
         // défini dans Game1
         public HomeScreen(Game1 game) : base(game)
         {
             _police = Content.Load<SpriteFont>("Font");
+            _texturePlayButton = Content.Load<Texture2D>("Jouer");
+            _textureOptionButton = Content.Load<Texture2D>("Option");
+            _textureLeaveButton = Content.Load<Texture2D>("Leave");
             _myGame = game;
         }
         public override void LoadContent()
@@ -38,8 +45,14 @@ namespace SAE_DEV_PROJ
             _myGame.GraphicsDevice.Clear(Color.MediumVioletRed); // on utilise la reference vers Game1 pour chnager le graphisme
             _spriteBatch.Begin();
             _spriteBatch.DrawString(_police, "Bullets WAR", new Vector2(20, 20), Color.White);
-            _spriteBatch.DrawString(_police, "Press ENTER to start", new Vector2(500,500), Color.Black);
-            _spriteBatch.DrawString(_police, "Press Q to quit", new Vector2(500, 530), Color.Black);
+
+            _spriteBatch.Draw(_texturePlayButton, new Vector2(500, 200), Color.White);
+            _spriteBatch.DrawString(_police, "Click to start", new Vector2(900, 260), Color.Black);
+
+            _spriteBatch.Draw(_textureOptionButton, new Vector2(500, 400), Color.White);
+            _spriteBatch.Draw(_textureLeaveButton, new Vector2(500, 600), Color.White);
+            _spriteBatch.DrawString(_police, "Press Q to quit", new Vector2(900, 660), Color.Black);
+
 
             _spriteBatch.End();
         }
