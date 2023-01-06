@@ -11,11 +11,11 @@ namespace SAE_DEV_PROJ
         private Game1 _myGame;
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
-        internal Bullet[,] _tabBullets = new Bullet[10, 10];
+        internal Bullet[,] _tabBullets = new Bullet[8,10];
         internal Bullet[] _tabBulletPerso = new Bullet[200];
         internal Bullet[] _tabBullets2 = new Bullet[40];
-        internal Bullet[,] _tabBulletsCercle = new Bullet[10, 36];
-        internal Bullet[] _tabBulletsSpirale = new Bullet[36 * 10];
+        internal Bullet[,] _tabBulletsCercle = new Bullet[7,36];
+        internal Bullet[] _tabBulletsSpirale = new Bullet[36*10];
         internal Boss boss1;
         internal Perso hero;
         private double _tmp;
@@ -33,8 +33,12 @@ namespace SAE_DEV_PROJ
         private Vector2 _positionPvBoss = new Vector2(20, 100);
         private Vector2 _positionScore = new Vector2(20, 200);
         private int _damagePerso;
-        public bool _alive = true;
-        public bool _bossAlive = true;
+        public bool _alive=true;
+        public bool _bossAlive=true;
+        private int _debutPat1;
+        private int _debutPat2;
+        private int _debutPat3;
+        private int _debutPat4;
 
         // TEXTURES 
         private Texture2D _textureBoss;
@@ -73,12 +77,16 @@ namespace SAE_DEV_PROJ
             
 
             // initialisation toutes les veriables
+            _debutPat1= 3;
+            _debutPat2 = 15;
+            _debutPat3 = 24;
+            _debutPat4 = 5;
             _ok1 = false;
             _bossAlive = true;
             _alive = true;
             _var = 0;
             _i1 = -1;
-            _i2 = 0;
+            _i2 = -1;
             _chrono = 0;
             _var2 = 2;
             _varCercle = 0;
@@ -175,13 +183,13 @@ namespace SAE_DEV_PROJ
             }
             Redemption(deltaTime);
             // active le 1er partterne (pattern1)
-            if (_chrono< 23)
+            if (_chrono< 25 && _chrono>=_debutPat1)
                Pattern1(deltaTime);
             //lancer pattern2 au bout de 24 sec
-            if(_chrono>=21&&_chrono<=26)
+            if(_chrono>=_debutPat2 && _chrono<=_debutPat3)
                Pattern2(deltaTime);
             //active le 3eme patterne (paterncercle)
-            if (_chrono > 22 && _chrono < 42)
+            if (_chrono > _debutPat3 && _chrono < 70)
             {
                 PatternCercle(_angle);
                 if (!_ok1)
@@ -189,8 +197,8 @@ namespace SAE_DEV_PROJ
                 _ok1 = true;
             }
             //active le pattern spirale après 10s
-            if (_chrono > 10 && _chrono < 20)
-                PatternSpirale(_angle);
+            //if (_chrono > 10 && _chrono < 20)
+                //PatternSpirale(_angle);
 
             DeplacementPerso(deltaTime);
             CollisionBoss();
@@ -229,14 +237,7 @@ namespace SAE_DEV_PROJ
 
             _spriteBatch.DrawString(_police, $"{hero.PvPerso} / {_pvDepart}", new Vector2(_positionPv.X * 10, _positionPv.Y + 10), Color.Black);
 
-            //Bullets pattern 1
-            for (int z = 0; z <= _i1; z++)
-            {
-                for (int j = 0; j < _tabBullets.GetLength(1); j++)
-                {
-                    _spriteBatch.Draw(_textureBullet, _tabBullets[z, j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
-                }
-            }
+            
 
             //Bullets alliées
             if (_redemption == false)
@@ -245,6 +246,15 @@ namespace SAE_DEV_PROJ
                 {
                     if (!(_tabBulletPerso[i].BulletPosition.Y > hero.PositionPerso.Y))
                         _spriteBatch.Draw(_textureBullet, _tabBulletPerso[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+                }
+            }
+
+            //Bullets pattern 1
+            for (int z = 0; z <= _i1; z++)
+            {
+                for (int j = 0; j < _tabBullets.GetLength(1); j++)
+                {
+                    _spriteBatch.Draw(_textureBullet, _tabBullets[z, j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
                 }
             }
 
@@ -264,14 +274,14 @@ namespace SAE_DEV_PROJ
             }
 
             //Bullets patternSpiral
-            if (_chrono > 10)
+            /*if (_chrono > 10)
             {
                 for (int i = 0; i < _tabBulletsSpirale.Length; i++)
                 {
                     if (_tabBulletsSpirale[i].PasseOrigine == true)
                         _spriteBatch.Draw(_textureBullet, _tabBulletsSpirale[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
                 }
-            }
+            }*/
 
             _spriteBatch.Draw(_textureBoss, boss1.BossPosition, Color.White);
             _spriteBatch.Draw(_texturePerso, hero.PositionPerso, Color.White);
@@ -371,15 +381,12 @@ namespace SAE_DEV_PROJ
         // 1
         public void Pattern1(float deltaTime)
         {
-            if (_chrono >= _var && _i1 < _tabBullets.GetLength(0))
+            if (_chrono >= _var && _i1 < _tabBullets.GetLength(0) - 1)
             {
                 _var += 2;
                 _i1++;
             }
-
             Random rdn = new Random();
-            if (_chrono < 24)
-            {
                 for (int z = 0; z <= _i1; z++)
                 {
                     for (int j = 0; j < _tabBullets.GetLength(1) - 2; j++)
@@ -388,49 +395,48 @@ namespace SAE_DEV_PROJ
                         _tabBullets[z, j].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[z, j].Vitesse * deltaTime);
                     }
                 }
-            }
-            else
-            {
-                for (int z = 0; z <= _i1; z++)
-                {
-                    for (int j = 0; j < _tabBullets.GetLength(1)-1; j++)
-                    {
-
-                        _tabBullets[z, j].BulletPosition = new Vector2(-20, -20);
-                    }
-                }
-            }
         }
 
         // 2
         public void Pattern2(float deltaTime)
         {
-            for (int i = 0; i < _tabBullets2.Length; i++)
+            if (_chrono < _debutPat3 - 1)
             {
-                if (i % 5 == 0)
-                    _tabBullets2[i].BulletPosition += new Vector2(i * 2 * deltaTime, i * 2 * deltaTime);
-                else if (i % 5 == 1)
-                    _tabBullets2[i].BulletPosition += new Vector2(-i * 2 * deltaTime, i * 2 * deltaTime);
-                else if (i % 5 == 2)
-                    _tabBullets2[i].BulletPosition += new Vector2(i * deltaTime, i * 3 * deltaTime);
-                else if (i % 5 == 3)
-                    _tabBullets2[i].BulletPosition += new Vector2(-i * deltaTime, i * 3 * deltaTime);
-                else
-                    _tabBullets2[i].BulletPosition += new Vector2(0, i * 3 * deltaTime);
+
+                for (int i = 0; i < _tabBullets2.Length; i++)
+                {
+                    if (i % 5 == 0)
+                        _tabBullets2[i].BulletPosition += new Vector2(i * 2 * deltaTime, i * 2 * deltaTime);
+                    else if (i % 5 == 1)
+                        _tabBullets2[i].BulletPosition += new Vector2(-i * 2 * deltaTime, i * 2 * deltaTime);
+                    else if (i % 5 == 2)
+                        _tabBullets2[i].BulletPosition += new Vector2(i * deltaTime, i * 3 * deltaTime);
+                    else if (i % 5 == 3)
+                        _tabBullets2[i].BulletPosition += new Vector2(-i * deltaTime, i * 3 * deltaTime);
+                    else
+                        _tabBullets2[i].BulletPosition += new Vector2(0, i * 3 * deltaTime);
+                }
+            }
+            else 
+            {
+                for (int i = 0; i < _tabBullets2.Length; i++)
+                {
+                    _tabBullets2[i].BulletPosition = new Vector2(-20, -20);
+                }
             }
         }
 
         // 3
         public void PatternCercle(float angle)
         {
-            if (_chrono >= _varCercle && _i2 < _tabBulletsCercle.GetLength(1))
+            if (_chrono >= _varCercle&& _i2 < _tabBulletsCercle.GetLength(0)-1)
             {
                 _varCercle += 3;
                 _i2++;
             }
-            if (_chrono < 42)
+            if (_chrono < 50)
             {
-                for (int z = 0; z < _i2; z++)
+                for (int z = 0; z <= _i2; z++)
                 {
                     for (int j = 0; j < _tabBulletsCercle.GetLength(1); j++)
                     {
