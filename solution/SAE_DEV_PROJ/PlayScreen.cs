@@ -75,7 +75,7 @@ namespace SAE_DEV_PROJ
         public override void Initialize()
         {
             // DEPLACEMENTS PERSO 
-            
+
 
             // initialisation toutes les veriables
             _ok1 = false;
@@ -154,6 +154,7 @@ namespace SAE_DEV_PROJ
 
         public override void Update(GameTime gameTime)
         {
+            //Keyboard.GetState().IsKeyDown(KeyState);
             _myGame._screenDeathOk = false;
             _myGame._screenWinOk = false;
             _myGame._actif = false;
@@ -210,7 +211,6 @@ namespace SAE_DEV_PROJ
 
             CheckBossDead(boss1);
             BulletAllieReset();
-
         }
 
         public override void Draw(GameTime gameTime)
