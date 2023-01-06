@@ -17,9 +17,9 @@ namespace SAE_DEV_PROJ
         private SpriteFont _police;
         private Texture2D _textureLeaveButton;
         private Texture2D _textureChangerTouche;
+        private Texture2D _texturePic1;
         private Texture2D _texturePic2;
-
-        
+        private Texture2D _texturePic3;
 
         public SettingScreen(Game1 game) : base(game)
         {
@@ -38,7 +38,9 @@ namespace SAE_DEV_PROJ
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _police = Content.Load<SpriteFont>("Font");
             _textureChangerTouche = Content.Load<Texture2D>("Bouton");
+            _texturePic1 = Content.Load<Texture2D>("pic1");
             _texturePic2 = Content.Load<Texture2D>("pic2");
+            _texturePic3 = Content.Load<Texture2D>("pic3");
             _textureLeaveButton = Content.Load<Texture2D>("Leave");
             base.LoadContent();
         }
@@ -67,6 +69,10 @@ namespace SAE_DEV_PROJ
             _spriteBatch.DrawString(_police, "Votre touche pour aller a droite : " + _myGame._right, new Vector2(0, 208), Color.Black);
             _spriteBatch.DrawString(_police, "Votre touche pour aller a gauche : " + _myGame._left, new Vector2(0, 308), Color.Black);
             _spriteBatch.DrawString(_police, "Votre touche pour reculer: " + _myGame._behind, new Vector2(0, 408), Color.Black);
+
+            _spriteBatch.Draw(_texturePic1, new Vector2(750, 50), Color.White);
+            _spriteBatch.Draw(_texturePic2, new Vector2(1050, 50), Color.White);
+            _spriteBatch.Draw(_texturePic3, new Vector2(1350, 50), Color.White);
 
             _spriteBatch.End();
         }

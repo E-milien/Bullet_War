@@ -56,7 +56,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _texture_Low;
         private Texture2D _texture_VeryLow;
         private Texture2D _texture_Dead;
-        private Texture2D _textureFond;
+        private Texture2D _textureFondTMP;
 
         // PERSO
         private int _sensPersoX;
@@ -147,7 +147,6 @@ namespace SAE_DEV_PROJ
             _texture_Low = Content.Load<Texture2D>("Low");
             _texture_VeryLow = Content.Load<Texture2D>("VeryLow");
             _texture_Dead = Content.Load<Texture2D>("Dead");
-            _textureFond = Content.Load<Texture2D>("fond2");
 
             base.LoadContent();
         }
