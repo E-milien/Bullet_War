@@ -36,10 +36,10 @@ namespace SAE_DEV_PROJ
         private int _damagePerso;
         public bool _alive=true;
         public bool _bossAlive=true;
-        private int _debutPat1;
-        private int _debutPat2;
-        private int _debutPat3;
-        private int _debutPat4;
+        const int _DEBUTPAT1= 3;
+        const int _DEBUTPAT2 = 15;
+        const int _DEBUTPAT3 = 24;
+        const int _DEBUTPAT4 = 50;
 
         // TEXTURES 
         private Texture2D _textureBoss;
@@ -74,10 +74,6 @@ namespace SAE_DEV_PROJ
 
             
             // initialisation toutes les veriables
-            _debutPat1= 3;
-            _debutPat2 = 15;
-            _debutPat3 = 24;
-            _debutPat4 = 5;
             _ok1 = false;
             _ok2 = false;
             _bossAlive = true;
@@ -179,9 +175,10 @@ namespace SAE_DEV_PROJ
                 }
                 _tabBulletPerso[i].BulletPosition -= new Vector2(0, _tabBulletPerso[i].Vitesse * deltaTime);
             }
+
             Redemption(deltaTime);
             // active le 1er partterne (pattern1)
-            if (_chrono< _debutPat2 && _chrono>=_debutPat1)
+            if (_chrono< _DEBUTPAT2 && _chrono>= _DEBUTPAT1)
             {
                 Pattern1(deltaTime);
                 if (!_ok1)
@@ -189,10 +186,10 @@ namespace SAE_DEV_PROJ
                 _ok1 = true;
             }
             //lancer pattern2 au bout de 24 sec
-            if (_chrono>=_debutPat2 && _chrono<=_debutPat3)
+            if (_chrono>= _DEBUTPAT2 && _chrono<= _DEBUTPAT3)
                Pattern2(deltaTime);
             //active le 3eme patterne (paterncercle)
-            if (_chrono > _debutPat3 && _chrono < 70)
+            if (_chrono > _DEBUTPAT3 && _chrono < _DEBUTPAT4)
             {
                 PatternCercle(_angle);
                 if (!_ok2)
@@ -200,7 +197,7 @@ namespace SAE_DEV_PROJ
                 _ok2 = true;
             }
             //active le pattern spirale après 10s
-            if (_chrono > 10 && _chrono < 20)
+            if (_chrono > _DEBUTPAT4 && _chrono<_DEBUTPAT4+11)
                 PatternSpirale(_angle);
 
             DeplacementPerso(deltaTime);
@@ -245,11 +242,13 @@ namespace SAE_DEV_PROJ
             //Bullets alliées
             if (_redemption == false)
             {
+             
                 for (int i = 0; i < _tabBulletPerso.Length; i++)
                 {
                     if (!(_tabBulletPerso[i].BulletPosition.Y > hero.PositionPerso.Y))
                         _spriteBatch.Draw(_textureBullet, _tabBulletPerso[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
                 }
+            
             }
 
             //Bullets pattern 1
@@ -403,7 +402,7 @@ namespace SAE_DEV_PROJ
         // 2
         public void Pattern2(float deltaTime)
         {
-            if (_chrono < _debutPat3 - 1)
+            if (_chrono < _DEBUTPAT3 - 1)
             {
 
                 for (int i = 0; i < _tabBullets2.Length; i++)
@@ -437,7 +436,7 @@ namespace SAE_DEV_PROJ
                 _varCercle += 3;
                 _i2++;
             }
-            if (_chrono < 50)
+            if (_chrono < _DEBUTPAT4-1)
             {
                 for (int z = 0; z <= _i2; z++)
                 {
