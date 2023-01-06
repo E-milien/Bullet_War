@@ -200,8 +200,6 @@ namespace SAE_DEV_PROJ
 
             GraphicsDevice.Clear(Color.BlueViolet);
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_texturePerso, hero.PositionPerso, Color.White);
-            _spriteBatch.Draw(_textureBoss, boss1.BossPosition, Color.White);
             _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionPvBoss, Color.White);
             _spriteBatch.DrawString(_police, $"Score : {hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), Color.White);
             
