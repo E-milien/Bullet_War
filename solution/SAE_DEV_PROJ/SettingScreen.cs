@@ -16,13 +16,16 @@ namespace SAE_DEV_PROJ
         private Game1 _myGame;
         private SpriteFont _police;
         private Texture2D _textureLeaveButton;
+        private Texture2D _textureChangerTouche;
 
         
 
         public SettingScreen(Game1 game) : base(game)
         {
             _police = Content.Load<SpriteFont>("Font");
+            _textureChangerTouche = Content.Load<Texture2D>("Bouton");
             _myGame = game;
+          
 
         }
         public override void Initialize()
@@ -51,7 +54,17 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Begin();
             _spriteBatch.Draw(_textureLeaveButton, new Vector2(500, 600), Color.White);
             _spriteBatch.DrawString(_police, "Main menu", new Vector2(900, 660), Color.White);
-            _spriteBatch.DrawString(_police, "Votre touche pour avancer : ", new Vector2(0, 100), Color.Black);
+
+            _spriteBatch.Draw(_textureChangerTouche, new Vector2(0, 100), Color.White);
+            _spriteBatch.Draw(_textureChangerTouche, new Vector2(0, 200), Color.White);
+            _spriteBatch.Draw(_textureChangerTouche, new Vector2(0, 300), Color.White);
+            _spriteBatch.Draw(_textureChangerTouche, new Vector2(0, 400), Color.White);
+
+            _spriteBatch.DrawString(_police, "Votre touche pour avancer : " + _myGame._forward, new Vector2(0, 108), Color.Black);
+            _spriteBatch.DrawString(_police, "Votre touche pour aller a droite : " + _myGame._right, new Vector2(0, 208), Color.Black);
+            _spriteBatch.DrawString(_police, "Votre touche pour aller a gauche : " + _myGame._left, new Vector2(0, 308), Color.Black);
+            _spriteBatch.DrawString(_police, "Votre touche pour reculer: " + _myGame._behind, new Vector2(0, 408), Color.Black);
+
             _spriteBatch.End();
         }
     }

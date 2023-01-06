@@ -25,6 +25,11 @@ namespace SAE_DEV_PROJ
         
         public int _widthPlayButton;
         public int _heighPlayButton;
+        public KeyboardState _keyboardState;
+        public Keys _forward;
+        public Keys _right;
+        public Keys _behind;
+        public Keys _left;
 
         public SpriteBatch SpriteBatch { get; set; }
 
@@ -42,6 +47,12 @@ namespace SAE_DEV_PROJ
 
         protected override void Initialize()
         {
+            // DEPLACEMENTS PERSO 
+            _forward = Keys.Z;
+            _right = Keys.D;
+            _behind = Keys.S;
+            _left = Keys.Q;
+
             _actif = false;
             _screenDeathOk = false;
             _screenWinOk = false;
@@ -87,6 +98,11 @@ namespace SAE_DEV_PROJ
             Rectangle hitboxOptionButton = new Rectangle(500, 400, _widthPlayButton, _heighPlayButton);
             Rectangle hitboxLeaveButton = new Rectangle(500, 600, _widthPlayButton, _heighPlayButton);
 
+            Rectangle hitboxSettingButtonZ = new Rectangle(0,108,550,50);
+            Rectangle hitboxSettingButtonD = new Rectangle(0, 208, 550, 50);
+            Rectangle hitboxSettingButtonQ = new Rectangle(0, 308, 550, 50);
+            Rectangle hitboxSettingButtonS = new Rectangle(0, 408, 550, 50);
+
             // MENU PRINCIPAL 
             if (_actif && ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(ms.X, ms.Y))
             {
@@ -119,7 +135,7 @@ namespace SAE_DEV_PROJ
             // WIN SCENE
             if (_screenWinOk && ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(ms.X, ms.Y))
             {
-                _screenManager.LoadScreen(_winScreen, new FadeTransition(GraphicsDevice, Color.Black));
+                _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
             if (_screenWinOk && ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(ms.X, ms.Y))
             {
@@ -131,8 +147,11 @@ namespace SAE_DEV_PROJ
             if(_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(ms.X, ms.Y))
             {
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
-                
             }
+            /*if(_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonZ.Contains(ms.X, ms.Y))
+            {
+                _forward =
+            }*/
 
 
             base.Update(gameTime);

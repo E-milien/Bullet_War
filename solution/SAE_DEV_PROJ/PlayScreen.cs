@@ -59,10 +59,7 @@ namespace SAE_DEV_PROJ
         private int _sensPersoY;
         private KeyboardState _keyboardState;
 
-        public KeyboardState _forward;
-        public KeyboardState _right;
-        public KeyboardState _left;
-        public KeyboardState _behind;
+
 
         // pour récupérer une référence à l’objet game pour avoir accès à tout ce qui est
         // défini dans Game1
@@ -74,9 +71,8 @@ namespace SAE_DEV_PROJ
 
         public override void Initialize()
         {
-            // DEPLACEMENTS PERSO 
 
-
+            
             // initialisation toutes les veriables
             _ok1 = false;
             _ok2 = false;
@@ -299,16 +295,16 @@ namespace SAE_DEV_PROJ
         private void DeplacementPerso(float deltaTime)
         {
             _keyboardState = Keyboard.GetState();
-            if (_keyboardState.IsKeyDown(Keys.Q) && !(_keyboardState.IsKeyDown(Keys.D)) && hero.PositionPerso.X >= 0)
+            if (_keyboardState.IsKeyDown(_myGame._left) && !(_keyboardState.IsKeyDown(_myGame._right)) && hero.PositionPerso.X >= 0)
                 _sensPersoX = -1;
 
-            else if (_keyboardState.IsKeyDown(Keys.D) && !(_keyboardState.IsKeyDown(Keys.Q)) && hero.PositionPerso.X <= Constantes._LARGEUR_FENETRE - Constantes._LARGEUR_PERSO)
+            else if (_keyboardState.IsKeyDown(_myGame._right) && !(_keyboardState.IsKeyDown(_myGame._left)) && hero.PositionPerso.X <= Constantes._LARGEUR_FENETRE - Constantes._LARGEUR_PERSO)
                 _sensPersoX = 1;
 
-            if (_keyboardState.IsKeyDown(Keys.Z) && !(_keyboardState.IsKeyDown(Keys.S)) && hero.PositionPerso.Y >= 0)
+            if (_keyboardState.IsKeyDown(_myGame._forward) && !(_keyboardState.IsKeyDown(_myGame._behind)) && hero.PositionPerso.Y >= 0)
                 _sensPersoY = -1;
 
-            else if (_keyboardState.IsKeyDown(Keys.S) && !(_keyboardState.IsKeyDown(Keys.Z)) && hero.PositionPerso.Y <= Constantes._HAUTEUR_FENETRE - Constantes._HAUTEUR_PERSO)
+            else if (_keyboardState.IsKeyDown(_myGame._behind) && !(_keyboardState.IsKeyDown(_myGame._forward)) && hero.PositionPerso.Y <= Constantes._HAUTEUR_FENETRE - Constantes._HAUTEUR_PERSO)
                 _sensPersoY = 1;
 
             hero.PositionPerso += new Vector2(_sensPersoX * (int)Math.Round(hero.DeplacementPerso * hero.MultiplicationVitesse, 0) * deltaTime, 0);
