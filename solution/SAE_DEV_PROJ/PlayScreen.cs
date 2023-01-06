@@ -44,6 +44,7 @@ namespace SAE_DEV_PROJ
         // TEXTURES 
         private Texture2D _textureBoss;
         private Texture2D _textureBullet;
+        private Texture2D _textureBulletAllie;
         private SpriteFont _police;
 
         // TEXTURES HP
@@ -103,7 +104,7 @@ namespace SAE_DEV_PROJ
             {
                 for (int j = 0; j < _tabBullets.GetLength(1); j++)
                 {
-                    _tabBullets[i, j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bullet1");
+                    _tabBullets[i, j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bullet");
                 }
             }
             // BulletsAlliées initialize
@@ -134,7 +135,8 @@ namespace SAE_DEV_PROJ
             _police = Content.Load<SpriteFont>("Font");
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _texturePerso = Content.Load<Texture2D>("perso");
-            _textureBullet = Content.Load<Texture2D>(_tabBullets[0, 0].Skin);
+            _textureBullet = Content.Load<Texture2D>("bullet1");
+            _textureBulletAllie = Content.Load<Texture2D>("bullet");
             _textureBoss = Content.Load<Texture2D>(boss1.SkinBoss);
 
             // barre de vie perso
@@ -247,7 +249,7 @@ namespace SAE_DEV_PROJ
                 for (int i = 0; i < _tabBulletPerso.Length; i++)
                 {
                     if (!(_tabBulletPerso[i].BulletPosition.Y > hero.PositionPerso.Y))
-                        _spriteBatch.Draw(_textureBullet, _tabBulletPerso[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+                        _spriteBatch.Draw(_textureBulletAllie, _tabBulletPerso[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
                 }
             
             }
@@ -257,14 +259,14 @@ namespace SAE_DEV_PROJ
             {
                 for (int j = 0; j < _tabBullets.GetLength(1); j++)
                 {
-                    _spriteBatch.Draw(_textureBullet, _tabBullets[z, j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
+                    _spriteBatch.Draw(_textureBullet, _tabBullets[z, j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
                 }
             }
 
             //Bullets pattern2
             for (int i = 0; i < _tabBullets2.Length; i++)
             {
-                _spriteBatch.Draw(_textureBullet, _tabBullets2[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
+                _spriteBatch.Draw(_textureBullet, _tabBullets2[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
             }
 
             //Bullets patternCercle
@@ -272,7 +274,7 @@ namespace SAE_DEV_PROJ
             {
                 for (int j = 0; j < _tabBulletsCercle.GetLength(1); j++)
                 {
-                    _spriteBatch.Draw(_textureBullet, _tabBulletsCercle[i, j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
+                    _spriteBatch.Draw(_textureBullet, _tabBulletsCercle[i, j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
                 }
             }
 
@@ -355,16 +357,19 @@ namespace SAE_DEV_PROJ
         {
             for (int i = 0; i < _tabBulletPerso.Length; i++)
             {
-                Rectangle rect1 = new Rectangle((int)_tabBulletPerso[i].BulletPosition.X, (int)_tabBulletPerso[i].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
-                Rectangle rect2 = new Rectangle((int)boss1.BossPosition.X, (int)boss1.BossPosition.Y, Constantes._LARGEUR_BOSS, Constantes._HAUTEUR_BOSS);
-
-                if (rect1.Intersects(rect2))
+                if (!(_tabBulletPerso[i].BulletPosition.Y > hero.PositionPerso.Y))
                 {
-                    boss1.BossHP -= hero.DamagePerso;
-                    _tabBulletPerso[i].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO / 2, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2);
+                    Rectangle rect1 = new Rectangle((int)_tabBulletPerso[i].BulletPosition.X, (int)_tabBulletPerso[i].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
+                    Rectangle rect2 = new Rectangle((int)boss1.BossPosition.X, (int)boss1.BossPosition.Y, Constantes._LARGEUR_BOSS, Constantes._HAUTEUR_BOSS);
 
-                    if (_redemption == false)
-                        hero.Score += 10;
+                    if (rect1.Intersects(rect2))
+                    {
+                        boss1.BossHP -= hero.DamagePerso;
+                        _tabBulletPerso[i].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO / 2, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2);
+
+                        if (_redemption == false)
+                            hero.Score += 10;
+                    }
                 }
             }
         }
