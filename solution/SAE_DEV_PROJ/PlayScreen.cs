@@ -40,6 +40,7 @@ namespace SAE_DEV_PROJ
         const int _DEBUTPAT2 = 15;
         const int _DEBUTPAT3 = 24;
         const int _DEBUTPAT4 = 50;
+        private bool _cheat1;
 
         // TEXTURES 
         private Texture2D _textureBoss;
@@ -72,8 +73,9 @@ namespace SAE_DEV_PROJ
         public override void Initialize()
         {
 
-            
+
             // initialisation toutes les veriables
+            _cheat1 = false;
             _ok1 = false;
             _ok2 = false;
             _bossAlive = true;
