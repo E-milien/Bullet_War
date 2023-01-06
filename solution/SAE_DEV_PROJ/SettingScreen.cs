@@ -10,50 +10,45 @@ using MonoGame.Extended.Screens;
 
 namespace SAE_DEV_PROJ
 {
-    public class DeadScreen : GameScreen
+    public class SettingScreen : GameScreen
     {
         private SpriteBatch _spriteBatch;
         private Game1 _myGame;
         private SpriteFont _police;
-        private Texture2D _textureRePlayButton;
-        private Texture2D _textureOptionButton;
         private Texture2D _textureLeaveButton;
 
-        public DeadScreen(Game1 game) : base(game)
+        // pour récupérer une référence à l’objet game pour avoir accès à tout ce qui est
+        // défini dans Game1
+        public SettingScreen(Game1 game) : base(game)
         {
             _police = Content.Load<SpriteFont>("Font");
-
-            _textureRePlayButton = Content.Load<Texture2D>("Jouer");
-            _textureOptionButton = Content.Load<Texture2D>("Option");
-            _textureLeaveButton = Content.Load<Texture2D>("Leave");
-
             _myGame = game;
+
         }
         public override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _textureLeaveButton = Content.Load<Texture2D>("Leave");
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
             _myGame._actif = false;
+            _myGame._settingOk = true;
+            
         }
         public override void Draw(GameTime gameTime)
         {
 
-            _myGame.GraphicsDevice.Clear(Color.DarkRed); // on utilise la reference vers Game1 pour chnager le graphisme
+            _myGame.GraphicsDevice.Clear(Color.Yellow); // on utilise la reference vers Game1 pour chnager le graphisme
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_textureRePlayButton, new Vector2(500, 200), Color.White);
-            _spriteBatch.DrawString(_police, "Click to start", new Vector2(900, 260), Color.White);
-
-            _spriteBatch.Draw(_textureOptionButton, new Vector2(500, 400), Color.White);
-            _spriteBatch.DrawString(_police, "Options", new Vector2(940, 460), Color.White);
-
             _spriteBatch.Draw(_textureLeaveButton, new Vector2(500, 600), Color.White);
-            _spriteBatch.DrawString(_police, "Click to quit", new Vector2(900, 660), Color.White);
+            _spriteBatch.DrawString(_police, "Main menu", new Vector2(900, 660), Color.Black);
             _spriteBatch.End();
         }
     }
 }
+
+
 
