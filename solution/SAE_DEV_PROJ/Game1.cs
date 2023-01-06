@@ -107,6 +107,14 @@ namespace SAE_DEV_PROJ
             {
                 Exit();
             }
+            if(_screenDeathOk && ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(ms.X, ms.Y))
+            {
+                _screenManager.LoadScreen(_deadScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
+            if(_screenDeathOk && ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(ms.X, ms.Y))
+            {
+                Exit();
+            }
 
 
 
