@@ -170,6 +170,7 @@ namespace SAE_DEV_PROJ
             }
 
             //tirs alliés
+
             for (int i = 0; i < _tabBulletPerso.Length; i++)
             {
                 if (_tabBulletPerso[i].BulletPosition.Y > hero.PositionPerso.Y)
@@ -181,7 +182,7 @@ namespace SAE_DEV_PROJ
             }
             Redemption(deltaTime);
             // active le 1er partterne (pattern1)
-            if (_chrono< _DEBUTPAT2 && _chrono>= _DEBUTPAT1)
+            if (_chrono < _DEBUTPAT2 + 10 && _chrono >= _DEBUTPAT1)
             {
                 Pattern1(deltaTime);
                 if (!_ok1)
@@ -456,7 +457,7 @@ namespace SAE_DEV_PROJ
             }
             else
             {
-                for (int z = 0; z < _i2; z++)
+                for (int z = 0; z <= _i2; z++)
                 {
                     for (int j = 0; j < _tabBulletsCercle.GetLength(1); j++)
                     {
