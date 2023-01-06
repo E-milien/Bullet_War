@@ -90,7 +90,7 @@ namespace SAE_DEV_PROJ
 
             // initialisation boss & perso
             boss1 = new Boss(5000, 20, "boss", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
-            hero = new Perso(false, 100, 5, 0, "perso", 1, 500, new Vector2(500, 500) - new Vector2(Constantes._LARGEUR_PERSO / 2, 0));
+            hero = new Perso(false, 0, 5, 0, "perso", 1, 500, new Vector2(500, 500) - new Vector2(Constantes._LARGEUR_PERSO / 2, 0));
 
             _damagePerso = hero.DamagePerso;
             _pvDepart = hero.PvPerso;
@@ -206,8 +206,6 @@ namespace SAE_DEV_PROJ
 
             GraphicsDevice.Clear(Color.BlueViolet);
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_texturePerso, hero.PositionPerso, Color.White);
-            _spriteBatch.Draw(_textureBoss, boss1.BossPosition, Color.White);
             _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionPvBoss, Color.White);
             _spriteBatch.DrawString(_police, $"Score : {hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), Color.White);
             
