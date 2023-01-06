@@ -53,6 +53,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _texture_Low;
         private Texture2D _texture_VeryLow;
         private Texture2D _texture_Dead;
+        private Texture2D _textureFond;
 
         // PERSO
         private int _sensPersoX;
@@ -86,14 +87,10 @@ namespace SAE_DEV_PROJ
             _varCercle = 0;
             _angle = 0f;
 
-            for (int i = 0; i < _tabBulletsSpirale.Length; i++)
-            {
-
-            }
 
             // initialisation boss & perso
             boss1 = new Boss(5000, 20, "boss", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
-            hero = new Perso(false, 100, 5, 0, "perso", 1, 500, new Vector2(500, 500) - new Vector2(Constantes._LARGEUR_PERSO / 2, 0));
+            hero = new Perso(true, 100, 5, 0, "perso", 1, 500, new Vector2(500, 500) - new Vector2(Constantes._LARGEUR_PERSO / 2, 0));
 
             _damagePerso = hero.DamagePerso;
             _pvDepart = hero.PvPerso;
@@ -144,6 +141,7 @@ namespace SAE_DEV_PROJ
             _texture_Low = Content.Load<Texture2D>("Low");
             _texture_VeryLow = Content.Load<Texture2D>("VeryLow");
             _texture_Dead = Content.Load<Texture2D>("Dead");
+            _textureFond = Content.Load<Texture2D>("fond2");
 
             base.LoadContent();
         }
@@ -211,11 +209,11 @@ namespace SAE_DEV_PROJ
 
         public override void Draw(GameTime gameTime)
         {
-
-            GraphicsDevice.Clear(Color.BlueViolet);
             _spriteBatch.Begin();
+            _spriteBatch.Draw(_textureFond, new Vector2(0, 0), Color.White);
             _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionPvBoss, Color.White);
             _spriteBatch.DrawString(_police, $"Score : {hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), Color.White);
+
 
             //HP
             if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 80)

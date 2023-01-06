@@ -17,13 +17,13 @@ namespace SAE_DEV_PROJ
         private SpriteFont _police;
         private Texture2D _textureLeaveButton;
         private Texture2D _textureChangerTouche;
+        private Texture2D _texturePic2;
 
         
 
         public SettingScreen(Game1 game) : base(game)
         {
-            _police = Content.Load<SpriteFont>("Font");
-            _textureChangerTouche = Content.Load<Texture2D>("Bouton");
+
             _myGame = game;
           
 
@@ -36,6 +36,9 @@ namespace SAE_DEV_PROJ
         public override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _police = Content.Load<SpriteFont>("Font");
+            _textureChangerTouche = Content.Load<Texture2D>("Bouton");
+            _texturePic2 = Content.Load<Texture2D>("pic2");
             _textureLeaveButton = Content.Load<Texture2D>("Leave");
             base.LoadContent();
         }
