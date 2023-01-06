@@ -53,7 +53,7 @@ namespace SAE_DEV_PROJ
 
         protected override void LoadContent()
         {
-            _homeScreen = new HomeScreen(this); // en leur donnant une référence au Game
+            _homeScreen = new HomeScreen(this); 
             _playScreen = new PlayScreen(this);
             _deadScreen = new DeadScreen(this);
             _winScreen = new WinScreen(this);
@@ -84,6 +84,7 @@ namespace SAE_DEV_PROJ
             Rectangle hitboxPlayButton = new Rectangle(500, 200, _widthPlayButton, _heighPlayButton);
             Rectangle hitboxOptionButton = new Rectangle(500, 400, _widthPlayButton, _heighPlayButton);
             Rectangle hitboxLeaveButton = new Rectangle(500, 600, _widthPlayButton, _heighPlayButton);
+
             // MENU PRINCIPAL 
             if (_actif && ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(ms.X, ms.Y))
             {

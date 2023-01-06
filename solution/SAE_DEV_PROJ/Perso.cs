@@ -22,6 +22,8 @@ namespace SAE_DEV_PROJ
         private Vector2 _positionPerso;
         private int score;
 
+
+
         public Perso(bool godMod, double pvPerso, int damagePerso, int score, string skinPerso, double multiplicationVitesse, int deplacementPerso, Vector2 positionPerso)
         {
             this.GodMod = godMod;

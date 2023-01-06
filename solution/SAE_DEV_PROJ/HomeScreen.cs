@@ -19,8 +19,6 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureOptionButton;
         private Texture2D _textureLeaveButton;
 
-        // pour récupérer une référence à l’objet game pour avoir accès à tout ce qui est
-        // défini dans Game1
         public HomeScreen(Game1 game) : base(game)
         {
             _police = Content.Load<SpriteFont>("Font");
@@ -42,7 +40,7 @@ namespace SAE_DEV_PROJ
         public override void Draw(GameTime gameTime)
         {
 
-            _myGame.GraphicsDevice.Clear(Color.MediumVioletRed); // on utilise la reference vers Game1 pour chnager le graphisme
+            _myGame.GraphicsDevice.Clear(Color.MediumVioletRed); 
             _spriteBatch.Begin();
             _spriteBatch.DrawString(_police, "Bullets WAR", new Vector2(20, 20), Color.White);
 
