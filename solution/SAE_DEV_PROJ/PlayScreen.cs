@@ -40,6 +40,7 @@ namespace SAE_DEV_PROJ
         const int _DEBUTPAT2 = 15;
         const int _DEBUTPAT3 = 24;
         const int _DEBUTPAT4 = 50;
+        private bool _cheat1;
 
         // TEXTURES 
         private Texture2D _textureBoss;
@@ -74,8 +75,9 @@ namespace SAE_DEV_PROJ
         public override void Initialize()
         {
 
-            
+
             // initialisation toutes les veriables
+            _cheat1 = false;
             _ok1 = false;
             _ok2 = false;
             _bossAlive = true;
@@ -133,7 +135,7 @@ namespace SAE_DEV_PROJ
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _texturePerso = Content.Load<Texture2D>("perso");
             _textureBullet = Content.Load<Texture2D>("bullet1");
-            _textureBulletAllie = Content.Load<Texture2D>("bullet");
+            _textureBulletAllie = Content.Load<Texture2D>("ballePerso");
             _textureBoss = Content.Load<Texture2D>(boss1.SkinBoss);
 
             // barre de vie perso
@@ -160,7 +162,7 @@ namespace SAE_DEV_PROJ
             //perd du score a cause du temps
             if (_chrono >= _var2)
             {
-                if (hero.Score >= 100)
+                if (hero.Score >= 100&&_bossAlive)
                     hero.Score -= 100;
                 _var2 += 3;
             }
@@ -246,7 +248,7 @@ namespace SAE_DEV_PROJ
                 for (int i = 0; i < _tabBulletPerso.Length; i++)
                 {
                     if (!(_tabBulletPerso[i].BulletPosition.Y > hero.PositionPerso.Y))
-                        _spriteBatch.Draw(_textureBulletAllie, _tabBulletPerso[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+                        _spriteBatch.Draw(_textureBulletAllie, _tabBulletPerso[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS_PERSO / 2, 0), Color.White);
                 }
             
             }
@@ -356,7 +358,7 @@ namespace SAE_DEV_PROJ
             {
                 if (!(_tabBulletPerso[i].BulletPosition.Y > hero.PositionPerso.Y))
                 {
-                    Rectangle rect1 = new Rectangle((int)_tabBulletPerso[i].BulletPosition.X, (int)_tabBulletPerso[i].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
+                    Rectangle rect1 = new Rectangle((int)_tabBulletPerso[i].BulletPosition.X, (int)_tabBulletPerso[i].BulletPosition.Y, Constantes._LARGEUR_BULLETS_PERSO, Constantes._HAUTEUR_BULLETS_PERSO);
                     Rectangle rect2 = new Rectangle((int)boss1.BossPosition.X, (int)boss1.BossPosition.Y, Constantes._LARGEUR_BOSS, Constantes._HAUTEUR_BOSS);
 
                     if (rect1.Intersects(rect2))
@@ -364,7 +366,7 @@ namespace SAE_DEV_PROJ
                         boss1.BossHP -= hero.DamagePerso;
                         _tabBulletPerso[i].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO / 2, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2);
 
-                        if (_redemption == false)
+                        if (_redemption == false&&_bossAlive)
                             hero.Score += 10;
                     }
                 }
