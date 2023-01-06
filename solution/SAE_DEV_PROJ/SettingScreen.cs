@@ -17,13 +17,18 @@ namespace SAE_DEV_PROJ
         private SpriteFont _police;
         private Texture2D _textureLeaveButton;
 
-        // pour récupérer une référence à l’objet game pour avoir accès à tout ce qui est
-        // défini dans Game1
+        
+
         public SettingScreen(Game1 game) : base(game)
         {
             _police = Content.Load<SpriteFont>("Font");
             _myGame = game;
 
+        }
+        public override void Initialize()
+        {
+            
+            base.Initialize();
         }
         public override void LoadContent()
         {
@@ -41,10 +46,11 @@ namespace SAE_DEV_PROJ
         public override void Draw(GameTime gameTime)
         {
 
-            _myGame.GraphicsDevice.Clear(Color.Yellow); // on utilise la reference vers Game1 pour chnager le graphisme
+            _myGame.GraphicsDevice.Clear(Color.Yellow); 
             _spriteBatch.Begin();
             _spriteBatch.Draw(_textureLeaveButton, new Vector2(500, 600), Color.White);
-            _spriteBatch.DrawString(_police, "Main menu", new Vector2(900, 660), Color.Black);
+            _spriteBatch.DrawString(_police, "Main menu", new Vector2(900, 660), Color.White);
+            _spriteBatch.DrawString(_police, "Votre touche pour avancer : ", new Vector2(0, 100), Color.Black);
             _spriteBatch.End();
         }
     }
