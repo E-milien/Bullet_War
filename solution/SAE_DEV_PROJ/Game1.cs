@@ -136,7 +136,7 @@ namespace SAE_DEV_PROJ
             // A SUPPRIMER 
             if (_keyboardState.IsKeyDown(Keys.O))
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
-            if(_keyboardState.IsKeyDown(Keys.P))
+            if(_keyboardState.IsKeyDown(Keys.M))
             {
                 _screenManager.LoadScreen(_settingScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
