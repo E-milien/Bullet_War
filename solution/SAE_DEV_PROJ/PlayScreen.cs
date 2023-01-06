@@ -23,9 +23,10 @@ namespace SAE_DEV_PROJ
         private double _chrono;
         private int _i1;
         private int _i2;
-        private int _var;
+        private double _var;
         private double _varCercle;
         private bool _ok1;
+        private bool _ok2;
         private int _var2;
         private float _angle;
         private double _pvDepart;
@@ -74,6 +75,7 @@ namespace SAE_DEV_PROJ
             _debutPat3 = 24;
             _debutPat4 = 5;
             _ok1 = false;
+            _ok2 = false;
             _bossAlive = true;
             _alive = true;
             _var = 0;
@@ -90,8 +92,8 @@ namespace SAE_DEV_PROJ
             }
 
             // initialisation boss & perso
-            boss1 = new Boss(1, 20, "boss", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
-            hero = new Perso(false, 1, 5, 0, "perso", 1, 500, new Vector2(500, 500) - new Vector2(Constantes._LARGEUR_PERSO / 2, 0));
+            boss1 = new Boss(5000, 20, "boss", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
+            hero = new Perso(false, 100, 5, 0, "perso", 1, 500, new Vector2(500, 500) - new Vector2(Constantes._LARGEUR_PERSO / 2, 0));
 
             _damagePerso = hero.DamagePerso;
             _pvDepart = hero.PvPerso;
@@ -175,18 +177,23 @@ namespace SAE_DEV_PROJ
             }
             Redemption(deltaTime);
             // active le 1er partterne (pattern1)
-            if (_chrono< 25 && _chrono>=_debutPat1)
-               Pattern1(deltaTime);
+            if (_chrono< _debutPat2 && _chrono>=_debutPat1)
+            {
+                Pattern1(deltaTime);
+                if (!_ok1)
+                    _var = _chrono;
+                _ok1 = true;
+            }
             //lancer pattern2 au bout de 24 sec
-            if(_chrono>=_debutPat2 && _chrono<=_debutPat3)
+            if (_chrono>=_debutPat2 && _chrono<=_debutPat3)
                Pattern2(deltaTime);
             //active le 3eme patterne (paterncercle)
             if (_chrono > _debutPat3 && _chrono < 70)
             {
                 PatternCercle(_angle);
-                if (!_ok1)
+                if (!_ok2)
                     _varCercle = _chrono;
-                _ok1 = true;
+                _ok2 = true;
             }
             //active le pattern spirale après 10s
             //if (_chrono > 10 && _chrono < 20)
