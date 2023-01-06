@@ -54,6 +54,11 @@ namespace SAE_DEV_PROJ
         private int _sensPersoY;
         private KeyboardState _keyboardState;
 
+        public KeyboardState _forward;
+        public KeyboardState _right;
+        public KeyboardState _left;
+        public KeyboardState _behind;
+
         // pour récupérer une référence à l’objet game pour avoir accès à tout ce qui est
         // défini dans Game1
         public PlayScreen(Game1 game) : base(game)
@@ -64,6 +69,9 @@ namespace SAE_DEV_PROJ
 
         public override void Initialize()
         {
+            // DEPLACEMENTS PERSO 
+            
+
             // initialisation toutes les veriables
             _ok1 = false;
             _bossAlive = true;

@@ -17,11 +17,18 @@ namespace SAE_DEV_PROJ
         private SpriteFont _police;
         private Texture2D _textureLeaveButton;
 
+        
+
         public SettingScreen(Game1 game) : base(game)
         {
             _police = Content.Load<SpriteFont>("Font");
             _myGame = game;
 
+        }
+        public override void Initialize()
+        {
+            
+            base.Initialize();
         }
         public override void LoadContent()
         {
