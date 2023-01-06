@@ -14,7 +14,15 @@ namespace SAE_DEV_PROJ
         private int _vitesse;
         private Vector2 _bulletPosition;
         private String _skin;
+        private bool _passeOrigine;
 
+        public Bullet(int vitesse, Vector2 bulletPosition, string skin, bool passeOrigine)
+        {
+            this.Vitesse = vitesse;
+            this.BulletPosition = bulletPosition;
+            this.Skin = skin;
+            this.PasseOrigine = passeOrigine;
+        }
         public Bullet(int vitesse, Vector2 bulletPosition, string skin)
         {
             this.Vitesse = vitesse;
@@ -58,6 +66,19 @@ namespace SAE_DEV_PROJ
             set
             {
                 this._bulletPosition = value;
+            }
+        }
+
+        public bool PasseOrigine
+        {
+            get
+            {
+                return this._passeOrigine;
+            }
+
+            set
+            {
+                this._passeOrigine = value;
             }
         }
     }
