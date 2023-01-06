@@ -48,7 +48,7 @@ namespace SAE_DEV_PROJ
             _spriteBatch.DrawString(_police, "Click to start", new Vector2(900, 260), Color.White);
 
             _spriteBatch.Draw(_textureOptionButton, new Vector2(500, 400), Color.White);
-            _spriteBatch.DrawString(_police, "Options", new Vector2(940, 460), Color.White);
+            _spriteBatch.DrawString(_police, "Main menu", new Vector2(910, 460), Color.White);
 
             _spriteBatch.Draw(_textureLeaveButton, new Vector2(500, 600), Color.White);
             _spriteBatch.DrawString(_police, "Click to quit", new Vector2(900, 660), Color.White);
