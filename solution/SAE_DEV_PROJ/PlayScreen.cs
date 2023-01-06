@@ -103,7 +103,7 @@ namespace SAE_DEV_PROJ
             {
                 for (int j = 0; j < _tabBullets.GetLength(1); j++)
                 {
-                    _tabBullets[i, j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bullet");
+                    _tabBullets[i, j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bullet1");
                 }
             }
             // BulletsAlliées initialize
