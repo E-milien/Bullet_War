@@ -49,6 +49,18 @@
 /processorParam:TextureFormat=Color
 /build:bullet.png
 
+#begin bullet1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:bullet1.png
+
 #begin Dead.png
 /importer:TextureImporter
 /processor:TextureProcessor

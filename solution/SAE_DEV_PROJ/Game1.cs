@@ -148,10 +148,10 @@ namespace SAE_DEV_PROJ
             {
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-            /*if(_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonZ.Contains(ms.X, ms.Y))
+            if(_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonZ.Contains(ms.X, ms.Y))
             {
-                _forward =
-            }*/
+                
+            }
 
 
             base.Update(gameTime);
