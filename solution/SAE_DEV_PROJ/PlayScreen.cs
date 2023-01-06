@@ -180,6 +180,7 @@ namespace SAE_DEV_PROJ
                 }
                 _tabBulletPerso[i].BulletPosition -= new Vector2(0, _tabBulletPerso[i].Vitesse * deltaTime);
             }
+
             Redemption(deltaTime);
             // active le 1er partterne (pattern1)
             if (_chrono < _DEBUTPAT2 + 10 && _chrono >= _DEBUTPAT1)
@@ -246,11 +247,13 @@ namespace SAE_DEV_PROJ
             //Bullets alliées
             if (_redemption == false)
             {
+             
                 for (int i = 0; i < _tabBulletPerso.Length; i++)
                 {
                     if (!(_tabBulletPerso[i].BulletPosition.Y > hero.PositionPerso.Y))
                         _spriteBatch.Draw(_textureBullet, _tabBulletPerso[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
                 }
+            
             }
 
             //Bullets pattern 1
