@@ -90,8 +90,8 @@ namespace SAE_DEV_PROJ
             }
 
             // initialisation boss & perso
-            boss1 = new Boss(1, 20, "boss", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
-            hero = new Perso(false, 1, 5, 0, "perso", 1, 500, new Vector2(500, 500) - new Vector2(Constantes._LARGEUR_PERSO / 2, 0));
+            boss1 = new Boss(5000, 20, "boss", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
+            hero = new Perso(false, 100, 5, 0, "perso", 1, 500, new Vector2(500, 500) - new Vector2(Constantes._LARGEUR_PERSO / 2, 0));
 
             _damagePerso = hero.DamagePerso;
             _pvDepart = hero.PvPerso;
@@ -189,8 +189,8 @@ namespace SAE_DEV_PROJ
                 _ok1 = true;
             }
             //active le pattern spirale après 10s
-            //if (_chrono > 10 && _chrono < 20)
-                //PatternSpirale(_angle);
+            if (_chrono > 10 && _chrono < 20)
+                PatternSpirale(_angle);
 
             DeplacementPerso(deltaTime);
             CollisionBoss();
@@ -266,14 +266,14 @@ namespace SAE_DEV_PROJ
             }
 
             //Bullets patternSpiral
-            /*if (_chrono > 10)
+            if (_chrono > 10)
             {
                 for (int i = 0; i < _tabBulletsSpirale.Length; i++)
                 {
                     if (_tabBulletsSpirale[i].PasseOrigine == true)
                         _spriteBatch.Draw(_textureBullet, _tabBulletsSpirale[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
                 }
-            }*/
+            }
 
             _spriteBatch.Draw(_textureBoss, boss1.BossPosition, Color.White);
             _spriteBatch.Draw(_texturePerso, hero.PositionPerso, Color.White);
