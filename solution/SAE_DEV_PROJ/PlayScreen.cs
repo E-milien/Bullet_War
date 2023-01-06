@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Timers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,8 +23,8 @@ namespace SAE_DEV_PROJ
         internal Bullet[] _tabBulletsSpirale = new Bullet[36];
         internal Boss boss1;
         internal Perso hero;
-        private System.Timers.Timer _timer;
         private double _tmp;
+        private bool _patternSpiraleGenere = true;
         private bool _redemption;
         private double _chrono;
         private int _i;
@@ -95,7 +94,7 @@ namespace SAE_DEV_PROJ
             {
                 for (int j = 0; j < _tabBullets.GetLength(1); j++)
                 {
-                    _tabBullets[i,j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS), "bullet");
+                    _tabBullets[i,j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bullet");
                 }
             }
             // BulletsAlliées initialize
@@ -106,32 +105,16 @@ namespace SAE_DEV_PROJ
             // Bullets pattern 2 initialize
             for (int i = 0; i < _tabBullets2.Length; i++)
             {
-                _tabBullets2[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS), "bullet");
+                _tabBullets2[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bullet");
             }
             // Bullets pattern cercle initialize
             for (int i = 0; i < _tabBulletsCercle.GetLength(0); i++)
             {
                 for (int j = 0; j < _tabBulletsCercle.GetLength(1); j++)
                 {
-                    _tabBulletsCercle[i,j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS), "bulletSpiral");
+                    _tabBulletsCercle[i,j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bulletSpiral");
                 }
             }
-            // Bullets pattern spirale initialize (gerer les spawns avec i (?))
-            for (int i = 0; i < _tabBulletsSpirale.Length; i++)
-            {
-                _tabBulletsSpirale[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bulletCercle");
-                float bulletDirectionX = MathF.Sin(_angle * MathF.PI / 180f);
-                float bulletDirectionY = MathF.Cos(_angle * MathF.PI / 180f);
-                Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY);
-
-                _tabBulletsSpirale[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2) - bulletDirection*i*2, "bulletSpiral");
-                _angle += 10f;
-            }
-
-            // Initialize timer spirale
-            _timer = new System.Timers.Timer(100);
-            _timer.AutoReset = true;
-            _timer.Enabled = true;
 
             base.Initialize();
         }
@@ -197,10 +180,12 @@ namespace SAE_DEV_PROJ
                     _varCercle = _chrono;
                     _ok1 = true;
             }
-
+            //génère le pattern spirale a 10s
+            if (_chrono >= 10 && _patternSpiraleGenere == true)
+                InitializeSpirale();
             //active le pattern spirale après 10s
             if (_chrono > 10 && _chrono < 20)
-            PatternSpirale(_angle);
+                PatternSpirale(_angle);
 
             DeplacementPerso(deltaTime);
             CollisionBoss();
@@ -276,9 +261,12 @@ namespace SAE_DEV_PROJ
             }
 
             //Bullets patternSpiral
-            for (int i = 0; i < _tabBulletsSpirale.Length; i++)
+            if (_chrono > 10)
             {
-                _spriteBatch.Draw(_textureBullet, _tabBulletsSpirale[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
+                for (int i = 0; i < _tabBulletsSpirale.Length; i++)
+                {
+                    _spriteBatch.Draw(_textureBullet, _tabBulletsSpirale[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
+                }
             }
 
             _spriteBatch.Draw(_textureBoss, boss1.BossPosition, Color.White);
@@ -521,7 +509,20 @@ namespace SAE_DEV_PROJ
             }
         }
 
+        public void InitializeSpirale()
+        {
+            // Bullets pattern spirale initialize (gerer les spawns avec i (?))
+            for (int i = 0; i<_tabBulletsSpirale.Length; i++)
+            {
+                float bulletDirectionX = MathF.Sin(_angle * MathF.PI / 180f);
+                float bulletDirectionY = MathF.Cos(_angle * MathF.PI / 180f);
+                Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY);
 
+                _tabBulletsSpirale[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2) - bulletDirection* i*2, "bulletSpiral");
+                _angle += 10f;
+            }
+            _patternSpiraleGenere = false;
+        }
     }
 }
 
