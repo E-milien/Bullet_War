@@ -42,7 +42,7 @@ namespace SAE_DEV_PROJ
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            _graphics.IsFullScreen = true;
+            //_graphics.IsFullScreen = true;
         }
 
         protected override void Initialize()
@@ -152,6 +152,7 @@ namespace SAE_DEV_PROJ
             {
                 
             }
+           
 
 
             base.Update(gameTime);
