@@ -15,11 +15,15 @@ namespace SAE_DEV_PROJ
         private SpriteBatch _spriteBatch;
         private Game1 _myGame;
         private SpriteFont _police;
-
+        private Texture2D _textureRePlayButton;
+        private Texture2D _textureLeaveButton;
 
         public DeadScreen(Game1 game) : base(game)
         {
             _police = Content.Load<SpriteFont>("Font");
+
+            _textureRePlayButton = Content.Load<Texture2D>("Jouer");
+            _textureLeaveButton = Content.Load<Texture2D>("Leave");
             _myGame = game;
         }
         public override void LoadContent()
@@ -38,8 +42,12 @@ namespace SAE_DEV_PROJ
             _myGame.GraphicsDevice.Clear(Color.DarkRed); // on utilise la reference vers Game1 pour chnager le graphisme
             _spriteBatch.Begin();
             _spriteBatch.DrawString(_police, "You're dead", new Vector2(20, 20), Color.White);
-            _spriteBatch.DrawString(_police, "Press ENTER to play again", new Vector2(500, 500), Color.Black);
-            _spriteBatch.DrawString(_police, "Press Q to quit", new Vector2(500, 530), Color.Black);
+
+            _spriteBatch.Draw(_textureRePlayButton, new Vector2(500, 200), Color.White);
+            _spriteBatch.DrawString(_police, "Click to play again", new Vector2(900, 260), Color.Black);
+
+            _spriteBatch.Draw(_textureLeaveButton, new Vector2(500, 400), Color.White);
+            _spriteBatch.DrawString(_police, "Click to quit", new Vector2(900, 460), Color.Black);
             _spriteBatch.End();
         }
     }

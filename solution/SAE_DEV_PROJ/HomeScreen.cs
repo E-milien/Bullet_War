@@ -51,7 +51,7 @@ namespace SAE_DEV_PROJ
 
             _spriteBatch.Draw(_textureOptionButton, new Vector2(500, 400), Color.White);
             _spriteBatch.Draw(_textureLeaveButton, new Vector2(500, 600), Color.White);
-            _spriteBatch.DrawString(_police, "Press Q to quit", new Vector2(900, 660), Color.Black);
+            _spriteBatch.DrawString(_police, "Click to quit", new Vector2(900, 660), Color.Black);
 
 
             _spriteBatch.End();
