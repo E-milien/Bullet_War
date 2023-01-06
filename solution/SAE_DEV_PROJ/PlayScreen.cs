@@ -27,7 +27,7 @@ namespace SAE_DEV_PROJ
         private bool _patternSpiraleGenere;
         private bool _redemption;
         private double _chrono;
-        private int _i;
+        private int _i1;
         private int _i2;
         private int _var;
         private double _varCercle;
@@ -75,7 +75,7 @@ namespace SAE_DEV_PROJ
             _bossAlive = true;
             _alive = true;
             _var = 0;
-            _i = -1;
+            _i1 = -1;
             _i2 = 0;
             _chrono = 0;
             _var2 = 2;
@@ -89,8 +89,8 @@ namespace SAE_DEV_PROJ
             }
 
             // initialisation boss & perso
-            boss1 = new Boss(1, 20, "boss", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
-            hero = new Perso(false, 1, 5, 0, "perso", 1, 500, new Vector2(500, 500) - new Vector2(Constantes._LARGEUR_PERSO / 2, 0));
+            boss1 = new Boss(5000, 20, "boss", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
+            hero = new Perso(false, 100, 5, 0, "perso", 1, 500, new Vector2(500, 500) - new Vector2(Constantes._LARGEUR_PERSO / 2, 0));
 
             _damagePerso = hero.DamagePerso;
             _pvDepart = hero.PvPerso;
@@ -173,10 +173,10 @@ namespace SAE_DEV_PROJ
             }
             Redemption(deltaTime);
             // active le 1er partterne (pattern1)
-            if (_chrono< 19)
-               Pattern1(deltaTime, _i, _chrono);
+            if (_chrono< 23)
+               Pattern1(deltaTime);
             //lancer pattern2 au bout de 24 sec
-            if(_chrono>=17&&_chrono<=25)
+            if(_chrono>=21&&_chrono<=26)
                Pattern2(deltaTime);
             //active le 3eme patterne (paterncercle)
             if (_chrono > 22 && _chrono < 42)
@@ -231,7 +231,7 @@ namespace SAE_DEV_PROJ
             _spriteBatch.DrawString(_police, $"{hero.PvPerso} / {_pvDepart}", new Vector2(_positionPv.X * 10, _positionPv.Y + 10), Color.Black);
 
             //Bullets pattern 1
-            for (int z = 0; z <= _i; z++)
+            for (int z = 0; z <= _i1; z++)
             {
                 for (int j = 0; j < _tabBullets.GetLength(1); j++)
                 {
@@ -369,18 +369,18 @@ namespace SAE_DEV_PROJ
         }
 
         // 1
-        public void Pattern1(float deltaTime, int i, double chrono)
+        public void Pattern1(float deltaTime)
         {
-            if (chrono >= _var && _i < _tabBullets.GetLength(0))
+            if (_chrono >= _var && _i1 < _tabBullets.GetLength(0))
             {
                 _var += 2;
-                _i++;
+                _i1++;
             }
 
             Random rdn = new Random();
-            if (chrono < 24)
+            if (_chrono < 24)
             {
-                for (int z = 0; z <= i; z++)
+                for (int z = 0; z <= _i1; z++)
                 {
                     for (int j = 0; j < _tabBullets.GetLength(1) - 2; j++)
                     {
@@ -391,9 +391,9 @@ namespace SAE_DEV_PROJ
             }
             else
             {
-                for (int z = 0; z <= i; z++)
+                for (int z = 0; z <= _i1; z++)
                 {
-                    for (int j = 0; j < _tabBullets.GetLength(1) - 2; j++)
+                    for (int j = 0; j < _tabBullets.GetLength(1)-1; j++)
                     {
 
                         _tabBullets[z, j].BulletPosition = new Vector2(-20,-20);
