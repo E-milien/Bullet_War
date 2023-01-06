@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Screens;
+using System;
 
 namespace SAE_DEV_PROJ
 {
@@ -24,7 +19,6 @@ namespace SAE_DEV_PROJ
         internal Boss boss1;
         internal Perso hero;
         private double _tmp;
-        private bool _patternSpiraleGenere;
         private bool _redemption;
         private double _chrono;
         private int _i1;
@@ -89,7 +83,6 @@ namespace SAE_DEV_PROJ
             _var2 = 2;
             _varCercle = 0;
             _angle = 0f;
-            _patternSpiraleGenere = true;
 
             for (int i = 0; i < _tabBulletsSpirale.Length; i++)
             {
@@ -97,8 +90,8 @@ namespace SAE_DEV_PROJ
             }
 
             // initialisation boss & perso
-            boss1 = new Boss(5000, 20, "boss", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
-            hero = new Perso(false, 100, 5, 0, "perso", 1, 500, new Vector2(500, 500) - new Vector2(Constantes._LARGEUR_PERSO / 2, 0));
+            boss1 = new Boss(1, 20, "boss", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
+            hero = new Perso(false, 1, 5, 0, "perso", 1, 500, new Vector2(500, 500) - new Vector2(Constantes._LARGEUR_PERSO / 2, 0));
 
             _damagePerso = hero.DamagePerso;
             _pvDepart = hero.PvPerso;
@@ -108,7 +101,7 @@ namespace SAE_DEV_PROJ
             {
                 for (int j = 0; j < _tabBullets.GetLength(1); j++)
                 {
-                    _tabBullets[i,j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bullet");
+                    _tabBullets[i, j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bullet");
                 }
             }
             // BulletsAlliées initialize
@@ -126,9 +119,10 @@ namespace SAE_DEV_PROJ
             {
                 for (int j = 0; j < _tabBulletsCercle.GetLength(1); j++)
                 {
-                    _tabBulletsCercle[i,j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bulletSpiral");
+                    _tabBulletsCercle[i, j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bulletSpiral");
                 }
             }
+            InitializeSpirale();
 
             base.Initialize();
         }
@@ -138,7 +132,7 @@ namespace SAE_DEV_PROJ
             _police = Content.Load<SpriteFont>("Font");
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _texturePerso = Content.Load<Texture2D>("perso");
-            _textureBullet = Content.Load<Texture2D>(_tabBullets[0,0].Skin);
+            _textureBullet = Content.Load<Texture2D>(_tabBullets[0, 0].Skin);
             _textureBoss = Content.Load<Texture2D>(boss1.SkinBoss);
 
             // barre de vie perso
@@ -162,9 +156,9 @@ namespace SAE_DEV_PROJ
             _chrono += deltaTime;
 
             //perd du score a cause du temps
-            if(_chrono >= _var2)
+            if (_chrono >= _var2)
             {
-                if(hero.Score >= 100)
+                if (hero.Score >= 100)
                     hero.Score -= 100;
                 _var2 += 3;
             }
@@ -192,18 +186,15 @@ namespace SAE_DEV_PROJ
                 PatternCercle(_angle);
                 if (!_ok1)
                     _varCercle = _chrono;
-                    _ok1 = true;
+                _ok1 = true;
             }
-            //génère le pattern spirale a 10s
-            //if (_chrono >= 10 && _patternSpiraleGenere == true)
-                //InitializeSpirale();
             //active le pattern spirale après 10s
             //if (_chrono > 10 && _chrono < 20)
                 //PatternSpirale(_angle);
 
             DeplacementPerso(deltaTime);
             CollisionBoss();
-            
+
             CheckBossDead(boss1);
             BulletAllieReset();
 
@@ -216,7 +207,7 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Begin();
             _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionPvBoss, Color.White);
             _spriteBatch.DrawString(_police, $"Score : {hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), Color.White);
-            
+
             //HP
             if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 80)
                 _spriteBatch.Draw(_texture_Full, _positionPv, Color.White);
@@ -264,13 +255,13 @@ namespace SAE_DEV_PROJ
             {
                 _spriteBatch.Draw(_textureBullet, _tabBullets2[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
             }
-            
+
             //Bullets patternCercle
             for (int i = 0; i <= _i2; i++)
             {
                 for (int j = 0; j < _tabBulletsCercle.GetLength(1); j++)
                 {
-                    _spriteBatch.Draw(_textureBullet, _tabBulletsCercle[i,j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
+                    _spriteBatch.Draw(_textureBullet, _tabBulletsCercle[i, j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
                 }
             }
 
@@ -286,9 +277,9 @@ namespace SAE_DEV_PROJ
 
             _spriteBatch.Draw(_textureBoss, boss1.BossPosition, Color.White);
             _spriteBatch.Draw(_texturePerso, hero.PositionPerso, Color.White);
-            
+
             _spriteBatch.End();
-            
+
         }
         private void DeplacementPerso(float deltaTime)
         {
@@ -305,10 +296,10 @@ namespace SAE_DEV_PROJ
             else if (_keyboardState.IsKeyDown(Keys.S) && !(_keyboardState.IsKeyDown(Keys.Z)) && hero.PositionPerso.Y <= Constantes._HAUTEUR_FENETRE - Constantes._HAUTEUR_PERSO)
                 _sensPersoY = 1;
 
-            hero.PositionPerso += new Vector2(_sensPersoX * (int)Math.Round(hero.DeplacementPerso * hero.MultiplicationVitesse,0) * deltaTime,0);
+            hero.PositionPerso += new Vector2(_sensPersoX * (int)Math.Round(hero.DeplacementPerso * hero.MultiplicationVitesse, 0) * deltaTime, 0);
             _sensPersoX = 0;
 
-            hero.PositionPerso += new Vector2(0,_sensPersoY * (int)Math.Round(hero.DeplacementPerso * hero.MultiplicationVitesse, 0) * deltaTime);
+            hero.PositionPerso += new Vector2(0, _sensPersoY * (int)Math.Round(hero.DeplacementPerso * hero.MultiplicationVitesse, 0) * deltaTime);
             _sensPersoY = 0;
         }
         internal bool Collision(bool ok, Bullet[,] _tableau)
@@ -316,7 +307,6 @@ namespace SAE_DEV_PROJ
             bool tmp = false;
             if (ok == true)
                 return false;
-
             for (int i = 0; i < _tableau.GetLength(0); i++)
             {
                 for (int j = 0; j < _tableau.GetLength(1); j++)
@@ -328,7 +318,7 @@ namespace SAE_DEV_PROJ
                         tmp = true;
                     }
                 }
-            }  
+            }
             return tmp;
         }
         internal bool Collision(bool ok, Bullet[] _tableau)
@@ -336,14 +326,16 @@ namespace SAE_DEV_PROJ
             bool tmp = false;
             if (ok == true)
                 return false;
-
-            for (int i = 0; i < _tableau.GetLength(0); i++)
+            for (int i = 0; i < _tableau.Length; i++)
             {
-                Rectangle rect1 = new Rectangle((int)_tableau[i].BulletPosition.X, (int)_tableau[i].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
-                Rectangle rect2 = new Rectangle((int)hero.PositionPerso.X, (int)hero.PositionPerso.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);
-                if (rect1.Intersects(rect2))
+                if (!(_tabBulletsSpirale[i].PasseOrigine != true))
                 {
-                    tmp = true;
+                    Rectangle rect1 = new Rectangle((int)_tableau[i].BulletPosition.X, (int)_tableau[i].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
+                    Rectangle rect2 = new Rectangle((int)hero.PositionPerso.X, (int)hero.PositionPerso.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);
+                    if (rect1.Intersects(rect2))
+                    {
+                        tmp = true;
+                    }
                 }
             }
             return tmp;
@@ -369,7 +361,7 @@ namespace SAE_DEV_PROJ
         // Une fois arrivée en bas , les bullets sont remises en-dessous de la fenêtre
         public void BulletAllieReset()
         {
-            for (int i = 0; i<_tabBulletPerso.Length; i++)
+            for (int i = 0; i < _tabBulletPerso.Length; i++)
             {
                 if (_tabBulletPerso[i].BulletPosition.Y <= 0)
                 {
@@ -480,7 +472,7 @@ namespace SAE_DEV_PROJ
                 Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY);
 
                 _tabBulletsSpirale[i].BulletPosition += bulletDirection;
-            
+
                 angle += 10f;
             }
         }
@@ -488,7 +480,7 @@ namespace SAE_DEV_PROJ
         // redemption de 2 secondes après être touché
         public void Redemption(float deltaTime)
         {
-            if (Collision(_redemption, _tabBullets2)||Collision(_redemption, _tabBullets) && _redemption == false)
+            if (Collision(_redemption, _tabBullets2) || Collision(_redemption, _tabBullets) || Collision(_redemption, _tabBulletsCercle) || (Collision(_redemption, _tabBulletsSpirale) && _chrono > 10) && _redemption == false)
             {
                 //_alive = true; // pour etre sur
                 hero.PvPerso -= (int)boss1.DamageBoss;
@@ -519,7 +511,7 @@ namespace SAE_DEV_PROJ
         // si le boss est mort
         internal void CheckBossDead(Boss boss)
         {
-            if (boss.BossHP<=0)
+            if (boss.BossHP <= 0)
             {
                 _bossAlive = false;
                 boss.BossHP = 0;
@@ -529,16 +521,15 @@ namespace SAE_DEV_PROJ
         public void InitializeSpirale()
         {
             // Bullets pattern spirale initialize (gerer les spawns avec i (?))
-            for (int i = 0; i<_tabBulletsSpirale.Length; i++)
+            for (int i = 0; i < _tabBulletsSpirale.Length; i++)
             {
                 float bulletDirectionX = MathF.Sin(_angle * MathF.PI / 180f);
                 float bulletDirectionY = MathF.Cos(_angle * MathF.PI / 180f);
                 Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY);
 
-                _tabBulletsSpirale[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2) - bulletDirection* i*2, "bulletSpiral",false);
+                _tabBulletsSpirale[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2) - bulletDirection * i * 2, "bulletSpiral", false);
                 _angle += 10f;
             }
-            _patternSpiraleGenere = false;
         }
     }
 }

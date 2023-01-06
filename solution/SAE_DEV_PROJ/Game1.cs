@@ -15,10 +15,13 @@ namespace SAE_DEV_PROJ
         PlayScreen _playScreen;
         DeadScreen _deadScreen;
         WinScreen _winScreen;
+        SettingScreen _settingScreen;
+
         private bool _loaded;
         public bool _screenDeathOk;
         public bool _screenWinOk;
         public bool _actif;
+        public bool _settingOk;
         
         public int _widthPlayButton;
         public int _heighPlayButton;
@@ -41,6 +44,7 @@ namespace SAE_DEV_PROJ
             _screenDeathOk = false;
             _screenWinOk = false;
             _loaded = false;
+            _settingOk = false;
             SetupWindow();
             _widthPlayButton = 1000;
             _heighPlayButton = 150;
@@ -53,7 +57,7 @@ namespace SAE_DEV_PROJ
             _playScreen = new PlayScreen(this);
             _deadScreen = new DeadScreen(this);
             _winScreen = new WinScreen(this);
-            // TODO: use this.Content to load your game content here
+            _settingScreen = new SettingScreen(this);
         }
 
         protected override void Update(GameTime gameTime)
@@ -64,22 +68,7 @@ namespace SAE_DEV_PROJ
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
                 _loaded = true;
             }
-            if (_actif)
-            {
-                if (keyboardState.IsKeyDown(Keys.Back))
-                {
-                    _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
-                }
-                if (keyboardState.IsKeyDown(Keys.Enter))
-                {
-                    _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
-                    
-                }
-                if (keyboardState.IsKeyDown(Keys.Q))
-                {
-                    Exit();
-                }
-            }
+
             if (!_playScreen._alive && !_screenDeathOk)
             {
                 _screenManager.LoadScreen(_deadScreen, new FadeTransition(GraphicsDevice, Color.Black));
@@ -90,32 +79,57 @@ namespace SAE_DEV_PROJ
                 _screenManager.LoadScreen(_winScreen, new FadeTransition(GraphicsDevice, Color.Black));
                 _screenWinOk = true;
             }
+
             MouseState ms = Mouse.GetState();
             Rectangle hitboxPlayButton = new Rectangle(500, 200, _widthPlayButton, _heighPlayButton);
             Rectangle hitboxOptionButton = new Rectangle(500, 400, _widthPlayButton, _heighPlayButton);
             Rectangle hitboxLeaveButton = new Rectangle(500, 600, _widthPlayButton, _heighPlayButton);
-
+            // MENU PRINCIPAL 
             if (_actif && ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(ms.X, ms.Y))
             {
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
             if(_actif && ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(ms.X, ms.Y))
             {
-                // A FAIRE 
+                _screenManager.LoadScreen(_settingScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
+
             if (_actif && ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(ms.X, ms.Y))
             {
                 Exit();
             }
+
+            // DEATH SCENE
             if(_screenDeathOk && ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(ms.X, ms.Y))
             {
                 _screenManager.LoadScreen(_deadScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
             if(_screenDeathOk && ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(ms.X, ms.Y))
             {
+                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
+            if(_screenDeathOk && ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(ms.X, ms.Y))
+            {
                 Exit();
             }
 
+            // WIN SCENE
+            if (_screenWinOk && ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(ms.X, ms.Y))
+            {
+                _screenManager.LoadScreen(_winScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
+            if (_screenWinOk && ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(ms.X, ms.Y))
+            {
+                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
+
+
+            // SETTINGS SCREEN
+            if(_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(ms.X, ms.Y))
+            {
+                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
+                
+            }
 
 
             base.Update(gameTime);
