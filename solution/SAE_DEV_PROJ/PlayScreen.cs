@@ -198,10 +198,13 @@ namespace SAE_DEV_PROJ
                     _ok1 = true;
             }
 
+            //active le pattern spirale après 10s
+            if (_chrono > 10 && _chrono < 20)
+            PatternSpirale(_angle);
+
             DeplacementPerso(deltaTime);
             CollisionBoss();
             
-            PatternSpirale(_angle);
             CheckBossDead(boss1);
             BulletAllieReset();
         }
@@ -496,6 +499,11 @@ namespace SAE_DEV_PROJ
                 _tmp = 0;
                 hero.DamagePerso = _damagePerso;
                 _redemption = false;
+                //on remet les bullets au dessus du perso
+                for (int i = 0; i < _tabBulletPerso.Length; i++)
+                {
+                    _tabBulletPerso[i] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO / 2, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
+                }
             }
             if (hero.PvPerso <= 0)
             {
