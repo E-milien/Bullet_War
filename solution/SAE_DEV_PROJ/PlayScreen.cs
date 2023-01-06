@@ -24,7 +24,7 @@ namespace SAE_DEV_PROJ
         internal Boss boss1;
         internal Perso hero;
         private double _tmp;
-        private bool _patternSpiraleGenere = true;
+        private bool _patternSpiraleGenere;
         private bool _redemption;
         private double _chrono;
         private int _i;
@@ -33,7 +33,7 @@ namespace SAE_DEV_PROJ
         private double _varCercle;
         private bool _ok1;
         private int _var2;
-        private float _angle = 0f;
+        private float _angle;
         private double _pvDepart;
         private Vector2 _positionPv = new Vector2(20, 30);
         private Vector2 _positionPvBoss = new Vector2(20, 100);
@@ -81,6 +81,12 @@ namespace SAE_DEV_PROJ
             _var2 = 2;
             _varCercle = 0;
             _angle = 0f;
+            _patternSpiraleGenere = true;
+
+            for (int i = 0; i < _tabBulletsSpirale.Length; i++)
+            {
+
+            }
 
             // initialisation boss & perso
             boss1 = new Boss(5000, 20, "boss", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
