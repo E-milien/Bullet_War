@@ -19,7 +19,6 @@ namespace SAE_DEV_PROJ
         internal Boss boss1;
         internal Perso hero;
         private double _tmp;
-        private bool _patternSpiraleGenere;
         private bool _redemption;
         private double _chrono;
         private int _i1;
@@ -76,7 +75,6 @@ namespace SAE_DEV_PROJ
             _var2 = 2;
             _varCercle = 0;
             _angle = 0f;
-            _patternSpiraleGenere = true;
 
             for (int i = 0; i < _tabBulletsSpirale.Length; i++)
             {
@@ -116,6 +114,7 @@ namespace SAE_DEV_PROJ
                     _tabBulletsCercle[i, j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bulletSpiral");
                 }
             }
+            InitializeSpirale();
 
             base.Initialize();
         }
@@ -181,9 +180,6 @@ namespace SAE_DEV_PROJ
                     _varCercle = _chrono;
                 _ok1 = true;
             }
-            //génère le pattern spirale a 10s
-            if (_chrono >= 10 && _patternSpiraleGenere == true)
-                InitializeSpirale();
             //active le pattern spirale après 10s
             if (_chrono > 10 && _chrono < 20)
                 PatternSpirale(_angle);
@@ -320,9 +316,9 @@ namespace SAE_DEV_PROJ
             bool tmp = false;
             if (ok == true)
                 return false;
-            if (_patternSpiraleGenere == false)
+            for (int i = 0; i < _tableau.Length; i++)
             {
-                for (int i = 0; i < _tableau.Length; i++)
+                if (!(_tabBulletsSpirale[i].PasseOrigine != true))
                 {
                     Rectangle rect1 = new Rectangle((int)_tableau[i].BulletPosition.X, (int)_tableau[i].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
                     Rectangle rect2 = new Rectangle((int)hero.PositionPerso.X, (int)hero.PositionPerso.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);
@@ -478,7 +474,7 @@ namespace SAE_DEV_PROJ
         // redemption de 2 secondes après être touché
         public void Redemption(float deltaTime)
         {
-            if (Collision(_redemption, _tabBullets2) || Collision(_redemption, _tabBullets) || Collision(_redemption, _tabBulletsCercle) || Collision(_redemption, _tabBulletsSpirale) && _redemption == false)
+            if (Collision(_redemption, _tabBullets2) || Collision(_redemption, _tabBullets) || Collision(_redemption, _tabBulletsCercle) || (Collision(_redemption, _tabBulletsSpirale) && _chrono > 10) && _redemption == false)
             {
                 //_alive = true; // pour etre sur
                 hero.PvPerso -= (int)boss1.DamageBoss;
@@ -528,7 +524,6 @@ namespace SAE_DEV_PROJ
                 _tabBulletsSpirale[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2) - bulletDirection * i * 2, "bulletSpiral", false);
                 _angle += 10f;
             }
-            _patternSpiraleGenere = false;
         }
     }
 }
