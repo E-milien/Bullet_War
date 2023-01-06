@@ -20,7 +20,7 @@ namespace SAE_DEV_PROJ
         internal Bullet[] _tabBulletPerso = new Bullet[200];
         internal Bullet[] _tabBullets2 = new Bullet[40];
         internal Bullet[,] _tabBulletsCercle = new Bullet[10,36];
-        internal Bullet[] _tabBulletsSpirale = new Bullet[36];
+        internal Bullet[] _tabBulletsSpirale = new Bullet[36*10];
         internal Boss boss1;
         internal Perso hero;
         private double _tmp;
@@ -265,7 +265,8 @@ namespace SAE_DEV_PROJ
             {
                 for (int i = 0; i < _tabBulletsSpirale.Length; i++)
                 {
-                    _spriteBatch.Draw(_textureBullet, _tabBulletsSpirale[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
+                    if (_tabBulletsSpirale[i].PasseOrigine == true)
+                        _spriteBatch.Draw(_textureBullet, _tabBulletsSpirale[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
                 }
             }
 
@@ -338,7 +339,7 @@ namespace SAE_DEV_PROJ
             for (int i = 0; i < _tabBulletPerso.Length; i++)
             {
                 Rectangle rect1 = new Rectangle((int)_tabBulletPerso[i].BulletPosition.X, (int)_tabBulletPerso[i].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
-                Rectangle rect2 = new Rectangle((int)boss1.BossPosition.X, (int)boss1.BossPosition.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);
+                Rectangle rect2 = new Rectangle((int)boss1.BossPosition.X, (int)boss1.BossPosition.Y, Constantes._LARGEUR_BOSS, Constantes._HAUTEUR_BOSS);
 
                 if (rect1.Intersects(rect2))
                 {
@@ -458,6 +459,12 @@ namespace SAE_DEV_PROJ
         {
             for (int i = 0; i < _tabBulletsSpirale.Length; i++)
             {
+                if (!(_tabBulletsSpirale[i].BulletPosition.X <= boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2 - 1 || _tabBulletsSpirale[i].BulletPosition.X >= boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2 + 1))
+                {
+                    if (!(_tabBulletsSpirale[i].BulletPosition.Y <= boss1.BossPosition.Y + Constantes._LARGEUR_BOSS / 2 - 1 || _tabBulletsSpirale[i].BulletPosition.Y >= boss1.BossPosition.Y + Constantes._LARGEUR_BOSS / 2 + 1))
+                        _tabBulletsSpirale[i].PasseOrigine = true;
+                }
+
                 float bulletDirectionX = MathF.Sin(angle * MathF.PI / 180f);
                 float bulletDirectionY = MathF.Cos(angle * MathF.PI / 180f);
                 Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY);
@@ -518,7 +525,7 @@ namespace SAE_DEV_PROJ
                 float bulletDirectionY = MathF.Cos(_angle * MathF.PI / 180f);
                 Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY);
 
-                _tabBulletsSpirale[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2) - bulletDirection* i*2, "bulletSpiral");
+                _tabBulletsSpirale[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2) - bulletDirection* i*2, "bulletSpiral",false);
                 _angle += 10f;
             }
             _patternSpiraleGenere = false;
