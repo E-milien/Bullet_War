@@ -23,9 +23,10 @@ namespace SAE_DEV_PROJ
         private double _chrono;
         private int _i1;
         private int _i2;
-        private int _var;
+        private double _var;
         private double _varCercle;
         private bool _ok1;
+        private bool _ok2;
         private int _var2;
         private float _angle;
         private double _pvDepart;
@@ -58,6 +59,11 @@ namespace SAE_DEV_PROJ
         private int _sensPersoY;
         private KeyboardState _keyboardState;
 
+        public KeyboardState _forward;
+        public KeyboardState _right;
+        public KeyboardState _left;
+        public KeyboardState _behind;
+
         // pour récupérer une référence à l’objet game pour avoir accès à tout ce qui est
         // défini dans Game1
         public PlayScreen(Game1 game) : base(game)
@@ -68,12 +74,16 @@ namespace SAE_DEV_PROJ
 
         public override void Initialize()
         {
+            // DEPLACEMENTS PERSO 
+            
+
             // initialisation toutes les veriables
             _debutPat1= 3;
             _debutPat2 = 15;
             _debutPat3 = 24;
             _debutPat4 = 5;
             _ok1 = false;
+            _ok2 = false;
             _bossAlive = true;
             _alive = true;
             _var = 0;
@@ -175,18 +185,23 @@ namespace SAE_DEV_PROJ
             }
             Redemption(deltaTime);
             // active le 1er partterne (pattern1)
-            if (_chrono< 25 && _chrono>=_debutPat1)
-               Pattern1(deltaTime);
+            if (_chrono< _debutPat2 && _chrono>=_debutPat1)
+            {
+                Pattern1(deltaTime);
+                if (!_ok1)
+                    _var = _chrono;
+                _ok1 = true;
+            }
             //lancer pattern2 au bout de 24 sec
-            if(_chrono>=_debutPat2 && _chrono<=_debutPat3)
+            if (_chrono>=_debutPat2 && _chrono<=_debutPat3)
                Pattern2(deltaTime);
             //active le 3eme patterne (paterncercle)
             if (_chrono > _debutPat3 && _chrono < 70)
             {
                 PatternCercle(_angle);
-                if (!_ok1)
+                if (!_ok2)
                     _varCercle = _chrono;
-                _ok1 = true;
+                _ok2 = true;
             }
             //active le pattern spirale après 10s
             if (_chrono > 10 && _chrono < 20)

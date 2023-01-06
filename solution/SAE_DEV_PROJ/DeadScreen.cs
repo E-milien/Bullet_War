@@ -42,7 +42,7 @@ namespace SAE_DEV_PROJ
         public override void Draw(GameTime gameTime)
         {
 
-            _myGame.GraphicsDevice.Clear(Color.DarkRed); // on utilise la reference vers Game1 pour chnager le graphisme
+            _myGame.GraphicsDevice.Clear(Color.DarkRed);
             _spriteBatch.Begin();
             _spriteBatch.Draw(_textureRePlayButton, new Vector2(500, 200), Color.White);
             _spriteBatch.DrawString(_police, "Click to start", new Vector2(900, 260), Color.White);
