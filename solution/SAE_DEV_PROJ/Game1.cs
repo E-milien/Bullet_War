@@ -251,7 +251,6 @@ namespace SAE_DEV_PROJ
                 coordYcontourFond = 50;
             else
                 coordYcontourFond = 240;
-            Console.WriteLine("X = " + coordXcontourFond + " \nY= " + coordYcontourFond);
 
 
             // PAUSE
@@ -263,6 +262,7 @@ namespace SAE_DEV_PROJ
             {
                 _pause = false;
             }
+
 
             base.Update(gameTime);
         }
