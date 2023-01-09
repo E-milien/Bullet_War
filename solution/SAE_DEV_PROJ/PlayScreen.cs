@@ -31,16 +31,14 @@ namespace SAE_DEV_PROJ
         private int _var2;
         private float _angle;
         private double _pvDepart;
-        private Vector2 _positionPv = new Vector2(20, 30);
-        private Vector2 _positionPvBoss = new Vector2(20, 100);
-        private Vector2 _positionScore = new Vector2(20, 200);
+        private Vector2 _positionPv;
+        private Vector2 _positionPvBoss;
+        private Vector2 _positionScore;
         private int _damagePerso;
         public bool _alive=true;
         public bool _bossAlive=true;
-        const int _DEBUTPAT1= 3;
-        const int _DEBUTPAT2 = 15;
-        const int _DEBUTPAT3 = 24;
-        const int _DEBUTPAT4 = 50;
+        private bool _cheat1;
+        private Color _couleur;
 
         // TEXTURES 
         private Texture2D _textureBoss;
@@ -55,7 +53,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _texture_Low;
         private Texture2D _texture_VeryLow;
         private Texture2D _texture_Dead;
-        private Texture2D _textureFond;
+        private Texture2D _textureFondTMP;
 
         // PERSO
         private int _sensPersoX;
@@ -69,14 +67,13 @@ namespace SAE_DEV_PROJ
         public PlayScreen(Game1 game) : base(game)
         {
             _myGame = game;
-
         }
 
         public override void Initialize()
         {
-
-            
             // initialisation toutes les veriables
+            _couleur = Color.White;
+            _cheat1 = false;
             _ok1 = false;
             _ok2 = false;
             _bossAlive = true;
@@ -88,11 +85,13 @@ namespace SAE_DEV_PROJ
             _var2 = 2;
             _varCercle = 0;
             _angle = 0f;
-
+            _positionPv = new Vector2(20, 30);
+            _positionPvBoss = new Vector2(20, 100);
+            _positionScore = new Vector2(20, 200);
 
             // initialisation boss & perso
-            boss1 = new Boss(5000, 20, "boss", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
-            hero = new Perso(true, 100, 5, 0, "perso", 1, 500, new Vector2(500, 500) - new Vector2(Constantes._LARGEUR_PERSO / 2, 0));
+            boss1 = new Boss(5000, 20, "bossMechant", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
+            hero = new Perso(false, 100, 5, 0, "vaisseau", 1, 500, new Vector2(Constantes._LARGEUR_FENETRE/2,Constantes._HAUTEUR_FENETRE*2/3) - new Vector2(Constantes._LARGEUR_PERSO / 2, Constantes._HAUTEUR_PERSO / 2));
 
             _damagePerso = hero.DamagePerso;
             _pvDepart = hero.PvPerso;
@@ -134,9 +133,9 @@ namespace SAE_DEV_PROJ
         {
             _police = Content.Load<SpriteFont>("Font");
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _texturePerso = Content.Load<Texture2D>("perso");
+            _texturePerso = Content.Load<Texture2D>(hero.SkinPerso);
             _textureBullet = Content.Load<Texture2D>("bullet1");
-            _textureBulletAllie = Content.Load<Texture2D>("bullet");
+            _textureBulletAllie = Content.Load<Texture2D>("ballePerso");
             _textureBoss = Content.Load<Texture2D>(boss1.SkinBoss);
 
             // barre de vie perso
@@ -146,15 +145,16 @@ namespace SAE_DEV_PROJ
             _texture_Low = Content.Load<Texture2D>("Low");
             _texture_VeryLow = Content.Load<Texture2D>("VeryLow");
             _texture_Dead = Content.Load<Texture2D>("Dead");
-            _textureFond = Content.Load<Texture2D>("fond2");
 
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
-            //Keyboard.GetState().IsKeyDown(KeyState);
-            _myGame._screenDeathOk = false;
+            if (_keyboardState.IsKeyDown(Keys.P) && _keyboardState.IsKeyDown(Keys.I))
+                _couleur = Color.DeepPink;
+
+                _myGame._screenDeathOk = false;
             _myGame._screenWinOk = false;
             _myGame._actif = false;
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -164,7 +164,7 @@ namespace SAE_DEV_PROJ
             //perd du score a cause du temps
             if (_chrono >= _var2)
             {
-                if (hero.Score >= 100)
+                if (hero.Score >= 100&&_bossAlive)
                     hero.Score -= 100;
                 _var2 += 3;
             }
@@ -183,7 +183,7 @@ namespace SAE_DEV_PROJ
 
             Redemption(deltaTime);
             // active le 1er partterne (pattern1)
-            if (_chrono < _DEBUTPAT2 + 10 && _chrono >= _DEBUTPAT1)
+            if (_chrono < Constantes._DEBUTPAT2 + 10 && _chrono >= Constantes._DEBUTPAT1)
             {
                 Pattern1(deltaTime);
                 if (!_ok1)
@@ -191,10 +191,10 @@ namespace SAE_DEV_PROJ
                 _ok1 = true;
             }
             //lancer pattern2 au bout de 24 sec
-            if (_chrono>= _DEBUTPAT2 && _chrono<= _DEBUTPAT3)
+            if (_chrono>= Constantes._DEBUTPAT2 && _chrono<= Constantes._DEBUTPAT3)
                Pattern2(deltaTime);
             //active le 3eme patterne (paterncercle)
-            if (_chrono > _DEBUTPAT3 && _chrono < _DEBUTPAT4)
+            if (_chrono > Constantes._DEBUTPAT3 && _chrono < Constantes._DEBUTPAT4)
             {
                 PatternCercle(_angle);
                 if (!_ok2)
@@ -202,7 +202,7 @@ namespace SAE_DEV_PROJ
                 _ok2 = true;
             }
             //active le pattern spirale après 10s
-            if (_chrono > _DEBUTPAT4 && _chrono<_DEBUTPAT4+11)
+            if (_chrono > Constantes._DEBUTPAT4 && _chrono < Constantes._DEBUTPAT4 +11)
                 PatternSpirale(_angle);
 
             // Pattern cercle desaxé
@@ -219,9 +219,9 @@ namespace SAE_DEV_PROJ
         public override void Draw(GameTime gameTime)
         {
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_textureFond, new Vector2(0, 0), Color.White);
-            _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionPvBoss, Color.White);
-            _spriteBatch.DrawString(_police, $"Score : {hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), Color.White);
+            _spriteBatch.Draw(_myGame._textureFond, new Vector2(0, 0), _couleur);
+            _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionPvBoss, _couleur);
+            _spriteBatch.DrawString(_police, $"Score : {hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), _couleur);
 
 
             //HP
@@ -254,7 +254,7 @@ namespace SAE_DEV_PROJ
                 for (int i = 0; i < _tabBulletPerso.Length; i++)
                 {
                     if (!(_tabBulletPerso[i].BulletPosition.Y > hero.PositionPerso.Y))
-                        _spriteBatch.Draw(_textureBulletAllie, _tabBulletPerso[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+                        _spriteBatch.Draw(_textureBulletAllie, _tabBulletPerso[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS_PERSO / 2, 0), Color.White);
                 }
             
             }
@@ -299,8 +299,8 @@ namespace SAE_DEV_PROJ
                 _spriteBatch.Draw(_textureBullet, _tabBulletsCercleDesax[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Yellow);
             }
 
-            _spriteBatch.Draw(_textureBoss, boss1.BossPosition, Color.White);
-            _spriteBatch.Draw(_texturePerso, hero.PositionPerso, Color.White);
+            _spriteBatch.Draw(_textureBoss, boss1.BossPosition, _couleur);
+            _spriteBatch.Draw(_texturePerso, hero.PositionPerso, _couleur);
 
             _spriteBatch.End();
 
@@ -370,7 +370,7 @@ namespace SAE_DEV_PROJ
             {
                 if (!(_tabBulletPerso[i].BulletPosition.Y > hero.PositionPerso.Y))
                 {
-                    Rectangle rect1 = new Rectangle((int)_tabBulletPerso[i].BulletPosition.X, (int)_tabBulletPerso[i].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
+                    Rectangle rect1 = new Rectangle((int)_tabBulletPerso[i].BulletPosition.X, (int)_tabBulletPerso[i].BulletPosition.Y, Constantes._LARGEUR_BULLETS_PERSO, Constantes._HAUTEUR_BULLETS_PERSO);
                     Rectangle rect2 = new Rectangle((int)boss1.BossPosition.X, (int)boss1.BossPosition.Y, Constantes._LARGEUR_BOSS, Constantes._HAUTEUR_BOSS);
 
                     if (rect1.Intersects(rect2))
@@ -378,7 +378,7 @@ namespace SAE_DEV_PROJ
                         boss1.BossHP -= hero.DamagePerso;
                         _tabBulletPerso[i].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO / 2, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2);
 
-                        if (_redemption == false)
+                        if (_redemption == false&&_bossAlive)
                             hero.Score += 10;
                     }
                 }
@@ -419,7 +419,7 @@ namespace SAE_DEV_PROJ
         // 2
         public void Pattern2(float deltaTime)
         {
-            if (_chrono < _DEBUTPAT3 - 1)
+            if (_chrono < Constantes._DEBUTPAT3 - 1)
             {
 
                 for (int i = 0; i < _tabBullets2.Length; i++)
@@ -453,7 +453,7 @@ namespace SAE_DEV_PROJ
                 _varCercle += 3;
                 _i2++;
             }
-            if (_chrono < _DEBUTPAT4-1)
+            if (_chrono < Constantes._DEBUTPAT4 -1)
             {
                 for (int z = 0; z <= _i2; z++)
                 {

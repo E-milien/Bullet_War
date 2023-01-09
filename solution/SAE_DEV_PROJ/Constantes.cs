@@ -20,10 +20,16 @@ namespace SAE_DEV_PROJ
         public const int _VITESSE_BULLETS_PERSO = 1000;
         public const int _LARGEUR_BULLETS = 10;
         public const int _HAUTEUR_BULLETS = 10;
+        public const int _LARGEUR_BULLETS_PERSO = 6;
+        public const int _HAUTEUR_BULLETS_PERSO = 10;
         public const int _LARGEUR_BOSS = 50;
         public const int _HAUTEUR_BOSS = 50;
-        public const int _LARGEUR_PERSO = 50;
-        public const int _HAUTEUR_PERSO = 50;
+        public const int _LARGEUR_PERSO = 30;
+        public const int _HAUTEUR_PERSO = 30;
+        public const int _DEBUTPAT1 = 3;
+        public const int _DEBUTPAT2 = 15;
+        public const int _DEBUTPAT3 = 24;
+        public const int _DEBUTPAT4 = 50;
         private bool _estMort;
 
         public bool EstMort { get => _estMort; set => _estMort = value; }
