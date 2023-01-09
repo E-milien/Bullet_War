@@ -9,6 +9,7 @@ namespace SAE_DEV_PROJ
 {
     public class Game1 : Game
     {
+        public bool _pause;
         private readonly ScreenManager _screenManager;
         private GraphicsDeviceManager _graphics;
         HomeScreen _homeScreen;
@@ -58,6 +59,7 @@ namespace SAE_DEV_PROJ
 
         protected override void Initialize()
         {
+            _pause = false;
             // DEPLACEMENTS PERSO 
             _forward = Keys.Z;
             _right = Keys.D;
@@ -228,7 +230,15 @@ namespace SAE_DEV_PROJ
                 _textureFond = _textureFond8;
             }
 
-
+            // PAUSE
+            if (_keyboardState.IsKeyDown(Keys.Escape) && _pause == false)
+            {
+                _pause = true;
+            }
+            if (_keyboardState.IsKeyDown(Keys.Escape) && _pause == true && _playScreen._chronoPause>=1)
+            {
+                _pause = false;
+            }
 
             base.Update(gameTime);
         }
