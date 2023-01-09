@@ -279,7 +279,7 @@ namespace SAE_DEV_PROJ
             if(_tmpZ == true)
             {
                 var keys = _keyboardState.GetPressedKeys();
-                if (keys.Length > 0)
+                if (keys.Length > 0 && keys[0] != _right && keys[0] != _left && keys[0] != _behind)
                 {
                     _forward = keys[0];
                     _tmpZ = false;
