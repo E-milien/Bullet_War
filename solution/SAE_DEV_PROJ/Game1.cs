@@ -42,6 +42,9 @@ namespace SAE_DEV_PROJ
         public Texture2D _textureFond7;
         public Texture2D _textureFond8;
 
+        public int coordXcontourFond;
+        public int coordYcontourFond;
+
 
         public SpriteBatch SpriteBatch { get; set; }
 
@@ -54,7 +57,7 @@ namespace SAE_DEV_PROJ
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            //_graphics.IsFullScreen = true;
+            //-_graphics.IsFullScreen = true;
         }
 
         protected override void Initialize()
@@ -131,10 +134,12 @@ namespace SAE_DEV_PROJ
             Rectangle hitboxPic3 = new Rectangle(1350, 50, 200, 112);
             Rectangle hitboxPic4 = new Rectangle(1650, 50, 200, 112);
 
-            Rectangle hitboxPic5 = new Rectangle(750, 250, 200, 112);
-            Rectangle hitboxPic6 = new Rectangle(1050, 250, 200, 112);
-            Rectangle hitboxPic7 = new Rectangle(1350, 250, 200, 112);
-            Rectangle hitboxPic8 = new Rectangle(1650, 250, 200, 112);
+            Rectangle hitboxPic5 = new Rectangle(750, 240, 200, 112);
+            Rectangle hitboxPic6 = new Rectangle(1050, 240, 200, 112);
+            Rectangle hitboxPic7 = new Rectangle(1350, 240, 200, 112);
+            Rectangle hitboxPic8 = new Rectangle(1650, 240, 200, 112);
+
+            
 
 
             // MENU PRINCIPAL 
@@ -229,6 +234,25 @@ namespace SAE_DEV_PROJ
             {
                 _textureFond = _textureFond8;
             }
+
+            if(_textureFond == _textureFond1 || _textureFond == _textureFond5)
+                coordXcontourFond = 750;
+
+            if (_textureFond == _textureFond2 || _textureFond == _textureFond6)
+                coordXcontourFond = 1050;
+
+            if (_textureFond == _textureFond3 || _textureFond == _textureFond7)
+                coordXcontourFond = 1350;
+
+            if (_textureFond == _textureFond4 || _textureFond == _textureFond8)
+                coordXcontourFond = 1650;
+
+            if (_textureFond == _textureFond1 || _textureFond == _textureFond2 || _textureFond == _textureFond3 || _textureFond == _textureFond4)
+                coordYcontourFond = 50;
+            else
+                coordYcontourFond = 240;
+            Console.WriteLine("X = " + coordXcontourFond + " \nY= " + coordYcontourFond);
+
 
             // PAUSE
             if (_keyboardState.IsKeyDown(Keys.Escape) && _pause == false)
