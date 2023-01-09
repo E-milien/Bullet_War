@@ -47,6 +47,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureBoss;
         private Texture2D _textureBullet;
         private Texture2D _textureBulletAllie;
+        private Texture2D _textureAttentionPattern5;
         private SpriteFont _police;
 
         // TEXTURES HP
@@ -142,6 +143,7 @@ namespace SAE_DEV_PROJ
             _textureBulletAllie = Content.Load<Texture2D>("ballePerso");
             _textureBoss = Content.Load<Texture2D>(boss1.SkinBoss);
             _texturePause = Content.Load<Texture2D>("pause");
+            _textureAttentionPattern5 = Content.Load<Texture2D>("attention");
 
             // barre de vie perso
             _texture_Full = Content.Load<Texture2D>("Full");
@@ -314,10 +316,16 @@ namespace SAE_DEV_PROJ
             }
 
             //Bullets patternCercleDesax
-            for (int i = 0; i < _tabBulletsCercleDesax.Length; i++)
+            if (_chrono > Constantes._DEBUTPAT1)
             {
-                _spriteBatch.Draw(_textureBullet, _tabBulletsCercleDesax[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Yellow);
+                for (int i = 0; i < _tabBulletsCercleDesax.Length; i++)
+                {
+                    _spriteBatch.Draw(_textureBullet, _tabBulletsCercleDesax[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Yellow);
+                }
             }
+            //PatternCercleDesax attention //ON TOUCHE PAS SVP
+            else if (_chrono > Constantes._DEBUTPAT1 - 1)
+                _spriteBatch.Draw(_textureAttentionPattern5,new Vector2(555,180),Color.White);
 
             _spriteBatch.Draw(_textureBoss, boss1.BossPosition, _couleur);
             _spriteBatch.Draw(_texturePerso, hero.PositionPerso, _couleur);
@@ -605,9 +613,9 @@ namespace SAE_DEV_PROJ
             for (int i = 0; i < _tabBulletsCercleDesax.Length; i++)
             {
                 if (i%2 == 0)
-                    _tabBulletsCercleDesax[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2 + Constantes._LARGEUR_BOSS / 5 * i, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 5 * i), "bullet");
+                    _tabBulletsCercleDesax[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2 + Constantes._LARGEUR_BOSS / 7 * i, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 7 * i), "bullet");
                 else
-                    _tabBulletsCercleDesax[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2 - Constantes._LARGEUR_BOSS / 5 * i, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 5 * i), "bullet");
+                    _tabBulletsCercleDesax[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2 - Constantes._LARGEUR_BOSS / 7 * i, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 7 * i), "bullet");
             }
         }
     }
