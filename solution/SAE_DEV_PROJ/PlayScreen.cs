@@ -203,7 +203,7 @@ namespace SAE_DEV_PROJ
                 }
 
                 // Pattern cercle desaxé
-                if (_chrono > _DEBUTPAT1)
+                if (_chrono > Constantes._DEBUTPAT1)
                     PatternCercleDesax(_angle);
 
                 //lancer pattern2 au bout de 24 sec
