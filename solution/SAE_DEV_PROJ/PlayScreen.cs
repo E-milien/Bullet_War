@@ -69,6 +69,10 @@ namespace SAE_DEV_PROJ
         private int _sensPersoY;
         private KeyboardState _keyboardState;
 
+        private Rectangle _hitboxResumeButton;
+        private MouseState _ms;
+
+
 
 
         // pour récupérer une référence à l’objet game pour avoir accès à tout ce qui est
@@ -99,6 +103,9 @@ namespace SAE_DEV_PROJ
             _positionPv = new Vector2(20, 30);
             _positionPvBoss = new Vector2(20, 100);
             _positionScore = new Vector2(20, 200);
+
+            _hitboxResumeButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
+            
 
             // initialisation boss & perso
             boss1 = new Boss(5000, 20, "bossMechant", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
@@ -168,6 +175,8 @@ namespace SAE_DEV_PROJ
 
         public override void Update(GameTime gameTime)
         {
+            _ms = Mouse.GetState();
+
             if (_keyboardState.IsKeyDown(Keys.P) && _keyboardState.IsKeyDown(Keys.I))
                     _couleur = Color.DeepPink;
 
@@ -246,6 +255,11 @@ namespace SAE_DEV_PROJ
             else
             {
                 _chronoPause += deltaTime;
+                if(_ms.LeftButton == ButtonState.Pressed && _hitboxResumeButton.Contains(_ms.X, _ms.Y))
+                {
+                    _myGame._pause = false;
+                }
+
 
             }
         }
@@ -347,14 +361,15 @@ namespace SAE_DEV_PROJ
             {
                 _spriteBatch.Draw(_textureFondPause, new Vector2(0, 0), Color.White * 0.8f);
                 _spriteBatch.Draw(_textureMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_MENU / 2, Constantes._HAUTEUR_FENETRE / 2 - Constantes._HAUTEUR_MENU / 2), Color.White);
-                _spriteBatch.Draw(_textureButtonMenu, new Vector2(500, 200), Color.White);
-                _spriteBatch.DrawString(_police, "Resume", new Vector2(900, 260), Color.White);
+                
+                _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON/2, 300), Color.White);
+                _spriteBatch.DrawString(_police, "Resume", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 50, 340), Color.White);
 
-                _spriteBatch.Draw(_textureButtonMenu, new Vector2(500, 400), Color.White);
-                _spriteBatch.DrawString(_police, "Main Menu", new Vector2(940, 460), Color.White);
+                _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 500), Color.White);
+                _spriteBatch.DrawString(_police, "Main Menu", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 70, 540), Color.White);
 
-                _spriteBatch.Draw(_textureButtonMenu, new Vector2(500, 600), Color.White);
-                _spriteBatch.DrawString(_police, "Quit", new Vector2(900, 660), Color.White);
+                _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 700), Color.White);
+                _spriteBatch.DrawString(_police, "Quit", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 20, 740), Color.White);
             }
 
             _spriteBatch.End();

@@ -56,6 +56,9 @@ namespace SAE_DEV_PROJ
 
         public string _toucheAssignee;
 
+        private Rectangle _hitboxMenuButton;
+        private Rectangle _hitboxExitButton;
+
         public SpriteBatch SpriteBatch { get; set; }
 
         public Game1()
@@ -89,6 +92,9 @@ namespace SAE_DEV_PROJ
             _widthPlayButton = 1000;
             _heighPlayButton = 150;
             _textureFond = Content.Load<Texture2D>("fond1");
+
+            _hitboxMenuButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 500, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
+            _hitboxExitButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 700, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             base.Initialize();
         }
 
@@ -154,8 +160,15 @@ namespace SAE_DEV_PROJ
             Rectangle hitboxPic7 = new Rectangle(1350, 240, 200, 112);
             Rectangle hitboxPic8 = new Rectangle(1650, 240, 200, 112);
 
-            
 
+            if (_pause && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))
+            {
+                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
+            if(_pause && _ms.LeftButton == ButtonState.Pressed && _hitboxExitButton.Contains(_ms.X, _ms.Y))
+            {
+                Exit();
+            }
 
             // MENU PRINCIPAL 
             if (_actif && _ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(_ms.X, _ms.Y))
@@ -383,6 +396,9 @@ namespace SAE_DEV_PROJ
                     }
                 }
             }
+
+
+
 
 
 
