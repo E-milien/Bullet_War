@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Screens.Transitions;
 using System;
+using System.Linq;
 
 namespace SAE_DEV_PROJ
 {
@@ -23,7 +24,11 @@ namespace SAE_DEV_PROJ
         public bool _screenWinOk;
         public bool _actif;
         public bool _settingOk;
-        
+        private bool _tmpZ;
+        private bool _tmpD;
+        private bool _tmpQ;
+        private bool _tmpS;
+
         public int _widthPlayButton;
         public int _heighPlayButton;
         public KeyboardState _keyboardState;
@@ -44,6 +49,7 @@ namespace SAE_DEV_PROJ
 
         public int coordXcontourFond;
         public int coordYcontourFond;
+
 
 
         public SpriteBatch SpriteBatch { get; set; }
@@ -100,7 +106,7 @@ namespace SAE_DEV_PROJ
         }
 
         protected override void Update(GameTime gameTime)
-        { 
+        {
             KeyboardState _keyboardState = Keyboard.GetState();
             if (!_loaded)
             {
@@ -124,7 +130,7 @@ namespace SAE_DEV_PROJ
             Rectangle hitboxOptionButton = new Rectangle(500, 400, _widthPlayButton, _heighPlayButton);
             Rectangle hitboxLeaveButton = new Rectangle(500, 600, _widthPlayButton, _heighPlayButton);
 
-            Rectangle hitboxSettingButtonZ = new Rectangle(0,108,550,50);
+            Rectangle hitboxSettingButtonZ = new Rectangle(0, 108, 550, 50);
             Rectangle hitboxSettingButtonD = new Rectangle(0, 208, 550, 50);
             Rectangle hitboxSettingButtonQ = new Rectangle(0, 308, 550, 50);
             Rectangle hitboxSettingButtonS = new Rectangle(0, 408, 550, 50);
@@ -139,7 +145,7 @@ namespace SAE_DEV_PROJ
             Rectangle hitboxPic7 = new Rectangle(1350, 240, 200, 112);
             Rectangle hitboxPic8 = new Rectangle(1650, 240, 200, 112);
 
-            
+
 
 
             // MENU PRINCIPAL 
@@ -147,7 +153,7 @@ namespace SAE_DEV_PROJ
             {
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-            if(_actif && ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(ms.X, ms.Y))
+            if (_actif && ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(ms.X, ms.Y))
             {
                 _screenManager.LoadScreen(_settingScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
@@ -161,7 +167,7 @@ namespace SAE_DEV_PROJ
             // A SUPPRIMER 
             if (_keyboardState.IsKeyDown(Keys.O))
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
-            if(_keyboardState.IsKeyDown(Keys.M))
+            if (_keyboardState.IsKeyDown(Keys.M))
             {
                 _screenManager.LoadScreen(_settingScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
@@ -169,15 +175,15 @@ namespace SAE_DEV_PROJ
 
 
             // DEATH SCENE
-            if(_screenDeathOk && ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(ms.X, ms.Y))
+            if (_screenDeathOk && ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(ms.X, ms.Y))
             {
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-            if(_screenDeathOk && ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(ms.X, ms.Y))
+            if (_screenDeathOk && ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(ms.X, ms.Y))
             {
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-            if(_screenDeathOk && ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(ms.X, ms.Y))
+            if (_screenDeathOk && ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(ms.X, ms.Y))
             {
                 Exit();
             }
@@ -194,7 +200,7 @@ namespace SAE_DEV_PROJ
 
 
             // SETTINGS SCREEN
-            if(_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(ms.X, ms.Y))
+            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(ms.X, ms.Y))
             {
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
@@ -212,7 +218,7 @@ namespace SAE_DEV_PROJ
             {
                 _textureFond = _textureFond3;
             }
-            if(_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxPic4.Contains(ms.X, ms.Y))
+            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxPic4.Contains(ms.X, ms.Y))
             {
                 _textureFond = _textureFond4;
             }
@@ -235,7 +241,7 @@ namespace SAE_DEV_PROJ
                 _textureFond = _textureFond8;
             }
 
-            if(_textureFond == _textureFond1 || _textureFond == _textureFond5)
+            if (_textureFond == _textureFond1 || _textureFond == _textureFond5)
                 coordXcontourFond = 750;
 
             if (_textureFond == _textureFond2 || _textureFond == _textureFond6)
@@ -258,10 +264,76 @@ namespace SAE_DEV_PROJ
             {
                 _pause = true;
             }
-            if (_keyboardState.IsKeyDown(Keys.Escape) && _pause == true && _playScreen._chronoPause>=1)
+            if (_keyboardState.IsKeyDown(Keys.Escape) && _pause == true && _playScreen._chronoPause >= 1)
             {
                 _pause = false;
             }
+
+            // CHANGEMENTS DE TOUCHE Z 
+            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonZ.Contains(ms.X, ms.Y))
+                _tmpZ = true;
+
+            if(_tmpZ == true)
+            {
+                var keys = _keyboardState.GetPressedKeys();
+                if (keys.Length > 0)
+                {
+                    _forward = keys[0];
+                    _tmpZ = false;
+
+                }
+            }
+
+            // TOUCHE D 
+            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonD.Contains(ms.X, ms.Y))
+                _tmpD = true;
+
+            if (_tmpD == true)
+            {
+                var keys = _keyboardState.GetPressedKeys();
+                if (keys.Length > 0)
+                {
+                    _right = keys[0];
+                    _tmpD = false;
+
+                }
+            }
+
+            // TOUCHE Q 
+            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonQ.Contains(ms.X, ms.Y))
+            {
+                _tmpQ = true;
+            }
+
+            if (_tmpQ == true)
+            {
+                var keys = _keyboardState.GetPressedKeys();
+                if (keys.Length > 0)
+                {
+                    _left = keys[0];
+                    _tmpQ = false;
+
+                }
+            }
+
+            // TOUCHE S
+            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonS.Contains(ms.X, ms.Y))
+            {
+                _tmpS = true;
+            }
+
+            if (_tmpS == true)
+            {
+                var keys = _keyboardState.GetPressedKeys();
+                if (keys.Length > 0)
+                {
+                    _behind = keys[0];
+                    _tmpS = false;
+
+                }
+            }
+
+
 
 
             base.Update(gameTime);
@@ -279,6 +351,7 @@ namespace SAE_DEV_PROJ
             _graphics.PreferredBackBufferHeight = Constantes._HAUTEUR_FENETRE;
             _graphics.ApplyChanges();
         }
+
 
     }
 }
