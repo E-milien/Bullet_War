@@ -40,6 +40,7 @@ namespace SAE_DEV_PROJ
         public bool _alive=true;
         public bool _bossAlive=true;
         private bool _cheat1;
+        private bool _spiraleSend;
         private Color _couleur;
 
         // TEXTURES 
@@ -82,6 +83,7 @@ namespace SAE_DEV_PROJ
             _ok2 = false;
             _bossAlive = true;
             _alive = true;
+            _spiraleSend = false;
             _var = 0;
             _i1 = -1;
             _i2 = -1;
@@ -212,7 +214,7 @@ namespace SAE_DEV_PROJ
                 if (_chrono >= Constantes._DEBUTPAT2 && _chrono <= Constantes._DEBUTPAT3)
                     Pattern2(deltaTime);
 
-                //active le 3eme patterne (paterncercle)
+                //active le 3eme patterne (patterncercle)
                 if (_chrono > Constantes._DEBUTPAT3 && _chrono < Constantes._DEBUTPAT4)
                 {
                     PatternCercle(_angle);
@@ -224,6 +226,8 @@ namespace SAE_DEV_PROJ
                 //active le pattern spirale 
                 if (_chrono > Constantes._DEBUTPAT4 && _chrono < Constantes._DEBUTPAT4 + 11)
                     PatternSpirale(_angle);
+
+
 
                 DeplacementPerso(deltaTime);
                 CollisionBoss();
@@ -241,31 +245,6 @@ namespace SAE_DEV_PROJ
         {
             _spriteBatch.Begin();
             _spriteBatch.Draw(_myGame._textureFond, new Vector2(0, 0), _couleur);
-            _spriteBatch.DrawString(_police, "" + Math.Round(_chrono, 2), new Vector2(Constantes._LARGEUR_FENETRE - 100, 0), _couleur);
-            _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionPvBoss, _couleur);
-            _spriteBatch.DrawString(_police, $"Score : {hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), _couleur);
-            
-
-            //HP
-            if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 80)
-                _spriteBatch.Draw(_texture_Full, _positionPv, Color.White);
-
-            else if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 60)
-                _spriteBatch.Draw(_texture_High, _positionPv, Color.White);
-
-            else if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 40)
-                _spriteBatch.Draw(_texture_Mid, _positionPv, Color.White);
-
-            else if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 20)
-                _spriteBatch.Draw(_texture_Low, _positionPv, Color.White);
-
-            else if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 0)
-                _spriteBatch.Draw(_texture_VeryLow, _positionPv, Color.White);
-
-            else
-                _spriteBatch.Draw(_texture_Dead, _positionPv, Color.White);
-
-            _spriteBatch.DrawString(_police, $"{hero.PvPerso} / {_pvDepart}", new Vector2(_positionPv.X * 10, _positionPv.Y + 10), Color.Black);
 
             
 
@@ -306,7 +285,7 @@ namespace SAE_DEV_PROJ
             }
 
             //Bullets patternSpiral
-            if (_chrono > 10)
+            if (_chrono > Constantes._DEBUTPAT4 && _chrono < Constantes._DEBUTPAT4 + 11)
             {
                 for (int i = 0; i < _tabBulletsSpirale.Length; i++)
                 {
@@ -320,7 +299,7 @@ namespace SAE_DEV_PROJ
             {
                 for (int i = 0; i < _tabBulletsCercleDesax.Length; i++)
                 {
-                    _spriteBatch.Draw(_textureBullet, _tabBulletsCercleDesax[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Yellow);
+                    _spriteBatch.Draw(_textureBullet, _tabBulletsCercleDesax[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS, 0), Color.Yellow);
                 }
             }
             //PatternCercleDesax attention //ON TOUCHE PAS SVP
@@ -329,6 +308,31 @@ namespace SAE_DEV_PROJ
 
             _spriteBatch.Draw(_textureBoss, boss1.BossPosition, _couleur);
             _spriteBatch.Draw(_texturePerso, hero.PositionPerso, _couleur);
+            _spriteBatch.DrawString(_police, "" + Math.Round(_chrono, 2), new Vector2(Constantes._LARGEUR_FENETRE - 100, 0), _couleur);
+            _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionPvBoss, _couleur);
+            _spriteBatch.DrawString(_police, $"Score : {hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), _couleur);
+            
+
+            //HP
+            if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 80)
+                _spriteBatch.Draw(_texture_Full, _positionPv, Color.White);
+
+            else if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 60)
+                _spriteBatch.Draw(_texture_High, _positionPv, Color.White);
+
+            else if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 40)
+                _spriteBatch.Draw(_texture_Mid, _positionPv, Color.White);
+
+            else if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 20)
+                _spriteBatch.Draw(_texture_Low, _positionPv, Color.White);
+
+            else if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 0)
+                _spriteBatch.Draw(_texture_VeryLow, _positionPv, Color.White);
+
+            else
+                _spriteBatch.Draw(_texture_Dead, _positionPv, Color.White);
+
+            _spriteBatch.DrawString(_police, $"{hero.PvPerso} / {_pvDepart}", new Vector2(_positionPv.X * 10, _positionPv.Y + 10), Color.Black);
 
             if (_myGame._pause)
             {
@@ -379,6 +383,22 @@ namespace SAE_DEV_PROJ
             return tmp;
         }
         internal bool Collision(bool ok, Bullet[] _tableau)
+        {
+            bool tmp = false;
+            if (ok == true)
+                return false;
+            for (int i = 0; i < _tableau.Length; i++)
+            {
+                Rectangle rect1 = new Rectangle((int)_tableau[i].BulletPosition.X, (int)_tableau[i].BulletPosition.Y, Constantes._LARGEUR_BULLETS, Constantes._HAUTEUR_BULLETS);
+                Rectangle rect2 = new Rectangle((int)hero.PositionPerso.X, (int)hero.PositionPerso.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);
+                if (rect1.Intersects(rect2))
+                {
+                    tmp = true;
+                }
+            }
+            return tmp;
+        }
+        internal bool CollisionSpirale(bool ok, Bullet[] _tableau)
         {
             bool tmp = false;
             if (ok == true)
@@ -556,7 +576,7 @@ namespace SAE_DEV_PROJ
         // redemption de 2 secondes après être touché
         public void Redemption(float deltaTime)
         {
-            if (Collision(_redemption, _tabBullets2) || Collision(_redemption, _tabBullets) || Collision(_redemption, _tabBulletsCercle) || Collision(_redemption, _tabBulletsCercle) || (Collision(_redemption, _tabBulletsSpirale) && _chrono > 10) && _redemption == false)
+            if (Collision(_redemption, _tabBullets2) || Collision(_redemption, _tabBulletsCercle) || Collision(_redemption, _tabBullets) || (Collision(_redemption, _tabBulletsCercleDesax) && _chrono > Constantes._DEBUTPAT1) || (CollisionSpirale(_redemption, _tabBulletsSpirale) && _chrono > Constantes._DEBUTPAT4) && _redemption == false)
             {
                 //_alive = true; // pour etre sur
                 hero.PvPerso -= (int)boss1.DamageBoss;
