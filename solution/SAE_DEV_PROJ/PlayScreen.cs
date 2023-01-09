@@ -153,7 +153,6 @@ namespace SAE_DEV_PROJ
             _textureResumeButton = Content.Load<Texture2D>("Jouer");
             _textureHomeButton = Content.Load<Texture2D>("Option");
             _textureLeaveButton = Content.Load<Texture2D>("Leave");
-            _texturePause = Content.Load<Texture2D>("pause");
             _textureAttentionPattern5 = Content.Load<Texture2D>("attention");
 
             // barre de vie perso
