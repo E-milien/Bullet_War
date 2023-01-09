@@ -25,6 +25,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _texturePic6;
         private Texture2D _texturePic7;
         private Texture2D _texturePic8;
+        private Texture2D _textureContour;
 
         public SettingScreen(Game1 game) : base(game)
         {
@@ -35,7 +36,7 @@ namespace SAE_DEV_PROJ
         }
         public override void Initialize()
         {
-            
+            Rectangle contourPic = new Rectangle(740, 45, 10, 5);
             base.Initialize();
         }
         public override void LoadContent()
@@ -53,6 +54,7 @@ namespace SAE_DEV_PROJ
             _texturePic6 = Content.Load<Texture2D>("pic6");
             _texturePic7 = Content.Load<Texture2D>("pic7");
             _texturePic8 = Content.Load<Texture2D>("pic8");
+            _textureContour = Content.Load<Texture2D>("contour");
 
             base.LoadContent();
         }
@@ -82,6 +84,8 @@ namespace SAE_DEV_PROJ
             _spriteBatch.DrawString(_police, "Votre touche pour aller a gauche : " + _myGame._left, new Vector2(0, 308), Color.Black);
             _spriteBatch.DrawString(_police, "Votre touche pour reculer: " + _myGame._behind, new Vector2(0, 408), Color.Black);
 
+            _spriteBatch.Draw(_textureContour, new Vector2(_myGame.coordXcontourFond-5, _myGame.coordYcontourFond-3), Color.White);
+
             _spriteBatch.Draw(_texturePic1, new Vector2(750, 50), Color.White);
             _spriteBatch.Draw(_texturePic2, new Vector2(1050, 50), Color.White);
             _spriteBatch.Draw(_texturePic3, new Vector2(1350, 50), Color.White);
@@ -91,6 +95,7 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_texturePic6, new Vector2(1050, 240), Color.White);
             _spriteBatch.Draw(_texturePic7, new Vector2(1350, 240), Color.White);
             _spriteBatch.Draw(_texturePic8, new Vector2(1650, 240), Color.White);
+
 
             _spriteBatch.End();
         }
