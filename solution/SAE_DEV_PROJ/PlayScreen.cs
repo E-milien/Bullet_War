@@ -21,7 +21,7 @@ namespace SAE_DEV_PROJ
         internal Perso hero;
         private double _tmp;
         private bool _redemption;
-        private double _chrono;
+        public double _chrono;
         public double _chronoPause;
         private int _i1;
         private int _i2;
@@ -42,11 +42,16 @@ namespace SAE_DEV_PROJ
         private Color _couleur;
 
         // TEXTURES 
-        private Texture2D _texturePause;
+        private Texture2D _textureMenu;
+        private Texture2D _textureFondPause;
         private Texture2D _textureBoss;
         private Texture2D _textureBullet;
         private Texture2D _textureBulletAllie;
         private SpriteFont _police;
+
+        private Texture2D _textureResumeButton;
+        private Texture2D _textureHomeButton;
+        private Texture2D _textureLeaveButton;
 
         // TEXTURES HP
         private Texture2D _texture_Full;
@@ -138,7 +143,12 @@ namespace SAE_DEV_PROJ
             _textureBullet = Content.Load<Texture2D>("bullet1");
             _textureBulletAllie = Content.Load<Texture2D>("ballePerso");
             _textureBoss = Content.Load<Texture2D>(boss1.SkinBoss);
-            _texturePause = Content.Load<Texture2D>("pause");
+
+            _textureFondPause = Content.Load<Texture2D>("pause");
+            _textureMenu = Content.Load<Texture2D>("menu");
+            _textureResumeButton = Content.Load<Texture2D>("Jouer");
+            _textureHomeButton = Content.Load<Texture2D>("Option");
+            _textureLeaveButton = Content.Load<Texture2D>("Leave");
 
             // barre de vie perso
             _texture_Full = Content.Load<Texture2D>("Full");
@@ -311,7 +321,16 @@ namespace SAE_DEV_PROJ
 
             if (_myGame._pause)
             {
-                _spriteBatch.Draw(_texturePause, new Vector2(0, 0), Color.White);
+                _spriteBatch.Draw(_textureFondPause, new Vector2(0, 0), Color.White * 0.8f);
+                _spriteBatch.Draw(_textureMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_MENU / 2, Constantes._HAUTEUR_FENETRE / 2 - Constantes._HAUTEUR_MENU / 2), Color.White);
+                _spriteBatch.Draw(_textureResumeButton, new Vector2(500, 200), Color.White);
+                _spriteBatch.DrawString(_police, "Resume", new Vector2(900, 260), Color.White);
+
+                _spriteBatch.Draw(_textureHomeButton, new Vector2(500, 400), Color.White);
+                _spriteBatch.DrawString(_police, "Main Menu", new Vector2(940, 460), Color.White);
+
+                _spriteBatch.Draw(_textureLeaveButton, new Vector2(500, 600), Color.White);
+                _spriteBatch.DrawString(_police, "Quit", new Vector2(900, 660), Color.White);
             }
 
             _spriteBatch.End();

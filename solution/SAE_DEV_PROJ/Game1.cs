@@ -9,6 +9,7 @@ namespace SAE_DEV_PROJ
 {
     public class Game1 : Game
     {
+        private double _tmp;
         public bool _pause;
         private readonly ScreenManager _screenManager;
         private GraphicsDeviceManager _graphics;
@@ -62,6 +63,7 @@ namespace SAE_DEV_PROJ
 
         protected override void Initialize()
         {
+            _tmp = 0;
             _pause = false;
             // DEPLACEMENTS PERSO 
             _forward = Keys.Z;
@@ -254,13 +256,14 @@ namespace SAE_DEV_PROJ
 
 
             // PAUSE
-            if (_keyboardState.IsKeyDown(Keys.Escape) && _pause == false)
+            if (_keyboardState.IsKeyDown(Keys.Escape) && _pause == false && _playScreen._chrono >=_tmp+1)
             {
                 _pause = true;
             }
             if (_keyboardState.IsKeyDown(Keys.Escape) && _pause == true && _playScreen._chronoPause>=1)
             {
                 _pause = false;
+                _tmp=_playScreen._chrono;
             }
 
 
