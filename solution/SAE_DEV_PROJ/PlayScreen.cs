@@ -14,6 +14,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _texturePerso;
         internal Bullet[,] _tabBullets = new Bullet[8,10];
         internal Bullet[] _tabBulletPerso = new Bullet[200];
+        internal Bullet[,] _tabBulletPersoCote = new Bullet[200,2];
         internal Bullet[] _tabBullets2 = new Bullet[40];
         internal Bullet[,] _tabBulletsCercle = new Bullet[7,36];
         internal Bullet[] _tabBulletsSpirale = new Bullet[36*10];
@@ -40,8 +41,8 @@ namespace SAE_DEV_PROJ
         public bool _alive=true;
         public bool _bossAlive=true;
         private bool _cheat1;
-        private bool _spiraleSend;
         private Color _couleur;
+        private bool _upgradeCote;
 
         // TEXTURES 
         private Texture2D _textureMenu;
@@ -81,13 +82,13 @@ namespace SAE_DEV_PROJ
         public override void Initialize()
         {
             // initialisation toutes les veriables
+            _upgradeCote = true;
             _couleur = Color.White;
             _cheat1 = false;
             _ok1 = false;
             _ok2 = false;
             _bossAlive = true;
             _alive = true;
-            _spiraleSend = false;
             _var = 0;
             _i1 = -1;
             _i2 = -1;
@@ -119,6 +120,20 @@ namespace SAE_DEV_PROJ
             for (int i = 0; i < _tabBulletPerso.Length; i++)
             {
                 _tabBulletPerso[i] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO / 2, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
+            }
+            // BulletsAlliéesCoté initialize
+            if (_upgradeCote == true)
+            {
+                for (int i = 0; i < _tabBulletPersoCote.GetLength(0); i++)
+                {
+                    for (int j = 0; j < _tabBulletPersoCote.GetLength(1); j++)
+                    {
+                        if (j == 1)
+                            _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
+                        else
+                            _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
+                    }
+                }
             }
             // Bullets pattern 2 initialize
             for (int i = 0; i < _tabBullets2.Length; i++)
@@ -203,7 +218,29 @@ namespace SAE_DEV_PROJ
                     _tabBulletPerso[i].BulletPosition -= new Vector2(0, _tabBulletPerso[i].Vitesse * deltaTime);
                 }
 
-                
+                //tirs alliés cotés
+                if (_upgradeCote == true)
+                {
+                    for (int i = 0; i < _tabBulletPersoCote.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < _tabBulletPersoCote.GetLength(1); j++)
+                        {
+                            if (_tabBulletPersoCote[i,j].BulletPosition.Y > hero.PositionPerso.Y)
+                            {
+                                if (_tabBulletPersoCote[i,j].BulletPosition.X != hero.PositionPerso.X)
+                                {
+                                    if (j == 1)
+                                        _tabBulletPersoCote[i,j].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO, _tabBulletPersoCote[i,j].BulletPosition.Y);
+                                    else
+                                        _tabBulletPersoCote[i, j].BulletPosition = new Vector2(hero.PositionPerso.X, _tabBulletPersoCote[i, j].BulletPosition.Y);
+                                }
+                            }
+                            _tabBulletPersoCote[i,j].BulletPosition -= new Vector2(0, _tabBulletPersoCote[i,j].Vitesse * deltaTime);
+                        }
+                    }
+                }
+
+
 
                 // active le 1er partterne (pattern1)
                 if (_chrono < Constantes._DEBUTPAT2 + 10 && _chrono >= Constantes._DEBUTPAT1)
@@ -267,6 +304,23 @@ namespace SAE_DEV_PROJ
                         _spriteBatch.Draw(_textureBulletAllie, _tabBulletPerso[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS_PERSO / 2, 0), Color.White);
                 }
             
+            }
+
+            //Bullets alliées coté
+            if (_upgradeCote == true)
+            {
+                if (_redemption == false)
+                {
+
+                    for (int i = 0; i < _tabBulletPersoCote.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < _tabBulletPersoCote.GetLength(1); j++)
+                        {
+                            if (!(_tabBulletPersoCote[i,j].BulletPosition.Y > hero.PositionPerso.Y))
+                                _spriteBatch.Draw(_textureBulletAllie, _tabBulletPersoCote[i,j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS_PERSO / 2, 0), Color.White);
+                        }
+                    }
+                }
             }
 
             //Bullets pattern 1
@@ -449,8 +503,34 @@ namespace SAE_DEV_PROJ
                         boss1.BossHP -= hero.DamagePerso;
                         _tabBulletPerso[i].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO / 2, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2);
 
-                        if (_redemption == false&&_bossAlive)
+                        if (_redemption == false && _bossAlive)
                             hero.Score += 10;
+                    }
+                }
+            }
+            if (_upgradeCote)
+            {
+                for (int i = 0; i < _tabBulletPersoCote.GetLength(0); i++)
+                {
+                    for (int j = 0; j < _tabBulletPersoCote.GetLength(1); j++)
+                    {
+
+                        if (!(_tabBulletPersoCote[i,j].BulletPosition.Y > hero.PositionPerso.Y))
+                        {
+                            Rectangle rect1 = new Rectangle((int)_tabBulletPersoCote[i,j].BulletPosition.X, (int)_tabBulletPersoCote[i,j].BulletPosition.Y, Constantes._LARGEUR_BULLETS_PERSO, Constantes._HAUTEUR_BULLETS_PERSO);
+                            Rectangle rect2 = new Rectangle((int)boss1.BossPosition.X, (int)boss1.BossPosition.Y, Constantes._LARGEUR_BOSS, Constantes._HAUTEUR_BOSS);
+
+                            if (rect1.Intersects(rect2))
+                            {
+                                boss1.BossHP -= Constantes._DAMAGEPERSOCOTE;
+                                if (j == 1)
+                                    _tabBulletPersoCote[i, j].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2);
+                                else
+                                    _tabBulletPersoCote[i, j].BulletPosition = new Vector2(hero.PositionPerso.X, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2);
+                                if (_redemption == false && _bossAlive)
+                                    hero.Score += 1;
+                            }
+                        }
                     }
                 }
             }
@@ -464,6 +544,22 @@ namespace SAE_DEV_PROJ
                 if (_tabBulletPerso[i].BulletPosition.Y <= 0)
                 {
                     _tabBulletPerso[i].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO / 2, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2);
+                }
+            }
+            if (_upgradeCote == true)
+            {
+                for (int i = 0; i < _tabBulletPersoCote.GetLength(0); i++)
+                {
+                    for (int j = 0; j < _tabBulletPersoCote.GetLength(1); j++)
+                    {
+                        if (_tabBulletPersoCote[i,j].BulletPosition.Y <= 0)
+                        {
+                            if (j == 1)
+                                _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
+                            else
+                                _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
+                        }
+                    }
                 }
             }
         }
@@ -614,6 +710,16 @@ namespace SAE_DEV_PROJ
                 for (int i = 0; i < _tabBulletPerso.Length; i++)
                 {
                     _tabBulletPerso[i] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO / 2, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
+                }
+                for (int i = 0; i < _tabBulletPersoCote.GetLength(0); i++)
+                {
+                    for (int j = 0; j < _tabBulletPersoCote.GetLength(1); j++)
+                    {
+                        if (j == 0)
+                            _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
+                        else
+                            _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
+                    }
                 }
             }
             if (hero.PvPerso <= 0)
