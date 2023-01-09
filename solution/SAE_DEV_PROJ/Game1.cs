@@ -29,10 +29,13 @@ namespace SAE_DEV_PROJ
         private bool _tmpD;
         private bool _tmpQ;
         private bool _tmpS;
+        public bool _touche;
 
         public int _widthPlayButton;
         public int _heighPlayButton;
-        public KeyboardState _keyboardState;
+        private MouseState _ms;
+        private KeyboardState _keyboardState;
+        
         public Keys _forward;
         public Keys _right;
         public Keys _behind;
@@ -51,7 +54,7 @@ namespace SAE_DEV_PROJ
         public int coordXcontourFond;
         public int coordYcontourFond;
 
-
+        public string _toucheAssignee;
 
         public SpriteBatch SpriteBatch { get; set; }
 
@@ -109,7 +112,7 @@ namespace SAE_DEV_PROJ
 
         protected override void Update(GameTime gameTime)
         {
-            KeyboardState _keyboardState = Keyboard.GetState();
+            
             if (!_loaded)
             {
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
@@ -127,7 +130,11 @@ namespace SAE_DEV_PROJ
                 _screenWinOk = true;
             }
 
-            MouseState ms = Mouse.GetState();
+            
+            _ms = Mouse.GetState();
+            _keyboardState = Keyboard.GetState();
+            var keys = _keyboardState.GetPressedKeys();
+
             Rectangle hitboxPlayButton = new Rectangle(500, 200, _widthPlayButton, _heighPlayButton);
             Rectangle hitboxOptionButton = new Rectangle(500, 400, _widthPlayButton, _heighPlayButton);
             Rectangle hitboxLeaveButton = new Rectangle(500, 600, _widthPlayButton, _heighPlayButton);
@@ -147,20 +154,20 @@ namespace SAE_DEV_PROJ
             Rectangle hitboxPic7 = new Rectangle(1350, 240, 200, 112);
             Rectangle hitboxPic8 = new Rectangle(1650, 240, 200, 112);
 
-
+            
 
 
             // MENU PRINCIPAL 
-            if (_actif && ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(ms.X, ms.Y))
+            if (_actif && _ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(_ms.X, _ms.Y))
             {
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-            if (_actif && ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(ms.X, ms.Y))
+            if (_actif && _ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(_ms.X, _ms.Y))
             {
                 _screenManager.LoadScreen(_settingScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
 
-            if (_actif && ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(ms.X, ms.Y))
+            if (_actif && _ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(_ms.X, _ms.Y))
             {
                 Exit();
             }
@@ -177,68 +184,68 @@ namespace SAE_DEV_PROJ
 
 
             // DEATH SCENE
-            if (_screenDeathOk && ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(ms.X, ms.Y))
+            if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(_ms.X, _ms.Y))
             {
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-            if (_screenDeathOk && ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(ms.X, ms.Y))
+            if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(_ms.X, _ms.Y))
             {
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-            if (_screenDeathOk && ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(ms.X, ms.Y))
+            if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(_ms.X, _ms.Y))
             {
                 Exit();
             }
 
             // WIN SCENE
-            if (_screenWinOk && ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(ms.X, ms.Y))
+            if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(_ms.X, _ms.Y))
             {
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-            if (_screenWinOk && ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(ms.X, ms.Y))
+            if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(_ms.X, _ms.Y))
             {
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
 
 
             // SETTINGS SCREEN
-            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(ms.X, ms.Y))
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(_ms.X, _ms.Y))
             {
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
 
             // FONDS SUPERIEURS 
-            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxPic1.Contains(ms.X, ms.Y))
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxPic1.Contains(_ms.X, _ms.Y))
             {
                 _textureFond = _textureFond1;
             }
-            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxPic2.Contains(ms.X, ms.Y))
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxPic2.Contains(_ms.X, _ms.Y))
             {
                 _textureFond = _textureFond2;
             }
-            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxPic3.Contains(ms.X, ms.Y))
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxPic3.Contains(_ms.X, _ms.Y))
             {
                 _textureFond = _textureFond3;
             }
-            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxPic4.Contains(ms.X, ms.Y))
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxPic4.Contains(_ms.X, _ms.Y))
             {
                 _textureFond = _textureFond4;
             }
 
             // FONDS INFERIEURS 
-            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxPic5.Contains(ms.X, ms.Y))
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxPic5.Contains(_ms.X, _ms.Y))
             {
                 _textureFond = _textureFond5;
             }
-            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxPic6.Contains(ms.X, ms.Y))
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxPic6.Contains(_ms.X, _ms.Y))
             {
                 _textureFond = _textureFond6;
             }
-            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxPic7.Contains(ms.X, ms.Y))
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxPic7.Contains(_ms.X, _ms.Y))
             {
                 _textureFond = _textureFond7;
             }
-            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxPic8.Contains(ms.X, ms.Y))
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxPic8.Contains(_ms.X, _ms.Y))
             {
                 _textureFond = _textureFond8;
             }
@@ -273,66 +280,107 @@ namespace SAE_DEV_PROJ
             }
 
             // CHANGEMENTS DE TOUCHE Z 
-            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonZ.Contains(ms.X, ms.Y))
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonZ.Contains(_ms.X, _ms.Y))
+            {
                 _tmpZ = true;
+            }
+                
 
             if(_tmpZ == true)
             {
-                var keys = _keyboardState.GetPressedKeys();
-                if (keys.Length > 0 && keys[0] != _right && keys[0] != _left && keys[0] != _behind)
-                {
-                    _forward = keys[0];
-                    _tmpZ = false;
 
+                if (keys.Length > 0)
+                {
+
+                    if(keys[0] == _forward || keys[0] == _left || keys[0] == _right || keys[0] == _behind)
+                    {
+                        _touche = true;
+                        _toucheAssignee = keys[0].ToString();
+                    }
+                    else
+                    {
+                        _forward = keys[0];
+                        _tmpZ = false;
+                        _touche = false;
+                    }
                 }
             }
 
             // TOUCHE D 
-            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonD.Contains(ms.X, ms.Y))
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonD.Contains(_ms.X, _ms.Y))
+            {
                 _tmpD = true;
+            }
 
             if (_tmpD == true)
             {
-                var keys = _keyboardState.GetPressedKeys();
+
                 if (keys.Length > 0)
                 {
-                    _right = keys[0];
-                    _tmpD = false;
 
+                    if (keys[0] == _forward || keys[0] == _left || keys[0] == _right || keys[0] == _behind)
+                    {
+                        _touche = true;
+                        _toucheAssignee = keys[0].ToString();
+                    }
+                    else
+                    {
+                        _right = keys[0];
+                        _tmpD = false;
+                        _touche = false;
+                    }
                 }
             }
 
             // TOUCHE Q 
-            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonQ.Contains(ms.X, ms.Y))
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonQ.Contains(_ms.X, _ms.Y))
             {
                 _tmpQ = true;
             }
 
             if (_tmpQ == true)
             {
-                var keys = _keyboardState.GetPressedKeys();
+
                 if (keys.Length > 0)
                 {
-                    _left = keys[0];
-                    _tmpQ = false;
 
+                    if (keys[0] == _forward || keys[0] == _left || keys[0] == _right || keys[0] == _behind)
+                    {
+                        _touche = true;
+                        _toucheAssignee = keys[0].ToString();
+                    }
+                    else
+                    {
+                        _left = keys[0];
+                        _tmpQ = false;
+                        _touche = false;
+                    }
                 }
             }
 
             // TOUCHE S
-            if (_settingOk && ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonS.Contains(ms.X, ms.Y))
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonS.Contains(_ms.X, _ms.Y))
             {
                 _tmpS = true;
             }
 
             if (_tmpS == true)
             {
-                var keys = _keyboardState.GetPressedKeys();
+
                 if (keys.Length > 0)
                 {
-                    _behind = keys[0];
-                    _tmpS = false;
 
+                    if (keys[0] == _forward || keys[0] == _left || keys[0] == _right || keys[0] == _behind)
+                    {
+                        _touche = true;
+                        _toucheAssignee = keys[0].ToString();
+                    }
+                    else
+                    {
+                        _behind = keys[0];
+                        _tmpS = false;
+                        _touche = false;
+                    }
                 }
             }
 
