@@ -51,9 +51,8 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureAttentionPattern5;
         private SpriteFont _police;
 
-        private Texture2D _textureResumeButton;
-        private Texture2D _textureHomeButton;
-        private Texture2D _textureLeaveButton;
+        private Texture2D _textureButtonMenu;
+        private Texture2D _textureButtonMenuPressed;
 
         // TEXTURES HP
         private Texture2D _texture_Full;
@@ -150,9 +149,8 @@ namespace SAE_DEV_PROJ
 
             _textureFondPause = Content.Load<Texture2D>("pause");
             _textureMenu = Content.Load<Texture2D>("menu");
-            _textureResumeButton = Content.Load<Texture2D>("Jouer");
-            _textureHomeButton = Content.Load<Texture2D>("Option");
-            _textureLeaveButton = Content.Load<Texture2D>("Leave");
+            _textureButtonMenu = Content.Load<Texture2D>("boutonM");
+            _textureButtonMenuPressed = Content.Load<Texture2D>("boutonM_pressed");
             _textureAttentionPattern5 = Content.Load<Texture2D>("attention");
 
             // barre de vie perso
@@ -244,6 +242,7 @@ namespace SAE_DEV_PROJ
             else
             {
                 _chronoPause += deltaTime;
+
             }
         }
 
@@ -344,13 +343,13 @@ namespace SAE_DEV_PROJ
             {
                 _spriteBatch.Draw(_textureFondPause, new Vector2(0, 0), Color.White * 0.8f);
                 _spriteBatch.Draw(_textureMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_MENU / 2, Constantes._HAUTEUR_FENETRE / 2 - Constantes._HAUTEUR_MENU / 2), Color.White);
-                _spriteBatch.Draw(_textureResumeButton, new Vector2(500, 200), Color.White);
+                _spriteBatch.Draw(_textureButtonMenu, new Vector2(500, 200), Color.White);
                 _spriteBatch.DrawString(_police, "Resume", new Vector2(900, 260), Color.White);
 
-                _spriteBatch.Draw(_textureHomeButton, new Vector2(500, 400), Color.White);
+                _spriteBatch.Draw(_textureButtonMenu, new Vector2(500, 400), Color.White);
                 _spriteBatch.DrawString(_police, "Main Menu", new Vector2(940, 460), Color.White);
 
-                _spriteBatch.Draw(_textureLeaveButton, new Vector2(500, 600), Color.White);
+                _spriteBatch.Draw(_textureButtonMenu, new Vector2(500, 600), Color.White);
                 _spriteBatch.DrawString(_police, "Quit", new Vector2(900, 660), Color.White);
             }
 
