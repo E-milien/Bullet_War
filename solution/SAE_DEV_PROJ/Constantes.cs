@@ -32,6 +32,7 @@ namespace SAE_DEV_PROJ
         public const int _DEBUTPAT2 = 15;
         public const int _DEBUTPAT3 = 24;
         public const int _DEBUTPAT4 = 50;
+        public const int _DEBUTPAT5 = 61;
         private bool _estMort;
 
         public bool EstMort { get => _estMort; set => _estMort = value; }

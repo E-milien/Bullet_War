@@ -96,7 +96,10 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_texturePic7, new Vector2(1350, 240), Color.White);
             _spriteBatch.Draw(_texturePic8, new Vector2(1650, 240), Color.White);
 
-
+            if(_myGame._touche == true)
+            {
+                _spriteBatch.DrawString(_police, _myGame._toucheAssignee + " est deja assignee, cliquer sur une autre.", new Vector2(700, 500), Color.Black);
+            }
             _spriteBatch.End();
         }
     }
