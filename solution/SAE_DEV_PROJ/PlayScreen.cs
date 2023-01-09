@@ -17,6 +17,7 @@ namespace SAE_DEV_PROJ
         internal Bullet[] _tabBullets2 = new Bullet[40];
         internal Bullet[,] _tabBulletsCercle = new Bullet[7,36];
         internal Bullet[] _tabBulletsSpirale = new Bullet[36*10];
+        internal Bullet[] _tabBulletsCercleDesax = new Bullet[36*2];
         internal Boss boss1;
         internal Perso hero;
         private double _tmp;
@@ -46,6 +47,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureBoss;
         private Texture2D _textureBullet;
         private Texture2D _textureBulletAllie;
+        private Texture2D _textureAttentionPattern5;
         private SpriteFont _police;
 
         // TEXTURES HP
@@ -122,10 +124,12 @@ namespace SAE_DEV_PROJ
             {
                 for (int j = 0; j < _tabBulletsCercle.GetLength(1); j++)
                 {
-                    _tabBulletsCercle[i, j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bulletSpiral");
+                    _tabBulletsCercle[i, j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bulletCercle");
                 }
             }
+            
             InitializeSpirale();
+            InitializeCercleDesax();
 
             base.Initialize();
         }
@@ -139,6 +143,7 @@ namespace SAE_DEV_PROJ
             _textureBulletAllie = Content.Load<Texture2D>("ballePerso");
             _textureBoss = Content.Load<Texture2D>(boss1.SkinBoss);
             _texturePause = Content.Load<Texture2D>("pause");
+            _textureAttentionPattern5 = Content.Load<Texture2D>("attention");
 
             // barre de vie perso
             _texture_Full = Content.Load<Texture2D>("Full");
@@ -198,6 +203,10 @@ namespace SAE_DEV_PROJ
                         _var = _chrono;
                     _ok1 = true;
                 }
+
+                // Pattern cercle desaxé
+                if (_chrono > Constantes._DEBUTPAT1)
+                    PatternCercleDesax(_angle);
 
                 //lancer pattern2 au bout de 24 sec
                 if (_chrono >= Constantes._DEBUTPAT2 && _chrono <= Constantes._DEBUTPAT3)
@@ -305,6 +314,18 @@ namespace SAE_DEV_PROJ
                         _spriteBatch.Draw(_textureBullet, _tabBulletsSpirale[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black);
                 }
             }
+
+            //Bullets patternCercleDesax
+            if (_chrono > Constantes._DEBUTPAT1)
+            {
+                for (int i = 0; i < _tabBulletsCercleDesax.Length; i++)
+                {
+                    _spriteBatch.Draw(_textureBullet, _tabBulletsCercleDesax[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Yellow);
+                }
+            }
+            //PatternCercleDesax attention //ON TOUCHE PAS SVP
+            else if (_chrono > Constantes._DEBUTPAT1 - 1)
+                _spriteBatch.Draw(_textureAttentionPattern5,new Vector2(555,180),Color.White);
 
             _spriteBatch.Draw(_textureBoss, boss1.BossPosition, _couleur);
             _spriteBatch.Draw(_texturePerso, hero.PositionPerso, _couleur);
@@ -516,10 +537,26 @@ namespace SAE_DEV_PROJ
             }
         }
 
+        // 5
+        public void PatternCercleDesax(float angle)
+        {
+            for (int i = 0; i < _tabBulletsCercleDesax.Length; i++)
+            {
+                float bulletDirectionX = MathF.Sin(angle * MathF.PI / 180f);
+                float bulletDirectionY = MathF.Cos(angle * MathF.PI / 180f);
+                Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY);
+                if (i % 2 == 0)
+                    _tabBulletsCercleDesax[i].BulletPosition += bulletDirection;
+                else
+                    _tabBulletsCercleDesax[i].BulletPosition += new Vector2(-bulletDirectionX,bulletDirectionY);
+                angle += 5f;
+            }
+        }
+
         // redemption de 2 secondes après être touché
         public void Redemption(float deltaTime)
         {
-            if (Collision(_redemption, _tabBullets2) || Collision(_redemption, _tabBullets) || Collision(_redemption, _tabBulletsCercle) || (Collision(_redemption, _tabBulletsSpirale) && _chrono > 10) && _redemption == false)
+            if (Collision(_redemption, _tabBullets2) || Collision(_redemption, _tabBullets) || Collision(_redemption, _tabBulletsCercle) || Collision(_redemption, _tabBulletsCercle) || (Collision(_redemption, _tabBulletsSpirale) && _chrono > 10) && _redemption == false)
             {
                 //_alive = true; // pour etre sur
                 hero.PvPerso -= (int)boss1.DamageBoss;
@@ -559,7 +596,7 @@ namespace SAE_DEV_PROJ
 
         public void InitializeSpirale()
         {
-            // Bullets pattern spirale initialize (gerer les spawns avec i (?))
+            // Bullets pattern spirale initialize 
             for (int i = 0; i < _tabBulletsSpirale.Length; i++)
             {
                 float bulletDirectionX = MathF.Sin(_angle * MathF.PI / 180f);
@@ -568,6 +605,17 @@ namespace SAE_DEV_PROJ
 
                 _tabBulletsSpirale[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2) - bulletDirection * i * 2, "bulletSpiral", false);
                 _angle += 10f;
+            }
+        }
+        public void InitializeCercleDesax()
+        {
+            // Bullets pattern cercle desaxé initialize
+            for (int i = 0; i < _tabBulletsCercleDesax.Length; i++)
+            {
+                if (i%2 == 0)
+                    _tabBulletsCercleDesax[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2 + Constantes._LARGEUR_BOSS / 7 * i, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 7 * i), "bullet");
+                else
+                    _tabBulletsCercleDesax[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2 - Constantes._LARGEUR_BOSS / 7 * i, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 7 * i), "bullet");
             }
         }
     }
