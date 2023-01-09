@@ -8,6 +8,7 @@ namespace SAE_DEV_PROJ
 {
     public class PlayScreen : GameScreen
     {
+        
         private Game1 _myGame;
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
@@ -21,6 +22,7 @@ namespace SAE_DEV_PROJ
         private double _tmp;
         private bool _redemption;
         private double _chrono;
+        public double _chronoPause;
         private int _i1;
         private int _i2;
         private double _var;
@@ -40,6 +42,7 @@ namespace SAE_DEV_PROJ
         private Color _couleur;
 
         // TEXTURES 
+        private Texture2D _texturePause;
         private Texture2D _textureBoss;
         private Texture2D _textureBullet;
         private Texture2D _textureBulletAllie;
@@ -81,6 +84,7 @@ namespace SAE_DEV_PROJ
             _i1 = -1;
             _i2 = -1;
             _chrono = 0;
+            _chronoPause = 0;
             _var2 = 2;
             _varCercle = 0;
             _angle = 0f;
@@ -134,6 +138,7 @@ namespace SAE_DEV_PROJ
             _textureBullet = Content.Load<Texture2D>("bullet1");
             _textureBulletAllie = Content.Load<Texture2D>("ballePerso");
             _textureBoss = Content.Load<Texture2D>(boss1.SkinBoss);
+            _texturePause = Content.Load<Texture2D>("pause");
 
             // barre de vie perso
             _texture_Full = Content.Load<Texture2D>("Full");
@@ -149,73 +154,88 @@ namespace SAE_DEV_PROJ
         public override void Update(GameTime gameTime)
         {
             if (_keyboardState.IsKeyDown(Keys.P) && _keyboardState.IsKeyDown(Keys.I))
-                _couleur = Color.DeepPink;
+                    _couleur = Color.DeepPink;
 
-                _myGame._screenDeathOk = false;
+            _myGame._screenDeathOk = false;
             _myGame._screenWinOk = false;
             _myGame._actif = false;
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            //pattern1 pour les différentes "vague de bullets"
-            _chrono += deltaTime;
-
-            //perd du score a cause du temps
-            if (_chrono >= _var2)
+            if (!_myGame._pause)
             {
-                if (hero.Score >= 100&&_bossAlive)
-                    hero.Score -= 100;
-                _var2 += 3;
-            }
+                
+                
+                //pattern1 pour les différentes "vague de bullets"
+                _chrono += deltaTime;
+                _chronoPause = 0;
 
-            //tirs alliés
-
-            for (int i = 0; i < _tabBulletPerso.Length; i++)
-            {
-                if (_tabBulletPerso[i].BulletPosition.Y > hero.PositionPerso.Y)
+                //perd du score a cause du temps
+                if (_chrono >= _var2)
                 {
-                    if (_tabBulletPerso[i].BulletPosition.X != hero.PositionPerso.X)
-                        _tabBulletPerso[i].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO / 2, _tabBulletPerso[i].BulletPosition.Y);
+                    if (hero.Score >= 100 && _bossAlive)
+                        hero.Score -= 100;
+                    _var2 += 3;
                 }
-                _tabBulletPerso[i].BulletPosition -= new Vector2(0, _tabBulletPerso[i].Vitesse * deltaTime);
-            }
 
-            Redemption(deltaTime);
-            // active le 1er partterne (pattern1)
-            if (_chrono < Constantes._DEBUTPAT2 + 10 && _chrono >= Constantes._DEBUTPAT1)
+                //tirs alliés
+
+                for (int i = 0; i < _tabBulletPerso.Length; i++)
+                {
+                    if (_tabBulletPerso[i].BulletPosition.Y > hero.PositionPerso.Y)
+                    {
+                        if (_tabBulletPerso[i].BulletPosition.X != hero.PositionPerso.X)
+                            _tabBulletPerso[i].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO / 2, _tabBulletPerso[i].BulletPosition.Y);
+                    }
+                    _tabBulletPerso[i].BulletPosition -= new Vector2(0, _tabBulletPerso[i].Vitesse * deltaTime);
+                }
+
+                
+
+                // active le 1er partterne (pattern1)
+                if (_chrono < Constantes._DEBUTPAT2 + 10 && _chrono >= Constantes._DEBUTPAT1)
+                {
+                    Pattern1(deltaTime);
+                    if (!_ok1)
+                        _var = _chrono;
+                    _ok1 = true;
+                }
+
+                //lancer pattern2 au bout de 24 sec
+                if (_chrono >= Constantes._DEBUTPAT2 && _chrono <= Constantes._DEBUTPAT3)
+                    Pattern2(deltaTime);
+
+                //active le 3eme patterne (paterncercle)
+                if (_chrono > Constantes._DEBUTPAT3 && _chrono < Constantes._DEBUTPAT4)
+                {
+                    PatternCercle(_angle);
+                    if (!_ok2)
+                        _varCercle = _chrono;
+                    _ok2 = true;
+                }
+
+                //active le pattern spirale 
+                if (_chrono > Constantes._DEBUTPAT4 && _chrono < Constantes._DEBUTPAT4 + 11)
+                    PatternSpirale(_angle);
+
+                DeplacementPerso(deltaTime);
+                CollisionBoss();
+                Redemption(deltaTime);
+                CheckBossDead(boss1);
+                BulletAllieReset();
+            }
+            else
             {
-                Pattern1(deltaTime);
-                if (!_ok1)
-                    _var = _chrono;
-                _ok1 = true;
+                _chronoPause += deltaTime;
             }
-            //lancer pattern2 au bout de 24 sec
-            if (_chrono>= Constantes._DEBUTPAT2 && _chrono<= Constantes._DEBUTPAT3)
-               Pattern2(deltaTime);
-            //active le 3eme patterne (paterncercle)
-            if (_chrono > Constantes._DEBUTPAT3 && _chrono < Constantes._DEBUTPAT4)
-            {
-                PatternCercle(_angle);
-                if (!_ok2)
-                    _varCercle = _chrono;
-                _ok2 = true;
-            }
-            //active le pattern spirale après 10s
-            if (_chrono > Constantes._DEBUTPAT4 && _chrono < Constantes._DEBUTPAT4 +11)
-                PatternSpirale(_angle);
-
-            DeplacementPerso(deltaTime);
-            CollisionBoss();
-
-            CheckBossDead(boss1);
-            BulletAllieReset();
         }
 
         public override void Draw(GameTime gameTime)
         {
             _spriteBatch.Begin();
             _spriteBatch.Draw(_myGame._textureFond, new Vector2(0, 0), _couleur);
+            _spriteBatch.DrawString(_police, "" + Math.Round(_chrono, 2), new Vector2(Constantes._LARGEUR_FENETRE - 100, 0), _couleur);
             _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionPvBoss, _couleur);
             _spriteBatch.DrawString(_police, $"Score : {hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), _couleur);
-
+            
 
             //HP
             if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 80)
@@ -288,6 +308,11 @@ namespace SAE_DEV_PROJ
 
             _spriteBatch.Draw(_textureBoss, boss1.BossPosition, _couleur);
             _spriteBatch.Draw(_texturePerso, hero.PositionPerso, _couleur);
+
+            if (_myGame._pause)
+            {
+                _spriteBatch.Draw(_texturePause, new Vector2(0, 0), Color.White);
+            }
 
             _spriteBatch.End();
 
