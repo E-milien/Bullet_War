@@ -56,6 +56,25 @@ namespace SAE_DEV_PROJ
 
         public string _toucheAssignee;
 
+        Rectangle hitboxPlayButton;
+        Rectangle hitboxOptionButton;
+        Rectangle hitboxLeaveButton;
+
+        Rectangle hitboxSettingButtonZ;
+        Rectangle hitboxSettingButtonD;
+        Rectangle hitboxSettingButtonQ;
+        Rectangle hitboxSettingButtonS;
+
+        Rectangle hitboxPic1;
+        Rectangle hitboxPic2;
+        Rectangle hitboxPic3;
+        Rectangle hitboxPic4;
+
+        Rectangle hitboxPic5;
+        Rectangle hitboxPic6;
+        Rectangle hitboxPic7;
+        Rectangle hitboxPic8;
+
         private Rectangle _hitboxMenuButton;
         private Rectangle _hitboxExitButton;
 
@@ -93,6 +112,26 @@ namespace SAE_DEV_PROJ
             _heighPlayButton = 150;
             _textureFond = Content.Load<Texture2D>("fond1");
 
+            hitboxPic1 = new Rectangle(750, 50, 200, 112);
+            hitboxPic2 = new Rectangle(1050, 50, 200, 112);
+            hitboxPic3 = new Rectangle(1350, 50, 200, 112);
+            hitboxPic4 = new Rectangle(1650, 50, 200, 112);
+
+            hitboxPic5 = new Rectangle(750, 240, 200, 112);
+            hitboxPic6 = new Rectangle(1050, 240, 200, 112);
+            hitboxPic7 = new Rectangle(1350, 240, 200, 112);
+            hitboxPic8 = new Rectangle(1650, 240, 200, 112);
+
+            hitboxSettingButtonZ = new Rectangle(0, 108, 550, 50);
+            hitboxSettingButtonD = new Rectangle(0, 208, 550, 50);
+            hitboxSettingButtonQ = new Rectangle(0, 308, 550, 50);
+            hitboxSettingButtonS = new Rectangle(0, 408, 550, 50);
+
+            hitboxPlayButton = new Rectangle(500, 200, _widthPlayButton, _heighPlayButton);
+            hitboxOptionButton = new Rectangle(500, 400, _widthPlayButton, _heighPlayButton);
+            hitboxLeaveButton = new Rectangle(500, 600, _widthPlayButton, _heighPlayButton);
+
+
             _hitboxMenuButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 500, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxExitButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 700, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             base.Initialize();
@@ -118,7 +157,6 @@ namespace SAE_DEV_PROJ
 
         protected override void Update(GameTime gameTime)
         {
-            
             if (!_loaded)
             {
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
@@ -136,39 +174,9 @@ namespace SAE_DEV_PROJ
                 _screenWinOk = true;
             }
 
-            
             _ms = Mouse.GetState();
             _keyboardState = Keyboard.GetState();
             var keys = _keyboardState.GetPressedKeys();
-
-            Rectangle hitboxPlayButton = new Rectangle(500, 200, _widthPlayButton, _heighPlayButton);
-            Rectangle hitboxOptionButton = new Rectangle(500, 400, _widthPlayButton, _heighPlayButton);
-            Rectangle hitboxLeaveButton = new Rectangle(500, 600, _widthPlayButton, _heighPlayButton);
-
-            Rectangle hitboxSettingButtonZ = new Rectangle(0, 108, 550, 50);
-            Rectangle hitboxSettingButtonD = new Rectangle(0, 208, 550, 50);
-            Rectangle hitboxSettingButtonQ = new Rectangle(0, 308, 550, 50);
-            Rectangle hitboxSettingButtonS = new Rectangle(0, 408, 550, 50);
-
-            Rectangle hitboxPic1 = new Rectangle(750, 50, 200, 112);
-            Rectangle hitboxPic2 = new Rectangle(1050, 50, 200, 112);
-            Rectangle hitboxPic3 = new Rectangle(1350, 50, 200, 112);
-            Rectangle hitboxPic4 = new Rectangle(1650, 50, 200, 112);
-
-            Rectangle hitboxPic5 = new Rectangle(750, 240, 200, 112);
-            Rectangle hitboxPic6 = new Rectangle(1050, 240, 200, 112);
-            Rectangle hitboxPic7 = new Rectangle(1350, 240, 200, 112);
-            Rectangle hitboxPic8 = new Rectangle(1650, 240, 200, 112);
-
-
-            if (_pause && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))
-            {
-                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
-            }
-            if(_pause && _ms.LeftButton == ButtonState.Pressed && _hitboxExitButton.Contains(_ms.X, _ms.Y))
-            {
-                Exit();
-            }
 
             // MENU PRINCIPAL 
             if (_actif && _ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(_ms.X, _ms.Y))
@@ -193,8 +201,6 @@ namespace SAE_DEV_PROJ
             {
                 _screenManager.LoadScreen(_settingScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-            // 
-
 
             // DEATH SCENE
             if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(_ms.X, _ms.Y))
@@ -396,13 +402,6 @@ namespace SAE_DEV_PROJ
                     }
                 }
             }
-
-
-
-
-
-
-
             base.Update(gameTime);
         }
 
