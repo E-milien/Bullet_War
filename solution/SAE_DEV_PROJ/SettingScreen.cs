@@ -20,6 +20,11 @@ namespace SAE_DEV_PROJ
         private Texture2D _texturePic1;
         private Texture2D _texturePic2;
         private Texture2D _texturePic3;
+        private Texture2D _texturePic4;
+        private Texture2D _texturePic5;
+        private Texture2D _texturePic6;
+        private Texture2D _texturePic7;
+        private Texture2D _texturePic8;
 
         public SettingScreen(Game1 game) : base(game)
         {
@@ -38,10 +43,17 @@ namespace SAE_DEV_PROJ
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _police = Content.Load<SpriteFont>("Font");
             _textureChangerTouche = Content.Load<Texture2D>("Bouton");
+            _textureLeaveButton = Content.Load<Texture2D>("Leave");
+
             _texturePic1 = Content.Load<Texture2D>("pic1");
             _texturePic2 = Content.Load<Texture2D>("pic2");
             _texturePic3 = Content.Load<Texture2D>("pic3");
-            _textureLeaveButton = Content.Load<Texture2D>("Leave");
+            _texturePic4 = Content.Load<Texture2D>("pic4");
+            _texturePic5 = Content.Load<Texture2D>("pic5");
+            _texturePic6 = Content.Load<Texture2D>("pic6");
+            _texturePic7 = Content.Load<Texture2D>("pic7");
+            _texturePic8 = Content.Load<Texture2D>("pic8");
+
             base.LoadContent();
         }
 
@@ -73,6 +85,12 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_texturePic1, new Vector2(750, 50), Color.White);
             _spriteBatch.Draw(_texturePic2, new Vector2(1050, 50), Color.White);
             _spriteBatch.Draw(_texturePic3, new Vector2(1350, 50), Color.White);
+            _spriteBatch.Draw(_texturePic4, new Vector2(1650, 50), Color.White);
+
+            _spriteBatch.Draw(_texturePic5, new Vector2(750, 240), Color.White);
+            _spriteBatch.Draw(_texturePic6, new Vector2(1050, 240), Color.White);
+            _spriteBatch.Draw(_texturePic7, new Vector2(1350, 240), Color.White);
+            _spriteBatch.Draw(_texturePic8, new Vector2(1650, 240), Color.White);
 
             _spriteBatch.End();
         }
