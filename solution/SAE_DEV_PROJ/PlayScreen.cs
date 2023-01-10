@@ -37,6 +37,8 @@ namespace SAE_DEV_PROJ
         private Vector2 _positionPv;
         private Vector2 _positionPvBoss;
         private Vector2 _positionScore;
+
+        private int _largeurBarreHp;
         private int _damagePerso;
         public bool _alive=true;
         public bool _bossAlive=true;
@@ -111,6 +113,7 @@ namespace SAE_DEV_PROJ
             _boutonMenuHome = _textureButtonMenu;
             _boutonMenuExit = _textureButtonMenu;
 
+            _largeurBarreHp = 578;
             _hitboxResumeButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             
 
@@ -421,7 +424,7 @@ namespace SAE_DEV_PROJ
             else
                 _spriteBatch.Draw(_texture_Dead, _positionPv, Color.White);
 
-            _spriteBatch.DrawString(_police, $"{hero.PvPerso} / {_pvDepart}", new Vector2(_positionPv.X * 10, _positionPv.Y + 10), Color.Black);
+            _spriteBatch.DrawString(_police, $"{hero.PvPerso} / {_pvDepart}", new Vector2(_positionPv.X + _largeurBarreHp/2 - 40, _positionPv.Y + 20), Color.Black);
 
             if (_myGame._pause)
             {
