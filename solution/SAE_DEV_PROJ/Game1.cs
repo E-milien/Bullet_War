@@ -43,6 +43,7 @@ namespace SAE_DEV_PROJ
         public bool _tmpS;
         public bool _touche;
         public bool _upgradeCote;
+        public bool _upgradeRafale;
 
         public int _widthPlayButton;
         public int _heighPlayButton;
@@ -232,7 +233,8 @@ namespace SAE_DEV_PROJ
 
         protected override void Update(GameTime gameTime)
         {
-            if(_sonOff)
+            //Console.WriteLine(_upgradeCote);
+            if (_sonOff)
             {
                 _soundButton = _noSound;
                 _soundButton2 = _noSound;

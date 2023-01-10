@@ -109,11 +109,6 @@ namespace SAE_DEV_PROJ
             {
                 _textureTmpAnnuler = _textureButtonMenu;
             }
-
-
-
-
-
         }
         public override void Draw(GameTime gameTime)
         {
@@ -146,6 +141,13 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_textureVaisseauTirs, new Vector2(20, 140), Color.White);
             _spriteBatch.DrawString(_police, "Tirs par salves de 3", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 140 + Constantes._HAUTEURVAISSEAUTIRS/2 - 10), Color.White);
 
+            //_spriteBatch.Draw();
+
+
+
+
+
+
             // VAISSEAU AMELIORATION 3 TIRS
             if (_hitboxVaisseauTirs.Contains(_ms.X, _ms.Y) && _heartPoliceTmp1 == false)
             {
@@ -176,7 +178,7 @@ namespace SAE_DEV_PROJ
                     else
                     {
                         _myGame._money -= 100;
-                        //_myGame._upgradeCote = true;
+                        _myGame._upgradeCote = true;
 
                         _spaceshipButton = false;
                         _spaceshipPoliceTmp1 = false;

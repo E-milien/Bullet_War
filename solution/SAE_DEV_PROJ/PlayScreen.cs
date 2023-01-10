@@ -68,7 +68,6 @@ namespace SAE_DEV_PROJ
         private bool _cheat1;
         private Color _couleur;
         
-        private bool _upgradeRafale;
         private int _sequenceTir;
 
         // TEXTURES 
@@ -115,8 +114,8 @@ namespace SAE_DEV_PROJ
 
         public override void Initialize()
         {
-            _upgradeRafale = false;
-            if (_upgradeRafale == true)
+            _myGame._upgradeRafale = false;
+            if (_myGame._upgradeRafale == true)
                 _sequenceTir = 3;
             else
                 _sequenceTir = 4;
