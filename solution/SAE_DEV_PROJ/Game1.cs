@@ -33,8 +33,6 @@ namespace SAE_DEV_PROJ
         private bool _tmpS;
         public bool _touche;
 
-        public int _widthPlayButton;
-        public int _heighPlayButton;
         private MouseState _ms;
         private KeyboardState _keyboardState;
         public Texture2D _fondHome;
@@ -61,6 +59,7 @@ namespace SAE_DEV_PROJ
         public string _toucheAssignee;
 
         Rectangle hitboxPlayButton;
+        Rectangle hitboxShopButton;
         Rectangle hitboxOptionButton;
         Rectangle hitboxLeaveButton;
 
@@ -125,8 +124,6 @@ namespace SAE_DEV_PROJ
             _loaded = false;
             _settingOk = false;
             SetupWindow();
-            _widthPlayButton = 1000;
-            _heighPlayButton = 150;
             _textureFond = Content.Load<Texture2D>("fond1");
 
             hitboxPic1 = new Rectangle(750, 50, 200, 112);
@@ -144,9 +141,10 @@ namespace SAE_DEV_PROJ
             hitboxSettingButtonQ = new Rectangle(0, 308, 550, 50);
             hitboxSettingButtonS = new Rectangle(0, 408, 550, 50);
 
-            hitboxPlayButton = new Rectangle(500, 200, Constantes._LARGEUR_BOUTON, _heighPlayButton);
-            hitboxOptionButton = new Rectangle(500, 400, _widthPlayButton, _heighPlayButton);
-            hitboxLeaveButton = new Rectangle(500, 600, _widthPlayButton, _heighPlayButton);
+            hitboxPlayButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 4 / 8 - 50, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
+            hitboxShopButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 5 / 8 - 50, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
+            hitboxOptionButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 6 / 8 - 50, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
+            hitboxLeaveButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 7 / 8 - 50, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
 
             _hitboxBoutonMReplay = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxMenuButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 500, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
