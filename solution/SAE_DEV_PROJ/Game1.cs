@@ -198,7 +198,7 @@ namespace SAE_DEV_PROJ
             _soundButton2 = Content.Load<SoundEffect>("soundBouton2");
             _soundButton3 = Content.Load<SoundEffect>("sondBouton3");
             _musiqueHome = Content.Load<Song>("musiqueHome");
-            _noSoundM = Content.Load<Song>("noSoundM");
+            //_noSoundM = Content.Load<Song>("noSoundM");
             _m1 = Content.Load<Song>("musiqueHome");
             _m1 = Content.Load<Song>("musiqueHome");
             _s1 = Content.Load<SoundEffect>("sondBouton");
