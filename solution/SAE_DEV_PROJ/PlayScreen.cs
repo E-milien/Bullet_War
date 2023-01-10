@@ -67,7 +67,7 @@ namespace SAE_DEV_PROJ
         public bool _bossAlive=true;
         private bool _cheat1;
         private Color _couleur;
-        private bool _upgradeCote;
+        
         private bool _upgradeRafale;
         private int _sequenceTir;
 
@@ -115,7 +115,6 @@ namespace SAE_DEV_PROJ
 
         public override void Initialize()
         {
-            _upgradeCote = true;
             _upgradeRafale = false;
             if (_upgradeRafale == true)
                 _sequenceTir = 3;
@@ -172,7 +171,7 @@ namespace SAE_DEV_PROJ
                 _tabBulletPerso[i] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO / 2, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * _sequenceTir), "allié");
             }
             // BulletsAlliéesCoté initialize
-            if (_upgradeCote == true)
+            if (_myGame._upgradeCote == true)
             {
                 for (int i = 0; i < _tabBulletPersoCote.GetLength(0); i++)
                 {
@@ -305,7 +304,7 @@ namespace SAE_DEV_PROJ
                 }
 
                 //tirs alliés cotés
-                if (_upgradeCote == true)
+                if (_myGame._upgradeCote == true)
                 {
                     for (int i = 0; i < _tabBulletPersoCote.GetLength(0); i++)
                     {
@@ -434,7 +433,7 @@ namespace SAE_DEV_PROJ
             }
 
             //Bullets alliées coté
-            if (_upgradeCote == true)
+            if (_myGame._upgradeCote == true)
             {
                 if (_redemption == false)
                 {
@@ -658,7 +657,7 @@ namespace SAE_DEV_PROJ
                     }
                 }
             }
-            if (_upgradeCote)
+            if (_myGame._upgradeCote)
             {
                 for (int i = 0; i < _tabBulletPersoCote.GetLength(0); i++)
                 {
@@ -696,7 +695,7 @@ namespace SAE_DEV_PROJ
                     _tabBulletPerso[i].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO / 2, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * _sequenceTir);
                 }
             }
-            if (_upgradeCote == true)
+            if (_myGame._upgradeCote == true)
             {
                 for (int i = 0; i < _tabBulletPersoCote.GetLength(0); i++)
                 {
