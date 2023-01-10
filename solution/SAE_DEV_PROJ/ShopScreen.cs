@@ -56,8 +56,8 @@ namespace SAE_DEV_PROJ
         {
             _hitboxHeart1 = new Rectangle(575,30,Constantes._TAILLEHEART, Constantes._TAILLEHEART);
             _hitboxHeart2 = new Rectangle(700, 30, Constantes._TAILLEHEART, Constantes._TAILLEHEART);
-            _hitboxBoutonPayer = new Rectangle(Constantes._LARGEUR_FENETRE / 2 + 100, 800 - Constantes._HAUTEUR_BOUTON, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
-            _hitboxBoutonAnnuler = new Rectangle(Constantes._LARGEUR_FENETRE / 2 + 100, 800 + Constantes._HAUTEUR_BOUTON / 2, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
+            _hitboxBoutonPayer = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 - Constantes._HAUTEUR_BOUTON, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
+            _hitboxBoutonAnnuler = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxVaisseauTirs = new Rectangle(20, 140, 410, Constantes._HAUTEURVAISSEAUTIRS + 10);
 
             base.Initialize();
@@ -125,13 +125,13 @@ namespace SAE_DEV_PROJ
             }
             if (_spaceshipPoliceTmp1)
             {
-                _spriteBatch.DrawString(_police, "Débloquer 2 nouveaux tirs (100g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 440, 650), Color.White);
+                _spriteBatch.DrawString(_police, "Debloquer 2 nouveaux tirs (100g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 440, 650), Color.White);
             }
 
             if (_spaceshipButton)
             {
-                _spriteBatch.Draw(_textureTmPayer, new Vector2(Constantes._LARGEUR_FENETRE / 2 + 100, 800 - Constantes._HAUTEUR_BOUTON), Color.White);
-                _spriteBatch.Draw(_textureTmpAnnuler, new Vector2(Constantes._LARGEUR_FENETRE / 2 + 100, 800 + Constantes._HAUTEUR_BOUTON / 2), Color.White);
+                _spriteBatch.Draw(_textureTmPayer, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON/2, 800 - Constantes._HAUTEUR_BOUTON), Color.White);
+                _spriteBatch.Draw(_textureTmpAnnuler, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2), Color.White);
 
                 _spriteBatch.DrawString(_police, "Payer", new Vector2(Constantes._LARGEUR_FENETRE / 2 + 100 + Constantes._LARGEUR_BOUTON / 2 - 40, 800 - Constantes._HAUTEUR_BOUTON / 2 - 15), Color.White);
                 _spriteBatch.DrawString(_police, "Annuler", new Vector2(Constantes._LARGEUR_FENETRE / 2 + 100 + Constantes._LARGEUR_BOUTON / 2 - 40, 800 + Constantes._HAUTEUR_BOUTON - 15), Color.White);
@@ -139,12 +139,22 @@ namespace SAE_DEV_PROJ
                 if (_ms.LeftButton == ButtonState.Pressed && _hitboxBoutonPayer.Contains(_ms.X, _ms.Y))
                 {
                     // ARGENT < 50
-                    if (_myGame._money < 50)
+                    if (_myGame._money < 100)
                     {
                         _spaceshipPoliceTmp1 = false;
                         _spaceshipPoliceTmp2 = true;
                     }
+                    if (_spaceshipPoliceTmp2)
+                    {
+                        _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (100 - _myGame._money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 650), Color.White);
+                    }
                 }
+                else
+                {
+                    _spaceshipPoliceTmp1 = true;
+                    _spaceshipPoliceTmp2 = false;
+                }
+
             }
 
 
@@ -170,7 +180,7 @@ namespace SAE_DEV_PROJ
                 // SI SOURIS PAR DESSUS COEUR ROUGE 
                 if (_heartPoliceTmp1)
                 {
-                    _spriteBatch.DrawString(_police, "Augmenter sa vie de 20HP (50g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 440, 650), Color.White);
+                    _spriteBatch.DrawString(_police, "Augmenter sa vie de 20HP (50g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 650), Color.White);
                 }
                 // SI SOURIS PAR DESSUS COEUR ROUGE 
                 if (_heartFillTmp1)
@@ -178,11 +188,11 @@ namespace SAE_DEV_PROJ
                     // DESSINE LES TEXTURES 
                     if (_heartBoutons)
                     {
-                        _spriteBatch.Draw(_textureTmPayer, new Vector2(Constantes._LARGEUR_FENETRE / 2 + 100, 800 - Constantes._HAUTEUR_BOUTON), Color.White);
-                        _spriteBatch.Draw(_textureTmpAnnuler, new Vector2(Constantes._LARGEUR_FENETRE / 2 + 100, 800 + Constantes._HAUTEUR_BOUTON / 2), Color.White);
+                        _spriteBatch.Draw(_textureTmPayer, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 - Constantes._HAUTEUR_BOUTON), Color.White);
+                        _spriteBatch.Draw(_textureTmpAnnuler, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2), Color.White);
 
-                        _spriteBatch.DrawString(_police, "Payer", new Vector2(Constantes._LARGEUR_FENETRE / 2 + 100 + Constantes._LARGEUR_BOUTON / 2 - 40, 800 - Constantes._HAUTEUR_BOUTON / 2 - 15), Color.White);
-                        _spriteBatch.DrawString(_police, "Annuler", new Vector2(Constantes._LARGEUR_FENETRE / 2 + 100 + Constantes._LARGEUR_BOUTON / 2 - 40, 800 + Constantes._HAUTEUR_BOUTON - 15), Color.White);
+                        _spriteBatch.DrawString(_police, "Payer", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 50, 800 - Constantes._HAUTEUR_BOUTON / 2 - 15), Color.White);
+                        _spriteBatch.DrawString(_police, "Annuler", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 60, 800 + Constantes._HAUTEUR_BOUTON - 15), Color.White);
 
                     }
                     // SI CLIQUE SUR BOUTON PAYER 
