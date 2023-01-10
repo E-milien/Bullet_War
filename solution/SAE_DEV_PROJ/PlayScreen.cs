@@ -41,6 +41,7 @@ namespace SAE_DEV_PROJ
         private Vector2 _positionPv;
         private Vector2 _positionPvBoss;
         private Vector2 _positionScore;
+        private double _tmp48;
 
         private int _largeurBarreHp;
         private int _damagePerso;
@@ -119,6 +120,7 @@ namespace SAE_DEV_PROJ
             _boutonMenuResume = _textureButtonMenu;
             _boutonMenuHome = _textureButtonMenu;
             _boutonMenuExit = _textureButtonMenu;
+            _tmp48 = 0;
 
             _largeurBarreHp = 578;
             _hitboxResumeButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
@@ -226,7 +228,11 @@ namespace SAE_DEV_PROJ
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (!_myGame._pause)
             {
-                
+                if(_chrono>=_tmp48 && !_redemption)
+                {
+                    _soundShot.Play();
+                    _tmp48 = _chrono + 0.1;
+                }
 
                 //pattern1 pour les différentes "vague de bullets"
                 _chrono += deltaTime;
@@ -645,7 +651,6 @@ namespace SAE_DEV_PROJ
                 {
                     for (int j = 0; j < _tabBullets.GetLength(1) - 2; j++)
                     {
-
                         _tabBullets[z, j].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[z, j].Vitesse * deltaTime);
                     }
                 }
