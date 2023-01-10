@@ -42,6 +42,7 @@ namespace SAE_DEV_PROJ
         public bool _tmpQ;
         public bool _tmpS;
         public bool _touche;
+        public bool _upgradeCote;
 
         public int _widthPlayButton;
         public int _heighPlayButton;
