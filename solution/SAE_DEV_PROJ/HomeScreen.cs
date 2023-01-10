@@ -18,6 +18,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _texturePlayButton;
         private Texture2D _textureOptionButton;
         private Texture2D _textureLeaveButton;
+        private Texture2D _textureShop;
         
 
         
@@ -28,6 +29,7 @@ namespace SAE_DEV_PROJ
             _texturePlayButton = Content.Load<Texture2D>("Jouer");
             _textureOptionButton = Content.Load<Texture2D>("Option");
             _textureLeaveButton = Content.Load<Texture2D>("Leave");
+            _textureShop = Content.Load<Texture2D>("Shop");
             _myGame = game;
         }
         public override void LoadContent()
@@ -55,6 +57,8 @@ namespace SAE_DEV_PROJ
 
             _spriteBatch.Draw(_textureLeaveButton, new Vector2(500, 600), Color.White);
             _spriteBatch.DrawString(_police, "Click to quit", new Vector2(900, 660), Color.White);
+
+            _spriteBatch.Draw(_textureShop, new Vector2(50, 50), Color.White);
 
             _spriteBatch.End();
         }

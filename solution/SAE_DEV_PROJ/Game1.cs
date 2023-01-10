@@ -89,6 +89,8 @@ namespace SAE_DEV_PROJ
         public Rectangle _hitboxReplayWinScreen;
         public Rectangle _hitboxMainMenuWinScreen;
 
+        Rectangle _hitboxShopButton;
+
 
         // SON
         public SoundEffect _soundButton;
@@ -158,6 +160,7 @@ namespace SAE_DEV_PROJ
             _hitboxReplayWinScreen = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2 - 200, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxMainMenuWinScreen = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
 
+            _hitboxShopButton = new Rectangle(50, 50, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             base.Initialize();
         }
 
@@ -219,10 +222,17 @@ namespace SAE_DEV_PROJ
                 MediaPlayer.Stop();
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
+
             if (_actif && _ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(_ms.X, _ms.Y))
             {
                 _soundButton.Play();
                 _screenManager.LoadScreen(_settingScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
+
+            if(_actif && _ms.LeftButton == ButtonState.Pressed && _hitboxShopButton.Contains(_ms.X, _ms.Y))
+            {
+                _soundButton.Play();
+                _screenManager.LoadScreen(_shopScren, new FadeTransition(GraphicsDevice, Color.Black));
             }
 
             if (_actif && _ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(_ms.X, _ms.Y))
@@ -231,6 +241,9 @@ namespace SAE_DEV_PROJ
                 _soundButton.Play();
                 Exit();
             }
+
+
+            // SHOP
 
             // PAUSE
             if(_pause && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))

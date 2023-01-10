@@ -15,11 +15,13 @@ namespace SAE_DEV_PROJ
         private SpriteBatch _spriteBatch;
         private Game1 _myGame;
         private SpriteFont _police;
+        private Texture2D _textureFondWinScreen;
         private MouseState _ms;
 
         public ShopScreen(Game1 game) : base(game)
         {
             _police = Content.Load<SpriteFont>("Font");
+            _textureFondWinScreen = Content.Load<Texture2D>("fondWinScreen");
             _myGame = game;
 
         }
@@ -38,6 +40,10 @@ namespace SAE_DEV_PROJ
         public override void Draw(GameTime gameTime)
         {
             _spriteBatch.Begin();
+            _spriteBatch.Draw(_textureFondWinScreen, new Vector2(0, 0), Color.White);
+
+            _spriteBatch.DrawString(_police,"Ameliorations vaisseau",new Vector2(20, 10), Color.Red);
+            _spriteBatch.DrawString(_police, "Augmenter le nombre de HP : ", new Vector2(10, 50), Color.White);
             _spriteBatch.End();
         }
     }
