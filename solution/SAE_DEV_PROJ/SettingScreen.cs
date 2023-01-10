@@ -63,8 +63,10 @@ namespace SAE_DEV_PROJ
         {
             _myGame._actif = false;
             _myGame._settingOk = true;
+            _myGame._homeScreenOpen = true;
             
-            
+
+
         }
         public override void Draw(GameTime gameTime)
         {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Screens;
@@ -87,6 +88,9 @@ namespace SAE_DEV_PROJ
         private Rectangle _hitboxResumeButton;
         private MouseState _ms;
 
+        // SON 
+        private SoundEffect _soundShot;
+        
 
 
 
@@ -216,13 +220,15 @@ namespace SAE_DEV_PROJ
             _texture_VeryLow = Content.Load<Texture2D>("VeryLow");
             _texture_Dead = Content.Load<Texture2D>("Dead");
 
+            _soundShot = Content.Load<SoundEffect>("shot");
+
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
             _ms = Mouse.GetState();
-
+            _myGame._homeScreenOpen = false;
             if (_keyboardState.IsKeyDown(Keys.P) && _keyboardState.IsKeyDown(Keys.I))
                     _couleur = Color.DeepPink;
 
@@ -233,7 +239,7 @@ namespace SAE_DEV_PROJ
             if (!_myGame._pause)
             {
                 
-                
+
                 //pattern1 pour les différentes "vague de bullets"
                 _chrono += deltaTime;
                 _chronoPause = 0;
@@ -353,6 +359,7 @@ namespace SAE_DEV_PROJ
                 _chronoPause += deltaTime;
                 if(_ms.LeftButton == ButtonState.Pressed && _hitboxResumeButton.Contains(_ms.X, _ms.Y))
                 {
+                    _myGame._soundButton.Play();
                     _myGame._pause = false;
                 }
                 if (_hitboxResumeButton.Contains(_ms.X, _ms.Y))
@@ -380,7 +387,9 @@ namespace SAE_DEV_PROJ
                 for (int i = 0; i < _tabBulletPerso.Length; i++)
                 {
                     if (!(_tabBulletPerso[i].BulletPosition.Y > hero.PositionPerso.Y))
+                    {
                         _spriteBatch.Draw(_textureBulletAllie, _tabBulletPerso[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS_PERSO / 2, 0), Color.White);
+                    }
                 }
             
             }

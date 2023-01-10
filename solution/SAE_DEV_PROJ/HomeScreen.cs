@@ -20,6 +20,8 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureLeaveButton;
         private Texture2D _fondHome;
 
+        
+
         public HomeScreen(Game1 game) : base(game)
         {
             _police = Content.Load<SpriteFont>("Font");
@@ -37,6 +39,7 @@ namespace SAE_DEV_PROJ
 
         public override void Update(GameTime gameTime)
         {
+            _myGame._homeScreenOpen = true;
             _myGame._actif = true;
         }
         public override void Draw(GameTime gameTime)
