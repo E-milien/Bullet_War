@@ -640,11 +640,11 @@ namespace SAE_DEV_PROJ
 
                             if (rect1.Intersects(rect2))
                             {
-                                boss1.BossHP -= Constantes._DAMAGEPERSOCOTE;
                                 if (j == 1)
                                     _tabBulletPersoCote[i, j].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2);
-                                else
+                                else 
                                     _tabBulletPersoCote[i, j].BulletPosition = new Vector2(hero.PositionPerso.X, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2);
+                                boss1.BossHP -= Constantes._DAMAGEPERSOCOTE;
                                 if (_redemption == false && _bossAlive)
                                     hero.Score += 1;
                             }
@@ -869,7 +869,7 @@ namespace SAE_DEV_PROJ
                 {
                     for (int j = 0; j < _tabBulletPersoCote.GetLength(1); j++)
                     {
-                        if (j == 0)
+                        if (j == 1)
                             _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
                         else
                             _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
