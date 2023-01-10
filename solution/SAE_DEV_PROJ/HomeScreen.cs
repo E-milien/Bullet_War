@@ -20,8 +20,13 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureLeaveButton;
         private Texture2D _textureShop;
         
+        private Texture2D _textureButton;
+        private Texture2D _textureButtonPressed;
+        private Texture2D _boutonHome;
 
-        
+
+
+
 
         public HomeScreen(Game1 game) : base(game)
         {
@@ -30,12 +35,20 @@ namespace SAE_DEV_PROJ
             _textureOptionButton = Content.Load<Texture2D>("Option");
             _textureLeaveButton = Content.Load<Texture2D>("Leave");
             _textureShop = Content.Load<Texture2D>("Shop");
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
             _myGame = game;
+        }
+        public override void Initialize()
+        {
+            _boutonHome = _textureButton;
+            base.Initialize();
         }
         public override void LoadContent()
         {
-            
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _police = Content.Load<SpriteFont>("Font");
+            _textureButton = Content.Load<Texture2D>("boutonM");
+            _textureButtonPressed = Content.Load<Texture2D>("boutonM_pressed");
+           
             base.LoadContent();
         }
 
@@ -49,14 +62,17 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Begin();
             _spriteBatch.Draw(_myGame._fondHome,new Vector2(0,0),Color.White);
 
-            _spriteBatch.Draw(_texturePlayButton, new Vector2(500, 200), Color.White);
-            _spriteBatch.DrawString(_police, "Click to start", new Vector2(900, 260), Color.White);
+            _spriteBatch.Draw(_textureButton, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 4 / 8-50), Color.White);
+            _spriteBatch.DrawString(_police, "Click to start", new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE*4/8), Color.White);
 
-            _spriteBatch.Draw(_textureOptionButton, new Vector2(500, 400), Color.White);
-            _spriteBatch.DrawString(_police, "Options", new Vector2(940, 460), Color.White);
+            _spriteBatch.Draw(_textureButton, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 5 / 8 - 50), Color.White);
+            _spriteBatch.DrawString(_police, "Boutique", new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 5 / 8), Color.White);
 
-            _spriteBatch.Draw(_textureLeaveButton, new Vector2(500, 600), Color.White);
-            _spriteBatch.DrawString(_police, "Click to quit", new Vector2(900, 660), Color.White);
+            _spriteBatch.Draw(_textureButton, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 6 / 8 - 50), Color.White);
+            _spriteBatch.DrawString(_police, "Options", new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 6 / 8), Color.White);
+
+            _spriteBatch.Draw(_textureButton, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 7 / 8 - 50), Color.White);
+            _spriteBatch.DrawString(_police, "Click to quit", new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 7 / 8), Color.White);
 
             _spriteBatch.Draw(_textureShop, new Vector2(50, 50), Color.White);
 

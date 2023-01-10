@@ -149,7 +149,7 @@ namespace SAE_DEV_PROJ
             hitboxSettingButtonQ = new Rectangle(0, 308, 550, 50);
             hitboxSettingButtonS = new Rectangle(0, 408, 550, 50);
 
-            hitboxPlayButton = new Rectangle(500, 200, _widthPlayButton, _heighPlayButton);
+            hitboxPlayButton = new Rectangle(500, 200, Constantes._LARGEUR_BOUTON, _heighPlayButton);
             hitboxOptionButton = new Rectangle(500, 400, _widthPlayButton, _heighPlayButton);
             hitboxLeaveButton = new Rectangle(500, 600, _widthPlayButton, _heighPlayButton);
 
