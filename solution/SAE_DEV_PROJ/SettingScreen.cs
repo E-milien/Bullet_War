@@ -27,13 +27,12 @@ namespace SAE_DEV_PROJ
         private Texture2D _texturePic8;
         private Texture2D _textureContour;
         private MouseState _ms;
+        private Texture2D _textureFondPause;
+        private Texture2D _bindKey;
 
         public SettingScreen(Game1 game) : base(game)
         {
-
             _myGame = game;
-          
-
         }
         public override void Initialize()
         {
@@ -42,6 +41,8 @@ namespace SAE_DEV_PROJ
         }
         public override void LoadContent()
         {
+            _bindKey = Content.Load<Texture2D>("bindKey");
+            _textureFondPause = Content.Load<Texture2D>("pause");
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _police = Content.Load<SpriteFont>("Font");
             _textureChangerTouche = Content.Load<Texture2D>("Bouton");
@@ -62,6 +63,7 @@ namespace SAE_DEV_PROJ
 
         public override void Update(GameTime gameTime)
         {
+            
             _myGame._actif = false;
             _myGame._settingOk = true;
             _myGame._homeScreenOpen = true;
@@ -76,11 +78,14 @@ namespace SAE_DEV_PROJ
 
             
             _spriteBatch.Begin();
+
+          
+
             _spriteBatch.Draw(_myGame._fondSettings, new Vector2(0, 0), Color.White);
             _spriteBatch.Draw(_textureLeaveButton, new Vector2(500, 600), Color.White);
             _spriteBatch.DrawString(_police, "Main menu", new Vector2(900, 660), Color.White);
 
-            if(_myGame.hitboxSettingButtonZ.Contains(_ms.X, _ms.Y))
+            if (_myGame.hitboxSettingButtonZ.Contains(_ms.X, _ms.Y))
                 _spriteBatch.Draw(_textureChangerTouche, new Vector2(0, 100), Color.White);
             if (_myGame.hitboxSettingButtonD.Contains(_ms.X, _ms.Y))
                 _spriteBatch.Draw(_textureChangerTouche, new Vector2(0, 200), Color.White);
@@ -106,9 +111,23 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_texturePic7, new Vector2(1350, 240), Color.White);
             _spriteBatch.Draw(_texturePic8, new Vector2(1650, 240), Color.White);
 
+            
+            
+
+            if (_myGame._tmpZ == true || _myGame._tmpD == true || _myGame._tmpQ == true || _myGame._tmpS == true)
+            {
+                _myGame._keyUpdating = true;
+                _spriteBatch.Draw(_textureFondPause, new Vector2(0, 0), Color.White * 0.8f);
+                _spriteBatch.Draw(_bindKey, new Vector2(0, 0), Color.White);
+                _spriteBatch.DrawString(_police, "Touchez sur une touche pour l'assigner", new Vector2(700, 500), Color.Black);
+            }
+            else
+            {
+                _myGame._keyUpdating = false;
+            }
             if(_myGame._touche == true)
             {
-                _spriteBatch.DrawString(_police, _myGame._toucheAssignee + " est deja assignee, cliquer sur une autre.", new Vector2(700, 500), Color.Black);
+                _spriteBatch.DrawString(_police, _myGame._toucheAssignee + " est deja assignee, cliquez sur une autre...", new Vector2(700, 500), Color.Red);
             }
             _spriteBatch.End();
         }

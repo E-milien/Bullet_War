@@ -37,10 +37,10 @@ namespace SAE_DEV_PROJ
         public bool _actif;
         public bool _settingOk;
         public bool _shopScreenOk;
-        private bool _tmpZ;
-        private bool _tmpD;
-        private bool _tmpQ;
-        private bool _tmpS;
+        public bool _tmpZ;
+        public bool _tmpD;
+        public bool _tmpQ;
+        public bool _tmpS;
         public bool _touche;
 
         public int _widthPlayButton;
@@ -106,6 +106,7 @@ namespace SAE_DEV_PROJ
         public Song _musiqueHome;
 
         public bool _homeScreenOpen;
+        public bool _keyUpdating;
 
         public SpriteBatch SpriteBatch { get; set; }
 
@@ -123,7 +124,7 @@ namespace SAE_DEV_PROJ
 
         protected override void Initialize()
         {
-
+            _keyUpdating = false;
             _boutonPlay = _textureButton;
             _boutonShop = _textureButton;
             _boutonSettings = _textureButton;
@@ -256,38 +257,6 @@ namespace SAE_DEV_PROJ
                 _soundButton.Play();
                 Exit();
             }
-
-
-            // SHOP
-
-            // PAUSE
-            if(_pause && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))
-            {
-                _soundButton.Play();
-                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
-            }
-            if(_pause && _ms.LeftButton == ButtonState.Pressed && _hitboxExitButton.Contains(_ms.X, _ms.Y))
-            {
-                _soundButton.Play();
-                Exit();
-            }
-            if (_hitboxMenuButton.Contains(_ms.X, _ms.Y))
-            {
-                _playScreen._boutonMenuHome = _playScreen._textureButtonMenuPressed;
-            }
-            else
-            {
-                _playScreen._boutonMenuHome = _playScreen._textureButtonMenu;
-            }
-            if (_hitboxExitButton.Contains(_ms.X, _ms.Y))
-            {
-                _playScreen._boutonMenuExit = _playScreen._textureButtonMenuPressed;
-            }
-            else
-            {
-                _playScreen._boutonMenuExit = _playScreen._textureButtonMenu;
-            }
-            // home
             if (hitboxPlayButton.Contains(_ms.X, _ms.Y))
             {
                 _boutonPlay = _textureButtonPressed;
@@ -322,6 +291,37 @@ namespace SAE_DEV_PROJ
             }
 
 
+            // SHOP
+
+            // PAUSE
+            if (_pause && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))
+            {
+                _soundButton.Play();
+                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
+            if(_pause && _ms.LeftButton == ButtonState.Pressed && _hitboxExitButton.Contains(_ms.X, _ms.Y))
+            {
+                _soundButton.Play();
+                Exit();
+            }
+            if (_hitboxMenuButton.Contains(_ms.X, _ms.Y))
+            {
+                _playScreen._boutonMenuHome = _playScreen._textureButtonMenuPressed;
+            }
+            else
+            {
+                _playScreen._boutonMenuHome = _playScreen._textureButtonMenu;
+            }
+            if (_hitboxExitButton.Contains(_ms.X, _ms.Y))
+            {
+                _playScreen._boutonMenuExit = _playScreen._textureButtonMenuPressed;
+            }
+            else
+            {
+                _playScreen._boutonMenuExit = _playScreen._textureButtonMenu;
+            }
+
+           
             // A SUPPRIMER 
             if (_keyboardState.IsKeyDown(Keys.O))
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
@@ -331,48 +331,19 @@ namespace SAE_DEV_PROJ
             }
 
             // DEATH SCENE
-            if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(_ms.X, _ms.Y))
-            {
-                _soundButton.Play();
-                _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
-            }
-            if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))
-            {
-                _soundButton.Play();
-                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
-            }
-            if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(_ms.X, _ms.Y))
-            {
-                _soundButton.Play();
-                Exit();
-            }
-
-            // WIN SCENE
-            if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(_ms.X, _ms.Y))
-            {
-                _soundButton.Play();
-                _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
-            }
-            if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(_ms.X, _ms.Y))
-            {
-                _soundButton.Play();
-                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
-            }
-
-            // DEATH SCENE
-
             if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && _hitboxBoutonMReplay.Contains(_ms.X, _ms.Y))
             {
+                _soundButton.Play();
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-
             if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))
             {
+                _soundButton.Play();
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-
             if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && _hitboxExitButton.Contains(_ms.X, _ms.Y))
             {
+                _soundButton.Play();
                 Exit();
             }
 
@@ -385,6 +356,11 @@ namespace SAE_DEV_PROJ
             if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && _hitboxMainMenuWinScreen.Contains(_ms.X, _ms.Y))
             {
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
+            if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && _hitboxExitButton.Contains(_ms.X, _ms.Y))
+            {
+                _soundButton.Play();
+                Exit();
             }
 
             // SETTINGS SCREEN

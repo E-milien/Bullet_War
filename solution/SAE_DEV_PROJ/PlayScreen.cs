@@ -137,7 +137,7 @@ namespace SAE_DEV_PROJ
             
 
             // initialisation boss & perso
-            boss1 = new Boss(5000, 20, "bossMechant", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
+            boss1 = new Boss(50, 20, "bossMechant", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
             hero = new Perso(false, 100, 5, 0, "vaisseau", 1, 500, new Vector2(Constantes._LARGEUR_FENETRE/2,Constantes._HAUTEUR_FENETRE*2/3) - new Vector2(Constantes._LARGEUR_PERSO / 2, Constantes._HAUTEUR_PERSO / 2));
 
             _damagePerso = hero.DamagePerso;
@@ -518,6 +518,7 @@ namespace SAE_DEV_PROJ
 
             _spriteBatch.DrawString(_police, $"{hero.PvPerso} / {_pvDepart}", new Vector2(_positionPv.X + _largeurBarreHp/2 - 40, _positionPv.Y + 20), Color.Black);
 
+            // PAUSE
             if (_myGame._pause)
             {
                 _spriteBatch.Draw(_textureFondPause, new Vector2(0, 0), Color.White * 0.8f);
