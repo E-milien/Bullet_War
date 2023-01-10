@@ -197,7 +197,7 @@ namespace SAE_DEV_PROJ
             
             _hitboxMainMenuShop = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             
-            _hitboxBruit = new Rectangle(0, 800, Constantes._LARGEUR_BRUIT, Constantes._HAUTEUR_BRUIT);
+            _hitboxBruit = new Rectangle(100, 520, Constantes._LARGEUR_BRUIT, Constantes._HAUTEUR_BRUIT);
             base.Initialize();
         }
 
@@ -383,7 +383,6 @@ namespace SAE_DEV_PROJ
                 Exit();
             }
 
-            Console.WriteLine(_sonOff);
             // WIN SCENE
             if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && _hitboxReplayWinScreen.Contains(_ms.X, _ms.Y))
             {
@@ -405,9 +404,9 @@ namespace SAE_DEV_PROJ
                 _soundButton.Play();
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && _hitboxBruit.Contains(_ms.X, _ms.Y) && _sonOff == false && _chrono > _tmp69temps)
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && _hitboxBruit.Contains(_ms.X, _ms.Y) && _sonOff == false && _chrono >= _tmp69temps)
             {
-                _tmp69temps = _chrono + 1;
+                _tmp69temps = _chrono + 0.5;
                 _sonOff = true;
                 _soundButton = Content.Load<SoundEffect>("noSound");
                 _soundButton2 = Content.Load<SoundEffect>("noSound");
@@ -415,9 +414,9 @@ namespace SAE_DEV_PROJ
                 _soundShot = Content.Load<SoundEffect>("noSound");
                 MediaPlayer.Pause();
             }
-            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && _hitboxBruit.Contains(_ms.X, _ms.Y) && _sonOff == true && _chrono > _tmp69temps) 
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && _hitboxBruit.Contains(_ms.X, _ms.Y) && _sonOff == true && _chrono >= _tmp69temps) 
             {
-                _tmp69temps = _chrono + 1;
+                _tmp69temps = _chrono + 0.5;
                 _sonOff = false;
                 MediaPlayer.Resume();
                 _soundButton = Content.Load<SoundEffect>("sondBouton");

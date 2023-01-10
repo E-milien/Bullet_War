@@ -32,6 +32,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _bindKey;
         private Texture2D _bruitOn;
         private Texture2D _bruitOff;
+        private Rectangle contourPic;
 
         public SettingScreen(Game1 game) : base(game)
         {
@@ -39,7 +40,7 @@ namespace SAE_DEV_PROJ
         }
         public override void Initialize()
         {
-            Rectangle contourPic = new Rectangle(740, 45, 10, 5);
+            contourPic = new Rectangle(740, 45, 10, 5);
             base.Initialize();
         }
         public override void LoadContent()
