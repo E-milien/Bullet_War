@@ -105,7 +105,10 @@ namespace SAE_DEV_PROJ
         public SoundEffect _soundButton;
         public SoundEffect _soundButton2;
         public SoundEffect _soundButton3;
+        public SoundEffect _noSound;
         public Song _musiqueHome;
+
+        public bool _sonOff;
 
         public bool _homeScreenOpen;
         public bool _keyUpdating;
@@ -131,7 +134,7 @@ namespace SAE_DEV_PROJ
             _boutonShop = _textureButton;
             _boutonSettings = _textureButton;
             _boutonQuit = _textureButton;
-
+            _sonOff = false;
             _tmp = 0;
             _pause = false;
             // DEPLACEMENTS PERSO 
@@ -180,7 +183,7 @@ namespace SAE_DEV_PROJ
 
         protected override void LoadContent()
         {
-
+            _noSound= Content.Load<SoundEffect>("noSound");
             _textureButton = Content.Load<Texture2D>("boutonM");
             _textureButtonPressed = Content.Load<Texture2D>("boutonM_pressed");
 
@@ -210,6 +213,13 @@ namespace SAE_DEV_PROJ
 
         protected override void Update(GameTime gameTime)
         {
+            if(_sonOff)
+            {
+                _soundButton = _noSound;
+                _soundButton2 = _noSound;
+                _soundButton3 = _noSound;
+
+            }
             if (!_loaded)
             {
                 MediaPlayer.Play(_musiqueHome);
@@ -366,7 +376,7 @@ namespace SAE_DEV_PROJ
             }
 
             // SETTINGS SCREEN
-            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(_ms.X, _ms.Y))
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(_ms.X, _ms.Y))
             {
                 _soundButton.Play();
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));

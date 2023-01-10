@@ -16,6 +16,7 @@ namespace SAE_DEV_PROJ
         private Game1 _myGame;
         private SpriteFont _police;
         private Texture2D _textureLeaveButton;
+        private Texture2D _textureLeaveButtonPressed;
         private Texture2D _textureChangerTouche;
         private Texture2D _texturePic1;
         private Texture2D _texturePic2;
@@ -47,6 +48,7 @@ namespace SAE_DEV_PROJ
             _police = Content.Load<SpriteFont>("Font");
             _textureChangerTouche = Content.Load<Texture2D>("Bouton");
             _textureLeaveButton = Content.Load<Texture2D>("boutonM");
+            _textureLeaveButtonPressed = Content.Load<Texture2D>("boutonM_pressed");
 
             _texturePic1 = Content.Load<Texture2D>("pic1");
             _texturePic2 = Content.Load<Texture2D>("pic2");
@@ -70,20 +72,20 @@ namespace SAE_DEV_PROJ
             _myGame._shopScreenOk = false;
             
             _ms = Mouse.GetState();
-
-
         }
         public override void Draw(GameTime gameTime)
-        {
-
-            
+        { 
             _spriteBatch.Begin();
-
-          
-
             _spriteBatch.Draw(_myGame._fondSettings, new Vector2(0, 0), Color.White);
-            _spriteBatch.Draw(_textureLeaveButton, new Vector2(500, 600), Color.White);
-            _spriteBatch.DrawString(_police, "Main menu", new Vector2(900, 660), Color.White);
+            if (_myGame.hitboxOptionButton.Contains(_ms.X, _ms.Y))
+            {
+                _spriteBatch.Draw(_textureLeaveButtonPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 6 / 8 - 50), Color.White);
+            }
+            else
+            {
+                _spriteBatch.Draw(_textureLeaveButton, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 6 / 8 - 50), Color.White);
+            }
+            _spriteBatch.DrawString(_police, "Back to Main Menu", new Vector2(825, Constantes._HAUTEUR_FENETRE * 6 / 8 - 15), Color.White);
 
             if (_myGame.hitboxSettingButtonZ.Contains(_ms.X, _ms.Y))
                 _spriteBatch.Draw(_textureChangerTouche, new Vector2(0, 100), Color.White);
