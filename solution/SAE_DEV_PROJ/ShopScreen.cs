@@ -21,9 +21,11 @@ namespace SAE_DEV_PROJ
 
         private Texture2D _textureButtonMenu;
         private Texture2D _textureButtonMenuPressed;
+
         private Texture2D _textureTmPayer;
         private Texture2D _textureTmpAnnuler;
         private Texture2D _textureVaisseauTirs;
+        private Texture2D _textureTmpMenu;
 
         private Rectangle _hitboxHeart1;
         private Rectangle _hitboxHeart2;
@@ -57,9 +59,17 @@ namespace SAE_DEV_PROJ
         {
             _hitboxHeart1 = new Rectangle(575,30,Constantes._TAILLEHEART, Constantes._TAILLEHEART);
             _hitboxHeart2 = new Rectangle(700, 30, Constantes._TAILLEHEART, Constantes._TAILLEHEART);
-            _hitboxBoutonPayer = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 - Constantes._HAUTEUR_BOUTON, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
-            _hitboxBoutonAnnuler = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
+            _hitboxBoutonPayer = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 - Constantes._HAUTEUR_BOUTON - 200, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
+            _hitboxBoutonAnnuler = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2 - 200, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxVaisseauTirs = new Rectangle(20, 140, 410, Constantes._HAUTEURVAISSEAUTIRS + 10);
+
+            _myGame._actif = false;
+            _myGame._screenDeathOk = false;
+            _myGame._screenWinOk = false;
+            _myGame._settingOk = false;
+            _myGame._pause = false;
+            _myGame._shopScreenOk = true;
+
 
             base.Initialize();
         }
@@ -99,15 +109,28 @@ namespace SAE_DEV_PROJ
             {
                 _textureTmpAnnuler = _textureButtonMenu;
             }
-
         }
         public override void Draw(GameTime gameTime)
         {
             _ms = Mouse.GetState();
 
+            // BOUTON MAIN MENU 
+            if (_myGame._hitboxMainMenuShop.Contains(_ms.X, _ms.Y))
+            {
+                _textureTmpMenu = _textureButtonMenuPressed;
+            }
+            else
+            {
+                _textureTmpMenu = _textureButtonMenu;
+            }
+
             _spriteBatch.Begin();
             _spriteBatch.Draw(_textureFondWinScreen, new Vector2(0, 0), Color.White);
 
+
+
+            _spriteBatch.Draw(_textureTmpMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2), Color.White);
+            _spriteBatch.DrawString(_police, "Back to Main Menu", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 135, 800 + Constantes._HAUTEUR_BOUTON - 20 ), Color.White);
             _spriteBatch.DrawString(_police,"Ameliorations vaisseau",new Vector2(20, 10), Color.Red);
 
             _spriteBatch.DrawString(_police, "Augmenter le nombre de HP : ", new Vector2(20, 50), Color.White);
@@ -118,6 +141,13 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_textureVaisseauTirs, new Vector2(20, 140), Color.White);
             _spriteBatch.DrawString(_police, "Tirs par salves de 3", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 140 + Constantes._HAUTEURVAISSEAUTIRS/2 - 10), Color.White);
 
+            //_spriteBatch.Draw();
+
+
+
+
+
+
             // VAISSEAU AMELIORATION 3 TIRS
             if (_hitboxVaisseauTirs.Contains(_ms.X, _ms.Y) && _heartPoliceTmp1 == false)
             {
@@ -126,16 +156,16 @@ namespace SAE_DEV_PROJ
             }
             if (_spaceshipPoliceTmp1)
             {
-                _spriteBatch.DrawString(_police, "Debloquer 2 nouveaux tirs (100g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 650), Color.White);
+                _spriteBatch.DrawString(_police, "Debloquer 2 nouveaux tirs (100g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
             }
 
             if (_spaceshipButton && _heartPoliceTmp1 == false)
             {
-                _spriteBatch.Draw(_textureTmPayer, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON/2, 800 - Constantes._HAUTEUR_BOUTON), Color.White);
-                _spriteBatch.Draw(_textureTmpAnnuler, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2), Color.White);
+                _spriteBatch.Draw(_textureTmPayer, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON/2, 800 - Constantes._HAUTEUR_BOUTON -200), Color.White);
+                _spriteBatch.Draw(_textureTmpAnnuler, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2 -200), Color.White);
 
-                _spriteBatch.DrawString(_police, "Payer", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 50, 800 - Constantes._HAUTEUR_BOUTON / 2 - 15), Color.White);
-                _spriteBatch.DrawString(_police, "Annuler", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 60, 800 + Constantes._HAUTEUR_BOUTON - 15), Color.White);
+                _spriteBatch.DrawString(_police, "Payer", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 50, 800 - Constantes._HAUTEUR_BOUTON / 2 - 15 - 200), Color.White);
+                _spriteBatch.DrawString(_police, "Annuler", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 60, 800 + Constantes._HAUTEUR_BOUTON - 15 -200), Color.White);
 
                 if (_ms.LeftButton == ButtonState.Pressed && _hitboxBoutonPayer.Contains(_ms.X, _ms.Y))
                 {
@@ -148,7 +178,7 @@ namespace SAE_DEV_PROJ
                     else
                     {
                         _myGame._money -= 100;
-                        //_myGame._upgradeCote = true;
+                        _myGame._upgradeCote = true;
 
                         _spaceshipButton = false;
                         _spaceshipPoliceTmp1 = false;
@@ -156,7 +186,7 @@ namespace SAE_DEV_PROJ
                     }
                     if (_spaceshipPoliceTmp2)
                     {
-                        _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (100 - _myGame._money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 650), Color.White);
+                        _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (100 - _myGame._money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
                     }
                 }
                 else
@@ -196,7 +226,7 @@ namespace SAE_DEV_PROJ
                 // SI SOURIS PAR DESSUS COEUR ROUGE 
                 if (_heartPoliceTmp1 && _spaceshipPoliceTmp1 == false && _spaceshipPoliceTmp2 == false)
                 {
-                    _spriteBatch.DrawString(_police, "Augmenter sa vie de 20HP (50g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 650), Color.White);
+                    _spriteBatch.DrawString(_police, "Augmenter sa vie de 20HP (50g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
                 }
                 // SI SOURIS PAR DESSUS COEUR ROUGE 
                 if (_heartFillTmp1 && _spaceshipPoliceTmp1 == false && _spaceshipButton == false)
@@ -204,11 +234,11 @@ namespace SAE_DEV_PROJ
                     // DESSINE LES TEXTURES 
                     if (_heartBoutons)
                     {
-                        _spriteBatch.Draw(_textureTmPayer, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 - Constantes._HAUTEUR_BOUTON), Color.White);
-                        _spriteBatch.Draw(_textureTmpAnnuler, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2), Color.White);
+                        _spriteBatch.Draw(_textureTmPayer, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 - Constantes._HAUTEUR_BOUTON - 200), Color.White);
+                        _spriteBatch.Draw(_textureTmpAnnuler, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2 - 200), Color.White);
 
-                        _spriteBatch.DrawString(_police, "Payer", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 50, 800 - Constantes._HAUTEUR_BOUTON / 2 - 15), Color.White);
-                        _spriteBatch.DrawString(_police, "Annuler", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 60, 800 + Constantes._HAUTEUR_BOUTON - 15), Color.White);
+                        _spriteBatch.DrawString(_police, "Payer", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 50, 800 - Constantes._HAUTEUR_BOUTON / 2 - 15 - 200), Color.White);
+                        _spriteBatch.DrawString(_police, "Annuler", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 60, 800 + Constantes._HAUTEUR_BOUTON - 15 - 200), Color.White);
 
                     }
                     // SI CLIQUE SUR BOUTON PAYER 
@@ -245,7 +275,7 @@ namespace SAE_DEV_PROJ
                         // SI ARGENT < 50 
                         if (_heartPoliceTmp2)
                         {
-                            _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (50 - _myGame._money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 650), Color.White);
+                            _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (50 - _myGame._money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
                         }
                     }
                     // AFFICHE A NOUVEAU LE MESSAGE "Augmenter sa vie de 20hp" 

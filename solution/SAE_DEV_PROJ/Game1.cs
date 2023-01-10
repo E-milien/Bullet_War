@@ -43,6 +43,7 @@ namespace SAE_DEV_PROJ
         public bool _tmpS;
         public bool _touche;
         public bool _upgradeCote;
+        public bool _upgradeRafale;
         private double _tmp69temps;
 
         public int _widthPlayButton;
@@ -94,6 +95,8 @@ namespace SAE_DEV_PROJ
         Rectangle hitboxPic6;
         Rectangle hitboxPic7;
         Rectangle hitboxPic8;
+
+        public Rectangle _hitboxMainMenuShop;
 
         public Rectangle _hitboxBoutonMReplay;
         public Rectangle _hitboxMenuButton;
@@ -191,6 +194,10 @@ namespace SAE_DEV_PROJ
             _hitboxMainMenuWinScreen = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
 
             _hitboxBruit = new Rectangle(100, 520, Constantes._LARGEUR_BRUIT, Constantes._HAUTEUR_BRUIT);
+            
+            _hitboxMainMenuShop = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
+            
+            _hitboxBruit = new Rectangle(0, 800, Constantes._LARGEUR_BRUIT, Constantes._HAUTEUR_BRUIT);
             base.Initialize();
         }
 
@@ -206,7 +213,7 @@ namespace SAE_DEV_PROJ
             _soundButton2 = Content.Load<SoundEffect>("soundBouton2");
             _soundButton3 = Content.Load<SoundEffect>("sondBouton3");
             _musiqueHome = Content.Load<Song>("musiqueHome");
-            _noSoundM = Content.Load<Song>("noSoundM");
+            //_noSoundM = Content.Load<Song>("noSoundM");
             _m1 = Content.Load<Song>("musiqueHome");
             _s1 = Content.Load<SoundEffect>("sondBouton");
             _s2 = Content.Load<SoundEffect>("soundBouton2");
@@ -317,7 +324,11 @@ namespace SAE_DEV_PROJ
 
 
             // SHOP
-
+            if(_shopScreenOk && _ms.LeftButton == ButtonState.Pressed && _hitboxMainMenuShop.Contains(_ms.X, _ms.Y))
+            {
+                _soundButton.Play();
+                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
             // PAUSE
             if (_pause && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))
             {
