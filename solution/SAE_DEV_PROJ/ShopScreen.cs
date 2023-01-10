@@ -32,6 +32,7 @@ namespace SAE_DEV_PROJ
         private Rectangle _hitboxBoutonPayer;
         private Rectangle _hitboxBoutonAnnuler;
         private Rectangle _hitboxVaisseauTirs;
+        private Rectangle _hitboxRafale;
 
         // COEUR
         bool _heartFillTmp1;
@@ -46,6 +47,11 @@ namespace SAE_DEV_PROJ
         bool _spaceshipPoliceTmp1;
         bool _spaceshipPoliceTmp2;
         bool _spaceshipButton;
+
+        // RAFALES
+        bool _rafalesPoliceTmp1;
+        bool _rafalesPoliceTmp2;
+        bool _rafalesButton;
 
         private MouseState _ms;
 
@@ -62,6 +68,8 @@ namespace SAE_DEV_PROJ
             _hitboxBoutonPayer = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 - Constantes._HAUTEUR_BOUTON - 200, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxBoutonAnnuler = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2 - 200, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxVaisseauTirs = new Rectangle(20, 140, 410, Constantes._HAUTEURVAISSEAUTIRS + 10);
+
+            _hitboxRafale = new Rectangle(25 + Constantes._LARGEURVAISSEAUTIRS, 300, 410, Constantes._HAUTEURVAISSEAUTIRS + 10);
 
             _myGame._actif = false;
             _myGame._screenDeathOk = false;
@@ -109,6 +117,7 @@ namespace SAE_DEV_PROJ
             {
                 _textureTmpAnnuler = _textureButtonMenu;
             }
+            
         }
         public override void Draw(GameTime gameTime)
         {
@@ -141,9 +150,61 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_textureVaisseauTirs, new Vector2(20, 140), Color.White);
             _spriteBatch.DrawString(_police, "Tirs par salves de 3", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 140 + Constantes._HAUTEURVAISSEAUTIRS/2 - 10), Color.White);
 
-            //_spriteBatch.Draw();
+            _spriteBatch.DrawString(_police, "Ameliorer la rafale", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 300), Color.White);
 
+            if(_hitboxRafale.Contains(_ms.X,_ms.Y) && _heartFillTmp1 == false && _spaceshipButton == false)
+            {
+                _rafalesButton = true;
+                _rafalesPoliceTmp1 = true;
+            }
+            if (_spaceshipPoliceTmp1)
+            {
+                _spriteBatch.DrawString(_police, "Ameliorer la rafale dps x1.5 (100g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
+            }
+            if(_rafalesButton == true && _spaceshipButton == false && _heartFillTmp1 == false)
+            {
+                _spriteBatch.Draw(_textureTmPayer, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 - Constantes._HAUTEUR_BOUTON - 200), Color.White);
+                _spriteBatch.Draw(_textureTmpAnnuler, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2 - 200), Color.White);
 
+                _spriteBatch.DrawString(_police, "Payer", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 50, 800 - Constantes._HAUTEUR_BOUTON / 2 - 15 - 200), Color.White);
+                _spriteBatch.DrawString(_police, "Annuler", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 60, 800 + Constantes._HAUTEUR_BOUTON - 15 - 200), Color.White);
+
+                if (_ms.LeftButton == ButtonState.Pressed && _hitboxBoutonPayer.Contains(_ms.X, _ms.Y))
+                {
+                    // ARGENT < 50
+                    if (_myGame._money < 100)
+                    {
+                        _rafalesPoliceTmp1 = false;
+                        _rafalesPoliceTmp2 = true;
+                    }
+                    else
+                    {
+                        _myGame._money -= 100;
+                        _myGame._upgradeCote = true;
+
+                        _rafalesButton = false;
+                        _rafalesPoliceTmp1 = false;
+                        _rafalesPoliceTmp2 = false;
+                    }
+                    if (_rafalesPoliceTmp2)
+                    {
+                        _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (100 - _myGame._money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
+                    }
+                }
+                else
+                {
+                    _rafalesPoliceTmp1 = true;
+                    _rafalesPoliceTmp2 = false;
+                }
+
+            }
+            if (_ms.LeftButton == ButtonState.Pressed && _hitboxBoutonAnnuler.Contains(_ms.X, _ms.Y))
+            {
+                _rafalesButton = false;
+                _rafalesPoliceTmp1 = false;
+                _rafalesPoliceTmp2 = false;
+            }
+        
 
 
 

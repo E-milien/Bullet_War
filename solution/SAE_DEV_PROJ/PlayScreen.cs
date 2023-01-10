@@ -115,8 +115,10 @@ namespace SAE_DEV_PROJ
         public override void Initialize()
         {
             _myGame._upgradeRafale = false;
+
             if (_myGame._upgradeRafale == true)
                 _sequenceTir = 3;
+
             else
                 _sequenceTir = 4;
                 
