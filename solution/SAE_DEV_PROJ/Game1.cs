@@ -94,6 +94,8 @@ namespace SAE_DEV_PROJ
         Rectangle hitboxPic7;
         Rectangle hitboxPic8;
 
+        public Rectangle _hitboxMainMenuShop;
+
         public Rectangle _hitboxBoutonMReplay;
         public Rectangle _hitboxMenuButton;
         public Rectangle _hitboxExitButton;
@@ -185,7 +187,9 @@ namespace SAE_DEV_PROJ
 
             _hitboxReplayWinScreen = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2 - 200, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxMainMenuWinScreen = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
-
+            
+            _hitboxMainMenuShop = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
+            
             _hitboxBruit = new Rectangle(0, 800, Constantes._LARGEUR_BRUIT, Constantes._HAUTEUR_BRUIT);
             base.Initialize();
         }
@@ -326,7 +330,11 @@ namespace SAE_DEV_PROJ
 
 
             // SHOP
-
+            if(_shopScreenOk && _ms.LeftButton == ButtonState.Pressed && _hitboxMainMenuShop.Contains(_ms.X, _ms.Y))
+            {
+                _soundButton.Play();
+                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
             // PAUSE
             if (_pause && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))
             {
