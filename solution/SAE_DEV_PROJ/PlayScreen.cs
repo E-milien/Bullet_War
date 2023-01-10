@@ -103,10 +103,6 @@ namespace SAE_DEV_PROJ
         private SoundEffect _soundShot;
         
 
-
-
-        // pour récupérer une référence à l’objet game pour avoir accès à tout ce qui est
-        // défini dans Game1
         public PlayScreen(Game1 game) : base(game)
         {
             _myGame = game;
@@ -114,7 +110,6 @@ namespace SAE_DEV_PROJ
 
         public override void Initialize()
         {
-            // initialisation toutes les veriables
             _upgradeCote = true;
             _upgradeRafale = false;
             if (_upgradeRafale == true)
@@ -144,13 +139,16 @@ namespace SAE_DEV_PROJ
             _boutonMenuExit = _textureButtonMenu;
             _tmp48 = 0;
 
+            _myGame._money = 100;
+            _myGame._hpPerso = 100;
+
             _largeurBarreHp = 578;
             _hitboxResumeButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             
 
             // initialisation boss & perso
             boss1 = new Boss(5000, 20, "bossMechant", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
-            hero = new Perso(true, 100, 5, 0, "vaisseau", 1, 500, new Vector2(Constantes._LARGEUR_FENETRE/2,Constantes._HAUTEUR_FENETRE*2/3) - new Vector2(Constantes._LARGEUR_PERSO / 2, Constantes._HAUTEUR_PERSO / 2));
+            hero = new Perso(false, _myGame._hpPerso, 5, 0, _myGame._money + 50, "vaisseau", 1, 500, new Vector2(Constantes._LARGEUR_FENETRE/2,Constantes._HAUTEUR_FENETRE*2/3) - new Vector2(Constantes._LARGEUR_PERSO / 2, Constantes._HAUTEUR_PERSO / 2));
 
             _damagePerso = hero.DamagePerso;
             _pvDepart = hero.PvPerso;
@@ -261,6 +259,8 @@ namespace SAE_DEV_PROJ
             _myGame._screenDeathOk = false;
             _myGame._screenWinOk = false;
             _myGame._actif = false;
+            _myGame._shopScreenOk = false;
+
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (!_myGame._pause)
             {
@@ -530,6 +530,7 @@ namespace SAE_DEV_PROJ
 
             _spriteBatch.DrawString(_police, $"{hero.PvPerso} / {_pvDepart}", new Vector2(_positionPv.X + _largeurBarreHp/2 - 40, _positionPv.Y + 20), Color.Black);
 
+            // PAUSE
             if (_myGame._pause)
             {
                 _spriteBatch.Draw(_textureFondPause, new Vector2(0, 0), Color.White * 0.8f);

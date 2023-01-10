@@ -16,9 +16,6 @@ namespace SAE_DEV_PROJ
         private Game1 _myGame;
         private SpriteFont _police;
 
-        private Texture2D _textureRePlayButton;
-        private Texture2D _textureOptionButton;
-        private Texture2D _textureLeaveButton;
         private Texture2D _textureDeadScreen;
         private Texture2D _textureyouAreDead;
         private Texture2D _textureButtonMenu;
@@ -31,9 +28,6 @@ namespace SAE_DEV_PROJ
         {
             _police = Content.Load<SpriteFont>("Font");
 
-            _textureRePlayButton = Content.Load<Texture2D>("Jouer");
-            _textureOptionButton = Content.Load<Texture2D>("Option");
-            _textureLeaveButton = Content.Load<Texture2D>("Leave");
             _textureDeadScreen = Content.Load<Texture2D>("deadScreen");
             _textureyouAreDead = Content.Load<Texture2D>("youaredead");
 
@@ -50,11 +44,11 @@ namespace SAE_DEV_PROJ
 
         public override void Update(GameTime gameTime)
         {
+            _ms = Mouse.GetState();
             _myGame._actif = false;
         }
         public override void Draw(GameTime gameTime)
         {
-            _ms = Mouse.GetState();
 
             _spriteBatch.Begin();
 
@@ -62,24 +56,30 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_textureDeadScreen, new Vector2(0, 0), Color.White);
             _spriteBatch.Draw(_textureyouAreDead, new Vector2(Constantes._LARGEUR_FENETRE / 2 - _largeuryouAreDead / 2 - 170, 50), Color.White);
 
-
-            // TEXTURES BOUTONS INITIALES
-            _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300), Color.White);
-            _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 500), Color.White);
-            _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 700), Color.White);
-
             // SI SOURIS PAR DESSUS BOUTON CHANGEMENT TEXTURE 
             if (_myGame._hitboxBoutonMReplay.Contains(_ms.X, _ms.Y))
             {
                 _spriteBatch.Draw(_textureButtonMenuPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300), Color.White);
             }
+            else
+            {
+                _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300), Color.White);
+            }
             if (_myGame._hitboxMenuButton.Contains(_ms.X, _ms.Y))
             {
                 _spriteBatch.Draw(_textureButtonMenuPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 500), Color.White);
             }
+            else
+            {
+                _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 500), Color.White);
+            }
             if (_myGame._hitboxExitButton.Contains(_ms.X, _ms.Y))
             {
                 _spriteBatch.Draw(_textureButtonMenuPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 700), Color.White);
+            }
+            else
+            {
+                _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 700), Color.White);
             }
 
             // TEXTE 

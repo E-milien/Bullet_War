@@ -15,13 +15,12 @@ namespace SAE_DEV_PROJ
         private SpriteBatch _spriteBatch;
         private Game1 _myGame;
         private SpriteFont _police;
-        private Texture2D _textureButton;
-        private Texture2D _textureButtonPressed;
-        private Texture2D _boutonHome;
+        private MouseState _ms;
+
+        
 
 
-
-
+        
 
         public HomeScreen(Game1 game) : base(game)
         {
@@ -30,39 +29,41 @@ namespace SAE_DEV_PROJ
         }
         public override void Initialize()
         {
-            _boutonHome = _textureButton;
+
+
             base.Initialize();
         }
         public override void LoadContent()
         {
             _police = Content.Load<SpriteFont>("Font");
-            _textureButton = Content.Load<Texture2D>("boutonM");
-            _textureButtonPressed = Content.Load<Texture2D>("boutonM_pressed");
+
            
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
+            _ms = Mouse.GetState();
             _myGame._homeScreenOpen = true;
             _myGame._actif = true;
+            
         }
         public override void Draw(GameTime gameTime)
         {
             _spriteBatch.Begin();
             _spriteBatch.Draw(_myGame._fondHome,new Vector2(0,0),Color.White);
 
-            _spriteBatch.Draw(_textureButton, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 4 / 8-50), Color.White);
-            _spriteBatch.DrawString(_police, "Click to start", new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE*4/8), Color.White);
+            _spriteBatch.Draw(_myGame._boutonPlay, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 4 / 8-50), Color.White);
+            _spriteBatch.DrawString(_police, "Click to start", new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2 + 115, Constantes._HAUTEUR_FENETRE * 4 / 8 - 15), Color.White);
 
-            _spriteBatch.Draw(_textureButton, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 5 / 8 - 50), Color.White);
-            _spriteBatch.DrawString(_police, "Boutique", new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 5 / 8), Color.White);
+            _spriteBatch.Draw(_myGame._boutonShop, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 5 / 8 - 50), Color.White);
+            _spriteBatch.DrawString(_police, "Boutique", new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2 + 140, Constantes._HAUTEUR_FENETRE * 5 / 8 - 15), Color.White);
 
-            _spriteBatch.Draw(_textureButton, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 6 / 8 - 50), Color.White);
-            _spriteBatch.DrawString(_police, "Options", new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 6 / 8), Color.White);
+            _spriteBatch.Draw(_myGame._boutonSettings, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 6 / 8 - 50), Color.White);
+            _spriteBatch.DrawString(_police, "Options", new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2 + 140, Constantes._HAUTEUR_FENETRE * 6 / 8 - 15), Color.White);
 
-            _spriteBatch.Draw(_textureButton, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 7 / 8 - 50), Color.White);
-            _spriteBatch.DrawString(_police, "Click to quit", new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 7 / 8), Color.White);
+            _spriteBatch.Draw(_myGame._boutonQuit, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 7 / 8 - 50), Color.White);
+            _spriteBatch.DrawString(_police, "Click to quit", new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2 + 120, Constantes._HAUTEUR_FENETRE * 7 / 8 - 15), Color.White);
 
             _spriteBatch.End();
         }

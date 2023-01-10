@@ -55,6 +55,9 @@ namespace SAE_DEV_PROJ
         public const int _DEBUTFOCUS12 = 38;
         public const int _DEBUTFOCUSDOUBLE1 = 44;
         public const int _DEBUTFOCUSDOUBLE2 = 50;
+        public const int _TAILLEHEART = 100;
+        public const int _LARGEURVAISSEAUTIRS = 50;
+        public const int _HAUTEURVAISSEAUTIRS = 94;
         private bool _estMort;
 
         public bool EstMort { get => _estMort; set => _estMort = value; }
