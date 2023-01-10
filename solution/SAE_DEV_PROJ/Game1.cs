@@ -101,13 +101,20 @@ namespace SAE_DEV_PROJ
         public Rectangle _hitboxReplayWinScreen;
         public Rectangle _hitboxMainMenuWinScreen;
 
+        Rectangle _hitboxBruit;
+
 
         // SON
         public SoundEffect _soundButton;
         public SoundEffect _soundButton2;
         public SoundEffect _soundButton3;
+        public SoundEffect _s1;
+        public SoundEffect _s2;
+        public SoundEffect _s3;
         public SoundEffect _noSound;
+        public Song _noSoundM;
         public Song _musiqueHome;
+        public Song _m1;
 
         public bool _sonOff;
 
@@ -179,6 +186,7 @@ namespace SAE_DEV_PROJ
             _hitboxReplayWinScreen = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2 - 200, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxMainMenuWinScreen = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
 
+            _hitboxBruit = new Rectangle(0, 800, Constantes._LARGEUR_BRUIT, Constantes._HAUTEUR_BRUIT);
             base.Initialize();
         }
 
@@ -194,6 +202,12 @@ namespace SAE_DEV_PROJ
             _soundButton2 = Content.Load<SoundEffect>("soundBouton2");
             _soundButton3 = Content.Load<SoundEffect>("sondBouton3");
             _musiqueHome = Content.Load<Song>("musiqueHome");
+            _noSoundM = Content.Load<Song>("noSoundM");
+            _m1 = Content.Load<Song>("musiqueHome");
+            _m1 = Content.Load<Song>("musiqueHome");
+            _s1 = Content.Load<SoundEffect>("sondBouton");
+            _s2 = Content.Load<SoundEffect>("soundBouton2");
+            _s3 = Content.Load<SoundEffect>("sondBouton3");
 
             _homeScreen = new HomeScreen(this);
             _playScreen = new PlayScreen(this);
@@ -219,7 +233,14 @@ namespace SAE_DEV_PROJ
                 _soundButton = _noSound;
                 _soundButton2 = _noSound;
                 _soundButton3 = _noSound;
-
+                _musiqueHome = _noSoundM;
+            }
+            else
+            {
+                _soundButton = _s1;
+                _soundButton2 = _s2;
+                _soundButton3 = _s3;
+                _musiqueHome = _m1;
             }
             if (!_loaded)
             {
@@ -381,6 +402,14 @@ namespace SAE_DEV_PROJ
             {
                 _soundButton.Play();
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && _hitboxBruit.Contains(_ms.X, _ms.Y) && _sonOff == true) 
+            {
+                _sonOff = false;
+            }
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && _hitboxBruit.Contains(_ms.X, _ms.Y) && _sonOff == false)
+            {
+                _sonOff = true;
             }
 
             // FONDS SUPERIEURS 

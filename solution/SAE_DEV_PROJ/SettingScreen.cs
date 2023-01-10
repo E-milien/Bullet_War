@@ -30,6 +30,8 @@ namespace SAE_DEV_PROJ
         private MouseState _ms;
         private Texture2D _textureFondPause;
         private Texture2D _bindKey;
+        private Texture2D _bruitOn;
+        private Texture2D _bruitOff;
 
         public SettingScreen(Game1 game) : base(game)
         {
@@ -59,7 +61,8 @@ namespace SAE_DEV_PROJ
             _texturePic7 = Content.Load<Texture2D>("pic7");
             _texturePic8 = Content.Load<Texture2D>("pic8");
             _textureContour = Content.Load<Texture2D>("contour");
-
+            _bruitOn = Content.Load<Texture2D>("Bruit");
+            _bruitOff = Content.Load<Texture2D>("pasBruit");
             base.LoadContent();
         }
 
@@ -77,6 +80,7 @@ namespace SAE_DEV_PROJ
         { 
             _spriteBatch.Begin();
             _spriteBatch.Draw(_myGame._fondSettings, new Vector2(0, 0), Color.White);
+            _spriteBatch.Draw(_bruitOn, new Vector2(0, 800), Color.White);
             if (_myGame.hitboxOptionButton.Contains(_ms.X, _ms.Y))
             {
                 _spriteBatch.Draw(_textureLeaveButtonPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 6 / 8 - 50), Color.White);
