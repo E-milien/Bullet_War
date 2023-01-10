@@ -185,7 +185,7 @@ namespace SAE_DEV_PROJ
             _hitboxReplayWinScreen = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2 - 200, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxMainMenuWinScreen = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
 
-            _hitboxBruit = new Rectangle(0, 0, Constantes._LARGEUR_BRUIT, Constantes._HAUTEUR_BRUIT);
+            _hitboxBruit = new Rectangle(0, 800, Constantes._LARGEUR_BRUIT, Constantes._HAUTEUR_BRUIT);
             base.Initialize();
         }
 
