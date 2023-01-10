@@ -156,9 +156,9 @@ namespace SAE_DEV_PROJ
                     for (int j = 0; j < _tabBulletPersoCote.GetLength(1); j++)
                     {
                         if (j == 1)
-                            _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
+                            _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO - Constantes._LARGEUR_BULLETS_PERSO_COTE, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
                         else
-                            _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
+                            _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_BULLETS_PERSO_COTE, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
                     }
                 }
             }
@@ -281,9 +281,9 @@ namespace SAE_DEV_PROJ
                                 if (_tabBulletPersoCote[i,j].BulletPosition.X != hero.PositionPerso.X)
                                 {
                                     if (j == 1)
-                                        _tabBulletPersoCote[i,j].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO, _tabBulletPersoCote[i,j].BulletPosition.Y);
+                                        _tabBulletPersoCote[i,j].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO - Constantes._LARGEUR_BULLETS_PERSO_COTE, _tabBulletPersoCote[i,j].BulletPosition.Y);
                                     else
-                                        _tabBulletPersoCote[i, j].BulletPosition = new Vector2(hero.PositionPerso.X, _tabBulletPersoCote[i, j].BulletPosition.Y);
+                                        _tabBulletPersoCote[i, j].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_BULLETS_PERSO_COTE, _tabBulletPersoCote[i, j].BulletPosition.Y);
                                 }
                             }
                             _tabBulletPersoCote[i,j].BulletPosition -= new Vector2(0, _tabBulletPersoCote[i,j].Vitesse * deltaTime);
@@ -410,7 +410,7 @@ namespace SAE_DEV_PROJ
                         for (int j = 0; j < _tabBulletPersoCote.GetLength(1); j++)
                         {
                             if (!(_tabBulletPersoCote[i,j].BulletPosition.Y > hero.PositionPerso.Y))
-                                _spriteBatch.Draw(_textureBulletAllieCote, _tabBulletPersoCote[i,j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS_PERSO / 2, 0), Color.White);
+                                _spriteBatch.Draw(_textureBulletAllieCote, _tabBulletPersoCote[i,j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS_PERSO_COTE / 2, 0), Color.White);
                         }
                     }
                 }
@@ -638,9 +638,9 @@ namespace SAE_DEV_PROJ
                             if (rect1.Intersects(rect2))
                             {
                                 if (j == 1)
-                                    _tabBulletPersoCote[i, j].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2);
+                                    _tabBulletPersoCote[i, j].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO - Constantes._LARGEUR_BULLETS_PERSO_COTE, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2);
                                 else 
-                                    _tabBulletPersoCote[i, j].BulletPosition = new Vector2(hero.PositionPerso.X, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2);
+                                    _tabBulletPersoCote[i, j].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_BULLETS_PERSO_COTE, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2);
                                 boss1.BossHP -= Constantes._DAMAGEPERSOCOTE;
                                 if (_redemption == false && _bossAlive)
                                     hero.Score += 1;
@@ -670,9 +670,9 @@ namespace SAE_DEV_PROJ
                         if (_tabBulletPersoCote[i,j].BulletPosition.Y <= 0)
                         {
                             if (j == 1)
-                                _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
+                                _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO - Constantes._LARGEUR_BULLETS_PERSO_COTE, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
                             else
-                                _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
+                                _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_BULLETS_PERSO_COTE, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
                         }
                     }
                 }
@@ -867,9 +867,9 @@ namespace SAE_DEV_PROJ
                     for (int j = 0; j < _tabBulletPersoCote.GetLength(1); j++)
                     {
                         if (j == 1)
-                            _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
+                            _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO - Constantes._LARGEUR_BULLETS_PERSO_COTE, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
                         else
-                            _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
+                            _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_BULLETS_PERSO_COTE, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
                     }
                 }
             }
