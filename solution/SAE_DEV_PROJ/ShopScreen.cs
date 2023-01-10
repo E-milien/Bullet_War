@@ -31,8 +31,8 @@ namespace SAE_DEV_PROJ
         }
         public override void Initialize()
         {
-            Rectangle _hitboxHeart1 = new Rectangle(575,30,Constantes._TAILLEHEART, Constantes._TAILLEHEART);
-            Rectangle _hitboxHeart2 = new Rectangle(700, 30, Constantes._TAILLEHEART, Constantes._TAILLEHEART);
+            _hitboxHeart1 = new Rectangle(575,30,Constantes._TAILLEHEART, Constantes._TAILLEHEART);
+            _hitboxHeart2 = new Rectangle(700, 30, Constantes._TAILLEHEART, Constantes._TAILLEHEART);
 
             base.Initialize();
         }
@@ -70,7 +70,10 @@ namespace SAE_DEV_PROJ
             if(_hitboxHeart1.Contains(_ms.X, _ms.Y))
             {
                 _spriteBatch.Draw(_textureHeartFill, new Vector2(575, 30), Color.White);
-                Console.WriteLine("test");
+                if(_ms.LeftButton == ButtonState.Pressed)
+                {
+                    _spriteBatch.DrawString(_police, "Cliquer pour ameliorer (50g) ", new Vector2(Constantes._LARGEUR_FENETRE/2 - 100, 1000), Color.White);
+                }
             }
 
             _spriteBatch.End();
