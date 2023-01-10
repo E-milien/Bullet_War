@@ -19,20 +19,33 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureRePlayButton;
         private Texture2D _textureOptionButton;
         private Texture2D _textureLeaveButton;
-        // pour récupérer une référence à l’objet game pour avoir accès à tout ce qui est
-        // défini dans Game1
+        private Texture2D _textureButtonMenu;
+        private Texture2D _textureButtonMenuPressed;
+        private Texture2D _textureFondWinScreen;
+        private Texture2D _textureWin;
+
+        private MouseState _ms;
+
+        private int _largeurImage = 1000;
+
         public WinScreen(Game1 game) : base(game)
         {
             _police = Content.Load<SpriteFont>("Font");
             _myGame = game;
 
-    }
+        }
         public override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _textureRePlayButton = Content.Load<Texture2D>("Jouer");
             _textureOptionButton = Content.Load<Texture2D>("Option");
             _textureLeaveButton = Content.Load<Texture2D>("Leave");
+
+            _textureButtonMenu = Content.Load<Texture2D>("boutonM");
+            _textureButtonMenuPressed = Content.Load<Texture2D>("boutonM_pressed");
+            _textureFondWinScreen = Content.Load<Texture2D>("fondWinScreen");
+            _textureWin = Content.Load<Texture2D>("win");
+
             base.LoadContent();
         }
 
@@ -42,18 +55,31 @@ namespace SAE_DEV_PROJ
         }
         public override void Draw(GameTime gameTime)
         {
-
-            _myGame.GraphicsDevice.Clear(Color.Yellow); 
+            _ms = Mouse.GetState();
             _spriteBatch.Begin();
-            _spriteBatch.DrawString(_police, "You won !", new Vector2(20, 20), Color.White);
 
-            _spriteBatch.Draw(_textureRePlayButton, new Vector2(500, 200), Color.White);
-            _spriteBatch.DrawString(_police, "Play Again", new Vector2(900, 260), Color.White);
+            _spriteBatch.Draw(_textureFondWinScreen, new Vector2(0, 0), Color.White);
 
-            _spriteBatch.Draw(_textureOptionButton, new Vector2(500, 400), Color.White);
-            _spriteBatch.DrawString(_police, "Exit to main menu", new Vector2(860, 460), Color.White);
+            // TEXTURES BOUTONS 
+            _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2 - 200), Color.White);
+            _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2), Color.White);
 
+            // TEXTURES SI SOURIS PAR DESSUS 
+            if (_myGame._hitboxReplayWinScreen.Contains(_ms.X, _ms.Y))
+            {
+                _spriteBatch.Draw(_textureButtonMenuPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2 - 200), Color.White);
+            }
+            if (_myGame._hitboxMainMenuWinScreen.Contains(_ms.X, _ms.Y))
+            {
+                _spriteBatch.Draw(_textureButtonMenuPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2), Color.White);
+            }
 
+            // TEXTES 
+            _spriteBatch.DrawString(_police, "Play Again", new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2 + 120, Constantes._HAUTEUR_FENETRE / 2 - 165), Color.White);
+            _spriteBatch.DrawString(_police, "Exit to main menu", new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2 + 80, Constantes._HAUTEUR_FENETRE / 2 + 35), Color.White);
+
+            //WIN
+            _spriteBatch.Draw(_textureWin, new Vector2(Constantes._LARGEUR_FENETRE / 2 - _largeurImage / 2, 50), Color.White);
             _spriteBatch.End();
         }
     }

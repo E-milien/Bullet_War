@@ -15,9 +15,17 @@ namespace SAE_DEV_PROJ
         private SpriteBatch _spriteBatch;
         private Game1 _myGame;
         private SpriteFont _police;
+
         private Texture2D _textureRePlayButton;
         private Texture2D _textureOptionButton;
         private Texture2D _textureLeaveButton;
+        private Texture2D _textureDeadScreen;
+        private Texture2D _textureyouAreDead;
+        private Texture2D _textureButtonMenu;
+        private Texture2D _textureButtonMenuPressed;
+        private MouseState _ms;
+
+        private int _largeuryouAreDead = 600;
 
         public DeadScreen(Game1 game) : base(game)
         {
@@ -26,6 +34,11 @@ namespace SAE_DEV_PROJ
             _textureRePlayButton = Content.Load<Texture2D>("Jouer");
             _textureOptionButton = Content.Load<Texture2D>("Option");
             _textureLeaveButton = Content.Load<Texture2D>("Leave");
+            _textureDeadScreen = Content.Load<Texture2D>("deadScreen");
+            _textureyouAreDead = Content.Load<Texture2D>("youaredead");
+
+            _textureButtonMenu = Content.Load<Texture2D>("boutonM");
+            _textureButtonMenuPressed = Content.Load<Texture2D>("boutonM_pressed");
 
             _myGame = game;
         }
@@ -41,17 +54,39 @@ namespace SAE_DEV_PROJ
         }
         public override void Draw(GameTime gameTime)
         {
+            _ms = Mouse.GetState();
 
-            _myGame.GraphicsDevice.Clear(Color.DarkRed);
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_textureRePlayButton, new Vector2(500, 200), Color.White);
-            _spriteBatch.DrawString(_police, "Click to start", new Vector2(900, 260), Color.White);
 
-            _spriteBatch.Draw(_textureOptionButton, new Vector2(500, 400), Color.White);
-            _spriteBatch.DrawString(_police, "Main menu", new Vector2(910, 460), Color.White);
+            // FONDS 
+            _spriteBatch.Draw(_textureDeadScreen, new Vector2(0, 0), Color.White);
+            _spriteBatch.Draw(_textureyouAreDead, new Vector2(Constantes._LARGEUR_FENETRE / 2 - _largeuryouAreDead / 2 - 170, 50), Color.White);
 
-            _spriteBatch.Draw(_textureLeaveButton, new Vector2(500, 600), Color.White);
-            _spriteBatch.DrawString(_police, "Click to quit", new Vector2(900, 660), Color.White);
+
+            // TEXTURES BOUTONS INITIALES
+            _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300), Color.White);
+            _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 500), Color.White);
+            _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 700), Color.White);
+
+            // SI SOURIS PAR DESSUS BOUTON CHANGEMENT TEXTURE 
+            if (_myGame._hitboxBoutonMReplay.Contains(_ms.X, _ms.Y))
+            {
+                _spriteBatch.Draw(_textureButtonMenuPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300), Color.White);
+            }
+            if (_myGame._hitboxMenuButton.Contains(_ms.X, _ms.Y))
+            {
+                _spriteBatch.Draw(_textureButtonMenuPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 500), Color.White);
+            }
+            if (_myGame._hitboxExitButton.Contains(_ms.X, _ms.Y))
+            {
+                _spriteBatch.Draw(_textureButtonMenuPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 700), Color.White);
+            }
+
+            // TEXTE 
+            _spriteBatch.DrawString(_police, "Replay", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 50, 340), Color.White);
+            _spriteBatch.DrawString(_police, "Main Menu", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 70, 540), Color.White);
+            _spriteBatch.DrawString(_police, "Quit", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 20, 740), Color.White);
+
             _spriteBatch.End();
         }
     }

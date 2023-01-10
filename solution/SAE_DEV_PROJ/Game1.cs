@@ -77,8 +77,13 @@ namespace SAE_DEV_PROJ
         Rectangle hitboxPic7;
         Rectangle hitboxPic8;
 
-        private Rectangle _hitboxMenuButton;
-        private Rectangle _hitboxExitButton;
+        public Rectangle _hitboxBoutonMReplay;
+        public Rectangle _hitboxMenuButton;
+        public Rectangle _hitboxExitButton;
+
+        public Rectangle _hitboxReplayWinScreen;
+        public Rectangle _hitboxMainMenuWinScreen;
+
 
         // SON
         public SoundEffect _soundButton;
@@ -141,9 +146,12 @@ namespace SAE_DEV_PROJ
             hitboxOptionButton = new Rectangle(500, 400, _widthPlayButton, _heighPlayButton);
             hitboxLeaveButton = new Rectangle(500, 600, _widthPlayButton, _heighPlayButton);
 
-
+            _hitboxBoutonMReplay = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxMenuButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 500, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxExitButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 700, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
+
+            _hitboxReplayWinScreen = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2 - 200, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
+            _hitboxMainMenuWinScreen = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
 
             base.Initialize();
         }
@@ -282,6 +290,33 @@ namespace SAE_DEV_PROJ
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
 
+            // DEATH SCENE
+
+            if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && _hitboxBoutonMReplay.Contains(_ms.X, _ms.Y))
+            {
+                _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
+
+            if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))
+            {
+                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
+
+            if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && _hitboxExitButton.Contains(_ms.X, _ms.Y))
+            {
+                Exit();
+            }
+
+
+            // WIN SCENE
+            if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && _hitboxReplayWinScreen.Contains(_ms.X, _ms.Y))
+            {
+                _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
+            if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && _hitboxMainMenuWinScreen.Contains(_ms.X, _ms.Y))
+            {
+                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
 
             // SETTINGS SCREEN
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(_ms.X, _ms.Y))
