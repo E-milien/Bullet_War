@@ -193,6 +193,7 @@ namespace SAE_DEV_PROJ
             {
                 Exit();
             }
+
             // MODIF
             if(_pause && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))
             {
@@ -202,6 +203,23 @@ namespace SAE_DEV_PROJ
             {
                 Exit();
             }
+            if (_hitboxMenuButton.Contains(_ms.X, _ms.Y))
+            {
+                _playScreen._boutonMenuHome = _playScreen._textureButtonMenuPressed;
+            }
+            else
+            {
+                _playScreen._boutonMenuHome = _playScreen._textureButtonMenu;
+            }
+            if (_hitboxExitButton.Contains(_ms.X, _ms.Y))
+            {
+                _playScreen._boutonMenuExit = _playScreen._textureButtonMenuPressed;
+            }
+            else
+            {
+                _playScreen._boutonMenuExit = _playScreen._textureButtonMenu;
+            }
+
 
             // A SUPPRIMER 
             if (_keyboardState.IsKeyDown(Keys.O))
