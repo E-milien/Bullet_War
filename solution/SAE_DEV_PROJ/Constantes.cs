@@ -38,6 +38,15 @@ namespace SAE_DEV_PROJ
         public const int _DEBUTPAT3 = 24;
         public const int _DEBUTPAT4 = 50;
         public const int _DEBUTPAT5 = 61;
+        public const int _DEBUTFOCUS1 = 3;
+        public const int _DEBUTFOCUS2 = 5;
+        public const int _DEBUTFOCUS3 = 8;
+        public const int _DEBUTFOCUS4 = 9;
+        public const int _DEBUTFOCUS5 = 13;
+        public const int _DEBUTFOCUS6 = 15;
+        public const int _DEBUTFOCUS7 = 17;
+        public const int _DEBUTFOCUS8 = 20;
+        public const int _DEBUTFOCUS9 = 21;
         public const int _DAMAGEPERSOCOTE = 1;
         private bool _estMort;
 

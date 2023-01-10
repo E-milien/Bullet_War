@@ -23,6 +23,12 @@ namespace SAE_DEV_PROJ
         internal Bullet[] _tabBulletFocus1 = new Bullet[36];
         internal Bullet[] _tabBulletFocus2 = new Bullet[36];
         internal Bullet[] _tabBulletFocus3 = new Bullet[36];
+        internal Bullet[] _tabBulletFocus4 = new Bullet[36];
+        internal Bullet[] _tabBulletFocus5 = new Bullet[36];
+        internal Bullet[] _tabBulletFocus6 = new Bullet[36];
+        internal Bullet[] _tabBulletFocus7 = new Bullet[36];
+        internal Bullet[] _tabBulletFocus8 = new Bullet[36];
+        internal Bullet[] _tabBulletFocus9 = new Bullet[36];
         internal Boss boss1;
         internal Perso hero;
         private double _tmp;
@@ -179,6 +185,12 @@ namespace SAE_DEV_PROJ
                 _tabBulletFocus1[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
                 _tabBulletFocus2[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
                 _tabBulletFocus3[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus4[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus5[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus6[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus7[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus8[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus9[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
             }
             
             InitializeSpirale();
@@ -313,14 +325,32 @@ namespace SAE_DEV_PROJ
                     PatternSpirale(_angle);
 
                 //1er pattern focus
-                if (_chrono > Constantes._DEBUTPAT1)
+                if (_chrono > Constantes._DEBUTFOCUS1)
                     PatternFocus(_tabBulletFocus1, deltaTime, _angle);
                 //2e pattern focus
-                if (_chrono > Constantes._DEBUTPAT2)
+                if (_chrono > Constantes._DEBUTFOCUS2)
                     PatternFocus(_tabBulletFocus2, deltaTime, _angle);
                 //3e pattern focus
-                if (_chrono > Constantes._DEBUTPAT3)
+                if (_chrono > Constantes._DEBUTFOCUS3)
                     PatternFocus(_tabBulletFocus3, deltaTime, _angle);
+                //4e pattern focus
+                if (_chrono > Constantes._DEBUTFOCUS4)
+                    PatternFocus(_tabBulletFocus4, deltaTime, _angle);
+                //5e pattern focus
+                if (_chrono > Constantes._DEBUTFOCUS5)
+                    PatternFocus(_tabBulletFocus5, deltaTime, _angle);
+                //6e pattern focus
+                if (_chrono > Constantes._DEBUTFOCUS6)
+                    PatternFocus(_tabBulletFocus6, deltaTime, _angle);
+                //7e pattern focus
+                if (_chrono > Constantes._DEBUTFOCUS7)
+                    PatternFocus(_tabBulletFocus7, deltaTime, _angle);
+                //8e pattern focus
+                if (_chrono > Constantes._DEBUTFOCUS8)
+                    PatternFocus(_tabBulletFocus8, deltaTime, _angle);
+                //9e pattern focus
+                if (_chrono > Constantes._DEBUTFOCUS9)
+                    PatternFocus(_tabBulletFocus9, deltaTime, _angle);
 
 
 
@@ -434,12 +464,24 @@ namespace SAE_DEV_PROJ
                 _spriteBatch.Draw(_textureAttentionPattern5,new Vector2(555,180),Color.White);
 
             //Draw pattern focus
-            if (_chrono > Constantes._DEBUTPAT1)
+            if (_chrono > Constantes._DEBUTFOCUS1)
                 PatternFocusDraw(_tabBulletFocus1);
-            if (_chrono > Constantes._DEBUTPAT2)
+            if (_chrono > Constantes._DEBUTFOCUS2)
                 PatternFocusDraw(_tabBulletFocus2);
-            if (_chrono > Constantes._DEBUTPAT3)
+            if (_chrono > Constantes._DEBUTFOCUS3)
                 PatternFocusDraw(_tabBulletFocus3);
+            if (_chrono > Constantes._DEBUTFOCUS4)
+                PatternFocusDraw(_tabBulletFocus4);
+            if (_chrono > Constantes._DEBUTFOCUS5)
+                PatternFocusDraw(_tabBulletFocus5);
+            if (_chrono > Constantes._DEBUTFOCUS6)
+                PatternFocusDraw(_tabBulletFocus6);
+            if (_chrono > Constantes._DEBUTFOCUS7)
+                PatternFocusDraw(_tabBulletFocus7);
+            if (_chrono > Constantes._DEBUTFOCUS8)
+                PatternFocusDraw(_tabBulletFocus8);
+            if (_chrono > Constantes._DEBUTFOCUS9)
+                PatternFocusDraw(_tabBulletFocus9);
 
             _spriteBatch.Draw(_textureBoss, boss1.BossPosition, _couleur);
             _spriteBatch.Draw(_texturePerso, hero.PositionPerso, _couleur);
@@ -794,9 +836,15 @@ namespace SAE_DEV_PROJ
     // redemption de 2 secondes après être touché
     public void Redemption(float deltaTime)
         {
-            if (Collision(_redemption,_tabBulletFocus1) || Collision(_redemption, _tabBulletFocus2) || Collision(_redemption, _tabBulletFocus3) || Collision(_redemption, _tabBullets2) || Collision(_redemption, _tabBulletsCercle) || Collision(_redemption, _tabBullets) || (Collision(_redemption, _tabBulletsCercleDesax) && _chrono > Constantes._DEBUTPAT1) || (CollisionSpirale(_redemption, _tabBulletsSpirale) && _chrono > Constantes._DEBUTPAT4) && _redemption == false)
+            if (Collision(_redemption, _tabBullets2) || Collision(_redemption, _tabBulletsCercle) || Collision(_redemption, _tabBullets) || (Collision(_redemption, _tabBulletsCercleDesax) && _chrono > Constantes._DEBUTPAT1) || (CollisionSpirale(_redemption, _tabBulletsSpirale) && _chrono > Constantes._DEBUTPAT4) && _redemption == false)
             {
                 //_alive = true; // pour etre sur
+                hero.PvPerso -= (int)boss1.DamageBoss;
+                _redemption = true;
+            }
+            //pareil pour les pattern focus
+            else if (Collision(_redemption, _tabBulletFocus1) || Collision(_redemption, _tabBulletFocus2) || Collision(_redemption, _tabBulletFocus3) || Collision(_redemption, _tabBulletFocus4) || Collision(_redemption, _tabBulletFocus5) || Collision(_redemption, _tabBulletFocus6) || Collision(_redemption, _tabBulletFocus7) || Collision(_redemption, _tabBulletFocus8) || Collision(_redemption, _tabBulletFocus9))
+            {
                 hero.PvPerso -= (int)boss1.DamageBoss;
                 _redemption = true;
             }
