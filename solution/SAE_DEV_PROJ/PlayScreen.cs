@@ -13,10 +13,10 @@ namespace SAE_DEV_PROJ
         private Game1 _myGame;
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
-        internal Bullet[,] _tabBullets = new Bullet[8,10];
         internal Bullet[] _tabBulletPerso = new Bullet[200];
         internal Bullet[,] _tabBulletPersoCote = new Bullet[200,2];
-        internal Bullet[] _tabBullets2 = new Bullet[40];
+        internal Bullet[,] _tabBulletsRandom = new Bullet[8,10];
+        internal Bullet[] _tabBullets2 = new Bullet[80];
         internal Bullet[,] _tabBulletsCercle = new Bullet[7,36];
         internal Bullet[] _tabBulletsSpirale = new Bullet[36*10];
         internal Bullet[] _tabBulletsCercleDesax = new Bullet[36*2];
@@ -29,6 +29,13 @@ namespace SAE_DEV_PROJ
         internal Bullet[] _tabBulletFocus7 = new Bullet[36];
         internal Bullet[] _tabBulletFocus8 = new Bullet[36];
         internal Bullet[] _tabBulletFocus9 = new Bullet[36];
+        internal Bullet[] _tabBulletFocus10 = new Bullet[36];
+        internal Bullet[] _tabBulletFocus11 = new Bullet[36];
+        internal Bullet[] _tabBulletFocus12 = new Bullet[36];
+        internal Bullet[] _tabBulletFocus13 = new Bullet[36];
+        internal Bullet[] _tabBulletFocus14 = new Bullet[36];
+        internal Bullet[] _tabBulletFocus15 = new Bullet[36];
+        internal Bullet[] _tabBulletFocus16 = new Bullet[36];
         internal Boss boss1;
         internal Perso hero;
         private double _tmp;
@@ -88,7 +95,6 @@ namespace SAE_DEV_PROJ
         private int _sensPersoX;
         private int _sensPersoY;
         private KeyboardState _keyboardState;
-        
 
         private Rectangle _hitboxResumeButton;
         private MouseState _ms;
@@ -117,7 +123,7 @@ namespace SAE_DEV_PROJ
             _ok2 = false;
             _bossAlive = true;
             _alive = true;
-            _var = 0;
+            _var = 40;
             _i1 = -1;
             _i2 = -1;
             _chrono = 0;
@@ -147,12 +153,12 @@ namespace SAE_DEV_PROJ
             _damagePerso = hero.DamagePerso;
             _pvDepart = hero.PvPerso;
 
-            // Bullets initialize
-            for (int i = 0; i < _tabBullets.GetLength(0); i++)
+            // Bullets random initialize
+            for (int i = 0; i < _tabBulletsRandom.GetLength(0); i++)
             {
-                for (int j = 0; j < _tabBullets.GetLength(1); j++)
+                for (int j = 0; j < _tabBulletsRandom.GetLength(1); j++)
                 {
-                    _tabBullets[i, j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bullet");
+                    _tabBulletsRandom[i, j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bullet");
                 }
             }
             // BulletsAlliées initialize
@@ -199,6 +205,13 @@ namespace SAE_DEV_PROJ
                 _tabBulletFocus7[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
                 _tabBulletFocus8[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
                 _tabBulletFocus9[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus10[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus11[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus12[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus13[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(Constantes._LARGEUR_FENETRE/3, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus14[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(2 * Constantes._LARGEUR_FENETRE/3, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus15[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(Constantes._LARGEUR_FENETRE / 3, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus16[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(2 * Constantes._LARGEUR_FENETRE / 3, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
             }
             
             InitializeSpirale();
@@ -303,10 +316,21 @@ namespace SAE_DEV_PROJ
                     }
                 }
 
+                //------------------------------------------------------------------------------------------------------------------------------------------------------//
+                //------------------------------------------------------         Activation de tous les patterns         -----------------------------------------------//
+                //------------------------------------------------------------------------------------------------------------------------------------------------------//
 
+                //active le 3eme patterne (patterncercle)
+                if (_chrono > Constantes._DEBUTPAT1 && _chrono < Constantes._FINPAT1)
+                {
+                    PatternCercle(_angle);
+                    if (!_ok2)
+                        _varCercle = _chrono;
+                    _ok2 = true;
+                }
 
-                // active le 1er partterne (pattern1)
-                if (_chrono < Constantes._DEBUTPAT2 + 10 && _chrono >= Constantes._DEBUTPAT1)
+                // active le 1er pattern (bullets random)
+                if (_chrono > Constantes._DEBUTPAT4)
                 {
                     Pattern1(deltaTime);
                     if (!_ok1)
@@ -315,54 +339,35 @@ namespace SAE_DEV_PROJ
                 }
 
                 // Pattern cercle desaxé
-                if (_chrono > Constantes._DEBUTPAT1)
+                if (_chrono > Constantes._DEBUTPAT3)
                     PatternCercleDesax(_angle);
 
                 //lancer pattern2 au bout de 24 sec
-                if (_chrono >= Constantes._DEBUTPAT2 && _chrono <= Constantes._DEBUTPAT3)
+                if (_chrono > Constantes._DEBUTPAT2 && _chrono <= Constantes._DEBUTPAT3-1)
                     Pattern2(deltaTime);
 
-                //active le 3eme patterne (patterncercle)
-                if (_chrono > Constantes._DEBUTPAT3 && _chrono < Constantes._DEBUTPAT4)
-                {
-                    PatternCercle(_angle);
-                    if (!_ok2)
-                        _varCercle = _chrono;
-                    _ok2 = true;
-                }
 
                 //active le pattern spirale 
-                if (_chrono > Constantes._DEBUTPAT4 && _chrono < Constantes._DEBUTPAT4 + 11)
+                if (_chrono > Constantes._DEBUTPAT5)
                     PatternSpirale(_angle);
 
-                //1er pattern focus
-                if (_chrono > Constantes._DEBUTFOCUS1)
-                    PatternFocus(_tabBulletFocus1, deltaTime, _angle);
-                //2e pattern focus
-                if (_chrono > Constantes._DEBUTFOCUS2)
-                    PatternFocus(_tabBulletFocus2, deltaTime, _angle);
-                //3e pattern focus
-                if (_chrono > Constantes._DEBUTFOCUS3)
-                    PatternFocus(_tabBulletFocus3, deltaTime, _angle);
-                //4e pattern focus
-                if (_chrono > Constantes._DEBUTFOCUS4)
-                    PatternFocus(_tabBulletFocus4, deltaTime, _angle);
-                //5e pattern focus
-                if (_chrono > Constantes._DEBUTFOCUS5)
-                    PatternFocus(_tabBulletFocus5, deltaTime, _angle);
-                //6e pattern focus
-                if (_chrono > Constantes._DEBUTFOCUS6)
-                    PatternFocus(_tabBulletFocus6, deltaTime, _angle);
-                //7e pattern focus
-                if (_chrono > Constantes._DEBUTFOCUS7)
-                    PatternFocus(_tabBulletFocus7, deltaTime, _angle);
-                //8e pattern focus
-                if (_chrono > Constantes._DEBUTFOCUS8)
-                    PatternFocus(_tabBulletFocus8, deltaTime, _angle);
-                //9e pattern focus
-                if (_chrono > Constantes._DEBUTFOCUS9)
-                    PatternFocus(_tabBulletFocus9, deltaTime, _angle);
-
+                //tous les patterns focus
+                UpdatePatternsFocus(Constantes._DEBUTFOCUS1, _tabBulletFocus1, deltaTime);
+                UpdatePatternsFocus(Constantes._DEBUTFOCUS2, _tabBulletFocus2, deltaTime);
+                UpdatePatternsFocus(Constantes._DEBUTFOCUS3, _tabBulletFocus3, deltaTime);
+                UpdatePatternsFocus(Constantes._DEBUTFOCUS4, _tabBulletFocus4, deltaTime);
+                UpdatePatternsFocus(Constantes._DEBUTFOCUS5, _tabBulletFocus5, deltaTime);
+                UpdatePatternsFocus(Constantes._DEBUTFOCUS6, _tabBulletFocus6, deltaTime);
+                UpdatePatternsFocus(Constantes._DEBUTFOCUS7, _tabBulletFocus7, deltaTime);
+                UpdatePatternsFocus(Constantes._DEBUTFOCUS8, _tabBulletFocus8, deltaTime);
+                UpdatePatternsFocus(Constantes._DEBUTFOCUS9, _tabBulletFocus9, deltaTime);
+                UpdatePatternsFocus(Constantes._DEBUTFOCUS10, _tabBulletFocus10, deltaTime);
+                UpdatePatternsFocus(Constantes._DEBUTFOCUS11, _tabBulletFocus11, deltaTime);
+                UpdatePatternsFocus(Constantes._DEBUTFOCUS12, _tabBulletFocus12, deltaTime);
+                UpdatePatternsFocus(Constantes._DEBUTFOCUSDOUBLE1, _tabBulletFocus13, deltaTime);
+                UpdatePatternsFocus(Constantes._DEBUTFOCUSDOUBLE1, _tabBulletFocus14, deltaTime);
+                UpdatePatternsFocus(Constantes._DEBUTFOCUSDOUBLE2, _tabBulletFocus15, deltaTime);
+                UpdatePatternsFocus(Constantes._DEBUTFOCUSDOUBLE2, _tabBulletFocus16, deltaTime);
 
 
                 DeplacementPerso(deltaTime);
@@ -428,19 +433,22 @@ namespace SAE_DEV_PROJ
                 }
             }
 
-            //Bullets pattern 1
+            //Bullets pattern 1 (random)
             for (int z = 0; z <= _i1; z++)
             {
-                for (int j = 0; j < _tabBullets.GetLength(1); j++)
+                for (int j = 0; j < _tabBulletsRandom.GetLength(1); j++)
                 {
-                    _spriteBatch.Draw(_textureBullet, _tabBullets[z, j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+                    _spriteBatch.Draw(_textureBullet, _tabBulletsRandom[z, j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
                 }
             }
 
             //Bullets pattern2
-            for (int i = 0; i < _tabBullets2.Length; i++)
+            if (_chrono >= Constantes._DEBUTPAT2 && _chrono < Constantes._DEBUTPAT3 - 1)
             {
-                _spriteBatch.Draw(_textureBullet, _tabBullets2[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+                for (int i = 0; i < _tabBullets2.Length; i++)
+                {
+                    _spriteBatch.Draw(_textureBullet, _tabBullets2[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+                }
             }
 
             //Bullets patternCercle
@@ -453,7 +461,7 @@ namespace SAE_DEV_PROJ
             }
 
             //Bullets patternSpiral
-            if (_chrono > Constantes._DEBUTPAT4 && _chrono < Constantes._DEBUTPAT4 + 11)
+            if (_chrono > Constantes._DEBUTPAT5)
             {
                 for (int i = 0; i < _tabBulletsSpirale.Length; i++)
                 {
@@ -463,7 +471,7 @@ namespace SAE_DEV_PROJ
             }
 
             //Bullets patternCercleDesax
-            if (_chrono > Constantes._DEBUTPAT1)
+            if (_chrono > Constantes._DEBUTPAT3)
             {
                 for (int i = 0; i < _tabBulletsCercleDesax.Length; i++)
                 {
@@ -471,28 +479,28 @@ namespace SAE_DEV_PROJ
                 }
             }
             //PatternCercleDesax attention //ON TOUCHE PAS SVP
-            else if (_chrono > Constantes._DEBUTPAT1 - 1)
+            else if (_chrono > Constantes._DEBUTPAT3 - 1)
                 _spriteBatch.Draw(_textureAttentionPattern5,new Vector2(555,180),Color.White);
 
             //Draw pattern focus
-            if (_chrono > Constantes._DEBUTFOCUS1)
-                PatternFocusDraw(_tabBulletFocus1);
-            if (_chrono > Constantes._DEBUTFOCUS2)
-                PatternFocusDraw(_tabBulletFocus2);
-            if (_chrono > Constantes._DEBUTFOCUS3)
-                PatternFocusDraw(_tabBulletFocus3);
-            if (_chrono > Constantes._DEBUTFOCUS4)
-                PatternFocusDraw(_tabBulletFocus4);
-            if (_chrono > Constantes._DEBUTFOCUS5)
-                PatternFocusDraw(_tabBulletFocus5);
-            if (_chrono > Constantes._DEBUTFOCUS6)
-                PatternFocusDraw(_tabBulletFocus6);
-            if (_chrono > Constantes._DEBUTFOCUS7)
-                PatternFocusDraw(_tabBulletFocus7);
-            if (_chrono > Constantes._DEBUTFOCUS8)
-                PatternFocusDraw(_tabBulletFocus8);
-            if (_chrono > Constantes._DEBUTFOCUS9)
-                PatternFocusDraw(_tabBulletFocus9);
+
+            PatternFocusDraw(Constantes._DEBUTFOCUS1, _tabBulletFocus1);
+            PatternFocusDraw(Constantes._DEBUTFOCUS2, _tabBulletFocus2);
+            PatternFocusDraw(Constantes._DEBUTFOCUS3, _tabBulletFocus3);
+            PatternFocusDraw(Constantes._DEBUTFOCUS4, _tabBulletFocus4);
+            PatternFocusDraw(Constantes._DEBUTFOCUS5, _tabBulletFocus5);
+            PatternFocusDraw(Constantes._DEBUTFOCUS6, _tabBulletFocus6);
+            PatternFocusDraw(Constantes._DEBUTFOCUS7, _tabBulletFocus7);
+            PatternFocusDraw(Constantes._DEBUTFOCUS8, _tabBulletFocus8);
+            PatternFocusDraw(Constantes._DEBUTFOCUS9, _tabBulletFocus9);
+            PatternFocusDraw(Constantes._DEBUTFOCUS10, _tabBulletFocus10);
+            PatternFocusDraw(Constantes._DEBUTFOCUS11, _tabBulletFocus11);
+            PatternFocusDraw(Constantes._DEBUTFOCUS12, _tabBulletFocus12);
+            PatternFocusDraw(Constantes._DEBUTFOCUSDOUBLE1, _tabBulletFocus13);
+            PatternFocusDraw(Constantes._DEBUTFOCUSDOUBLE1, _tabBulletFocus14);
+            PatternFocusDraw(Constantes._DEBUTFOCUSDOUBLE2, _tabBulletFocus15);
+            PatternFocusDraw(Constantes._DEBUTFOCUSDOUBLE2, _tabBulletFocus16);
+
 
             _spriteBatch.Draw(_textureBoss, boss1.BossPosition, _couleur);
             _spriteBatch.Draw(_texturePerso, hero.PositionPerso, _couleur);
@@ -695,19 +703,22 @@ namespace SAE_DEV_PROJ
         // 1
         public void Pattern1(float deltaTime)
         {
-            if (_chrono >= _var && _i1 < _tabBullets.GetLength(0) - 1)
+            if (_chrono >= _var && _i1 < _tabBulletsRandom.GetLength(0) - 1)
             {
                 _var += 2;
                 _i1++;
             }
+            
+            
             Random rdn = new Random();
-                for (int z = 0; z <= _i1; z++)
+            for (int z = 0; z <= _i1; z++)
+            {
+                for (int j = 0; j < _tabBulletsRandom.GetLength(1) - 2; j++)
                 {
-                    for (int j = 0; j < _tabBullets.GetLength(1) - 2; j++)
-                    {
-                        _tabBullets[z, j].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBullets[z, j].Vitesse * deltaTime);
-                    }
+                    _tabBulletsRandom[z, j].BulletPosition += new Vector2(rdn.Next(-50, 50), _tabBulletsRandom[z, j].Vitesse * deltaTime);
                 }
+            }
+            
         }
 
         // 2
@@ -742,7 +753,7 @@ namespace SAE_DEV_PROJ
         // 3
         public void PatternCercle(float angle)
         {
-            if (_chrono >= _varCercle&& _i2 < _tabBulletsCercle.GetLength(0)-1)
+            if (_chrono >= _varCercle && _i2 < _tabBulletsCercle.GetLength(0)-1)
             {
                 _varCercle += 3;
                 _i2++;
@@ -780,6 +791,7 @@ namespace SAE_DEV_PROJ
         // 4
         public void PatternSpirale(float angle)
         {
+
             for (int i = 0; i < _tabBulletsSpirale.Length; i++)
             {
                 if (!(_tabBulletsSpirale[i].BulletPosition.X <= boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2 - 1 || _tabBulletsSpirale[i].BulletPosition.X >= boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2 + 1))
@@ -801,16 +813,19 @@ namespace SAE_DEV_PROJ
         // 5
         public void PatternCercleDesax(float angle)
         {
-            for (int i = 0; i < _tabBulletsCercleDesax.Length; i++)
+            if (_chrono > Constantes._DEBUTPAT3)
             {
-                float bulletDirectionX = MathF.Sin(angle * MathF.PI / 180f);
-                float bulletDirectionY = MathF.Cos(angle * MathF.PI / 180f);
-                Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY);
-                if (i % 2 == 0)
-                    _tabBulletsCercleDesax[i].BulletPosition += bulletDirection;
-                else
-                    _tabBulletsCercleDesax[i].BulletPosition += new Vector2(-bulletDirectionX,bulletDirectionY);
-                angle += 5f;
+                for (int i = 0; i < _tabBulletsCercleDesax.Length; i++)
+                {
+                    float bulletDirectionX = MathF.Sin(angle * MathF.PI / 180f);
+                    float bulletDirectionY = MathF.Cos(angle * MathF.PI / 180f);
+                    Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY);
+                    if (i % 2 == 0)
+                        _tabBulletsCercleDesax[i].BulletPosition += bulletDirection;
+                    else
+                        _tabBulletsCercleDesax[i].BulletPosition += new Vector2(-bulletDirectionX,bulletDirectionY);
+                    angle += 5f;
+                }
             }
         }
         // Pattern focus
@@ -827,7 +842,7 @@ namespace SAE_DEV_PROJ
                     float bulletDirectionX = MathF.Sin(angle * MathF.PI / 180f);
                     float bulletDirectionY = MathF.Cos(angle * MathF.PI / 180f);
 
-                    tabBullet[i].BulletPosition += new Vector2(bulletDirectionX*50, bulletDirectionY*50);
+                    tabBullet[i].BulletPosition += new Vector2(bulletDirectionX*50, bulletDirectionY*50) ;
 
                     tabBullet[i].BulletDirection = Vector2.Normalize(hero.PositionPerso - tabBullet[i].BulletPosition) * tabBullet[i].Vitesse * deltaTime;
                     tabBullet[i].PasseOrigine = true;
@@ -837,18 +852,21 @@ namespace SAE_DEV_PROJ
             }
         }
         //Pattern focus draw            
-        private void PatternFocusDraw(Bullet[] tabBullet)
+        private void PatternFocusDraw(int debut,Bullet[] tabBullet)
         {
-            for (int i = 0; i<_tabBulletFocus1.Length; i++)
+            if (_chrono > debut)
             {
-                _spriteBatch.Draw(_textureBullet, tabBullet[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Black); 
+                for (int i = 0; i<_tabBulletFocus1.Length; i++)
+                {
+                    _spriteBatch.Draw(_textureBullet, tabBullet[i].BulletPosition + new Vector2(Constantes._LARGEUR_BULLETS/2,0), Color.Black); 
+                }
             }
         }
 
     // redemption de 2 secondes après être touché
     public void Redemption(float deltaTime)
         {
-            if (Collision(_redemption, _tabBullets2) || Collision(_redemption, _tabBulletsCercle) || Collision(_redemption, _tabBullets) || (Collision(_redemption, _tabBulletsCercleDesax) && _chrono > Constantes._DEBUTPAT1) || (CollisionSpirale(_redemption, _tabBulletsSpirale) && _chrono > Constantes._DEBUTPAT4) && _redemption == false)
+            if ((Collision(_redemption, _tabBullets2) && _chrono < Constantes._DEBUTPAT3 - 1) || Collision(_redemption, _tabBulletsCercle) || (Collision(_redemption, _tabBulletsRandom) && _chrono > Constantes._DEBUTPAT4) || (Collision(_redemption, _tabBulletsCercleDesax) && _chrono > Constantes._DEBUTPAT3) || (CollisionSpirale(_redemption, _tabBulletsSpirale) && _chrono > Constantes._DEBUTPAT5) && _redemption == false)
             {
                 //_alive = true; // pour etre sur
                 hero.PvPerso -= (int)boss1.DamageBoss;
@@ -926,6 +944,12 @@ namespace SAE_DEV_PROJ
                     _tabBulletsCercleDesax[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2 - Constantes._LARGEUR_BOSS / 7 * i, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 7 * i), "bullet");
             }
         }
+        private void UpdatePatternsFocus(int debut, Bullet[] tab, float deltaTime)
+        {
+            if (_chrono > debut)
+                PatternFocus(tab, deltaTime, _angle);
+        }
+
     }
 }
 
