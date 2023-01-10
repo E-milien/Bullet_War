@@ -23,6 +23,14 @@ namespace SAE_DEV_PROJ
         SettingScreen _settingScreen;
         ShopScreen _shopScren;
 
+        public Texture2D _boutonPlay;
+        public Texture2D _boutonShop;
+        public Texture2D _boutonSettings;
+        public Texture2D _boutonQuit;
+
+        public Texture2D _textureButtonPressed;
+        public Texture2D _textureButton;
+
         private bool _loaded;
         public bool _screenDeathOk;
         public bool _screenWinOk;
@@ -63,10 +71,10 @@ namespace SAE_DEV_PROJ
 
         public string _toucheAssignee;
 
-        Rectangle hitboxPlayButton;
-        Rectangle hitboxShopButton;
-        Rectangle hitboxOptionButton;
-        Rectangle hitboxLeaveButton;
+        public Rectangle hitboxPlayButton;
+        public Rectangle hitboxShopButton;
+        public Rectangle hitboxOptionButton;
+        public Rectangle hitboxLeaveButton;
 
         public Rectangle hitboxSettingButtonZ;
         public Rectangle hitboxSettingButtonD;
@@ -89,8 +97,6 @@ namespace SAE_DEV_PROJ
 
         public Rectangle _hitboxReplayWinScreen;
         public Rectangle _hitboxMainMenuWinScreen;
-
-        Rectangle _hitboxShopButton;
 
 
         // SON
@@ -117,6 +123,12 @@ namespace SAE_DEV_PROJ
 
         protected override void Initialize()
         {
+
+            _boutonPlay = _textureButton;
+            _boutonShop = _textureButton;
+            _boutonSettings = _textureButton;
+            _boutonQuit = _textureButton;
+
             _tmp = 0;
             _pause = false;
             // DEPLACEMENTS PERSO 
@@ -160,12 +172,15 @@ namespace SAE_DEV_PROJ
             _hitboxReplayWinScreen = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2 - 200, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxMainMenuWinScreen = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
 
-            _hitboxShopButton = new Rectangle(50, 50, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+
+            _textureButton = Content.Load<Texture2D>("boutonM");
+            _textureButtonPressed = Content.Load<Texture2D>("boutonM_pressed");
+
             _fondHome = Content.Load<Texture2D>("homeScreen");
             _fondSettings = Content.Load<Texture2D>("settingsFond");
             _soundButton = Content.Load<SoundEffect>("sondBouton");
@@ -229,7 +244,7 @@ namespace SAE_DEV_PROJ
                 _screenManager.LoadScreen(_settingScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
 
-            if(_actif && _ms.LeftButton == ButtonState.Pressed && _hitboxShopButton.Contains(_ms.X, _ms.Y))
+            if(_actif && _ms.LeftButton == ButtonState.Pressed && hitboxShopButton.Contains(_ms.X, _ms.Y))
             {
                 _soundButton.Play();
                 _screenManager.LoadScreen(_shopScren, new FadeTransition(GraphicsDevice, Color.Black));
@@ -272,6 +287,39 @@ namespace SAE_DEV_PROJ
             {
                 _playScreen._boutonMenuExit = _playScreen._textureButtonMenu;
             }
+            // home
+            if (hitboxPlayButton.Contains(_ms.X, _ms.Y))
+            {
+                _boutonPlay = _textureButtonPressed;
+            }
+            else
+            {
+                _boutonPlay = _textureButton;
+            }
+            if (hitboxShopButton.Contains(_ms.X, _ms.Y))
+            {
+                _boutonShop = _textureButtonPressed;
+            }
+            else
+            {
+                _boutonShop = _textureButton;
+            }
+            if (hitboxOptionButton.Contains(_ms.X, _ms.Y))
+            {
+                _boutonSettings = _textureButtonPressed;
+            }
+            else
+            {
+                _boutonSettings = _textureButton;
+            }
+            if (hitboxLeaveButton.Contains(_ms.X, _ms.Y))
+            {
+                _boutonQuit = _textureButtonPressed;
+            }
+            else
+            {
+                _boutonQuit = _textureButton;
+            }
 
 
             // A SUPPRIMER 
@@ -288,7 +336,7 @@ namespace SAE_DEV_PROJ
                 _soundButton.Play();
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-            if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(_ms.X, _ms.Y))
+            if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))
             {
                 _soundButton.Play();
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
