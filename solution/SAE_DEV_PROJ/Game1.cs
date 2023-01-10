@@ -43,6 +43,7 @@ namespace SAE_DEV_PROJ
         public bool _tmpS;
         public bool _touche;
         public bool _upgradeCote;
+        private double _tmp69temps;
 
         public int _widthPlayButton;
         public int _heighPlayButton;
@@ -115,7 +116,8 @@ namespace SAE_DEV_PROJ
         public Song _noSoundM;
         public Song _musiqueHome;
         public Song _m1;
-
+        public SoundEffect _soundShot;
+        private double _chrono;
         public bool _sonOff;
 
         public bool _homeScreenOpen;
@@ -137,6 +139,8 @@ namespace SAE_DEV_PROJ
 
         protected override void Initialize()
         {
+            _tmp69temps = 0;
+            _chrono = 0;
             _keyUpdating = false;
             _boutonPlay = _textureButton;
             _boutonShop = _textureButton;
@@ -186,7 +190,7 @@ namespace SAE_DEV_PROJ
             _hitboxReplayWinScreen = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2 - 200, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxMainMenuWinScreen = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
 
-            _hitboxBruit = new Rectangle(0, 800, Constantes._LARGEUR_BRUIT, Constantes._HAUTEUR_BRUIT);
+            _hitboxBruit = new Rectangle(100, 520, Constantes._LARGEUR_BRUIT, Constantes._HAUTEUR_BRUIT);
             base.Initialize();
         }
 
@@ -195,7 +199,7 @@ namespace SAE_DEV_PROJ
             _noSound= Content.Load<SoundEffect>("noSound");
             _textureButton = Content.Load<Texture2D>("boutonM");
             _textureButtonPressed = Content.Load<Texture2D>("boutonM_pressed");
-
+            
             _fondHome = Content.Load<Texture2D>("homeScreen");
             _fondSettings = Content.Load<Texture2D>("settingsFond");
             _soundButton = Content.Load<SoundEffect>("sondBouton");
@@ -204,11 +208,10 @@ namespace SAE_DEV_PROJ
             _musiqueHome = Content.Load<Song>("musiqueHome");
             _noSoundM = Content.Load<Song>("noSoundM");
             _m1 = Content.Load<Song>("musiqueHome");
-            _m1 = Content.Load<Song>("musiqueHome");
             _s1 = Content.Load<SoundEffect>("sondBouton");
             _s2 = Content.Load<SoundEffect>("soundBouton2");
             _s3 = Content.Load<SoundEffect>("sondBouton3");
-
+            _soundShot = Content.Load<SoundEffect>("shot");
             _homeScreen = new HomeScreen(this);
             _playScreen = new PlayScreen(this);
             _deadScreen = new DeadScreen(this);
@@ -228,20 +231,8 @@ namespace SAE_DEV_PROJ
 
         protected override void Update(GameTime gameTime)
         {
-            if(_sonOff)
-            {
-                _soundButton = _noSound;
-                _soundButton2 = _noSound;
-                _soundButton3 = _noSound;
-                _musiqueHome = _noSoundM;
-            }
-            else
-            {
-                _soundButton = _s1;
-                _soundButton2 = _s2;
-                _soundButton3 = _s3;
-                _musiqueHome = _m1;
-            }
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            _chrono += deltaTime;
             if (!_loaded)
             {
                 MediaPlayer.Play(_musiqueHome);
@@ -381,7 +372,7 @@ namespace SAE_DEV_PROJ
                 Exit();
             }
 
-
+            Console.WriteLine(_sonOff);
             // WIN SCENE
             if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && _hitboxReplayWinScreen.Contains(_ms.X, _ms.Y))
             {
@@ -403,13 +394,26 @@ namespace SAE_DEV_PROJ
                 _soundButton.Play();
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && _hitboxBruit.Contains(_ms.X, _ms.Y) && _sonOff == true) 
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && _hitboxBruit.Contains(_ms.X, _ms.Y) && _sonOff == false && _chrono > _tmp69temps)
             {
-                _sonOff = false;
-            }
-            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && _hitboxBruit.Contains(_ms.X, _ms.Y) && _sonOff == false)
-            {
+                _tmp69temps = _chrono + 1;
                 _sonOff = true;
+                _soundButton = Content.Load<SoundEffect>("noSound");
+                _soundButton2 = Content.Load<SoundEffect>("noSound");
+                _soundButton3 = Content.Load<SoundEffect>("noSound");
+                _soundShot = Content.Load<SoundEffect>("noSound");
+                MediaPlayer.Pause();
+            }
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && _hitboxBruit.Contains(_ms.X, _ms.Y) && _sonOff == true && _chrono > _tmp69temps) 
+            {
+                _tmp69temps = _chrono + 1;
+                _sonOff = false;
+                MediaPlayer.Resume();
+                _soundButton = Content.Load<SoundEffect>("sondBouton");
+                _soundButton2 = Content.Load<SoundEffect>("soundBouton2");
+                _soundButton3 = Content.Load<SoundEffect>("sondBouton3");
+                _musiqueHome = Content.Load<Song>("musiqueHome");
+                _soundShot = Content.Load<SoundEffect>("shot");
             }
 
             // FONDS SUPERIEURS 

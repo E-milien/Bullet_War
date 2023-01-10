@@ -100,7 +100,7 @@ namespace SAE_DEV_PROJ
         private MouseState _ms;
 
         // SON 
-        private SoundEffect _soundShot;
+ 
         
 
         public PlayScreen(Game1 game) : base(game)
@@ -243,7 +243,7 @@ namespace SAE_DEV_PROJ
             _texture_VeryLow = Content.Load<Texture2D>("VeryLow");
             _texture_Dead = Content.Load<Texture2D>("Dead");
 
-            _soundShot = Content.Load<SoundEffect>("shot");
+
 
             base.LoadContent();
         }
@@ -265,7 +265,7 @@ namespace SAE_DEV_PROJ
             {
                 if(_chrono>=_tmp48 && !_redemption)
                 {
-                    _soundShot.Play();
+                    _myGame._soundShot.Play();
                     _tmp48 = _chrono + 0.1;
                 }
 
