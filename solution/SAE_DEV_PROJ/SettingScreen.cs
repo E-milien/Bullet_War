@@ -32,6 +32,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _bindKey;
         private Texture2D _bruitOn;
         private Texture2D _bruitOff;
+        private Rectangle contourPic;
 
         public SettingScreen(Game1 game) : base(game)
         {
@@ -39,7 +40,7 @@ namespace SAE_DEV_PROJ
         }
         public override void Initialize()
         {
-            Rectangle contourPic = new Rectangle(740, 45, 10, 5);
+            contourPic = new Rectangle(740, 45, 10, 5);
             base.Initialize();
         }
         public override void LoadContent()
@@ -77,10 +78,18 @@ namespace SAE_DEV_PROJ
             _ms = Mouse.GetState();
         }
         public override void Draw(GameTime gameTime)
-        { 
+        {
+            
             _spriteBatch.Begin();
             _spriteBatch.Draw(_myGame._fondSettings, new Vector2(0, 0), Color.White);
-            _spriteBatch.Draw(_bruitOn, new Vector2(0, 800), Color.White);
+            if (_myGame._sonOff)
+            {
+                _spriteBatch.Draw(_bruitOff, new Vector2(100, 520), Color.White);
+            }
+            else
+            {
+                _spriteBatch.Draw(_bruitOn, new Vector2(100, 520), Color.White);
+            }
             if (_myGame.hitboxOptionButton.Contains(_ms.X, _ms.Y))
             {
                 _spriteBatch.Draw(_textureLeaveButtonPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE * 6 / 8 - 50), Color.White);
