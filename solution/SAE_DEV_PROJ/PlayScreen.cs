@@ -93,10 +93,6 @@ namespace SAE_DEV_PROJ
         private SoundEffect _soundShot;
         
 
-
-
-        // pour récupérer une référence à l’objet game pour avoir accès à tout ce qui est
-        // défini dans Game1
         public PlayScreen(Game1 game) : base(game)
         {
             _myGame = game;
@@ -104,7 +100,6 @@ namespace SAE_DEV_PROJ
 
         public override void Initialize()
         {
-            // initialisation toutes les veriables
             _upgradeCote = true;
             _couleur = Color.White;
             _cheat1 = false;
@@ -237,6 +232,8 @@ namespace SAE_DEV_PROJ
             _myGame._screenDeathOk = false;
             _myGame._screenWinOk = false;
             _myGame._actif = false;
+            _myGame._shopScreenOk = false;
+
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (!_myGame._pause)
             {

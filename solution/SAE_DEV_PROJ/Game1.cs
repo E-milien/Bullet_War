@@ -21,12 +21,14 @@ namespace SAE_DEV_PROJ
         DeadScreen _deadScreen;
         WinScreen _winScreen;
         SettingScreen _settingScreen;
+        ShopScreen _shopScren;
 
         private bool _loaded;
         public bool _screenDeathOk;
         public bool _screenWinOk;
         public bool _actif;
         public bool _settingOk;
+        public bool _shopScreenOk;
         private bool _tmpZ;
         private bool _tmpD;
         private bool _tmpQ;
@@ -35,6 +37,7 @@ namespace SAE_DEV_PROJ
 
         public int _widthPlayButton;
         public int _heighPlayButton;
+
         private MouseState _ms;
         private KeyboardState _keyboardState;
         
@@ -168,6 +171,7 @@ namespace SAE_DEV_PROJ
             _deadScreen = new DeadScreen(this);
             _winScreen = new WinScreen(this);
             _settingScreen = new SettingScreen(this);
+            _shopScren = new ShopScreen(this);
 
             _textureFond1 = Content.Load<Texture2D>("fond1");
             _textureFond2 = Content.Load<Texture2D>("fond2");
