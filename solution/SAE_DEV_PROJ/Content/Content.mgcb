@@ -37,6 +37,18 @@
 /processorParam:TextureFormat=Color
 /build:ballePerso.png
 
+#begin ballePersoCote.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ballePersoCote.png
+
 #begin boss.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -260,30 +272,6 @@
 /processorParam:TextureFormat=Color
 /build:Full.png
 
-#begin Full.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Full.png
-
-#begin High.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:High.png
-
 #begin High.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -344,18 +332,6 @@
 /processorParam:TextureFormat=Color
 /build:Low.png
 
-#begin Low.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Low.png
-
 #begin menu.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -380,17 +356,11 @@
 /processorParam:TextureFormat=Color
 /build:Mid.png
 
-#begin Mid.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Mid.png
+#begin musiqueHome.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:musiqueHome.mp3
 
 #begin Option.png
 /importer:TextureImporter
@@ -523,6 +493,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:pic8.png
+
+#begin shot.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:shot.mp3
+
+#begin sondBouton.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sondBouton.mp3
+
+#begin sondBouton3.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sondBouton3.mp3
+
+#begin soundBouton2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:soundBouton2.mp3
 
 #begin vaisseau.png
 /importer:TextureImporter

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Screens.Transitions;
 using System;
@@ -78,6 +80,14 @@ namespace SAE_DEV_PROJ
         private Rectangle _hitboxMenuButton;
         private Rectangle _hitboxExitButton;
 
+        // SON
+        public SoundEffect _soundButton;
+        public SoundEffect _soundButton2;
+        public SoundEffect _soundButton3;
+        public Song _musiqueHome;
+
+        public bool _homeScreenOpen;
+
         public SpriteBatch SpriteBatch { get; set; }
 
         public Game1()
@@ -140,7 +150,12 @@ namespace SAE_DEV_PROJ
 
         protected override void LoadContent()
         {
-            _homeScreen = new HomeScreen(this); 
+            _soundButton = Content.Load<SoundEffect>("sondBouton");
+            _soundButton2 = Content.Load<SoundEffect>("soundBouton2");
+            _soundButton3 = Content.Load<SoundEffect>("sondBouton3");
+            _musiqueHome = Content.Load<Song>("musiqueHome");
+
+            _homeScreen = new HomeScreen(this);
             _playScreen = new PlayScreen(this);
             _deadScreen = new DeadScreen(this);
             _winScreen = new WinScreen(this);
@@ -160,8 +175,10 @@ namespace SAE_DEV_PROJ
         {
             if (!_loaded)
             {
+                MediaPlayer.Play(_musiqueHome);
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
                 _loaded = true;
+                
             }
 
             if (!_playScreen._alive && !_screenDeathOk)
@@ -182,25 +199,32 @@ namespace SAE_DEV_PROJ
             // MENU PRINCIPAL 
             if (_actif && _ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(_ms.X, _ms.Y))
             {
+                _soundButton.Play();
+                MediaPlayer.Stop();
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
             if (_actif && _ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(_ms.X, _ms.Y))
             {
+                _soundButton.Play();
                 _screenManager.LoadScreen(_settingScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
 
             if (_actif && _ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(_ms.X, _ms.Y))
             {
+                MediaPlayer.Stop();
+                _soundButton.Play();
                 Exit();
             }
 
-            // MODIF
+            // PAUSE
             if(_pause && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))
             {
+                _soundButton.Play();
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
             if(_pause && _ms.LeftButton == ButtonState.Pressed && _hitboxExitButton.Contains(_ms.X, _ms.Y))
             {
+                _soundButton.Play();
                 Exit();
             }
             if (_hitboxMenuButton.Contains(_ms.X, _ms.Y))
@@ -232,24 +256,29 @@ namespace SAE_DEV_PROJ
             // DEATH SCENE
             if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(_ms.X, _ms.Y))
             {
+                _soundButton.Play();
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
             if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(_ms.X, _ms.Y))
             {
+                _soundButton.Play();
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
             if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(_ms.X, _ms.Y))
             {
+                _soundButton.Play();
                 Exit();
             }
 
             // WIN SCENE
             if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(_ms.X, _ms.Y))
             {
+                _soundButton.Play();
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
             if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(_ms.X, _ms.Y))
             {
+                _soundButton.Play();
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
 
@@ -257,42 +286,51 @@ namespace SAE_DEV_PROJ
             // SETTINGS SCREEN
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(_ms.X, _ms.Y))
             {
+                _soundButton.Play();
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
 
             // FONDS SUPERIEURS 
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxPic1.Contains(_ms.X, _ms.Y))
             {
+                _soundButton2.Play();
                 _textureFond = _textureFond1;
             }
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxPic2.Contains(_ms.X, _ms.Y))
             {
+                _soundButton2.Play();
                 _textureFond = _textureFond2;
             }
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxPic3.Contains(_ms.X, _ms.Y))
             {
+                _soundButton2.Play();
                 _textureFond = _textureFond3;
             }
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxPic4.Contains(_ms.X, _ms.Y))
             {
+                _soundButton2.Play();
                 _textureFond = _textureFond4;
             }
 
             // FONDS INFERIEURS 
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxPic5.Contains(_ms.X, _ms.Y))
             {
+                _soundButton2.Play();
                 _textureFond = _textureFond5;
             }
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxPic6.Contains(_ms.X, _ms.Y))
             {
+                _soundButton2.Play();
                 _textureFond = _textureFond6;
             }
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxPic7.Contains(_ms.X, _ms.Y))
             {
+                _soundButton2.Play();
                 _textureFond = _textureFond7;
             }
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxPic8.Contains(_ms.X, _ms.Y))
             {
+                _soundButton2.Play();
                 _textureFond = _textureFond8;
             }
 
@@ -329,6 +367,7 @@ namespace SAE_DEV_PROJ
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonZ.Contains(_ms.X, _ms.Y))
             {
                 _tmpZ = true;
+                _soundButton3.Play();
             }
                 
 
@@ -356,6 +395,7 @@ namespace SAE_DEV_PROJ
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonD.Contains(_ms.X, _ms.Y))
             {
                 _tmpD = true;
+                _soundButton3.Play();
             }
 
             if (_tmpD == true)
@@ -382,6 +422,7 @@ namespace SAE_DEV_PROJ
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonQ.Contains(_ms.X, _ms.Y))
             {
                 _tmpQ = true;
+                _soundButton3.Play();
             }
 
             if (_tmpQ == true)
@@ -408,6 +449,7 @@ namespace SAE_DEV_PROJ
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonS.Contains(_ms.X, _ms.Y))
             {
                 _tmpS = true;
+                _soundButton3.Play();
             }
 
             if (_tmpS == true)
