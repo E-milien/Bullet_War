@@ -79,6 +79,7 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_myGame._fondSettings, new Vector2(0, 0), Color.White);
             _spriteBatch.Draw(_textureLeaveButton, new Vector2(500, 600), Color.White);
             _spriteBatch.DrawString(_police, "Main menu", new Vector2(900, 660), Color.White);
+
             if(_myGame.hitboxSettingButtonZ.Contains(_ms.X, _ms.Y))
                 _spriteBatch.Draw(_textureChangerTouche, new Vector2(0, 100), Color.White);
             if (_myGame.hitboxSettingButtonD.Contains(_ms.X, _ms.Y))
