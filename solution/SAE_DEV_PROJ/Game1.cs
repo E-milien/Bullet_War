@@ -40,7 +40,9 @@ namespace SAE_DEV_PROJ
 
         private MouseState _ms;
         private KeyboardState _keyboardState;
-        
+        public Texture2D _fondHome;
+        public Texture2D _fondSettings;
+
         public Keys _forward;
         public Keys _right;
         public Keys _behind;
@@ -65,10 +67,10 @@ namespace SAE_DEV_PROJ
         Rectangle hitboxOptionButton;
         Rectangle hitboxLeaveButton;
 
-        Rectangle hitboxSettingButtonZ;
-        Rectangle hitboxSettingButtonD;
-        Rectangle hitboxSettingButtonQ;
-        Rectangle hitboxSettingButtonS;
+        public Rectangle hitboxSettingButtonZ;
+        public Rectangle hitboxSettingButtonD;
+        public Rectangle hitboxSettingButtonQ;
+        public Rectangle hitboxSettingButtonS;
 
         Rectangle hitboxPic1;
         Rectangle hitboxPic2;
@@ -161,6 +163,8 @@ namespace SAE_DEV_PROJ
 
         protected override void LoadContent()
         {
+            _fondHome = Content.Load<Texture2D>("homeScreen");
+            _fondSettings = Content.Load<Texture2D>("settingsFond");
             _soundButton = Content.Load<SoundEffect>("sondBouton");
             _soundButton2 = Content.Load<SoundEffect>("soundBouton2");
             _soundButton3 = Content.Load<SoundEffect>("sondBouton3");

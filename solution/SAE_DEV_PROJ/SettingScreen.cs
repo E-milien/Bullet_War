@@ -26,6 +26,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _texturePic7;
         private Texture2D _texturePic8;
         private Texture2D _textureContour;
+        private MouseState _ms;
 
         public SettingScreen(Game1 game) : base(game)
         {
@@ -66,21 +67,26 @@ namespace SAE_DEV_PROJ
             _myGame._homeScreenOpen = true;
             _myGame._shopScreenOk = false;
             
+            _ms = Mouse.GetState();
 
 
         }
         public override void Draw(GameTime gameTime)
         {
 
-            _myGame.GraphicsDevice.Clear(Color.Yellow); 
+            
             _spriteBatch.Begin();
+            _spriteBatch.Draw(_myGame._fondSettings, new Vector2(0, 0), Color.White);
             _spriteBatch.Draw(_textureLeaveButton, new Vector2(500, 600), Color.White);
             _spriteBatch.DrawString(_police, "Main menu", new Vector2(900, 660), Color.White);
-
-            _spriteBatch.Draw(_textureChangerTouche, new Vector2(0, 100), Color.White);
-            _spriteBatch.Draw(_textureChangerTouche, new Vector2(0, 200), Color.White);
-            _spriteBatch.Draw(_textureChangerTouche, new Vector2(0, 300), Color.White);
-            _spriteBatch.Draw(_textureChangerTouche, new Vector2(0, 400), Color.White);
+            if(_myGame.hitboxSettingButtonZ.Contains(_ms.X, _ms.Y))
+                _spriteBatch.Draw(_textureChangerTouche, new Vector2(0, 100), Color.White);
+            if (_myGame.hitboxSettingButtonD.Contains(_ms.X, _ms.Y))
+                _spriteBatch.Draw(_textureChangerTouche, new Vector2(0, 200), Color.White);
+            if (_myGame.hitboxSettingButtonQ.Contains(_ms.X, _ms.Y))
+                _spriteBatch.Draw(_textureChangerTouche, new Vector2(0, 300), Color.White);
+            if (_myGame.hitboxSettingButtonS.Contains(_ms.X, _ms.Y))
+                _spriteBatch.Draw(_textureChangerTouche, new Vector2(0, 400), Color.White);
 
             _spriteBatch.DrawString(_police, "Votre touche pour avancer : " + _myGame._forward, new Vector2(0, 108), Color.Black);
             _spriteBatch.DrawString(_police, "Votre touche pour aller a droite : " + _myGame._right, new Vector2(0, 208), Color.Black);

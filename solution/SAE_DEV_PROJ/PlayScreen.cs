@@ -58,6 +58,7 @@ namespace SAE_DEV_PROJ
         private bool _upgradeCote;
 
         // TEXTURES 
+        private Texture2D _textureBulletAllieCote;
         private Texture2D _textureMenu;
         private Texture2D _textureFondPause;
         private Texture2D _textureBoss;
@@ -201,6 +202,7 @@ namespace SAE_DEV_PROJ
             _texturePerso = Content.Load<Texture2D>(hero.SkinPerso);
             _textureBullet = Content.Load<Texture2D>("bullet1");
             _textureBulletAllie = Content.Load<Texture2D>("ballePerso");
+            _textureBulletAllieCote = Content.Load<Texture2D>("ballePersoCote");
             _textureBoss = Content.Load<Texture2D>(boss1.SkinBoss);
 
             _textureFondPause = Content.Load<Texture2D>("pause");
@@ -408,7 +410,7 @@ namespace SAE_DEV_PROJ
                         for (int j = 0; j < _tabBulletPersoCote.GetLength(1); j++)
                         {
                             if (!(_tabBulletPersoCote[i,j].BulletPosition.Y > hero.PositionPerso.Y))
-                                _spriteBatch.Draw(_textureBulletAllie, _tabBulletPersoCote[i,j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS_PERSO / 2, 0), Color.White);
+                                _spriteBatch.Draw(_textureBulletAllieCote, _tabBulletPersoCote[i,j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS_PERSO / 2, 0), Color.White);
                         }
                     }
                 }
@@ -635,11 +637,11 @@ namespace SAE_DEV_PROJ
 
                             if (rect1.Intersects(rect2))
                             {
-                                boss1.BossHP -= Constantes._DAMAGEPERSOCOTE;
                                 if (j == 1)
                                     _tabBulletPersoCote[i, j].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2);
-                                else
+                                else 
                                     _tabBulletPersoCote[i, j].BulletPosition = new Vector2(hero.PositionPerso.X, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2);
+                                boss1.BossHP -= Constantes._DAMAGEPERSOCOTE;
                                 if (_redemption == false && _bossAlive)
                                     hero.Score += 1;
                             }
@@ -864,7 +866,7 @@ namespace SAE_DEV_PROJ
                 {
                     for (int j = 0; j < _tabBulletPersoCote.GetLength(1); j++)
                     {
-                        if (j == 0)
+                        if (j == 1)
                             _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
                         else
                             _tabBulletPersoCote[i, j] = new Bullet(Constantes._VITESSE_BULLETS_PERSO, new Vector2(hero.PositionPerso.X, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * 2), "allié");
