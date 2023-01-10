@@ -41,7 +41,7 @@ namespace SAE_DEV_PROJ
         public const int _DEBUTPAT3 = 30;
         public const int _DEBUTPAT4 = 40;
         public const int _DEBUTPAT5 = 54;
-        public const int _DEBUTPAT6 = 70;
+        public const int _DEBUTPAT6 = 72;
         public const int _DEBUTFOCUS1 = 4;
         public const int _DEBUTFOCUS2 = 8;
         public const int _DEBUTFOCUS3 = 12;
@@ -54,6 +54,10 @@ namespace SAE_DEV_PROJ
         public const int _DEBUTFOCUS10 = 32;
         public const int _DEBUTFOCUS11 = 35;
         public const int _DEBUTFOCUS12 = 38;
+        public const int _DEBUTFOCUSSPIR1 = 56;
+        public const int _DEBUTFOCUSSPIR2 = 60;
+        public const int _DEBUTFOCUSSPIR3 = 64;
+        public const int _DEBUTFOCUSSPIR4 = 68;
         public const int _DEBUTFOCUSDOUBLE1 = 44;
         public const int _DEBUTFOCUSDOUBLE2 = 50;
         public const int _TAILLEHEART = 100;
