@@ -23,12 +23,13 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureButtonMenuPressed;
         private Texture2D _textureTmPayer;
         private Texture2D _textureTmpAnnuler;
-        //private Texture2D _texture
+        private Texture2D _textureVaisseauTirs;
 
         private Rectangle _hitboxHeart1;
         private Rectangle _hitboxHeart2;
         private Rectangle _hitboxBoutonPayer;
         private Rectangle _hitboxBoutonAnnuler;
+        private Rectangle _hitboxVaisseauTirs;
 
         bool _heartFillTmp1;
         bool _heartFillTmp2;
@@ -52,6 +53,7 @@ namespace SAE_DEV_PROJ
             _hitboxHeart2 = new Rectangle(700, 30, Constantes._TAILLEHEART, Constantes._TAILLEHEART);
             _hitboxBoutonPayer = new Rectangle(Constantes._LARGEUR_FENETRE / 2 + 100, 800 - Constantes._HAUTEUR_BOUTON, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxBoutonAnnuler = new Rectangle(Constantes._LARGEUR_FENETRE / 2 + 100, 800 + Constantes._HAUTEUR_BOUTON / 2, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
+            //_hitboxVaisseauTirs = new Rectangle(20,140,)
 
             base.Initialize();
         }
@@ -62,7 +64,7 @@ namespace SAE_DEV_PROJ
             _textureFondWinScreen = Content.Load<Texture2D>("fondWinScreen");
             _textureHeartFill = Content.Load<Texture2D>("heartFill");
             _textureHeartEmpty = Content.Load<Texture2D>("heartEmpty");
-
+            _textureVaisseauTirs = Content.Load<Texture2D>("vaisseauTirs");
             _textureButtonMenu = Content.Load<Texture2D>("boutonM");
             _textureButtonMenuPressed = Content.Load<Texture2D>("boutonM_pressed");
 
@@ -101,24 +103,22 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_textureFondWinScreen, new Vector2(0, 0), Color.White);
 
             _spriteBatch.DrawString(_police,"Ameliorations vaisseau",new Vector2(20, 10), Color.Red);
+
             _spriteBatch.DrawString(_police, "Augmenter le nombre de HP : ", new Vector2(20, 50), Color.White);
             _spriteBatch.Draw(_textureHeartFill, new Vector2(450, 30), Color.White);
-
             _spriteBatch.Draw(_textureHeartEmpty, new Vector2(575, 30), Color.White);
             _spriteBatch.Draw(_textureHeartEmpty, new Vector2(700, 30), Color.White);
- 
+
+            _spriteBatch.Draw(_textureVaisseauTirs, new Vector2(20, 140), Color.White);
+            _spriteBatch.DrawString(_police, "Tirs par salves de 3", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 140 + Constantes._HAUTEURVAISSEAUTIRS/2 - 10), Color.White);
 
 
             // SI SOURIS PAR DESSUS COEUR ROUGE 1 
             if (_hitboxHeart1.Contains(_ms.X, _ms.Y))
             {
                 _heartFillTmp1 = true;
-                // SI SOURIS CLIQUE
-                if (_ms.LeftButton == ButtonState.Pressed)
-                {
-                    _heartPoliceTmp1 = true;
-                    _heartBoutons = true;
-                }
+                _heartBoutons = true;
+                
             }
             // REMPLISSAGE COEUR ROUGE 1 
             if (_heartFillTmp1 || _heartFillDef1)
