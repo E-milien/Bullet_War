@@ -100,6 +100,8 @@ namespace SAE_DEV_PROJ
         public Rectangle _hitboxReplayWinScreen;
         public Rectangle _hitboxMainMenuWinScreen;
 
+        Rectangle _hitboxBruit;
+
 
         // SON
         public SoundEffect _soundButton;
@@ -183,6 +185,7 @@ namespace SAE_DEV_PROJ
             _hitboxReplayWinScreen = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2 - 200, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxMainMenuWinScreen = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
 
+            _hitboxBruit = new Rectangle(0, 0, Constantes._LARGEUR_BRUIT, Constantes._HAUTEUR_BRUIT);
             base.Initialize();
         }
 
@@ -398,6 +401,14 @@ namespace SAE_DEV_PROJ
             {
                 _soundButton.Play();
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && _hitboxBruit.Contains(_ms.X, _ms.Y) && _sonOff == true) 
+            {
+                _sonOff = false;
+            }
+            if (_settingOk && _ms.LeftButton == ButtonState.Pressed && _hitboxBruit.Contains(_ms.X, _ms.Y) && _sonOff == false)
+            {
+                _sonOff = true;
             }
 
             // FONDS SUPERIEURS 
