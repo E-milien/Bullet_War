@@ -45,6 +45,8 @@ namespace SAE_DEV_PROJ
 
         public int _widthPlayButton;
         public int _heighPlayButton;
+        public int _money;
+        public int _hpPerso;
 
         private MouseState _ms;
         private KeyboardState _keyboardState;

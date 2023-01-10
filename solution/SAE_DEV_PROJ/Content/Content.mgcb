@@ -49,6 +49,18 @@
 /processorParam:TextureFormat=Color
 /build:ballePersoCote.png
 
+#begin bindKey.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:bindKey.png
+
 #begin boss.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -601,6 +613,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:vaisseau.png
+
+#begin vaisseauTirs.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:vaisseauTirs.png
 
 #begin VeryLow.png
 /importer:TextureImporter
