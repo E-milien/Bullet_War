@@ -58,29 +58,42 @@ namespace SAE_DEV_PROJ
         {
             _ms = Mouse.GetState();
             _spriteBatch.Begin();
-
+        
             _spriteBatch.Draw(_textureFondWinScreen, new Vector2(0, 0), Color.White);
-
-            // TEXTURES BOUTONS 
-            _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2 - 200), Color.White);
-            _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2), Color.White);
+            _spriteBatch.Draw(_textureWin, new Vector2(Constantes._LARGEUR_FENETRE / 2 - _largeurImage / 2, 0), Color.White);
 
             // TEXTURES SI SOURIS PAR DESSUS 
             if (_myGame._hitboxReplayWinScreen.Contains(_ms.X, _ms.Y))
             {
-                _spriteBatch.Draw(_textureButtonMenuPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2 - 200), Color.White);
+                _spriteBatch.Draw(_textureButtonMenuPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300), Color.White);
+            }
+            else
+            {
+                _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300), Color.White);
             }
             if (_myGame._hitboxMainMenuWinScreen.Contains(_ms.X, _ms.Y))
             {
-                _spriteBatch.Draw(_textureButtonMenuPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, Constantes._HAUTEUR_FENETRE / 2), Color.White);
+                _spriteBatch.Draw(_textureButtonMenuPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 500), Color.White);
+            }
+            else
+            {
+                _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 500), Color.White);
+            }
+            if (_myGame._hitboxExitButton.Contains(_ms.X, _ms.Y))
+            {
+                _spriteBatch.Draw(_textureButtonMenuPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 700), Color.White);
+            }
+            else
+            {
+                _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 700), Color.White);
             }
 
             // TEXTES 
-            _spriteBatch.DrawString(_police, "Play Again", new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2 + 120, Constantes._HAUTEUR_FENETRE / 2 - 165), Color.White);
-            _spriteBatch.DrawString(_police, "Exit to main menu", new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2 + 80, Constantes._HAUTEUR_FENETRE / 2 + 35), Color.White);
+            _spriteBatch.DrawString(_police, "Replay", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 50, 340), Color.White);
+            _spriteBatch.DrawString(_police, "Main Menu", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 70, 540), Color.White);
+            _spriteBatch.DrawString(_police, "Quit", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 20, 740), Color.White);
 
-            //WIN
-            _spriteBatch.Draw(_textureWin, new Vector2(Constantes._LARGEUR_FENETRE / 2 - _largeurImage / 2, 50), Color.White);
+
             _spriteBatch.End();
         }
     }

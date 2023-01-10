@@ -522,6 +522,7 @@ namespace SAE_DEV_PROJ
 
             _spriteBatch.DrawString(_police, $"{hero.PvPerso} / {_pvDepart}", new Vector2(_positionPv.X + _largeurBarreHp/2 - 40, _positionPv.Y + 20), Color.Black);
 
+            // PAUSE
             if (_myGame._pause)
             {
                 _spriteBatch.Draw(_textureFondPause, new Vector2(0, 0), Color.White * 0.8f);
