@@ -134,6 +134,7 @@ namespace SAE_DEV_PROJ
 
             _hitboxMenuButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 500, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxExitButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 700, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
+
             base.Initialize();
         }
 
@@ -192,7 +193,15 @@ namespace SAE_DEV_PROJ
             {
                 Exit();
             }
-
+            // MODIF
+            if(_pause && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))
+            {
+                _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
+            }
+            if(_pause && _ms.LeftButton == ButtonState.Pressed && _hitboxExitButton.Contains(_ms.X, _ms.Y))
+            {
+                Exit();
+            }
 
             // A SUPPRIMER 
             if (_keyboardState.IsKeyDown(Keys.O))
