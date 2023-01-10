@@ -48,7 +48,6 @@ namespace SAE_DEV_PROJ
         public const int _DEBUTFOCUS7 = 17;
         public const int _DEBUTFOCUS8 = 20;
         public const int _DEBUTFOCUS9 = 21;
-        public const int _DAMAGEPERSOCOTE = 1;
         private bool _estMort;
 
         public bool EstMort { get => _estMort; set => _estMort = value; }
