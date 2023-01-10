@@ -18,7 +18,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _texturePlayButton;
         private Texture2D _textureOptionButton;
         private Texture2D _textureLeaveButton;
-        private Texture2D _fondHome;
+        
 
         
 
@@ -32,7 +32,7 @@ namespace SAE_DEV_PROJ
         }
         public override void LoadContent()
         {
-            _fondHome = Content.Load<Texture2D>("homeScreen");
+            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             base.LoadContent();
         }
@@ -45,7 +45,7 @@ namespace SAE_DEV_PROJ
         public override void Draw(GameTime gameTime)
         {
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_fondHome,new Vector2(0,0),Color.White);
+            _spriteBatch.Draw(_myGame._fondHome,new Vector2(0,0),Color.White);
 
             _spriteBatch.Draw(_texturePlayButton, new Vector2(500, 200), Color.White);
             _spriteBatch.DrawString(_police, "Click to start", new Vector2(900, 260), Color.White);
