@@ -215,6 +215,8 @@ namespace SAE_DEV_PROJ
                 {
                     _skinDefault = false;
                     _myGame._skinO = true;
+                    _myGame._skinD = false;
+                    _myGame._skinV = false;
                 }
                 else
                 {
@@ -257,6 +259,8 @@ namespace SAE_DEV_PROJ
                     {
                         _myGame._money -= 50;
                         _myGame._skinV = true;
+                        _myGame._skinO = false;
+                        _myGame._skinD = false;
                         _skinVaisseau2 = false;
                         _skinVaisseau2tmp = false;
                         _skinVaisseau2tmp2 = false;
@@ -312,6 +316,8 @@ namespace SAE_DEV_PROJ
                     {
                         _myGame._money -= 75;
                         _myGame._skinD = true;
+                        _myGame._skinO = false;
+                        _myGame._skinV = false;
 
                         _skinDonald = false;
                         _skinDonaldtmp = false;
