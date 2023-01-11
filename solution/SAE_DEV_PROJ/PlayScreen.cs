@@ -93,7 +93,8 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureMenu;
         private Texture2D _textureFondPause;
         private Texture2D _textureBoss;
-        private Texture2D _textureBullet;
+        private Texture2D _textureBullet1;
+        private Texture2D _textureBullet2;
         private Texture2D _textureBulletAllie;
         private Texture2D _textureAttentionPattern5;
         private SpriteFont _police;
@@ -247,7 +248,8 @@ namespace SAE_DEV_PROJ
                 _texturePerso = Content.Load<Texture2D>(_myGame.hero.SkinPerso);
             else
                 _texturePerso = Content.Load<Texture2D>(_myGame.hero.SkinPerso);
-            _textureBullet = Content.Load<Texture2D>("bullet1");
+            _textureBullet1 = Content.Load<Texture2D>("bullet1");
+            _textureBullet2 = Content.Load<Texture2D>("bullet2");
             _textureBulletAllie = Content.Load<Texture2D>("ballePerso");
             _textureBulletAllieCote = Content.Load<Texture2D>("ballePersoCote");
             _textureBoss = Content.Load<Texture2D>(_myGame.boss1.SkinBoss);
@@ -511,7 +513,7 @@ namespace SAE_DEV_PROJ
             {
                 for (int j = 0; j < _tabBulletsRandom.GetLength(1); j++)
                 {
-                    _spriteBatch.Draw(_textureBullet, _tabBulletsRandom[z, j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+                    _spriteBatch.Draw(_textureBullet1, _tabBulletsRandom[z, j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
                 }
             }
 
@@ -941,7 +943,7 @@ namespace SAE_DEV_PROJ
             {
                 for (int i = 0; i<_tabBulletFocus1.Length; i++)
                 {
-                    _spriteBatch.Draw(_textureBullet, tabBullet[i].BulletPosition + new Vector2(Constantes._LARGEUR_BULLETS/2,0), Color.Black); 
+                    _spriteBatch.Draw(_textureBullet2, tabBullet[i].BulletPosition + new Vector2(Constantes._LARGEUR_BULLETS/2,0), Color.White); 
                 }
             }
         }
@@ -1052,7 +1054,7 @@ namespace SAE_DEV_PROJ
             {
                 for (int i = 0; i<tabBullet.Length; i++)
                 {
-                    _spriteBatch.Draw(_textureBullet, tabBullet[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS, 0), Color.Yellow);
+                    _spriteBatch.Draw(_textureBullet1, tabBullet[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS, 0), Color.Yellow);
                 }
             }
             //PatternCercleDesax attention //ON TOUCHE PAS SVP
@@ -1088,7 +1090,7 @@ namespace SAE_DEV_PROJ
             {
                 for (int i = 0; i<tabFourchetteDraw.Length; i++)
                 {
-                    _spriteBatch.Draw(_textureBullet, tabFourchetteDraw[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+                    _spriteBatch.Draw(_textureBullet1, tabFourchetteDraw[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
                 }
             }
         }
@@ -1101,7 +1103,7 @@ namespace SAE_DEV_PROJ
                 {
                     if (tabSpiraleDraw[i].PasseOrigine == true)
                     { 
-                        _spriteBatch.Draw(_textureBullet, tabSpiraleDraw[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+                        _spriteBatch.Draw(_textureBullet1, tabSpiraleDraw[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
                     }
                 }
             }
@@ -1115,7 +1117,7 @@ namespace SAE_DEV_PROJ
                 {
                     for (int j = 0; j<tabCercle.GetLength(1); j++)
                     {
-                        _spriteBatch.Draw(_textureBullet, tabCercle[i, j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+                        _spriteBatch.Draw(_textureBullet1, tabCercle[i, j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
                     }
                 }
             }
