@@ -175,22 +175,22 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_textureHeartEmpty, new Vector2(700, 30), Color.White);
 
             _spriteBatch.Draw(_textureVaisseauTirs, new Vector2(20, 140), Color.White);
-            _spriteBatch.DrawString(_police, "Tirs par salves de 3", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 140 + Constantes._HAUTEURVAISSEAUTIRS/2 - 10), Color.White);
+            _spriteBatch.DrawString(_police, "Tirs par salves de 3", new Vector2(35 + Constantes._LARGEURVAISSEAUTIRS, 140 + Constantes._HAUTEURVAISSEAUTIRS/2 - 10), Color.White);
 
             _spriteBatch.Draw(_textureVaisseauTirs2, new Vector2(20, 300), Color.White);
-            _spriteBatch.DrawString(_police, "Ameliorer la rafale", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 330), Color.White);
+            _spriteBatch.DrawString(_police, "Ameliorer la rafale", new Vector2(35 + Constantes._LARGEURVAISSEAUTIRS, 330), Color.White);
 
             _spriteBatch.Draw(_textureCoins, new Vector2(Constantes._LARGEUR_FENETRE - 160, 10), Color.White);
             _spriteBatch.DrawString(_police, _myGame._money.ToString(), new Vector2(Constantes._LARGEUR_FENETRE - 200, 20), Color.Yellow);
 
             _spriteBatch.Draw(_textureSkinDefault, new Vector2(Constantes._LARGEUR_FENETRE - 440, 150), Color.White);
-            _spriteBatch.DrawString(_police, "Skin par default", new Vector2(Constantes._LARGEUR_FENETRE - 420 + 92, 160), Color.White);
+            _spriteBatch.DrawString(_police, "Skin par default", new Vector2(Constantes._LARGEUR_FENETRE - 420 + 92, 170), Color.White);
 
             _spriteBatch.Draw(_textureSkinVaisseau2, new Vector2(Constantes._LARGEUR_FENETRE - 440, 300), Color.White);
-            _spriteBatch.DrawString(_police, "Skin Vaisseau", new Vector2(Constantes._LARGEUR_FENETRE - 420 + 92, 310), Color.White);
+            _spriteBatch.DrawString(_police, "Skin Vaisseau", new Vector2(Constantes._LARGEUR_FENETRE - 420 + 92, 330), Color.White);
 
             _spriteBatch.Draw(_textureSkinDonald, new Vector2(Constantes._LARGEUR_FENETRE - 440, 450), Color.White);
-            _spriteBatch.DrawString(_police, "Skin Donald", new Vector2(Constantes._LARGEUR_FENETRE - 400 + 92, 460), Color.White);
+            _spriteBatch.DrawString(_police, "Skin Donald", new Vector2(Constantes._LARGEUR_FENETRE - 420 + 92, 480), Color.White);
 
 
             // SKIN DEFAULT
@@ -201,7 +201,7 @@ namespace SAE_DEV_PROJ
             if (_skinDefault && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false && _skinDonald == false)
             {
                 _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(Constantes._LARGEUR_FENETRE - 440 - Constantes._ESPACESHOPBORD, 140), Color.White);
-                _spriteBatch.DrawString(_police, "Skin par Default (gratuit)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
+                _spriteBatch.DrawString(_police, "Skin par Default (gratuit)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 180, 450), Color.White);
             }
             if (_skinDefault == true && _spaceshipButton == false && _heartFillTmp1 == false)
             {
@@ -237,7 +237,7 @@ namespace SAE_DEV_PROJ
             if (_skinVaisseau2tmp && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false && _skinDonald == false)
             {
                 _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(Constantes._LARGEUR_FENETRE - 440 - Constantes._ESPACESHOPBORD, 290), Color.White);
-                _spriteBatch.DrawString(_police, "skin de vaisseau 50g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
+                _spriteBatch.DrawString(_police, "Skin de vaisseau 50 coins", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 180, 450), Color.White);
             }
             if (_skinVaisseau2 == true && _spaceshipButton == false && _heartFillTmp1 == false)
             {
@@ -267,7 +267,7 @@ namespace SAE_DEV_PROJ
                     }
                     if (_skinVaisseau2tmp2)
                     {
-                        _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (50 - _myGame._money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
+                        _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (50 - _myGame._money) + " coins", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
                     }
                 }
                 else
@@ -294,7 +294,7 @@ namespace SAE_DEV_PROJ
             if (_skinDonaldtmp && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
             {
                 _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(Constantes._LARGEUR_FENETRE - 440 - Constantes._ESPACESHOPBORD, 440), Color.White);
-                _spriteBatch.DrawString(_police, "skin de donnald 75g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
+                _spriteBatch.DrawString(_police, "Skin de donnald 75 coins", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 180, 450), Color.White);
             }
             if (_skinDonald == true && _spaceshipButton == false && _heartFillTmp1 == false)
             {
@@ -325,7 +325,7 @@ namespace SAE_DEV_PROJ
                     }
                     if (_skinDonaldtmp2)
                     {
-                        _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (75 - _myGame._money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
+                        _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (75 - _myGame._money) + " coins", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
                     }
                 }
                 else
@@ -355,7 +355,7 @@ namespace SAE_DEV_PROJ
             if (_rafalesPoliceTmp1 && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false && _skinVaisseau2 == false && _skinDefault == false && _skinDonald==false)
             {
                 _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(Constantes._ESPACESHOPBORD, 300 - Constantes._ESPACESHOPBORD), Color.White);
-                _spriteBatch.DrawString(_police, "Ameliorer la rafale dps x1.5 (100g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
+                _spriteBatch.DrawString(_police, "Ameliorer la rafale dps x1.5 (100 coins)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 240, 450), Color.White);
             }
 
             if(_rafalesButton == true && _spaceshipButton == false && _heartFillTmp1 == false && _skinVaisseau2 == false)
@@ -385,7 +385,7 @@ namespace SAE_DEV_PROJ
                     }
                     if (_rafalesPoliceTmp2)
                     {
-                        _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (100 - _myGame._money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
+                        _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (100 - _myGame._money) + " coins", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
                     }
                 }
                 else
@@ -416,7 +416,7 @@ namespace SAE_DEV_PROJ
             if (_spaceshipPoliceTmp1)
             {
                 _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(Constantes._ESPACESHOPBORD, 140 - Constantes._ESPACESHOPBORD), Color.White);
-                _spriteBatch.DrawString(_police, "Debloquer 2 nouveaux tirs (100g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
+                _spriteBatch.DrawString(_police, "Debloquer 2 nouveaux tirs (100 coins)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 240, 450), Color.White);
             }
             // DESSINE LES TEXTURES DES BOUTONS 
             if (_spaceshipButton && _heartPoliceTmp1 == false && _rafalesPoliceTmp1 == false && _skinVaisseau2 == false)
@@ -446,7 +446,7 @@ namespace SAE_DEV_PROJ
                     }
                     if (_spaceshipPoliceTmp2)
                     {
-                        _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (100 - _myGame._money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
+                        _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (100 - _myGame._money) + " coins", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
                     }
                 }
                 else
@@ -487,7 +487,7 @@ namespace SAE_DEV_PROJ
                 if (_heartPoliceTmp1 && _spaceshipPoliceTmp1 == false && _spaceshipPoliceTmp2 == false && _skinVaisseau2 == false)
                 {
                     _spriteBatch.Draw(_textureContourHeart, new Vector2(Constantes._ESPACESHOPBORD), Color.White);
-                    _spriteBatch.DrawString(_police, "Augmenter sa vie de 20HP (50g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
+                    _spriteBatch.DrawString(_police, "Augmenter sa vie de 20HP (50 coins)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 240, 450), Color.White);
                 }
                 // SI SOURIS PAR DESSUS COEUR ROUGE 
                 if (_heartFillTmp1 && _spaceshipPoliceTmp1 == false && _spaceshipButton == false && _skinVaisseau2 == false)
@@ -536,7 +536,7 @@ namespace SAE_DEV_PROJ
                         // SI ARGENT < 50 
                         if (_heartPoliceTmp2)
                         {
-                            _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (50 - _myGame._money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
+                            _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (50 - _myGame._money) + " coins", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
                         }
                     }
                     // AFFICHE A NOUVEAU LE MESSAGE "Augmenter sa vie de 20hp" 

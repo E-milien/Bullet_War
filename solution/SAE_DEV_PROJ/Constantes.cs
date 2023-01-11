@@ -74,6 +74,5 @@ namespace SAE_DEV_PROJ
 
         public const int _HPBOSS = 50000;
         public const int _HPERSO = 100;
-        private bool _estMort;
     }
 }
