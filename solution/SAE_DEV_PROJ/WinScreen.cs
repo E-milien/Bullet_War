@@ -34,6 +34,9 @@ namespace SAE_DEV_PROJ
         public override void Initialize()
         {
             _myGame._soundButton.Play();
+            _myGame._screenWinOk = true;
+            if (_myGame._screenWinOk)
+                _myGame._money += 100;
             base.Initialize();
         }
         public override void LoadContent()
@@ -56,7 +59,6 @@ namespace SAE_DEV_PROJ
             _myGame._shopScreenOk = false;
             _myGame._playScreenOk = false;
 
-            _myGame._screenWinOk = true;
         }
         public override void Draw(GameTime gameTime)
         {

@@ -2,20 +2,24 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Screens;
+using MonoGame.Extended.Screens.Transitions;
 using System;
+using System.Linq;
 
 namespace SAE_DEV_PROJ
 {
     public class PlayScreen : GameScreen
     {
-        // VARAIBLES A RENOMMER
+        // VARAIBLES A RENOMMER (un vrai frère)
         private int _i1;
         private int _i2;
         private int _i3;
         private double _tmp48;
         private double _tmpC;
         private double _tmpC2;
+        private double _tmp;
         private bool _ok1;
         private bool _ok2;
         private bool _ok3;
@@ -25,22 +29,31 @@ namespace SAE_DEV_PROJ
         private Game1 _myGame;
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
+
+        //Bullets du perso allié
         internal Bullet[] _tabBulletPerso = new Bullet[200];
         internal Bullet[,] _tabBulletPersoCote = new Bullet[200,2];
+        //Pattern random
         internal Bullet[,] _tabBulletsRandom = new Bullet[8,10];
+        //Patterns fourchette
         internal Bullet[] _tabBulletsFourchette1 = new Bullet[80];
         internal Bullet[] _tabBulletsFourchette2 = new Bullet[80];
+        //Pattern Cercle
         internal Bullet[,] _tabBulletsCercle = new Bullet[7,36];
+        //Patterns spirale
         internal Bullet[] _tabBulletsSpirale1 = new Bullet[36 * 10];
         internal Bullet[] _tabBulletsSpirale2 = new Bullet[36 * 8];
+        //Patterns desaxés
         internal Bullet[] _tabBulletsCercleDesax1 = new Bullet[36 * 2];
         internal Bullet[] _tabBulletsCercleDesax2 = new Bullet[36 * 4];
-        //Dernier pattern
+
+        //Dernier pattern 
         internal Bullet[] _tabBulletsSpiraleFinal = new Bullet[36 * 10];
         internal Bullet[] _tabBulletsFourchetteFinal = new Bullet[80];
         internal Bullet[,] _tabBulletsCercleFinal = new Bullet[7, 36];
         internal Bullet[] _tabBulletsCercleDesaxFinal = new Bullet[36 * 2];
 
+        //Création de tous les patterns qui focusent le personnage
         internal Bullet[] _tabBulletFocus1 = new Bullet[36];
         internal Bullet[] _tabBulletFocus2 = new Bullet[36];
         internal Bullet[] _tabBulletFocus3 = new Bullet[36];
@@ -61,7 +74,9 @@ namespace SAE_DEV_PROJ
         internal Bullet[] _tabBulletFocus18 = new Bullet[36];
         internal Bullet[] _tabBulletFocus19 = new Bullet[36];
         internal Bullet[] _tabBulletFocus20 = new Bullet[36];
-        private double _tmp;
+
+
+        //quand on se fait toucher
         private bool _redemption;
         public double _chrono;
         public double _chronoPause;
@@ -73,6 +88,7 @@ namespace SAE_DEV_PROJ
         private Vector2 _positionScore;
         private Vector2 _positionCoin;
 
+        //relance et ré-initialiaze les patterns focus une 2e fois, allant 2 fois plus vite
         private bool _allFocusUsed;
         private int _allFocusUsedAdd;
         private int _allFocusUsedMult;
@@ -82,9 +98,9 @@ namespace SAE_DEV_PROJ
         private int _damagePerso;
         public bool _alive=true;
         public bool _bossAlive=true;
-        private bool _cheat1;
         private Color _couleur;
         private Color _couleurPerso;
+        private double _tmpVie;
 
         private int _sequenceTir;
 
@@ -133,15 +149,16 @@ namespace SAE_DEV_PROJ
 
         public override void Initialize()
         {
+            //upgrade qui augmente la fréquence de tir
             if (_myGame._upgradeRafale == true)
                 _sequenceTir = 3;
 
             else
                 _sequenceTir = 4;
+
             _positionCoin = new Vector2(-50, -50);
             _couleur = Color.White;
             _couleurPerso = Color.White;
-            _cheat1 = false;
             _bossAlive = true;
             _alive = true;
             _chrono = 0;
@@ -155,7 +172,7 @@ namespace SAE_DEV_PROJ
             _boutonMenuHome = _textureButtonMenu;
             _boutonMenuExit = _textureButtonMenu;
             _compteurScoreReset = 0;
-
+            _tmpVie = Constantes._PATTERNFINALFIN;
             _tmp48 = 0;
             _var = 40;
             _i1 = -1;
@@ -296,6 +313,11 @@ namespace SAE_DEV_PROJ
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (!_myGame._pause)
             {
+                if (_chrono>_tmpVie)
+                {
+                    _tmpVie = _chrono + 2;
+                    _myGame.hero.PvPerso -= 20;
+                }
                 if(_chrono>=_tmp48 && !_redemption && _myGame.hero.PvPerso > 0)
                 {
                     _myGame._soundShot.Play();
