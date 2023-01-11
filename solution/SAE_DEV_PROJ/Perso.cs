@@ -38,6 +38,17 @@ namespace SAE_DEV_PROJ
             this.PositionPerso = positionPerso;
         }
 
+        public Perso(bool godMod, double pvPerso, int damagePerso, double score, string skinPerso, double multiplicationVitesse, int deplacementPerso, Vector2 positionPerso)
+        {
+            this.GodMod = godMod;
+            this.PvPerso = pvPerso;
+            this.DamagePerso = damagePerso;
+            this.Score = score;
+            this.SkinPerso = skinPerso;
+            this.MultiplicationVitesse = multiplicationVitesse;
+            this.DeplacementPerso = deplacementPerso;
+            this.PositionPerso = positionPerso;
+        }
 
         public bool GodMod
         {
