@@ -94,7 +94,6 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureFondPause;
         private Texture2D _textureBoss;
         private Texture2D _textureBullet1;
-        private Texture2D _textureBullet2;
         private Texture2D _textureBulletAllie;
         private Texture2D _textureAttentionPattern5;
         private SpriteFont _police;
@@ -175,7 +174,7 @@ namespace SAE_DEV_PROJ
             _myGame._hpPerso = Constantes._HPERSO;
             
 
-            _myGame.boss1 = new Boss(_myGame._hpBoss-50000, 20, "bossMechant", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
+            _myGame.boss1 = new Boss(_myGame._hpBoss, 20, "bossMechant", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
             _myGame.hero = new Perso(false, _myGame._hpPerso, 5, _myGame._score, "vaisseau", 1, 500, new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE * 2 / 3) - new Vector2(Constantes._LARGEUR_PERSO / 2, Constantes._HAUTEUR_PERSO / 2));
 
             _largeurBarreHp = 578;
@@ -248,8 +247,7 @@ namespace SAE_DEV_PROJ
                 _texturePerso = Content.Load<Texture2D>(_myGame.hero.SkinPerso);
             else
                 _texturePerso = Content.Load<Texture2D>(_myGame.hero.SkinPerso);
-            _textureBullet1 = Content.Load<Texture2D>("bullet1");
-            _textureBullet2 = Content.Load<Texture2D>("bullet2");
+            _textureBullet1 = Content.Load<Texture2D>("bullet4");
             _textureBulletAllie = Content.Load<Texture2D>("ballePerso");
             _textureBulletAllieCote = Content.Load<Texture2D>("ballePersoCote");
             _textureBoss = Content.Load<Texture2D>(_myGame.boss1.SkinBoss);
@@ -513,7 +511,7 @@ namespace SAE_DEV_PROJ
             {
                 for (int j = 0; j < _tabBulletsRandom.GetLength(1); j++)
                 {
-                    _spriteBatch.Draw(_textureBullet1, _tabBulletsRandom[z, j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+                    _spriteBatch.Draw(_textureBullet1, _tabBulletsRandom[z, j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.LawnGreen);
                 }
             }
 
@@ -943,7 +941,7 @@ namespace SAE_DEV_PROJ
             {
                 for (int i = 0; i<_tabBulletFocus1.Length; i++)
                 {
-                    _spriteBatch.Draw(_textureBullet2, tabBullet[i].BulletPosition + new Vector2(Constantes._LARGEUR_BULLETS/2,0), Color.White); 
+                    _spriteBatch.Draw(_textureBullet1, tabBullet[i].BulletPosition + new Vector2(Constantes._LARGEUR_BULLETS/2,0), Color.Orange); 
                 }
             }
         }
@@ -1090,7 +1088,7 @@ namespace SAE_DEV_PROJ
             {
                 for (int i = 0; i<tabFourchetteDraw.Length; i++)
                 {
-                    _spriteBatch.Draw(_textureBullet1, tabFourchetteDraw[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+                    _spriteBatch.Draw(_textureBullet1, tabFourchetteDraw[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Blue);
                 }
             }
         }
