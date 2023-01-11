@@ -129,7 +129,7 @@ namespace SAE_DEV_PROJ
             
             
 
-            if (_myGame._tmpZ == true || _myGame._tmpD == true || _myGame._tmpQ == true || _myGame._tmpS == true)
+            if (_myGame._tmpToucheZ == true || _myGame._tmpToucheD == true || _myGame._tmpToucheQ == true || _myGame._tmpToucheS == true)
             {
                 _myGame._keyUpdating = true;
                 _spriteBatch.Draw(_textureFondPause, new Vector2(0, 0), Color.White * 0.8f);

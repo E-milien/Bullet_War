@@ -37,10 +37,10 @@ namespace SAE_DEV_PROJ
         public bool _actif;
         public bool _settingOk;
         public bool _shopScreenOk;
-        public bool _tmpZ;
-        public bool _tmpD;
-        public bool _tmpQ;
-        public bool _tmpS;
+        public bool _tmpToucheZ;
+        public bool _tmpToucheD;
+        public bool _tmpToucheQ;
+        public bool _tmpToucheS;
         public bool _touche;
         public bool _upgradeCote;
         public bool _upgradeRafale;
@@ -112,13 +112,9 @@ namespace SAE_DEV_PROJ
         public SoundEffect _soundButton;
         public SoundEffect _soundButton2;
         public SoundEffect _soundButton3;
-        public SoundEffect _s1;
-        public SoundEffect _s2;
-        public SoundEffect _s3;
         public SoundEffect _noSound;
         public Song _noSoundM;
         public Song _musiqueHome;
-        public Song _m1;
         public SoundEffect _soundShot;
         private double _chrono;
         public bool _sonOff;
@@ -213,11 +209,8 @@ namespace SAE_DEV_PROJ
             _soundButton2 = Content.Load<SoundEffect>("soundBouton2");
             _soundButton3 = Content.Load<SoundEffect>("sondBouton3");
             _musiqueHome = Content.Load<Song>("musiqueHome");
-            //_noSoundM = Content.Load<Song>("noSoundM");
-            _m1 = Content.Load<Song>("musiqueHome");
-            _s1 = Content.Load<SoundEffect>("sondBouton");
-            _s2 = Content.Load<SoundEffect>("soundBouton2");
-            _s3 = Content.Load<SoundEffect>("sondBouton3");
+            _noSoundM = Content.Load<Song>("noSoundM");
+
             _soundShot = Content.Load<SoundEffect>("shot");
             _homeScreen = new HomeScreen(this);
             _playScreen = new PlayScreen(this);
@@ -502,12 +495,12 @@ namespace SAE_DEV_PROJ
             // CHANGEMENTS DE TOUCHE Z 
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonZ.Contains(_ms.X, _ms.Y))
             {
-                _tmpZ = true;
+                _tmpToucheZ = true;
                 _soundButton3.Play();
             }
                 
 
-            if(_tmpZ == true)
+            if(_tmpToucheZ == true)
             {
 
                 if (keys.Length > 0)
@@ -521,7 +514,7 @@ namespace SAE_DEV_PROJ
                     else
                     {
                         _forward = keys[0];
-                        _tmpZ = false;
+                        _tmpToucheZ = false;
                         _touche = false;
                     }
                 }
@@ -530,11 +523,11 @@ namespace SAE_DEV_PROJ
             // TOUCHE D 
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonD.Contains(_ms.X, _ms.Y))
             {
-                _tmpD = true;
+                _tmpToucheD = true;
                 _soundButton3.Play();
             }
 
-            if (_tmpD == true)
+            if (_tmpToucheD == true)
             {
 
                 if (keys.Length > 0)
@@ -548,7 +541,7 @@ namespace SAE_DEV_PROJ
                     else
                     {
                         _right = keys[0];
-                        _tmpD = false;
+                        _tmpToucheD = false;
                         _touche = false;
                     }
                 }
@@ -557,11 +550,11 @@ namespace SAE_DEV_PROJ
             // TOUCHE Q 
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonQ.Contains(_ms.X, _ms.Y))
             {
-                _tmpQ = true;
+                _tmpToucheQ = true;
                 _soundButton3.Play();
             }
 
-            if (_tmpQ == true)
+            if (_tmpToucheQ == true)
             {
 
                 if (keys.Length > 0)
@@ -575,7 +568,7 @@ namespace SAE_DEV_PROJ
                     else
                     {
                         _left = keys[0];
-                        _tmpQ = false;
+                        _tmpToucheQ = false;
                         _touche = false;
                     }
                 }
@@ -584,11 +577,11 @@ namespace SAE_DEV_PROJ
             // TOUCHE S
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && hitboxSettingButtonS.Contains(_ms.X, _ms.Y))
             {
-                _tmpS = true;
+                _tmpToucheS = true;
                 _soundButton3.Play();
             }
 
-            if (_tmpS == true)
+            if (_tmpToucheS == true)
             {
 
                 if (keys.Length > 0)
@@ -602,7 +595,7 @@ namespace SAE_DEV_PROJ
                     else
                     {
                         _behind = keys[0];
-                        _tmpS = false;
+                        _tmpToucheS = false;
                         _touche = false;
                     }
                 }
