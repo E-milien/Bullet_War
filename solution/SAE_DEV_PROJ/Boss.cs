@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SAE_DEV_PROJ
 {
-    internal class Boss
+    public class Boss
     {
         private double _bossHP;
         private double _damageBoss;

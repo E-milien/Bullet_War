@@ -124,12 +124,12 @@ namespace SAE_DEV_PROJ
 
         public bool _keyUpdating;
 
-        internal Boss boss1;
-        internal Perso hero;
-        private int _money;
-        private int _hpPerso;
-        private int _hpBoss;
-        private int _score;
+        public Boss boss1;
+        public Perso hero;
+        public int _money;
+        public int _hpPerso;
+        public int _hpBoss;
+        public int _score;
 
         public SpriteBatch SpriteBatch { get; set; }
 
@@ -172,6 +172,7 @@ namespace SAE_DEV_PROJ
             _shopScreenOk = false;
             _playScreenOk = false;
 
+            
 
             SetupWindow();
             _textureFond = Content.Load<Texture2D>("fond1");
@@ -210,9 +211,12 @@ namespace SAE_DEV_PROJ
             _hitboxBruit = new Rectangle(100, 520, Constantes._LARGEUR_BRUIT, Constantes._HAUTEUR_BRUIT);
 
             // initialisation boss & perso
+            _score = 0;
+            _hpBoss = Constantes._HPBOSS;
+            _hpPerso = Constantes._HPERSO;
+
             boss1 = new Boss(_hpBoss, 20, "bossMechant", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
-            hero = new Perso(false, _hpPerso, 5, _score, 1000, "vaisseau", 1, 500, new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE * 2 / 3) - new Vector2(Constantes._LARGEUR_PERSO / 2, Constantes._HAUTEUR_PERSO / 2));
-            Console.WriteLine("test");
+            hero = new Perso(false, _hpPerso, 5, _score, _money, "vaisseau", 1, 500, new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE * 2 / 3) - new Vector2(Constantes._LARGEUR_PERSO / 2, Constantes._HAUTEUR_PERSO / 2));
             base.Initialize();
         }
 

@@ -110,7 +110,6 @@ namespace SAE_DEV_PROJ
         private Rectangle _hitboxResumeButton;
         private MouseState _ms;
 
-        private int _scoreReset;
         private int _compteurScoreReset;
 
         public PlayScreen(Game1 game) : base(game)
@@ -154,7 +153,13 @@ namespace SAE_DEV_PROJ
 
             // SETUP PERSO
 
+            _myGame._score = 0;
+            _myGame._hpBoss = Constantes._HPBOSS;
+            _myGame._hpPerso = Constantes._HPERSO;
             
+
+            _myGame.boss1 = new Boss(_myGame._hpBoss, 20, "bossMechant", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
+            _myGame.hero = new Perso(false, _myGame._hpPerso, 5, _myGame._score, _myGame._money, "vaisseau", 1, 500, new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE * 2 / 3) - new Vector2(Constantes._LARGEUR_PERSO / 2, Constantes._HAUTEUR_PERSO / 2));
 
             _largeurBarreHp = 578;
             _hitboxResumeButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
