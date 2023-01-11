@@ -9,7 +9,7 @@ namespace SAE_DEV_PROJ
 {
     public class PlayScreen : GameScreen
     {
-        // VARAIBLES A RENOMMER
+        // VARAIBLES A RENOMMER (un vrai frère)
         private int _i1;
         private int _i2;
         private int _i3;
