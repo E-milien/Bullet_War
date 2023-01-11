@@ -443,6 +443,8 @@ namespace SAE_DEV_PROJ
                 _soundButton2 = Content.Load<SoundEffect>("noSound");
                 _soundButton3 = Content.Load<SoundEffect>("noSound");
                 _soundShot = Content.Load<SoundEffect>("noSound");
+                _sonWin = Content.Load<Song>("noSoundM");
+                _sonDead = Content.Load<Song>("noSoundM");
                 MediaPlayer.Pause();
             }
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && _hitboxBruit.Contains(_ms.X, _ms.Y) && _sonOff == true && _chrono >= _tmp69temps) 
@@ -455,6 +457,8 @@ namespace SAE_DEV_PROJ
                 _soundButton3 = Content.Load<SoundEffect>("sondBouton3");
                 _musiqueHome = Content.Load<Song>("musiqueHome");
                 _soundShot = Content.Load<SoundEffect>("shot");
+                _sonWin = Content.Load<Song>("sonWin");
+                _sonDead = Content.Load<Song>("sonDead");
             }
 
             // FONDS SUPERIEURS 
