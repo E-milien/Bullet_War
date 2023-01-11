@@ -33,6 +33,7 @@ namespace SAE_DEV_PROJ
         }
         public override void Initialize()
         {
+            _myGame._soundButton.Play();
             base.Initialize();
         }
         public override void LoadContent()
