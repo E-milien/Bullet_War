@@ -19,6 +19,9 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureHeartFill;
         private Texture2D _textureHeartEmpty;
 
+        private Texture2D _textureContourHeart;
+        private Texture2D _textureCoutourVaisseau;
+
         private Texture2D _textureButtonMenu;
         private Texture2D _textureButtonMenuPressed;
 
@@ -59,8 +62,6 @@ namespace SAE_DEV_PROJ
         public ShopScreen(Game1 game) : base(game)
         {
             _myGame = game;
-
-
         }
         public override void Initialize()
         {
@@ -68,9 +69,9 @@ namespace SAE_DEV_PROJ
             _hitboxHeart2 = new Rectangle(700, 30, Constantes._TAILLEHEART, Constantes._TAILLEHEART);
             _hitboxBoutonPayer = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 - Constantes._HAUTEUR_BOUTON - 200, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxBoutonAnnuler = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2 - 200, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
+            
             _hitboxVaisseauTirs = new Rectangle(20, 140, 410, Constantes._HAUTEURVAISSEAUTIRS + 10);
-
-            _hitboxRafale = new Rectangle(25 + Constantes._LARGEURVAISSEAUTIRS, 300, 410, Constantes._HAUTEURVAISSEAUTIRS + 10);
+            _hitboxRafale = new Rectangle(20, 300, 410, Constantes._HAUTEURVAISSEAUTIRS + 10);
 
             _myGame._actif = false;
             _myGame._screenDeathOk = false;
@@ -93,6 +94,8 @@ namespace SAE_DEV_PROJ
             _textureButtonMenu = Content.Load<Texture2D>("boutonM");
             _textureButtonMenuPressed = Content.Load<Texture2D>("boutonM_pressed");
             _textureVaisseauTirs2 = Content.Load<Texture2D>("vaisseauTirs2");
+            _textureCoutourVaisseau = Content.Load<Texture2D>("contourShop");
+            _textureContourHeart = Content.Load<Texture2D>("contourShop2");
 
             base.LoadContent();
         }
@@ -152,7 +155,7 @@ namespace SAE_DEV_PROJ
             _spriteBatch.DrawString(_police, "Tirs par salves de 3", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 140 + Constantes._HAUTEURVAISSEAUTIRS/2 - 10), Color.White);
 
             _spriteBatch.Draw(_textureVaisseauTirs2, new Vector2(20, 300), Color.White);
-            _spriteBatch.DrawString(_police, "Ameliorer la rafale", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 280), Color.White);
+            _spriteBatch.DrawString(_police, "Ameliorer la rafale", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 330), Color.White);
 
 
             // AMELIORATION RAFALE 
@@ -163,8 +166,9 @@ namespace SAE_DEV_PROJ
             }
 
 
-            if (_spaceshipPoliceTmp1 && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
+            if (_rafalesPoliceTmp1 && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
             {
+                _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(20 - 5, 300 - 5), Color.White);
                 _spriteBatch.DrawString(_police, "Ameliorer la rafale dps x1.5 (100g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
             }
 
@@ -217,7 +221,7 @@ namespace SAE_DEV_PROJ
 
 
             // VAISSEAU AMELIORATION 3 TIRS
-            if (_hitboxVaisseauTirs.Contains(_ms.X, _ms.Y) && _heartPoliceTmp1 == false)
+            if (_hitboxVaisseauTirs.Contains(_ms.X, _ms.Y) && _heartPoliceTmp1 == false && _rafalesPoliceTmp1 == false)
             {
                 _spaceshipButton = true;
                 _spaceshipPoliceTmp1 = true;
@@ -279,7 +283,7 @@ namespace SAE_DEV_PROJ
 
 
             // SI SOURIS PAR DESSUS COEUR ROUGE 1 
-            if (_hitboxHeart1.Contains(_ms.X, _ms.Y) && _spaceshipPoliceTmp1 == false && _spaceshipPoliceTmp2 == false)
+            if (_hitboxHeart1.Contains(_ms.X, _ms.Y) && _spaceshipPoliceTmp1 == false && _rafalesPoliceTmp1 == false)
                 {
                     _heartFillTmp1 = true;
                     _heartBoutons = true;
