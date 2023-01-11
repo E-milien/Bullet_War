@@ -16,7 +16,8 @@ namespace SAE_DEV_PROJ
         // TAILLE FENETRE
         public const int _LARGEUR_MENU = 600;
         public const int _HAUTEUR_MENU = 800;
-
+        public const int _LARGEUR_COIN = 30;
+        public const int _HAUTEUR_COIN = 30;
         public const int _LARGEUR_BOUTON = 403;
         public const int _HAUTEUR_BOUTON = 103;
         public const int _LARGEUR_BRUIT = 106;
@@ -69,6 +70,9 @@ namespace SAE_DEV_PROJ
         public const int _TAILLEHEART = 100;
         public const int _LARGEURVAISSEAUTIRS = 50;
         public const int _HAUTEURVAISSEAUTIRS = 94;
+        public const int _ESPACESHOPBORD = 10;
+        public const int _ESPACECONTOURSHOP = 20;
+        public const int _GAIN_PAR_COIN = 1;
         private bool _estMort;
 
         public bool EstMort { get => _estMort; set => _estMort = value; }

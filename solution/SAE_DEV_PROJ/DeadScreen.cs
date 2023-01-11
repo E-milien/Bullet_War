@@ -45,7 +45,13 @@ namespace SAE_DEV_PROJ
         public override void Update(GameTime gameTime)
         {
             _ms = Mouse.GetState();
-            _myGame._actif = false;
+
+            _myGame._screenDeathOk = true;
+            _myGame._screenWinOk = false;
+            _myGame._homescreenOk = false;
+            _myGame._settingOk = false;
+            _myGame._shopScreenOk = false;
+            _myGame._playScreenOk = false;
         }
         public override void Draw(GameTime gameTime)
         {
