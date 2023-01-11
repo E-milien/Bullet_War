@@ -83,6 +83,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureAttentionPattern5;
         private SpriteFont _police;
         private Texture2D _textureCoin;
+        private Texture2D _textureCoin2;
 
         public Texture2D _boutonMenuResume;
         public Texture2D _boutonMenuHome;
@@ -118,7 +119,7 @@ namespace SAE_DEV_PROJ
 
         public override void Initialize()
         {
-            _tmpC = 0;
+            _tmpC = 6;
             if (_myGame._upgradeRafale == true)
                 _sequenceTir = 3;
 
@@ -248,6 +249,7 @@ namespace SAE_DEV_PROJ
             _textureButtonMenu = Content.Load<Texture2D>("boutonM");
             _textureButtonMenuPressed = Content.Load<Texture2D>("boutonM_pressed");
             _textureAttentionPattern5 = Content.Load<Texture2D>("attention");
+            _textureCoin2 = Content.Load<Texture2D>("coin2");
 
             // barre de vie perso
             _texture_Full = Content.Load<Texture2D>("Full");
@@ -328,21 +330,26 @@ namespace SAE_DEV_PROJ
                         }
                     }
                 }
-                // COINS
 
+                // COINS
                 if (_chrono >= _tmpC)
                 {
                     _tmpC = _chrono + 7;
                     _tmpC2 = _chrono + 2;
                     Random rnd = new Random();
                     _positionCoin = new Vector2(rnd.Next(0, Constantes._LARGEUR_FENETRE - 200), rnd.Next(0, Constantes._HAUTEUR_FENETRE - 200));
-
                 }
                 else if (_chrono>=_tmpC2)
                 {
                     _positionCoin=new Vector2(-50, -50);
                 }
+                if (CollisionCoin(_redemption))
+                {
+                    _positionCoin = new Vector2(-50, -50);
+                    hero.Money += 1;
+                }
 
+                
 
                 //------------------------------------------------------------------------------------------------------------------------------------------------------//
                 //------------------------------------------------------         Activation de tous les patterns         -----------------------------------------------//
@@ -539,7 +546,8 @@ namespace SAE_DEV_PROJ
             _spriteBatch.DrawString(_police, "" + Math.Round(_chrono, 2), new Vector2(Constantes._LARGEUR_FENETRE - 100, 0), _couleur);
             _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionPvBoss, _couleur);
             _spriteBatch.DrawString(_police, $"Score : {hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), _couleur);
-            
+            _spriteBatch.Draw(_textureCoin2, new Vector2(5, _positionScore.Y + 40), _couleur);
+            _spriteBatch.DrawString(_police, $"{hero.Money}", new Vector2(50, _positionScore.Y + 40), _couleur);
 
             //HP
             if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 80)
@@ -620,6 +628,21 @@ namespace SAE_DEV_PROJ
                     }
                 }
             }
+            return tmp;
+        }
+        internal bool CollisionCoin(bool ok)
+        {
+            bool tmp = false;
+            if (ok == true)
+                return false;
+
+            Rectangle rect1 = new Rectangle((int)_positionCoin.X, (int)_positionCoin.Y, Constantes._LARGEUR_COIN, Constantes._HAUTEUR_COIN);
+            Rectangle rect2 = new Rectangle((int)hero.PositionPerso.X, (int)hero.PositionPerso.Y, Constantes._LARGEUR_PERSO, Constantes._HAUTEUR_PERSO);
+            if (rect1.Intersects(rect2))
+            {
+                tmp = true;
+            }
+
             return tmp;
         }
         internal bool Collision(bool ok, Bullet[] _tableau)
