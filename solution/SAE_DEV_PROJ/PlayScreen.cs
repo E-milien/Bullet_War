@@ -525,9 +525,9 @@ namespace SAE_DEV_PROJ
             PatternCercleDraw(Constantes._PATTERNFINAL, _i3, _tabBulletsCercleFinal);
 
             //Bullets patternSpiral
-            PatternSpiraleDraw(Constantes._DEBUTPAT5, _tabBulletsSpirale1);
-            PatternSpiraleDraw(Constantes._DEBUTPAT8, _tabBulletsSpirale2);
-            PatternSpiraleDraw(Constantes._PATTERNFINAL, _tabBulletsSpiraleFinal);
+            PatternSpiraleDraw(Constantes._DEBUTPAT5, _tabBulletsSpirale1,Color.Purple);
+            PatternSpiraleDraw(Constantes._DEBUTPAT8, _tabBulletsSpirale2,Color.Purple);
+            PatternSpiraleDraw(Constantes._PATTERNFINAL, _tabBulletsSpiraleFinal,Color.LawnGreen);
 
             //Bullets patternCercleDesax
 
@@ -1052,7 +1052,7 @@ namespace SAE_DEV_PROJ
             {
                 for (int i = 0; i<tabBullet.Length; i++)
                 {
-                    _spriteBatch.Draw(_textureBullet1, tabBullet[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS, 0), Color.Yellow);
+                    _spriteBatch.Draw(_textureBullet1, tabBullet[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS, 0), Color.Red);
                 }
             }
             //PatternCercleDesax attention //ON TOUCHE PAS SVP
@@ -1088,11 +1088,11 @@ namespace SAE_DEV_PROJ
             {
                 for (int i = 0; i<tabFourchetteDraw.Length; i++)
                 {
-                    _spriteBatch.Draw(_textureBullet1, tabFourchetteDraw[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Blue);
+                    _spriteBatch.Draw(_textureBullet1, tabFourchetteDraw[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Cyan);
                 }
             }
         }
-        private void PatternSpiraleDraw(int debut, Bullet[] tabSpiraleDraw)
+        private void PatternSpiraleDraw(int debut, Bullet[] tabSpiraleDraw, Color couleur)
         //Bullets patternSpiral
         {
             if (_chrono > debut)
@@ -1101,7 +1101,7 @@ namespace SAE_DEV_PROJ
                 {
                     if (tabSpiraleDraw[i].PasseOrigine == true)
                     { 
-                        _spriteBatch.Draw(_textureBullet1, tabSpiraleDraw[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+                        _spriteBatch.Draw(_textureBullet1, tabSpiraleDraw[i].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), couleur);
                     }
                 }
             }
@@ -1115,7 +1115,7 @@ namespace SAE_DEV_PROJ
                 {
                     for (int j = 0; j<tabCercle.GetLength(1); j++)
                     {
-                        _spriteBatch.Draw(_textureBullet1, tabCercle[i, j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.White);
+                        _spriteBatch.Draw(_textureBullet1, tabCercle[i, j].BulletPosition - new Vector2(Constantes._LARGEUR_BULLETS / 2, 0), Color.Yellow);
                     }
                 }
             }
