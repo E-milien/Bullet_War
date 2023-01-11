@@ -15,7 +15,7 @@ namespace SAE_DEV_PROJ
         private SpriteBatch _spriteBatch;
         private Game1 _myGame;
         private SpriteFont _police;
-        private Texture2D _textureFondWinScreen;
+        private Texture2D _textureFondShop;
         private Texture2D _textureHeartFill;
         private Texture2D _textureHeartEmpty;
 
@@ -104,7 +104,7 @@ namespace SAE_DEV_PROJ
             _textureSkinDonald = Content.Load<Texture2D>("donaldBIG");
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _police = Content.Load<SpriteFont>("Font");
-            _textureFondWinScreen = Content.Load<Texture2D>("fondWinScreen");
+            _textureFondShop = Content.Load<Texture2D>("fonfShop");
             _textureHeartFill = Content.Load<Texture2D>("heartFill");
             _textureHeartEmpty = Content.Load<Texture2D>("heartEmpty");
             _textureVaisseauTirs = Content.Load<Texture2D>("vaisseauTirs");
@@ -161,7 +161,7 @@ namespace SAE_DEV_PROJ
             }
 
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_textureFondWinScreen, new Vector2(0, 0), Color.White);
+            _spriteBatch.Draw(_textureFondShop, new Vector2(0, 0), Color.White);
 
 
 
