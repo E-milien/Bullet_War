@@ -25,6 +25,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureTmPayer;
         private Texture2D _textureTmpAnnuler;
         private Texture2D _textureVaisseauTirs;
+        private Texture2D _textureVaisseauTirs2;
         private Texture2D _textureTmpMenu;
 
         private Rectangle _hitboxHeart1;
@@ -91,7 +92,7 @@ namespace SAE_DEV_PROJ
             _textureVaisseauTirs = Content.Load<Texture2D>("vaisseauTirs");
             _textureButtonMenu = Content.Load<Texture2D>("boutonM");
             _textureButtonMenuPressed = Content.Load<Texture2D>("boutonM_pressed");
-
+            _textureVaisseauTirs2 = Content.Load<Texture2D>("vaisseauTirs2");
 
             base.LoadContent();
         }
@@ -150,17 +151,23 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_textureVaisseauTirs, new Vector2(20, 140), Color.White);
             _spriteBatch.DrawString(_police, "Tirs par salves de 3", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 140 + Constantes._HAUTEURVAISSEAUTIRS/2 - 10), Color.White);
 
-            _spriteBatch.DrawString(_police, "Ameliorer la rafale", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 300), Color.White);
+            _spriteBatch.Draw(_textureVaisseauTirs2, new Vector2(20, 300), Color.White);
+            _spriteBatch.DrawString(_police, "Ameliorer la rafale", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 280), Color.White);
 
-            if(_hitboxRafale.Contains(_ms.X,_ms.Y) && _heartFillTmp1 == false && _spaceshipButton == false)
+
+            // AMELIORATION RAFALE 
+            if(_hitboxRafale.Contains(_ms.X,_ms.Y) && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
             {
                 _rafalesButton = true;
                 _rafalesPoliceTmp1 = true;
             }
-            if (_spaceshipPoliceTmp1)
+
+
+            if (_spaceshipPoliceTmp1 && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
             {
                 _spriteBatch.DrawString(_police, "Ameliorer la rafale dps x1.5 (100g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
             }
+
             if(_rafalesButton == true && _spaceshipButton == false && _heartFillTmp1 == false)
             {
                 _spriteBatch.Draw(_textureTmPayer, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 - Constantes._HAUTEUR_BOUTON - 200), Color.White);
@@ -171,7 +178,7 @@ namespace SAE_DEV_PROJ
 
                 if (_ms.LeftButton == ButtonState.Pressed && _hitboxBoutonPayer.Contains(_ms.X, _ms.Y))
                 {
-                    // ARGENT < 50
+                    // ARGENT < 100
                     if (_myGame._money < 100)
                     {
                         _rafalesPoliceTmp1 = false;
@@ -180,7 +187,7 @@ namespace SAE_DEV_PROJ
                     else
                     {
                         _myGame._money -= 100;
-                        _myGame._upgradeCote = true;
+                        _myGame._upgradeRafale = true;
 
                         _rafalesButton = false;
                         _rafalesPoliceTmp1 = false;
