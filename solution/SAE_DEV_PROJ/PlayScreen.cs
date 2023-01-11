@@ -142,7 +142,7 @@ namespace SAE_DEV_PROJ
             _cheat1 = false;
             _bossAlive = true;
             _alive = true;
-            _chrono = 90;
+            _chrono = 0;
             _chronoPause = 0;
             _varCercle = 0;
             _angle = 0f;
