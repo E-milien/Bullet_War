@@ -66,6 +66,7 @@ namespace SAE_DEV_PROJ
         public const int _HAUTEURVAISSEAUTIRS = 94;
         public const int _ESPACESHOPBORD = 10;
         public const int _ESPACECONTOURSHOP = 20;
+        public const int _GAIN_PAR_COIN = 1;
         private bool _estMort;
 
         public bool EstMort { get => _estMort; set => _estMort = value; }

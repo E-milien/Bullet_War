@@ -101,7 +101,6 @@ namespace SAE_DEV_PROJ
         private Texture2D _texture_Low;
         private Texture2D _texture_VeryLow;
         private Texture2D _texture_Dead;
-        private Texture2D _textureFondTMP;
 
         // PERSO
         private int _sensPersoX;
@@ -111,11 +110,8 @@ namespace SAE_DEV_PROJ
         private Rectangle _hitboxResumeButton;
         private MouseState _ms;
 
-        // SON 
-
-        // PERSO STAT DEPART 
-
-        
+        private int _scoreReset;
+        private int _compteurScoreReset;
 
         public PlayScreen(Game1 game) : base(game)
         {
@@ -145,6 +141,7 @@ namespace SAE_DEV_PROJ
             _boutonMenuResume = _textureButtonMenu;
             _boutonMenuHome = _textureButtonMenu;
             _boutonMenuExit = _textureButtonMenu;
+            _compteurScoreReset = 0;
 
             _tmp48 = 0;
             _var = 40;
@@ -160,9 +157,6 @@ namespace SAE_DEV_PROJ
 
             _largeurBarreHp = 578;
             _hitboxResumeButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
-            
-
-            
 
             _damagePerso = _myGame.hero.DamagePerso;
             _pvDepart = _myGame.hero.PvPerso;
@@ -271,7 +265,13 @@ namespace SAE_DEV_PROJ
 
         public override void Update(GameTime gameTime)
         {
-            _myGame.hero.Money = Math.Round(_myGame.hero.Score / 1000, 0);
+            
+            if((_myGame.hero.Score - (1000 * _compteurScoreReset)) >= 1000)
+            {
+                _compteurScoreReset++;
+                _myGame.hero.Money += Constantes._GAIN_PAR_COIN;
+            }
+
             _ms = Mouse.GetState();
             if (_keyboardState.IsKeyDown(Keys.P) && _keyboardState.IsKeyDown(Keys.I))
                     _couleur = Color.DeepPink;
@@ -354,6 +354,7 @@ namespace SAE_DEV_PROJ
                 {
                     _positionCoin = new Vector2(-50, -50);
                     _myGame.hero.Money += 5;
+                    Console.WriteLine(_myGame.hero.Money);
                 }
 
                 //------------------------------------------------------------------------------------------------------------------------------------------------------//
