@@ -45,7 +45,6 @@ namespace SAE_DEV_PROJ
             _myGame._shopScreenOk = false;
             _myGame._playScreenOk = false;
             _myGame._pause = false;
-
             _myGame._homescreenOk = true;
         }
         public override void Draw(GameTime gameTime)
