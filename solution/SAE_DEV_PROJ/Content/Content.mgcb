@@ -61,7 +61,6 @@
 /processorParam:TextureFormat=Color
 /build:bindKey.png
 
-
 #begin bossMechant.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -650,6 +649,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:soundBouton2.mp3
+
+#begin soundTouched.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:soundTouched.mp3
 
 #begin vaisseau.png
 /importer:TextureImporter

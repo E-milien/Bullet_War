@@ -2,8 +2,11 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Screens;
+using MonoGame.Extended.Screens.Transitions;
 using System;
+using System.Linq;
 
 namespace SAE_DEV_PROJ
 {
@@ -85,6 +88,7 @@ namespace SAE_DEV_PROJ
         private bool _cheat1;
         private Color _couleur;
         private Color _couleurPerso;
+        private double _tmpVie;
 
         private int _sequenceTir;
 
@@ -153,7 +157,7 @@ namespace SAE_DEV_PROJ
             _boutonMenuHome = _textureButtonMenu;
             _boutonMenuExit = _textureButtonMenu;
             _compteurScoreReset = 0;
-
+            _tmpVie = Constantes._PATTERNFINALFIN;
             _tmp48 = 0;
             _var = 40;
             _i1 = -1;
@@ -295,6 +299,11 @@ namespace SAE_DEV_PROJ
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (!_myGame._pause)
             {
+                if (_chrono>_tmpVie)
+                {
+                    _tmpVie = _chrono + 2;
+                    _myGame.hero.PvPerso -= 20;
+                }
                 if(_chrono>=_tmp48 && !_redemption && _myGame.hero.PvPerso > 0)
                 {
                     _myGame._soundShot.Play();

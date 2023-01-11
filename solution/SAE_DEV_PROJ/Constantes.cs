@@ -11,8 +11,6 @@ namespace SAE_DEV_PROJ
 {
     internal class Constantes
     {
-
-
         // TAILLE FENETRE
         public const int _LARGEUR_MENU = 600;
         public const int _HAUTEUR_MENU = 800;
@@ -77,7 +75,5 @@ namespace SAE_DEV_PROJ
         public const int _HPBOSS = 50000;
         public const int _HPERSO = 100;
         private bool _estMort;
-
-        public bool EstMort { get => _estMort; set => _estMort = value; }
     }
 }

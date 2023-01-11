@@ -116,6 +116,7 @@ namespace SAE_DEV_PROJ
         public SoundEffect _soundButton;
         public SoundEffect _soundButton2;
         public SoundEffect _soundButton3;
+        public SoundEffect _soundTouched;
         public SoundEffect _noSound;
         public Song _sonWin;
         public Song _sonDead;
@@ -239,7 +240,7 @@ namespace SAE_DEV_PROJ
             _sonDead = Content.Load<Song>("sonDead");
             _musiqueHome = Content.Load<Song>("musiqueHome");
             _noSoundM = Content.Load<Song>("noSoundM");
-
+            _soundTouched = Content.Load<SoundEffect>("soundTouched");
             _soundShot = Content.Load<SoundEffect>("shot");
             _homeScreen = new HomeScreen(this);
             _playScreen = new PlayScreen(this);
@@ -444,6 +445,7 @@ namespace SAE_DEV_PROJ
                 _soundButton2 = Content.Load<SoundEffect>("noSound");
                 _soundButton3 = Content.Load<SoundEffect>("noSound");
                 _soundShot = Content.Load<SoundEffect>("noSound");
+                _soundTouched = Content.Load<SoundEffect>("noSound");
                 _sonWin = Content.Load<Song>("noSoundM");
                 _sonDead = Content.Load<Song>("noSoundM");
                 MediaPlayer.Pause();
@@ -456,6 +458,7 @@ namespace SAE_DEV_PROJ
                 _soundButton = Content.Load<SoundEffect>("sondBouton");
                 _soundButton2 = Content.Load<SoundEffect>("soundBouton2");
                 _soundButton3 = Content.Load<SoundEffect>("sondBouton3");
+                _soundTouched = Content.Load<SoundEffect>("soundTouched");
                 _musiqueHome = Content.Load<Song>("musiqueHome");
                 _soundShot = Content.Load<SoundEffect>("shot");
                 _sonWin = Content.Load<Song>("sonWin");
