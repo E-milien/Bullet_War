@@ -148,7 +148,7 @@ namespace SAE_DEV_PROJ
             _boutonMenuExit = _textureButtonMenu;
             _tmp48 = 0;
 
-            _myGame._money = 100;
+            _myGame._money = 0;
             _myGame._hpPerso = 100;
 
             _largeurBarreHp = 578;
