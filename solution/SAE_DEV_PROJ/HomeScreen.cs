@@ -29,8 +29,6 @@ namespace SAE_DEV_PROJ
         }
         public override void Initialize()
         {
-
-
             base.Initialize();
         }
         public override void LoadContent()

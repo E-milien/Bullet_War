@@ -23,6 +23,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureButtonMenuPressed;
         private Texture2D _textureFondWinScreen;
         private Texture2D _textureWin;
+        private double _startMoney;
 
         private MouseState _ms;
 
@@ -33,6 +34,11 @@ namespace SAE_DEV_PROJ
             _police = Content.Load<SpriteFont>("Font");
             _myGame = game;
 
+        }
+        public override void Initialize()
+        {
+            _startMoney = _myGame._money;
+            base.Initialize();
         }
         public override void LoadContent()
         {
@@ -52,6 +58,7 @@ namespace SAE_DEV_PROJ
         public override void Update(GameTime gameTime)
         {
             _myGame._actif = false;
+            _myGame._money = Math.Round(_myGame._score / 1000, 0);
 
         }
         public override void Draw(GameTime gameTime)
@@ -89,6 +96,7 @@ namespace SAE_DEV_PROJ
             }
 
             // TEXTES 
+            //_spriteBatch.DrawString(_police, "Argent gagne : " + Math.Round(_myGame._playScreen._score / 1000,0), new Vector2(1000, 500), Color.White);
             _spriteBatch.DrawString(_police, "Replay", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 50, 340), Color.White);
             _spriteBatch.DrawString(_police, "Main Menu", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 70, 540), Color.White);
             _spriteBatch.DrawString(_police, "Quit", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 20, 740), Color.White);
