@@ -16,9 +16,6 @@ namespace SAE_DEV_PROJ
         private Game1 _myGame;
         private SpriteFont _police;
 
-        private Texture2D _textureRePlayButton;
-        private Texture2D _textureOptionButton;
-        private Texture2D _textureLeaveButton;
         private Texture2D _textureButtonMenu;
         private Texture2D _textureButtonMenuPressed;
         private Texture2D _textureFondWinScreen;
@@ -43,9 +40,6 @@ namespace SAE_DEV_PROJ
         public override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _textureRePlayButton = Content.Load<Texture2D>("Jouer");
-            _textureOptionButton = Content.Load<Texture2D>("Option");
-            _textureLeaveButton = Content.Load<Texture2D>("Leave");
 
             _textureButtonMenu = Content.Load<Texture2D>("boutonM");
             _textureButtonMenuPressed = Content.Load<Texture2D>("boutonM_pressed");
@@ -70,7 +64,7 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_textureWin, new Vector2(Constantes._LARGEUR_FENETRE / 2 - _largeurImage / 2, 0), Color.White);
 
             // TEXTURES SI SOURIS PAR DESSUS 
-            if (_myGame._hitboxReplayWinScreen.Contains(_ms.X, _ms.Y))
+            if (_myGame._hitboxBoutonMReplay.Contains(_ms.X, _ms.Y))
             {
                 _spriteBatch.Draw(_textureButtonMenuPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300), Color.White);
             }
@@ -78,7 +72,7 @@ namespace SAE_DEV_PROJ
             {
                 _spriteBatch.Draw(_textureButtonMenu, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300), Color.White);
             }
-            if (_myGame._hitboxMainMenuWinScreen.Contains(_ms.X, _ms.Y))
+            if (_myGame._hitboxMenuButton.Contains(_ms.X, _ms.Y))
             {
                 _spriteBatch.Draw(_textureButtonMenuPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 500), Color.White);
             }
@@ -101,6 +95,9 @@ namespace SAE_DEV_PROJ
             _spriteBatch.DrawString(_police, "Main Menu", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 70, 540), Color.White);
             _spriteBatch.DrawString(_police, "Quit", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 20, 740), Color.White);
 
+            // INFO SUR LA GAME
+            _spriteBatch.Draw(_myGame._playScreen._textureCoin2, new Vector2(5, 700), Color.White);
+            _spriteBatch.DrawString(_police, $"{_myGame._playScreen.hero.Money}", new Vector2(60, 700), Color.White);
 
             _spriteBatch.End();
         }

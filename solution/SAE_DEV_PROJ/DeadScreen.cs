@@ -56,7 +56,7 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_textureDeadScreen, new Vector2(0, 0), Color.White);
             _spriteBatch.Draw(_textureyouAreDead, new Vector2(Constantes._LARGEUR_FENETRE / 2 - _largeuryouAreDead / 2 - 170, 50), Color.White);
 
-            // SI SOURIS PAR DESSUS BOUTON CHANGEMENT TEXTURE 
+            // TEXTURES SI SOURIS PAR DESSUS 
             if (_myGame._hitboxBoutonMReplay.Contains(_ms.X, _ms.Y))
             {
                 _spriteBatch.Draw(_textureButtonMenuPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300), Color.White);

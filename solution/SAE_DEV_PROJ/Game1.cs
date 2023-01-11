@@ -16,12 +16,12 @@ namespace SAE_DEV_PROJ
         public bool _pause;
         private readonly ScreenManager _screenManager;
         private GraphicsDeviceManager _graphics;
-        HomeScreen _homeScreen;
-        PlayScreen _playScreen;
-        DeadScreen _deadScreen;
-        WinScreen _winScreen;
-        SettingScreen _settingScreen;
-        ShopScreen _shopScren;
+        public HomeScreen _homeScreen;
+        public PlayScreen _playScreen;
+        public DeadScreen _deadScreen;
+        public WinScreen _winScreen;
+        public SettingScreen _settingScreen;
+        public ShopScreen _shopScren;
 
         public Texture2D _boutonPlay;
         public Texture2D _boutonShop;
@@ -378,11 +378,11 @@ namespace SAE_DEV_PROJ
             }
 
             // WIN SCENE
-            if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && _hitboxReplayWinScreen.Contains(_ms.X, _ms.Y))
+            if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && _hitboxBoutonMReplay.Contains(_ms.X, _ms.Y))
             {
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-            if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && _hitboxMainMenuWinScreen.Contains(_ms.X, _ms.Y))
+            if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))
             {
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
@@ -616,7 +616,5 @@ namespace SAE_DEV_PROJ
             _graphics.PreferredBackBufferHeight = Constantes._HAUTEUR_FENETRE;
             _graphics.ApplyChanges();
         }
-
-
     }
 }
