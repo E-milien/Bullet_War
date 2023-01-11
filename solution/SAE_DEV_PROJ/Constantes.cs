@@ -16,7 +16,8 @@ namespace SAE_DEV_PROJ
         // TAILLE FENETRE
         public const int _LARGEUR_MENU = 600;
         public const int _HAUTEUR_MENU = 800;
-
+        public const int _LARGEUR_COIN = 30;
+        public const int _HAUTEUR_COIN = 30;
         public const int _LARGEUR_BOUTON = 403;
         public const int _HAUTEUR_BOUTON = 103;
         public const int _LARGEUR_BRUIT = 106;
