@@ -585,7 +585,7 @@ namespace SAE_DEV_PROJ
 
             _spriteBatch.Draw(_textureBoss, _myGame.boss1.BossPosition, _couleur);
             _spriteBatch.Draw(_texturePerso, _myGame.hero.PositionPerso, _couleurPerso);
-            _spriteBatch.DrawString(_police, "" + Math.Round(_chrono, 2), new Vector2(Constantes._LARGEUR_FENETRE - 100, 0), _couleur);
+            _spriteBatch.DrawString(_police, "Temps : " + Math.Round(_chrono)+"s", new Vector2(Constantes._LARGEUR_FENETRE - 175, 10), _couleur);
             _spriteBatch.DrawString(_police, $"Vie Boss : { _myGame.boss1.BossHP}", _positionPvBoss, _couleur);
             _spriteBatch.DrawString(_police, $"Score : {_myGame.hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), _couleur);
             _spriteBatch.Draw(_textureCoin2, new Vector2(5, _positionScore.Y), _couleur);
