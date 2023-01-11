@@ -9,6 +9,16 @@ namespace SAE_DEV_PROJ
 {
     public class PlayScreen : GameScreen
     {
+        // VARAIBLES A RENOMMER
+        private int _i1;
+        private int _i2;
+        private double _tmp48;
+        private double _tmpC;
+        private double _tmpC2;
+        private bool _ok1;
+        private bool _ok2;
+        private int _var2;
+        private double _var;
         
         private Game1 _myGame;
         private SpriteBatch _spriteBatch;
@@ -47,22 +57,16 @@ namespace SAE_DEV_PROJ
         private bool _redemption;
         public double _chrono;
         public double _chronoPause;
-        private int _i1;
-        private int _i2;
-        private double _var;
+
         private double _varCercle;
-        private bool _ok1;
-        private bool _ok2;
-        private int _var2;
+
         private float _angle;
         private double _pvDepart;
         private Vector2 _positionPv;
         private Vector2 _positionPvBoss;
         private Vector2 _positionScore;
         private Vector2 _positionCoin;
-        private double _tmp48;
-        private double _tmpC;
-        private double _tmpC2;
+
 
         private int _largeurBarreHp;
         private int _damagePerso;
@@ -109,7 +113,6 @@ namespace SAE_DEV_PROJ
         private MouseState _ms;
 
         // SON 
- 
         
 
         public PlayScreen(Game1 game) : base(game)
@@ -119,7 +122,6 @@ namespace SAE_DEV_PROJ
 
         public override void Initialize()
         {
-            _tmpC = 6;
             if (_myGame._upgradeRafale == true)
                 _sequenceTir = 3;
 
@@ -128,16 +130,10 @@ namespace SAE_DEV_PROJ
             _positionCoin = new Vector2(-50, -50);
             _couleur = Color.White;
             _cheat1 = false;
-            _ok1 = false;
-            _ok2 = false;
             _bossAlive = true;
             _alive = true;
-            _var = 40;
-            _i1 = -1;
-            _i2 = -1;
             _chrono = 28;
             _chronoPause = 0;
-            _var2 = 2;
             _varCercle = 0;
             _angle = 0f;
             _positionPv = new Vector2(20, 30);
@@ -146,7 +142,15 @@ namespace SAE_DEV_PROJ
             _boutonMenuResume = _textureButtonMenu;
             _boutonMenuHome = _textureButtonMenu;
             _boutonMenuExit = _textureButtonMenu;
+
             _tmp48 = 0;
+            _var = 40;
+            _i1 = -1;
+            _i2 = -1;
+            _var2 = 2;
+            _ok1 = false;
+            _ok2 = false;
+            _tmpC = 6;
 
             _myGame._money = 0;
             _myGame._hpPerso = 100;
