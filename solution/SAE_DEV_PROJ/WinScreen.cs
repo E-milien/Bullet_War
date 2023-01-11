@@ -98,7 +98,7 @@ namespace SAE_DEV_PROJ
 
             // INFO SUR LA GAME
             _spriteBatch.Draw(_myGame._playScreen._textureCoin2, new Vector2(5, 700), Color.White);
-            _spriteBatch.DrawString(_police, $"{_myGame.hero.Money}", new Vector2(60, 700), Color.White);
+            _spriteBatch.DrawString(_police, $"{_myGame._money}", new Vector2(60, 700), Color.White);
 
             _spriteBatch.DrawString(_police, $"Score : {_myGame.hero.Score}", new Vector2(0, 500), Color.White);
 
