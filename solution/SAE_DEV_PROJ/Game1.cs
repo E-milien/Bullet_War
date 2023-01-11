@@ -109,6 +109,7 @@ namespace SAE_DEV_PROJ
 
         public bool _skinV;
         public bool _skinD;
+        public bool _skinO;
 
 
         // SON
@@ -149,6 +150,7 @@ namespace SAE_DEV_PROJ
         {
             _skinV = false;
             _skinD = false;
+            _skinO = false;
             _tmp69temps = 0;
             _chrono = 0;
             _keyUpdating = false;

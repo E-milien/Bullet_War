@@ -247,6 +247,8 @@ namespace SAE_DEV_PROJ
                 _texturePerso = Content.Load<Texture2D>("donald");
             else if (_myGame._skinV)
                 _texturePerso = Content.Load<Texture2D>("vaisseau2");
+            else if (_myGame._skinO)
+                _texturePerso = Content.Load<Texture2D>(_myGame.hero.SkinPerso);
             else
                 _texturePerso = Content.Load<Texture2D>(_myGame.hero.SkinPerso);
             _textureBullet = Content.Load<Texture2D>("bullet1");
