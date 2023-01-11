@@ -45,7 +45,13 @@ namespace SAE_DEV_PROJ
         public override void Update(GameTime gameTime)
         {
             _ms = Mouse.GetState();
-            _myGame._actif = false;
+
+            _myGame._screenDeathOk = true;
+            _myGame._screenWinOk = false;
+            _myGame._homescreenOk = false;
+            _myGame._settingOk = false;
+            _myGame._shopScreenOk = false;
+            _myGame._playScreenOk = false;
         }
         public override void Draw(GameTime gameTime)
         {
@@ -56,7 +62,7 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_textureDeadScreen, new Vector2(0, 0), Color.White);
             _spriteBatch.Draw(_textureyouAreDead, new Vector2(Constantes._LARGEUR_FENETRE / 2 - _largeuryouAreDead / 2 - 170, 50), Color.White);
 
-            // TEXTURES SI SOURIS PAR DESSUS 
+            // SI SOURIS PAR DESSUS BOUTON CHANGEMENT TEXTURE 
             if (_myGame._hitboxBoutonMReplay.Contains(_ms.X, _ms.Y))
             {
                 _spriteBatch.Draw(_textureButtonMenuPressed, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300), Color.White);

@@ -17,10 +17,6 @@ namespace SAE_DEV_PROJ
         private SpriteFont _police;
         private MouseState _ms;
 
-        
-
-
-        
 
         public HomeScreen(Game1 game) : base(game)
         {
@@ -42,9 +38,14 @@ namespace SAE_DEV_PROJ
         public override void Update(GameTime gameTime)
         {
             _ms = Mouse.GetState();
-            _myGame._homeScreenOpen = true;
-            _myGame._actif = true;
-            
+
+            _myGame._screenDeathOk = false;
+            _myGame._screenWinOk = false;
+            _myGame._settingOk = false;
+            _myGame._shopScreenOk = false;
+            _myGame._playScreenOk = false;
+
+            _myGame._homescreenOk = true;
         }
         public override void Draw(GameTime gameTime)
         {

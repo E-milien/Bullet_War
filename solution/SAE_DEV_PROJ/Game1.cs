@@ -34,9 +34,11 @@ namespace SAE_DEV_PROJ
         private bool _loaded;
         public bool _screenDeathOk;
         public bool _screenWinOk;
-        public bool _actif;
+        public bool _homescreenOk;
         public bool _settingOk;
         public bool _shopScreenOk;
+        public bool _playScreenOk;
+
         public bool _tmpToucheZ;
         public bool _tmpToucheD;
         public bool _tmpToucheQ;
@@ -48,9 +50,6 @@ namespace SAE_DEV_PROJ
 
         public int _widthPlayButton;
         public int _heighPlayButton;
-        public double _money;
-        public int _hpPerso;
-        public double _score;
 
         private MouseState _ms;
         private KeyboardState _keyboardState;
@@ -120,8 +119,13 @@ namespace SAE_DEV_PROJ
         private double _chrono;
         public bool _sonOff;
 
-        public bool _homeScreenOpen;
         public bool _keyUpdating;
+
+        public double _score;
+        public double _hpPerso;
+        public double _money;
+        internal Boss boss1;
+        internal Perso hero;
 
         public SpriteBatch SpriteBatch { get; set; }
 
@@ -155,11 +159,14 @@ namespace SAE_DEV_PROJ
             _behind = Keys.S;
             _left = Keys.Q;
 
-            _actif = false;
             _screenDeathOk = false;
             _screenWinOk = false;
-            _loaded = false;
+            _homescreenOk = false;
             _settingOk = false;
+            _shopScreenOk = false;
+            _playScreenOk = false;
+
+
             SetupWindow();
             _textureFond = Content.Load<Texture2D>("fond1");
 
@@ -195,6 +202,15 @@ namespace SAE_DEV_PROJ
             _hitboxMainMenuShop = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             
             _hitboxBruit = new Rectangle(100, 520, Constantes._LARGEUR_BRUIT, Constantes._HAUTEUR_BRUIT);
+
+            _hpPerso = 100;
+            _score = 0;
+            _money = 0;
+
+            // initialisation boss & perso
+            boss1 = new Boss(10, 20, "bossMechant", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
+            hero = new Perso(false, _hpPerso, 5, _score, _money, "vaisseau", 1, 500, new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE * 2 / 3) - new Vector2(Constantes._LARGEUR_PERSO / 2, Constantes._HAUTEUR_PERSO / 2));
+
             base.Initialize();
         }
 
@@ -232,6 +248,7 @@ namespace SAE_DEV_PROJ
 
         protected override void Update(GameTime gameTime)
         {
+            Console.WriteLine(_screenWinOk);
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             _chrono += deltaTime;
             if (!_loaded)
@@ -239,7 +256,6 @@ namespace SAE_DEV_PROJ
                 MediaPlayer.Play(_musiqueHome);
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
                 _loaded = true;
-                
             }
 
             if (!_playScreen._alive && !_screenDeathOk)
@@ -247,7 +263,7 @@ namespace SAE_DEV_PROJ
                 _screenManager.LoadScreen(_deadScreen, new FadeTransition(GraphicsDevice, Color.Black));
                 _screenDeathOk = true;
             }
-            if (!_playScreen._bossAlive && !_screenWinOk)
+            if (!_playScreen._bossAlive && !_screenWinOk && _playScreenOk)
             {
                 _screenManager.LoadScreen(_winScreen, new FadeTransition(GraphicsDevice, Color.Black));
                 _screenWinOk = true;
@@ -258,26 +274,26 @@ namespace SAE_DEV_PROJ
             var keys = _keyboardState.GetPressedKeys();
 
             // MENU PRINCIPAL 
-            if (_actif && _ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(_ms.X, _ms.Y))
+            if (_homescreenOk && _ms.LeftButton == ButtonState.Pressed && hitboxPlayButton.Contains(_ms.X, _ms.Y))
             {
                 _soundButton.Play();
                 MediaPlayer.Stop();
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
 
-            if (_actif && _ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(_ms.X, _ms.Y))
+            if (_homescreenOk && _ms.LeftButton == ButtonState.Pressed && hitboxOptionButton.Contains(_ms.X, _ms.Y))
             {
                 _soundButton.Play();
                 _screenManager.LoadScreen(_settingScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
 
-            if(_actif && _ms.LeftButton == ButtonState.Pressed && hitboxShopButton.Contains(_ms.X, _ms.Y))
+            if(_homescreenOk && _ms.LeftButton == ButtonState.Pressed && hitboxShopButton.Contains(_ms.X, _ms.Y))
             {
                 _soundButton.Play();
                 _screenManager.LoadScreen(_shopScren, new FadeTransition(GraphicsDevice, Color.Black));
             }
 
-            if (_actif && _ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(_ms.X, _ms.Y))
+            if (_homescreenOk && _ms.LeftButton == ButtonState.Pressed && hitboxLeaveButton.Contains(_ms.X, _ms.Y))
             {
                 MediaPlayer.Stop();
                 _soundButton.Play();
@@ -323,6 +339,7 @@ namespace SAE_DEV_PROJ
                 _soundButton.Play();
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
+
             // PAUSE
             if (_pause && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))
             {

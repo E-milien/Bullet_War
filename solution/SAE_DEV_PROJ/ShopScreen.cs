@@ -73,12 +73,7 @@ namespace SAE_DEV_PROJ
             _hitboxVaisseauTirs = new Rectangle(Constantes._ESPACESHOPBORD, 140, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
             _hitboxRafale = new Rectangle(Constantes._ESPACESHOPBORD, 290, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
 
-            _myGame._actif = false;
-            _myGame._screenDeathOk = false;
-            _myGame._screenWinOk = false;
-            _myGame._settingOk = false;
-            _myGame._pause = false;
-            _myGame._shopScreenOk = true;
+
 
 
             base.Initialize();
@@ -102,7 +97,12 @@ namespace SAE_DEV_PROJ
 
         public override void Update(GameTime gameTime)
         {
-            _myGame._actif = false;
+            _myGame._screenDeathOk = false;
+            _myGame._screenWinOk = false;
+            _myGame._homescreenOk = false;
+            _myGame._settingOk = false;
+            _myGame._playScreenOk = false;
+
             _myGame._shopScreenOk = true;
 
             if (_hitboxBoutonPayer.Contains(_ms.X, _ms.Y))
@@ -183,14 +183,14 @@ namespace SAE_DEV_PROJ
                 if (_ms.LeftButton == ButtonState.Pressed && _hitboxBoutonPayer.Contains(_ms.X, _ms.Y))
                 {
                     // ARGENT < 100
-                    if (_myGame._money < 100)
+                    if (_myGame.hero.Money < 100)
                     {
                         _rafalesPoliceTmp1 = false;
                         _rafalesPoliceTmp2 = true;
                     }
                     else
                     {
-                        _myGame._money -= 100;
+                        _myGame.hero.Money -= 100;
                         _myGame._upgradeRafale = true;
 
                         _rafalesButton = false;
@@ -199,7 +199,7 @@ namespace SAE_DEV_PROJ
                     }
                     if (_rafalesPoliceTmp2)
                     {
-                        _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (100 - _myGame._money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
+                        _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (100 - _myGame.hero.Money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
                     }
                 }
                 else
@@ -243,14 +243,14 @@ namespace SAE_DEV_PROJ
                 if (_ms.LeftButton == ButtonState.Pressed && _hitboxBoutonPayer.Contains(_ms.X, _ms.Y))
                 {
                     // ARGENT < 50
-                    if (_myGame._money < 100)
+                    if (_myGame.hero.Money < 100)
                     {
                         _spaceshipPoliceTmp1 = false;
                         _spaceshipPoliceTmp2 = true;
                     }
                     else
                     {
-                        _myGame._money -= 100;
+                        _myGame.hero.Money -= 100;
                         _myGame._upgradeCote = true;
 
                         _spaceshipButton = false;
@@ -259,7 +259,7 @@ namespace SAE_DEV_PROJ
                     }
                     if (_spaceshipPoliceTmp2)
                     {
-                        _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (100 - _myGame._money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
+                        _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (100 - _myGame.hero.Money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
                     }
                 }
                 else
@@ -319,7 +319,7 @@ namespace SAE_DEV_PROJ
                     if (_ms.LeftButton == ButtonState.Pressed && _hitboxBoutonPayer.Contains(_ms.X, _ms.Y))
                     {
                         // ARGENT < 50
-                        if (_myGame._money < 50)
+                        if (_myGame.hero.Money < 50)
                         {
                             _heartPoliceTmp1 = false;
                             _heartPoliceTmp2 = true;
@@ -329,8 +329,8 @@ namespace SAE_DEV_PROJ
                         else
                         {
 
-                            _myGame._money -= 50;
-                            _myGame._hpPerso += 20;
+                            _myGame.hero.Money -= 50;
+                            _myGame.hero.PvPerso += 20;
 
                             // CHANGEMENT HITBOX POUR LE DERNIER COEUR
                             _hitboxHeart1 = _hitboxHeart2;
@@ -349,7 +349,7 @@ namespace SAE_DEV_PROJ
                         // SI ARGENT < 50 
                         if (_heartPoliceTmp2)
                         {
-                            _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (50 - _myGame._money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
+                            _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (50 - _myGame.hero.Money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
                         }
                     }
                     // AFFICHE A NOUVEAU LE MESSAGE "Augmenter sa vie de 20hp" 

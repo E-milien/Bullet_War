@@ -20,7 +20,6 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureButtonMenuPressed;
         private Texture2D _textureFondWinScreen;
         private Texture2D _textureWin;
-        private double _startMoney;
 
         private MouseState _ms;
 
@@ -34,7 +33,6 @@ namespace SAE_DEV_PROJ
         }
         public override void Initialize()
         {
-            _startMoney = _myGame._money;
             base.Initialize();
         }
         public override void LoadContent()
@@ -51,9 +49,13 @@ namespace SAE_DEV_PROJ
 
         public override void Update(GameTime gameTime)
         {
-            _myGame._actif = false;
-            _myGame._money = Math.Round(_myGame._score / 1000, 0);
+            _myGame._screenDeathOk = false;
+            _myGame._homescreenOk = false;
+            _myGame._settingOk = false;
+            _myGame._shopScreenOk = false;
+            _myGame._playScreenOk = false;
 
+            _myGame._screenWinOk = true;
         }
         public override void Draw(GameTime gameTime)
         {
@@ -90,14 +92,13 @@ namespace SAE_DEV_PROJ
             }
 
             // TEXTES 
-            //_spriteBatch.DrawString(_police, "Argent gagne : " + Math.Round(_myGame._playScreen._score / 1000,0), new Vector2(1000, 500), Color.White);
             _spriteBatch.DrawString(_police, "Replay", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 50, 340), Color.White);
             _spriteBatch.DrawString(_police, "Main Menu", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 70, 540), Color.White);
             _spriteBatch.DrawString(_police, "Quit", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 20, 740), Color.White);
 
             // INFO SUR LA GAME
             _spriteBatch.Draw(_myGame._playScreen._textureCoin2, new Vector2(5, 700), Color.White);
-            _spriteBatch.DrawString(_police, $"{_myGame._playScreen.hero.Money}", new Vector2(60, 700), Color.White);
+            _spriteBatch.DrawString(_police, $"{_myGame.hero.Money}", new Vector2(60, 700), Color.White);
 
             _spriteBatch.End();
         }

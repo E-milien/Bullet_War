@@ -217,18 +217,6 @@
 /processorParam:TextureFormat=Color
 /build:contourShop2.png
 
-#begin contourShop2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:contourShop2.png
-
 #begin Dead.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -252,6 +240,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:deadScreen.jpg
+
+#begin donald.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:donald.png
 
 #begin fond1.jpg
 /importer:TextureImporter
@@ -709,6 +709,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:vaisseau.png
+
+#begin vaisseau2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:vaisseau2.png
 
 #begin vaisseauTirs.png
 /importer:TextureImporter
