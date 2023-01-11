@@ -59,7 +59,10 @@ namespace SAE_DEV_PROJ
         private Vector2 _positionPv;
         private Vector2 _positionPvBoss;
         private Vector2 _positionScore;
+        private Vector2 _positionCoin;
         private double _tmp48;
+        private double _tmpC;
+        private double _tmpC2;
 
         private int _largeurBarreHp;
         private int _damagePerso;
@@ -79,6 +82,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureBulletAllie;
         private Texture2D _textureAttentionPattern5;
         private SpriteFont _police;
+        private Texture2D _textureCoin;
 
         public Texture2D _boutonMenuResume;
         public Texture2D _boutonMenuHome;
@@ -114,12 +118,13 @@ namespace SAE_DEV_PROJ
 
         public override void Initialize()
         {
+            _tmpC = 0;
             if (_myGame._upgradeRafale == true)
                 _sequenceTir = 3;
 
             else
                 _sequenceTir = 4;
-                
+            _positionCoin = new Vector2(-50, -50);
             _couleur = Color.White;
             _cheat1 = false;
             _ok1 = false;
@@ -237,7 +242,7 @@ namespace SAE_DEV_PROJ
             _textureBulletAllie = Content.Load<Texture2D>("ballePerso");
             _textureBulletAllieCote = Content.Load<Texture2D>("ballePersoCote");
             _textureBoss = Content.Load<Texture2D>(boss1.SkinBoss);
-
+            _textureCoin = Content.Load<Texture2D>("Coin");
             _textureFondPause = Content.Load<Texture2D>("pause");
             _textureMenu = Content.Load<Texture2D>("menu");
             _textureButtonMenu = Content.Load<Texture2D>("boutonM");
@@ -323,6 +328,21 @@ namespace SAE_DEV_PROJ
                         }
                     }
                 }
+                // COINS
+
+                if (_chrono >= _tmpC)
+                {
+                    _tmpC = _chrono + 7;
+                    _tmpC2 = _chrono + 2;
+                    Random rnd = new Random();
+                    _positionCoin = new Vector2(rnd.Next(0, Constantes._LARGEUR_FENETRE - 200), rnd.Next(0, Constantes._HAUTEUR_FENETRE - 200));
+
+                }
+                else if (_chrono>=_tmpC2)
+                {
+                    _positionCoin=new Vector2(-50, -50);
+                }
+
 
                 //------------------------------------------------------------------------------------------------------------------------------------------------------//
                 //------------------------------------------------------         Activation de tous les patterns         -----------------------------------------------//
@@ -558,7 +578,7 @@ namespace SAE_DEV_PROJ
                 _spriteBatch.DrawString(_police, "Quit", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 30, 740), Color.White);
                 _spriteBatch.DrawString(_police, "Menu Pause", new Vector2(Constantes._LARGEUR_FENETRE/2-90, 200), Color.Black);
             }
-
+            _spriteBatch.Draw(_textureCoin, _positionCoin, Color.White);
             _spriteBatch.End();
 
         }
