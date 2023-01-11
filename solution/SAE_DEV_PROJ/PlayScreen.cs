@@ -546,8 +546,8 @@ namespace SAE_DEV_PROJ
             _spriteBatch.DrawString(_police, "" + Math.Round(_chrono, 2), new Vector2(Constantes._LARGEUR_FENETRE - 100, 0), _couleur);
             _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionPvBoss, _couleur);
             _spriteBatch.DrawString(_police, $"Score : {hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), _couleur);
-            _spriteBatch.Draw(_textureCoin2, new Vector2(5, _positionScore.Y + 40), _couleur);
-            _spriteBatch.DrawString(_police, $"{hero.Money}", new Vector2(50, _positionScore.Y + 40), _couleur);
+            _spriteBatch.Draw(_textureCoin2, new Vector2(5, _positionScore.Y), _couleur);
+            _spriteBatch.DrawString(_police, $"{hero.Money}", new Vector2(60, _positionScore.Y+7), _couleur);
 
             //HP
             if (Math.Round((hero.PvPerso / _pvDepart) * 100) > 80)
