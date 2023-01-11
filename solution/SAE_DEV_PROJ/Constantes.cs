@@ -64,6 +64,8 @@ namespace SAE_DEV_PROJ
         public const int _TAILLEHEART = 100;
         public const int _LARGEURVAISSEAUTIRS = 50;
         public const int _HAUTEURVAISSEAUTIRS = 94;
+        public const int _ESPACESHOPBORD = 10;
+        public const int _ESPACECONTOURSHOP = 20;
         private bool _estMort;
 
         public bool EstMort { get => _estMort; set => _estMort = value; }
