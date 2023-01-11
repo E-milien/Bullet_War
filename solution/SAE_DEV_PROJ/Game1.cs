@@ -275,7 +275,6 @@ namespace SAE_DEV_PROJ
                 MediaPlayer.Play(_sonDead);
                 _screenManager.LoadScreen(_deadScreen, new FadeTransition(GraphicsDevice, Color.Black));
                 _screenDeathOk = true;
-                _playScreen._alive = true;
             }
             if (!_playScreen._bossAlive && !_screenWinOk && _playScreenOk)
             {
