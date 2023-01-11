@@ -86,8 +86,8 @@ namespace SAE_DEV_PROJ
             
             _hitboxVaisseauTirs = new Rectangle(Constantes._ESPACESHOPBORD, 140, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
             _hitboxRafale = new Rectangle(Constantes._ESPACESHOPBORD, 290, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
-            _hitboxSkinVaisseau2 = new Rectangle(1400, 500, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
-            _hitboxSkinDonald = new Rectangle(1400, 700, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
+            _hitboxSkinVaisseau2 = new Rectangle(Constantes._LARGEUR_FENETRE- 420 - Constantes._ESPACESHOPBORD, 140, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
+            _hitboxSkinDonald = new Rectangle(Constantes._LARGEUR_FENETRE - 420 - Constantes._ESPACESHOPBORD, 290, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
 
             base.Initialize();
         }
@@ -176,26 +176,23 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_textureCoins, new Vector2(Constantes._LARGEUR_FENETRE - 160, 10), Color.White);
             _spriteBatch.DrawString(_police, _myGame.hero.Money.ToString(), new Vector2(Constantes._LARGEUR_FENETRE - 200, 20), Color.Yellow);
 
-            _spriteBatch.Draw(_textureSkinVaisseau2, new Vector2(600, 500), Color.White);
-            _spriteBatch.DrawString(_police, "Ameliorer la rafale", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 330), Color.White);
-            _spriteBatch.Draw(_textureSkinVaisseau2, new Vector2(1400, 500), Color.White);
-            _spriteBatch.DrawString(_police, "skin de vaisseau", new Vector2(1400 + Constantes._LARGEUR_PERSO, 500), Color.White);
+            _spriteBatch.Draw(_textureSkinVaisseau2, new Vector2(Constantes._LARGEUR_FENETRE - 420, 150), Color.White);
+            _spriteBatch.DrawString(_police, "skin de vaisseau", new Vector2(Constantes._LARGEUR_FENETRE - 420 + 92, 160), Color.White);
 
-            _spriteBatch.Draw(_textureSkinVaisseau2, new Vector2(1400, 700), Color.White);
-            _spriteBatch.DrawString(_police, "skin de donald", new Vector2(1400 + Constantes._LARGEUR_PERSO, 700), Color.White);
+            _spriteBatch.Draw(_textureSkinDonald, new Vector2(Constantes._LARGEUR_FENETRE - 420, 300), Color.White);
+            _spriteBatch.DrawString(_police, "skin de donald", new Vector2(Constantes._LARGEUR_FENETRE - 420 + 92, 310), Color.White);
 
 
-            if (_hitboxSkinVaisseau2.Contains(_ms.X, _ms.Y) && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
+            if (_hitboxSkinVaisseau2.Contains(_ms.X, _ms.Y) && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false && _rafalesPoliceTmp1 == false && _skinDonald == false)
             {
                 _skinVaisseau2 = true;
                 _skinVaisseau2tmp = true;
-
             }
 
             // BOUTON ACHTER
-            if (_skinVaisseau2tmp && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
+            if (_skinVaisseau2tmp && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false && _skinDonald == false)
             {
-                _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(1400, 500), Color.White);
+                _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(Constantes._LARGEUR_FENETRE - 420 - Constantes._ESPACESHOPBORD, 140), Color.White);
                 _spriteBatch.DrawString(_police, "skin de vaisseau 50g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
             }
             if (_skinVaisseau2 == true && _spaceshipButton == false && _heartFillTmp1 == false)
@@ -217,7 +214,7 @@ namespace SAE_DEV_PROJ
                     else
                     {
                         _myGame.hero.Money -= 50;
-                        //_myGame._upgradeRafale = true;
+                        _myGame._skinV = true;
 
                         _skinVaisseau2 = false;
                         _skinVaisseau2tmp = false;
@@ -241,7 +238,7 @@ namespace SAE_DEV_PROJ
                 }
             }
 
-            if (_hitboxSkinVaisseau2.Contains(_ms.X, _ms.Y) && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false&& _skinVaisseau2 == false)
+            if (_hitboxSkinDonald.Contains(_ms.X, _ms.Y) && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false && _skinVaisseau2 == false && _rafalesPoliceTmp1 == false)
             {
                 _skinDonald = true;
                 _skinDonaldtmp = true;
@@ -250,8 +247,8 @@ namespace SAE_DEV_PROJ
 
             if (_skinDonald && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
             {
-                _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(1400, 500), Color.White);
-                _spriteBatch.DrawString(_police, "skin de vaisseau 50g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
+                _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(Constantes._LARGEUR_FENETRE - 420 - Constantes._ESPACESHOPBORD, 290), Color.White);
+                _spriteBatch.DrawString(_police, "skin de donnald 75g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
             }
             if (_skinDonald == true && _spaceshipButton == false && _heartFillTmp1 == false)
             {
@@ -272,13 +269,13 @@ namespace SAE_DEV_PROJ
                     else
                     {
                         _myGame.hero.Money -= 75;
-                        //_myGame._upgradeRafale = true;
+                        _myGame._skinD = true;
 
                         _skinDonald = false;
                         _skinDonaldtmp = false;
                         _skinDonaldtmp2 = false;
                     }
-                    if (_skinVaisseau2tmp2)
+                    if (_skinDonaldtmp2)
                     {
                         _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (75 - _myGame.hero.Money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
                     }

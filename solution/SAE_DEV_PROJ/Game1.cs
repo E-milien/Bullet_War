@@ -107,6 +107,9 @@ namespace SAE_DEV_PROJ
 
         Rectangle _hitboxBruit;
 
+        public bool _skinV;
+        public bool _skinD;
+
 
         // SON
         public SoundEffect _soundButton;
@@ -144,6 +147,8 @@ namespace SAE_DEV_PROJ
 
         protected override void Initialize()
         {
+            _skinV = false;
+            _skinD = false;
             _tmp69temps = 0;
             _chrono = 0;
             _keyUpdating = false;
@@ -206,7 +211,7 @@ namespace SAE_DEV_PROJ
 
             // initialisation boss & perso
             boss1 = new Boss(_hpBoss, 20, "bossMechant", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
-            hero = new Perso(false, _hpPerso, 5, _score, _money, "vaisseau", 1, 500, new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE * 2 / 3) - new Vector2(Constantes._LARGEUR_PERSO / 2, Constantes._HAUTEUR_PERSO / 2));
+            hero = new Perso(false, _hpPerso, 5, _score, 1000, "vaisseau", 1, 500, new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE * 2 / 3) - new Vector2(Constantes._LARGEUR_PERSO / 2, Constantes._HAUTEUR_PERSO / 2));
             Console.WriteLine("test");
             base.Initialize();
         }

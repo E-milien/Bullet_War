@@ -238,7 +238,12 @@ namespace SAE_DEV_PROJ
         {
             _police = Content.Load<SpriteFont>("Font");
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _texturePerso = Content.Load<Texture2D>(_myGame.hero.SkinPerso);
+            if (_myGame._skinD)
+                _texturePerso = Content.Load<Texture2D>("donald");
+            else if (_myGame._skinV)
+                _texturePerso = Content.Load<Texture2D>("vaisseau2");
+            else
+                _texturePerso = Content.Load<Texture2D>(_myGame.hero.SkinPerso);
             _textureBullet = Content.Load<Texture2D>("bullet1");
             _textureBulletAllie = Content.Load<Texture2D>("ballePerso");
             _textureBulletAllieCote = Content.Load<Texture2D>("ballePersoCote");
