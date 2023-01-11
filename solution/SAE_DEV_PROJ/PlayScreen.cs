@@ -943,7 +943,7 @@ namespace SAE_DEV_PROJ
             {
                 for (int i = 0; i<_tabBulletFocus1.Length; i++)
                 {
-                    _spriteBatch.Draw(_textureBullet2, tabBullet[i].BulletPosition + new Vector2(Constantes._LARGEUR_BULLETS/2,0), Color.Black); 
+                    _spriteBatch.Draw(_textureBullet2, tabBullet[i].BulletPosition + new Vector2(Constantes._LARGEUR_BULLETS/2,0), Color.White); 
                 }
             }
         }
