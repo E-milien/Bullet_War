@@ -21,22 +21,8 @@ namespace SAE_DEV_PROJ
         private int _deplacementPerso;
         private Vector2 _positionPerso;
         private double score;
-        private double money;
 
 
-
-        public Perso(bool godMod, double pvPerso, int damagePerso, double score, double money, string skinPerso, double multiplicationVitesse, int deplacementPerso, Vector2 positionPerso)
-        {
-            this.GodMod = godMod;
-            this.PvPerso = pvPerso;
-            this.DamagePerso = damagePerso;
-            this.Score = score;
-            this.Money = money;
-            this.SkinPerso = skinPerso;
-            this.MultiplicationVitesse = multiplicationVitesse;
-            this.DeplacementPerso = deplacementPerso;
-            this.PositionPerso = positionPerso;
-        }
 
         public Perso(bool godMod, double pvPerso, int damagePerso, double score, string skinPerso, double multiplicationVitesse, int deplacementPerso, Vector2 positionPerso)
         {
@@ -156,19 +142,6 @@ namespace SAE_DEV_PROJ
             set
             {
                 this.score = value;
-            }
-        }
-
-        public double Money
-        {
-            get
-            {
-                return this.money;
-            }
-
-            set
-            {
-                this.money = value;
             }
         }
     }
