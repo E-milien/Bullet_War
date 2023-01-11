@@ -70,7 +70,8 @@ namespace SAE_DEV_PROJ
         public bool _bossAlive=true;
         private bool _cheat1;
         private Color _couleur;
-        
+        private Color _couleurPerso;
+
         private int _sequenceTir;
 
         // TEXTURES 
@@ -127,6 +128,7 @@ namespace SAE_DEV_PROJ
                 _sequenceTir = 4;
             _positionCoin = new Vector2(-50, -50);
             _couleur = Color.White;
+            _couleurPerso = Color.White;
             _cheat1 = false;
             _ok1 = false;
             _ok2 = false;
@@ -279,7 +281,7 @@ namespace SAE_DEV_PROJ
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (!_myGame._pause)
             {
-                if(_chrono>=_tmp48 && !_redemption)
+                if(_chrono>=_tmp48 && !_redemption && hero.PvPerso > 0)
                 {
                     _myGame._soundShot.Play();
                     _tmp48 = _chrono + 0.1;
@@ -292,7 +294,7 @@ namespace SAE_DEV_PROJ
                 //perd du score a cause du temps
                 if (_chrono >= _var2)
                 {
-                    if (hero.Score >= 100 && _bossAlive)
+                    if (hero.Score >= 100 && _bossAlive && hero.PvPerso > 0)
                         hero.Score -= 100;
                     _var2 += 3;
                 }
@@ -334,8 +336,8 @@ namespace SAE_DEV_PROJ
                 // COINS
                 if (_chrono >= _tmpC)
                 {
-                    _tmpC = _chrono + 7;
-                    _tmpC2 = _chrono + 2;
+                    _tmpC = _chrono + 8;
+                    _tmpC2 = _chrono + 3;
                     Random rnd = new Random();
                     _positionCoin = new Vector2(rnd.Next(0, Constantes._LARGEUR_FENETRE - 200), rnd.Next(0, Constantes._HAUTEUR_FENETRE - 200));
                 }
@@ -542,7 +544,7 @@ namespace SAE_DEV_PROJ
 
 
             _spriteBatch.Draw(_textureBoss, boss1.BossPosition, _couleur);
-            _spriteBatch.Draw(_texturePerso, hero.PositionPerso, _couleur);
+            _spriteBatch.Draw(_texturePerso, hero.PositionPerso, _couleurPerso);
             _spriteBatch.DrawString(_police, "" + Math.Round(_chrono, 2), new Vector2(Constantes._LARGEUR_FENETRE - 100, 0), _couleur);
             _spriteBatch.DrawString(_police, $"Vie Boss : { boss1.BossHP}", _positionPvBoss, _couleur);
             _spriteBatch.DrawString(_police, $"Score : {hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), _couleur);
@@ -694,7 +696,7 @@ namespace SAE_DEV_PROJ
                         boss1.BossHP -= hero.DamagePerso;
                         _tabBulletPerso[i].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_PERSO / 2, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * _sequenceTir);
 
-                        if (_redemption == false && _bossAlive)
+                        if (_redemption == false && _bossAlive && hero.PvPerso > 0)
                             hero.Score += 10;
                     }
                 }
@@ -718,7 +720,7 @@ namespace SAE_DEV_PROJ
                                 else 
                                     _tabBulletPersoCote[i, j].BulletPosition = new Vector2(hero.PositionPerso.X + Constantes._LARGEUR_BULLETS_PERSO_COTE, hero.PositionPerso.Y + i * Constantes._HAUTEUR_BULLETS * _sequenceTir);
                                 boss1.BossHP -= hero.DamagePerso/5;
-                                if (_redemption == false && _bossAlive)
+                                if (_redemption == false && _bossAlive && hero.PvPerso > 0)
                                     hero.Score += 1;
                             }
                         }
@@ -933,14 +935,17 @@ namespace SAE_DEV_PROJ
             {
                 hero.PvPerso -= (int)boss1.DamageBoss;
                 _redemption = true;
+                _couleurPerso = Color.Red;
             }
             if (_redemption)
             {
+                _couleurPerso = Color.Red;
                 hero.DamagePerso = 0;
                 _tmp += deltaTime;
             }
             if (_tmp >= 2)
             {
+                _couleurPerso = Color.White;
                 _tmp = 0;
                 hero.DamagePerso = _damagePerso;
                 _redemption = false;

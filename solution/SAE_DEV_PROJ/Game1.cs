@@ -384,11 +384,11 @@ namespace SAE_DEV_PROJ
             }
 
             // WIN SCENE
-            if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && _hitboxReplayWinScreen.Contains(_ms.X, _ms.Y))
+            if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && _hitboxBoutonMReplay.Contains(_ms.X, _ms.Y))
             {
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
-            if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && _hitboxMainMenuWinScreen.Contains(_ms.X, _ms.Y))
+            if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))
             {
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
@@ -622,7 +622,5 @@ namespace SAE_DEV_PROJ
             _graphics.PreferredBackBufferHeight = Constantes._HAUTEUR_FENETRE;
             _graphics.ApplyChanges();
         }
-
-
     }
 }
