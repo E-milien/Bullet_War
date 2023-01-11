@@ -154,6 +154,7 @@ namespace SAE_DEV_PROJ
 
             // SETUP PERSO
 
+            
 
             _largeurBarreHp = 578;
             _hitboxResumeButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
