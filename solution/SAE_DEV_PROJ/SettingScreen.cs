@@ -34,6 +34,15 @@ namespace SAE_DEV_PROJ
         private Texture2D _bruitOff;
         private Rectangle contourPic;
 
+        private Rectangle _hitboxBossFacile;
+        private Rectangle _hitboxBossMoyen;
+        private Rectangle _hitboxBossHard;
+
+        public int _hpBoss;
+        private bool _boolButton1;
+        private bool _boolButton2;
+        private bool _boolButton3;
+
         public SettingScreen(Game1 game) : base(game)
         {
             _myGame = game;
@@ -41,6 +50,9 @@ namespace SAE_DEV_PROJ
         public override void Initialize()
         {
             contourPic = new Rectangle(740, 45, 10, 5);
+            _hitboxBossFacile = new Rectangle(1400,600, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
+            _hitboxBossMoyen = new Rectangle(1400, 600 + Constantes._HAUTEUR_BOUTON + 20, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
+            _hitboxBossHard = new Rectangle(1400, 600 + 2 * Constantes._HAUTEUR_BOUTON + 40, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             base.Initialize();
         }
         public override void LoadContent()
@@ -79,6 +91,36 @@ namespace SAE_DEV_PROJ
             _myGame._settingOk = true;
 
             _ms = Mouse.GetState();
+
+            if(_hitboxBossFacile.Contains(_ms.X, _ms.Y) && _ms.LeftButton == ButtonState.Pressed)
+            {
+                _myGame.boss1.BossHP = Constantes._HPBOSS_FACILE;
+                _myGame._initHp = true;
+
+                _boolButton1 = true;
+                _boolButton2 = true;
+                _boolButton3 = false;
+
+            }
+            if (_hitboxBossMoyen.Contains(_ms.X, _ms.Y) && _ms.LeftButton == ButtonState.Pressed)
+            {
+                _myGame.boss1.BossHP = Constantes._HPBOSS_MOYEN;
+                _myGame._initHp = true;
+
+                _boolButton1 = false;
+                _boolButton2 = false;
+                _boolButton3 = false;
+            }
+            if (_hitboxBossHard.Contains(_ms.X, _ms.Y) && _ms.LeftButton == ButtonState.Pressed)
+            {
+                _myGame.boss1.BossHP = Constantes._HPBOSS_DIFFICILE;
+                _myGame._initHp = true;
+
+                _boolButton1 = false;
+                _boolButton2 = true;
+                _boolButton3 = true;
+            }
+
         }
         public override void Draw(GameTime gameTime)
         {
@@ -147,6 +189,22 @@ namespace SAE_DEV_PROJ
             {
                 _spriteBatch.DrawString(_police, _myGame._toucheAssignee + " est deja assignee, cliquez sur une autre...", new Vector2(600, 600), Color.Red);
             }
+            _spriteBatch.Draw(_textureLeaveButton, new Vector2(1400, 600), Color.White);
+            _spriteBatch.Draw(_textureLeaveButtonPressed, new Vector2(1400, 600 + Constantes._HAUTEUR_BOUTON + 20), Color.White);
+            _spriteBatch.Draw(_textureLeaveButton, new Vector2(1400, 600 + 2 * Constantes._HAUTEUR_BOUTON + 40), Color.White);
+
+            if(_boolButton1)
+                _spriteBatch.Draw(_textureLeaveButtonPressed, new Vector2(1400, 600), Color.White);
+            if(_boolButton2)
+                _spriteBatch.Draw(_textureLeaveButton, new Vector2(1400, 600 + Constantes._HAUTEUR_BOUTON + 20), Color.White);
+            if (_boolButton3)
+                _spriteBatch.Draw(_textureLeaveButtonPressed, new Vector2(1400, 600 + 2 * Constantes._HAUTEUR_BOUTON + 40), Color.White);
+
+            _spriteBatch.DrawString(_police, "Cliquer sur une difficulte ", new Vector2(1400 + Constantes._HAUTEUR_BOUTON / 2 - 20, 550), Color.White);
+            _spriteBatch.DrawString(_police, "Facile", new Vector2(1400 + Constantes._HAUTEUR_BOUTON / 2 + 110, 635), Color.Green);
+            _spriteBatch.DrawString(_police, "Moyen", new Vector2(1400 + Constantes._HAUTEUR_BOUTON / 2 + 110, 635 + Constantes._HAUTEUR_BOUTON + 20), Color.Yellow);
+            _spriteBatch.DrawString(_police, "Difficile", new Vector2(1400 + Constantes._HAUTEUR_BOUTON / 2 + 110, 635 + 2 * Constantes._HAUTEUR_BOUTON + 40), Color.Red);
+
             _spriteBatch.End();
         }
     }
