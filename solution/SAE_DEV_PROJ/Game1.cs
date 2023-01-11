@@ -208,7 +208,7 @@ namespace SAE_DEV_PROJ
             _money = 0;
 
             // initialisation boss & perso
-            boss1 = new Boss(10, 20, "bossMechant", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
+            boss1 = new Boss(500, 20, "bossMechant", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
             hero = new Perso(false, _hpPerso, 5, _score, _money, "vaisseau", 1, 500, new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE * 2 / 3) - new Vector2(Constantes._LARGEUR_PERSO / 2, Constantes._HAUTEUR_PERSO / 2));
 
             base.Initialize();
@@ -248,7 +248,6 @@ namespace SAE_DEV_PROJ
 
         protected override void Update(GameTime gameTime)
         {
-            Console.WriteLine(_screenWinOk);
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             _chrono += deltaTime;
             if (!_loaded)

@@ -157,6 +157,9 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_textureVaisseauTirs2, new Vector2(20, 300), Color.White);
             _spriteBatch.DrawString(_police, "Ameliorer la rafale", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 330), Color.White);
 
+            //_spriteBatch.Draw(_)
+            _spriteBatch.DrawString(_police, _myGame.hero.Money + " g", new Vector2(Constantes._LARGEUR_FENETRE - 200, 20), Color.Yellow);
+
 
             // AMELIORATION RAFALE 
             if(_hitboxRafale.Contains(_ms.X,_ms.Y) && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
