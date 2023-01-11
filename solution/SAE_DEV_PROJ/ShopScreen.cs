@@ -39,10 +39,17 @@ namespace SAE_DEV_PROJ
         private Rectangle _hitboxRafale;
 
         Rectangle _hitboxSkinVaisseau2;
-        Rectangle _hitboxSkinDonald;
+        
         bool _skinVaisseau2;
         bool _skinVaisseau2tmp;
+        bool _skinVaisseau2tmp2;
         private Texture2D _textureSkinVaisseau2;
+
+        Rectangle _hitboxSkinDonald;
+        bool _skinDonald;
+        bool _skinDonaldtmp;
+        bool _skinDonaldtmp2;
+        private Texture2D _textureSkinDonald;
 
         // COEUR
         bool _heartFillTmp1;
@@ -79,19 +86,15 @@ namespace SAE_DEV_PROJ
             
             _hitboxVaisseauTirs = new Rectangle(Constantes._ESPACESHOPBORD, 140, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
             _hitboxRafale = new Rectangle(Constantes._ESPACESHOPBORD, 290, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
-            _hitboxSkinVaisseau2 = new Rectangle(600, 500, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
-            _hitboxSkinDonald = new Rectangle(600, 700, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
-            _skinVaisseau2 = false;
-            _skinVaisseau2tmp = false;
-
-
-
+            _hitboxSkinVaisseau2 = new Rectangle(1400, 500, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
+            _hitboxSkinDonald = new Rectangle(1400, 700, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
 
             base.Initialize();
         }
         public override void LoadContent()
         {
-            _textureSkinVaisseau2 = Content.Load<Texture2D>("vaisseau2");
+            _textureSkinVaisseau2 = Content.Load<Texture2D>("vaisseau2BIG");
+            _textureSkinDonald = Content.Load<Texture2D>("donaldBIG");
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _police = Content.Load<SpriteFont>("Font");
             _textureFondWinScreen = Content.Load<Texture2D>("fondWinScreen");
@@ -169,8 +172,12 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_textureVaisseauTirs2, new Vector2(20, 300), Color.White);
             _spriteBatch.DrawString(_police, "Ameliorer la rafale", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 330), Color.White);
 
-            _spriteBatch.Draw(_textureSkinVaisseau2, new Vector2(600, 500), Color.White);
-            _spriteBatch.DrawString(_police, "Ameliorer la rafale", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 330), Color.White);
+            _spriteBatch.Draw(_textureSkinVaisseau2, new Vector2(1400, 500), Color.White);
+            _spriteBatch.DrawString(_police, "skin de vaisseau", new Vector2(1400 + Constantes._LARGEUR_PERSO, 500), Color.White);
+
+            _spriteBatch.Draw(_textureSkinVaisseau2, new Vector2(1400, 700), Color.White);
+            _spriteBatch.DrawString(_police, "skin de donald", new Vector2(1400 + Constantes._LARGEUR_PERSO, 700), Color.White);
+
 
             if (_hitboxSkinVaisseau2.Contains(_ms.X, _ms.Y) && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
             {
@@ -178,16 +185,114 @@ namespace SAE_DEV_PROJ
                 _skinVaisseau2tmp = true;
 
             }
+
+            // BOUTON ACHTER
             if (_skinVaisseau2tmp && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
             {
-                _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(600, 500), Color.White);
-                //_spriteBatch.DrawString(_police, "skin de vaisseau 50g", new Vector2(600+Constantes._LARGEUR_PERSO, 500), Color.White);
+                _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(1400, 500), Color.White);
+                _spriteBatch.DrawString(_police, "skin de vaisseau 50g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
+            }
+            if (_skinVaisseau2 == true && _spaceshipButton == false && _heartFillTmp1 == false)
+            {
+                _spriteBatch.Draw(_textureTmPayer, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 - Constantes._HAUTEUR_BOUTON - 200), Color.White);
+                _spriteBatch.Draw(_textureTmpAnnuler, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2 - 200), Color.White);
+
+                _spriteBatch.DrawString(_police, "Payer", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 50, 800 - Constantes._HAUTEUR_BOUTON / 2 - 15 - 200), Color.White);
+                _spriteBatch.DrawString(_police, "Annuler", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 60, 800 + Constantes._HAUTEUR_BOUTON - 15 - 200), Color.White);
+
+                if (_ms.LeftButton == ButtonState.Pressed && _hitboxBoutonPayer.Contains(_ms.X, _ms.Y))
+                {
+                    // ARGENT < 50
+                    if (_myGame.hero.Money < 50)
+                    {
+                        _skinVaisseau2 = false;
+                        _skinVaisseau2tmp = true;
+                    }
+                    else
+                    {
+                        _myGame.hero.Money -= 50;
+                        //_myGame._upgradeRafale = true;
+
+                        _skinVaisseau2 = false;
+                        _skinVaisseau2tmp = false;
+                        _skinVaisseau2tmp2 = false;
+                    }
+                    if (_skinVaisseau2tmp2)
+                    {
+                        _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (50 - _myGame.hero.Money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
+                    }
+                }
+                else
+                {
+                    _skinVaisseau2 = true;
+                    _skinVaisseau2tmp2 = false;
+                }
+                if (_ms.LeftButton == ButtonState.Pressed && _hitboxBoutonAnnuler.Contains(_ms.X, _ms.Y))
+                {
+                    _skinVaisseau2 = false;
+                    _skinVaisseau2tmp = false;
+                    _skinVaisseau2tmp2 = false;
+                }
+            }
+
+            if (_hitboxSkinVaisseau2.Contains(_ms.X, _ms.Y) && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false&& _skinVaisseau2 == false)
+            {
+                _skinDonald = true;
+                _skinDonaldtmp = true;
+
+            }
+
+            if (_skinDonald && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
+            {
+                _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(1400, 500), Color.White);
+                _spriteBatch.DrawString(_police, "skin de vaisseau 50g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
+            }
+            if (_skinDonald == true && _spaceshipButton == false && _heartFillTmp1 == false)
+            {
+                _spriteBatch.Draw(_textureTmPayer, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 - Constantes._HAUTEUR_BOUTON - 200), Color.White);
+                _spriteBatch.Draw(_textureTmpAnnuler, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2 - 200), Color.White);
+
+                _spriteBatch.DrawString(_police, "Payer", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 50, 800 - Constantes._HAUTEUR_BOUTON / 2 - 15 - 200), Color.White);
+                _spriteBatch.DrawString(_police, "Annuler", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 60, 800 + Constantes._HAUTEUR_BOUTON - 15 - 200), Color.White);
+
+                if (_ms.LeftButton == ButtonState.Pressed && _hitboxBoutonPayer.Contains(_ms.X, _ms.Y))
+                {
+                    // ARGENT < 75
+                    if (_myGame.hero.Money < 75)
+                    {
+                        _skinDonald = false;
+                        _skinDonaldtmp = true;
+                    }
+                    else
+                    {
+                        _myGame.hero.Money -= 75;
+                        //_myGame._upgradeRafale = true;
+
+                        _skinDonald = false;
+                        _skinDonaldtmp = false;
+                        _skinDonaldtmp2 = false;
+                    }
+                    if (_skinVaisseau2tmp2)
+                    {
+                        _spriteBatch.DrawString(_police, "Vous n'avez pas l'argent necessaire, il vous manque " + (75 - _myGame.hero.Money) + " g", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 400, 450), Color.White);
+                    }
+                }
+                else
+                {
+                    _skinDonald = true;
+                    _skinDonaldtmp2 = false;
+                }
+                if (_ms.LeftButton == ButtonState.Pressed && _hitboxBoutonAnnuler.Contains(_ms.X, _ms.Y))
+                {
+                    _skinDonald = false;
+                    _skinDonaldtmp = false;
+                    _skinDonaldtmp2 = false;
+                }
             }
 
 
-
             // AMELIORATION RAFALE 
-            if(_hitboxRafale.Contains(_ms.X,_ms.Y) && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
+            if (_hitboxRafale.Contains(_ms.X,_ms.Y) && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false && _skinVaisseau2 == false)
             {
                 _rafalesButton = true;
                 _rafalesPoliceTmp1 = true;
@@ -196,13 +301,13 @@ namespace SAE_DEV_PROJ
             
 
 
-            if (_rafalesPoliceTmp1 && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
+            if (_rafalesPoliceTmp1 && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false && _skinVaisseau2 == false)
             {
                 _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(Constantes._ESPACESHOPBORD, 300 - Constantes._ESPACESHOPBORD), Color.White);
                 _spriteBatch.DrawString(_police, "Ameliorer la rafale dps x1.5 (100g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
             }
 
-            if(_rafalesButton == true && _spaceshipButton == false && _heartFillTmp1 == false)
+            if(_rafalesButton == true && _spaceshipButton == false && _heartFillTmp1 == false && _skinVaisseau2 == false)
             {
                 _spriteBatch.Draw(_textureTmPayer, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 - Constantes._HAUTEUR_BOUTON - 200), Color.White);
                 _spriteBatch.Draw(_textureTmpAnnuler, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2 - 200), Color.White);
@@ -251,7 +356,7 @@ namespace SAE_DEV_PROJ
 
 
             // VAISSEAU AMELIORATION 3 TIRS
-            if (_hitboxVaisseauTirs.Contains(_ms.X, _ms.Y) && _heartPoliceTmp1 == false && _rafalesPoliceTmp1 == false)
+            if (_hitboxVaisseauTirs.Contains(_ms.X, _ms.Y) && _heartPoliceTmp1 == false && _rafalesPoliceTmp1 == false && _skinVaisseau2 == false)
             {
                 _spaceshipButton = true;
                 _spaceshipPoliceTmp1 = true;
@@ -262,7 +367,7 @@ namespace SAE_DEV_PROJ
                 _spriteBatch.DrawString(_police, "Debloquer 2 nouveaux tirs (100g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
             }
             // DESSINE LES TEXTURES DES BOUTONS 
-            if (_spaceshipButton && _heartPoliceTmp1 == false && _rafalesPoliceTmp1 == false)
+            if (_spaceshipButton && _heartPoliceTmp1 == false && _rafalesPoliceTmp1 == false && _skinVaisseau2 == false)
             {
                 _spriteBatch.Draw(_textureTmPayer, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON/2, 800 - Constantes._HAUTEUR_BOUTON -200), Color.White);
                 _spriteBatch.Draw(_textureTmpAnnuler, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2 -200), Color.White);
@@ -314,7 +419,7 @@ namespace SAE_DEV_PROJ
 
 
             // SI SOURIS PAR DESSUS COEUR ROUGE 1 
-            if (_hitboxHeart1.Contains(_ms.X, _ms.Y) && _spaceshipPoliceTmp1 == false && _rafalesPoliceTmp1 == false)
+            if (_hitboxHeart1.Contains(_ms.X, _ms.Y) && _spaceshipPoliceTmp1 == false && _rafalesPoliceTmp1 == false && _skinVaisseau2 == false)
                 {
                     _heartFillTmp1 = true;
                     _heartBoutons = true;
@@ -327,13 +432,13 @@ namespace SAE_DEV_PROJ
                 }
 
                 // SI SOURIS PAR DESSUS COEUR ROUGE 
-                if (_heartPoliceTmp1 && _spaceshipPoliceTmp1 == false && _spaceshipPoliceTmp2 == false)
+                if (_heartPoliceTmp1 && _spaceshipPoliceTmp1 == false && _spaceshipPoliceTmp2 == false && _skinVaisseau2 == false)
                 {
                     _spriteBatch.Draw(_textureContourHeart, new Vector2(Constantes._ESPACESHOPBORD), Color.White);
                     _spriteBatch.DrawString(_police, "Augmenter sa vie de 20HP (50g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
                 }
                 // SI SOURIS PAR DESSUS COEUR ROUGE 
-                if (_heartFillTmp1 && _spaceshipPoliceTmp1 == false && _spaceshipButton == false)
+                if (_heartFillTmp1 && _spaceshipPoliceTmp1 == false && _spaceshipButton == false && _skinVaisseau2 == false)
                 {
                     // DESSINE LES TEXTURES 
                     if (_heartBoutons)
