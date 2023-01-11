@@ -169,6 +169,18 @@
 /processorParam:TextureFormat=Color
 /build:bullet2.png
 
+#begin bullet2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:bullet2.png
+
 #begin coin.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -727,6 +739,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:sondBouton3.mp3
+
+#begin sonWin.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sonWin.mp3
 
 #begin sonWin.mp3
 /importer:Mp3Importer
