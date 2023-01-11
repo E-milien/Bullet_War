@@ -65,13 +65,13 @@ namespace SAE_DEV_PROJ
         }
         public override void Initialize()
         {
-            _hitboxHeart1 = new Rectangle(575,30,Constantes._TAILLEHEART, Constantes._TAILLEHEART);
-            _hitboxHeart2 = new Rectangle(700, 30, Constantes._TAILLEHEART, Constantes._TAILLEHEART);
+            _hitboxHeart1 = new Rectangle(575 - Constantes._ESPACESHOPBORD, 30,Constantes._TAILLEHEART, Constantes._TAILLEHEART + Constantes._ESPACECONTOURSHOP);
+            _hitboxHeart2 = new Rectangle(700 - Constantes._ESPACESHOPBORD, 30, Constantes._TAILLEHEART, Constantes._TAILLEHEART + Constantes._ESPACECONTOURSHOP);
             _hitboxBoutonPayer = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 - Constantes._HAUTEUR_BOUTON - 200, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             _hitboxBoutonAnnuler = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2 - 200, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
             
-            _hitboxVaisseauTirs = new Rectangle(20, 140, 410, Constantes._HAUTEURVAISSEAUTIRS + 10);
-            _hitboxRafale = new Rectangle(20, 300, 410, Constantes._HAUTEURVAISSEAUTIRS + 10);
+            _hitboxVaisseauTirs = new Rectangle(Constantes._ESPACESHOPBORD, 140, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
+            _hitboxRafale = new Rectangle(Constantes._ESPACESHOPBORD, 290, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
 
             _myGame._actif = false;
             _myGame._screenDeathOk = false;
@@ -168,7 +168,7 @@ namespace SAE_DEV_PROJ
 
             if (_rafalesPoliceTmp1 && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
             {
-                _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(20 - 5, 300 - 5), Color.White);
+                _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(Constantes._ESPACESHOPBORD, 300 - Constantes._ESPACESHOPBORD), Color.White);
                 _spriteBatch.DrawString(_police, "Ameliorer la rafale dps x1.5 (100g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
             }
 
@@ -228,10 +228,11 @@ namespace SAE_DEV_PROJ
             }
             if (_spaceshipPoliceTmp1)
             {
+                _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(Constantes._ESPACESHOPBORD, 140 - Constantes._ESPACESHOPBORD), Color.White);
                 _spriteBatch.DrawString(_police, "Debloquer 2 nouveaux tirs (100g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
             }
-
-            if (_spaceshipButton && _heartPoliceTmp1 == false)
+            // DESSINE LES TEXTURES DES BOUTONS 
+            if (_spaceshipButton && _heartPoliceTmp1 == false && _rafalesPoliceTmp1 == false)
             {
                 _spriteBatch.Draw(_textureTmPayer, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON/2, 800 - Constantes._HAUTEUR_BOUTON -200), Color.White);
                 _spriteBatch.Draw(_textureTmpAnnuler, new Vector2(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 + Constantes._HAUTEUR_BOUTON / 2 -200), Color.White);
@@ -298,6 +299,7 @@ namespace SAE_DEV_PROJ
                 // SI SOURIS PAR DESSUS COEUR ROUGE 
                 if (_heartPoliceTmp1 && _spaceshipPoliceTmp1 == false && _spaceshipPoliceTmp2 == false)
                 {
+                    _spriteBatch.Draw(_textureContourHeart, new Vector2(Constantes._ESPACESHOPBORD), Color.White);
                     _spriteBatch.DrawString(_police, "Augmenter sa vie de 20HP (50g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
                 }
                 // SI SOURIS PAR DESSUS COEUR ROUGE 

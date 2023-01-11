@@ -169,7 +169,7 @@
 /processorParam:TextureFormat=Color
 /build:coin.png
 
-#begin coin.png
+#begin coin2.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -179,7 +179,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:coin.png
+/build:coin2.png
 
 #begin contour.png
 /importer:TextureImporter
@@ -192,18 +192,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:contour.png
-
-#begin contourShop.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:contourShop.png
 
 #begin contourShop.png
 /importer:TextureImporter
@@ -391,18 +379,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Full.png
-
-#begin HeartEmpty.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:HeartEmpty.png
 
 #begin HeartEmpty.png
 /importer:TextureImporter
