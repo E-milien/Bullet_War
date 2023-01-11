@@ -88,7 +88,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureAttentionPattern5;
         private SpriteFont _police;
         private Texture2D _textureCoin;
-        private Texture2D _textureCoin2;
+        public Texture2D _textureCoin2;
 
         public Texture2D _boutonMenuResume;
         public Texture2D _boutonMenuHome;

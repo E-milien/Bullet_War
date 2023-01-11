@@ -16,12 +16,12 @@ namespace SAE_DEV_PROJ
         public bool _pause;
         private readonly ScreenManager _screenManager;
         private GraphicsDeviceManager _graphics;
-        HomeScreen _homeScreen;
-        PlayScreen _playScreen;
-        DeadScreen _deadScreen;
-        WinScreen _winScreen;
-        SettingScreen _settingScreen;
-        ShopScreen _shopScren;
+        public HomeScreen _homeScreen;
+        public PlayScreen _playScreen;
+        public DeadScreen _deadScreen;
+        public WinScreen _winScreen;
+        public SettingScreen _settingScreen;
+        public ShopScreen _shopScren;
 
         public Texture2D _boutonPlay;
         public Texture2D _boutonShop;

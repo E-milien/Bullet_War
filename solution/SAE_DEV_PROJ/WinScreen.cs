@@ -87,6 +87,9 @@ namespace SAE_DEV_PROJ
             _spriteBatch.DrawString(_police, "Main Menu", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 70, 540), Color.White);
             _spriteBatch.DrawString(_police, "Quit", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 20, 740), Color.White);
 
+            // INFO SUR LA GAME
+            _spriteBatch.Draw(_myGame._playScreen._textureCoin2, new Vector2(5, 700), Color.White);
+            _spriteBatch.DrawString(_police, $"{_myGame._playScreen.hero.Money}", new Vector2(60, 700), Color.White);
 
             _spriteBatch.End();
         }
