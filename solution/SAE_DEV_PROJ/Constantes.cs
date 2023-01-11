@@ -72,7 +72,11 @@ namespace SAE_DEV_PROJ
         public const int _ESPACECONTOURSHOP = 20;
         public const int _GAIN_PAR_COIN = 1;
 
-        public const int _HPBOSS = 50000;
+
+        public const int _HPBOSS_FACILE = 10000;
+        public const int _HPBOSS_MOYEN = 17000;
+        public const int _HPBOSS_DIFFICILE = 25000;
+
         public const int _HPERSO = 100;
     }
 }
