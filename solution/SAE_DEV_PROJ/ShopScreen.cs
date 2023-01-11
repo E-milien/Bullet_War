@@ -38,6 +38,12 @@ namespace SAE_DEV_PROJ
         private Rectangle _hitboxVaisseauTirs;
         private Rectangle _hitboxRafale;
 
+        Rectangle _hitboxSkinVaisseau2;
+        Rectangle _hitboxSkinDonald;
+        bool _skinVaisseau2;
+        bool _skinVaisseau2tmp;
+        private Texture2D _textureSkinVaisseau2;
+
         // COEUR
         bool _heartFillTmp1;
         bool _heartFillTmp2;
@@ -65,6 +71,7 @@ namespace SAE_DEV_PROJ
         }
         public override void Initialize()
         {
+            
             _hitboxHeart1 = new Rectangle(575 - Constantes._ESPACESHOPBORD, 30,Constantes._TAILLEHEART, Constantes._TAILLEHEART + Constantes._ESPACECONTOURSHOP);
             _hitboxHeart2 = new Rectangle(700 - Constantes._ESPACESHOPBORD, 30, Constantes._TAILLEHEART, Constantes._TAILLEHEART + Constantes._ESPACECONTOURSHOP);
             _hitboxBoutonPayer = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 800 - Constantes._HAUTEUR_BOUTON - 200, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
@@ -72,19 +79,24 @@ namespace SAE_DEV_PROJ
             
             _hitboxVaisseauTirs = new Rectangle(Constantes._ESPACESHOPBORD, 140, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
             _hitboxRafale = new Rectangle(Constantes._ESPACESHOPBORD, 290, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
-
+            _hitboxSkinVaisseau2 = new Rectangle(600,500, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
+            _hitboxSkinDonald = new Rectangle(600,700, 420, Constantes._HAUTEURVAISSEAUTIRS + Constantes._ESPACECONTOURSHOP);
             _myGame._actif = false;
             _myGame._screenDeathOk = false;
             _myGame._screenWinOk = false;
             _myGame._settingOk = false;
             _myGame._pause = false;
             _myGame._shopScreenOk = true;
+            _skinVaisseau2 = false;
+            _skinVaisseau2tmp = false;
+
 
 
             base.Initialize();
         }
         public override void LoadContent()
         {
+            _textureSkinVaisseau2 = Content.Load<Texture2D>("vaisseau2");
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _police = Content.Load<SpriteFont>("Font");
             _textureFondWinScreen = Content.Load<Texture2D>("fondWinScreen");
@@ -157,6 +169,22 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_textureVaisseauTirs2, new Vector2(20, 300), Color.White);
             _spriteBatch.DrawString(_police, "Ameliorer la rafale", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 330), Color.White);
 
+            _spriteBatch.Draw(_textureSkinVaisseau2, new Vector2(600, 500), Color.White);
+            _spriteBatch.DrawString(_police, "Ameliorer la rafale", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 330), Color.White);
+
+            if (_hitboxSkinVaisseau2.Contains(_ms.X, _ms.Y) && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
+            {
+                _skinVaisseau2 = true;
+                _skinVaisseau2tmp = true;
+
+            }
+            if (_skinVaisseau2tmp && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
+            {
+                _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(600, 500), Color.White);
+                //_spriteBatch.DrawString(_police, "skin de vaisseau 50g", new Vector2(600+Constantes._LARGEUR_PERSO, 500), Color.White);
+            }
+
+
 
             // AMELIORATION RAFALE 
             if(_hitboxRafale.Contains(_ms.X,_ms.Y) && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
@@ -164,6 +192,8 @@ namespace SAE_DEV_PROJ
                 _rafalesButton = true;
                 _rafalesPoliceTmp1 = true;
             }
+
+            
 
 
             if (_rafalesPoliceTmp1 && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false)
@@ -215,7 +245,7 @@ namespace SAE_DEV_PROJ
                 _rafalesPoliceTmp1 = false;
                 _rafalesPoliceTmp2 = false;
             }
-        
+            
 
 
 

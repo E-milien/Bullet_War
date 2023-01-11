@@ -162,7 +162,7 @@ namespace SAE_DEV_PROJ
             
 
             // initialisation boss & perso
-            boss1 = new Boss(50000, 20, "bossMechant", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
+            boss1 = new Boss(0, 20, "bossMechant", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
             hero = new Perso(false, _myGame._hpPerso, 5, 0, _myGame._money, "vaisseau", 1, 500, new Vector2(Constantes._LARGEUR_FENETRE/2,Constantes._HAUTEUR_FENETRE*2/3) - new Vector2(Constantes._LARGEUR_PERSO / 2, Constantes._HAUTEUR_PERSO / 2));
 
             _damagePerso = hero.DamagePerso;
