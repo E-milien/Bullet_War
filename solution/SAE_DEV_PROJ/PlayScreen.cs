@@ -159,7 +159,7 @@ namespace SAE_DEV_PROJ
             
 
             _myGame.boss1 = new Boss(_myGame._hpBoss, 20, "bossMechant", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
-            _myGame.hero = new Perso(false, _myGame._hpPerso, 5, _myGame._score, _myGame._money, "vaisseau", 1, 500, new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE * 2 / 3) - new Vector2(Constantes._LARGEUR_PERSO / 2, Constantes._HAUTEUR_PERSO / 2));
+            _myGame.hero = new Perso(false, _myGame._hpPerso, 5, _myGame._score, "vaisseau", 1, 500, new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE * 2 / 3) - new Vector2(Constantes._LARGEUR_PERSO / 2, Constantes._HAUTEUR_PERSO / 2));
 
             _largeurBarreHp = 578;
             _hitboxResumeButton = new Rectangle(Constantes._LARGEUR_FENETRE / 2 - Constantes._LARGEUR_BOUTON / 2, 300, Constantes._LARGEUR_BOUTON, Constantes._HAUTEUR_BOUTON);
@@ -282,7 +282,7 @@ namespace SAE_DEV_PROJ
             if((_myGame.hero.Score - (1000 * _compteurScoreReset)) >= 1000)
             {
                 _compteurScoreReset++;
-                _myGame.hero.Money += Constantes._GAIN_PAR_COIN;
+                _myGame._money += Constantes._GAIN_PAR_COIN;
             }
 
             _ms = Mouse.GetState();
@@ -366,8 +366,8 @@ namespace SAE_DEV_PROJ
                 if (CollisionCoin(_redemption))
                 {
                     _positionCoin = new Vector2(-50, -50);
-                    _myGame.hero.Money += 5;
-                    Console.WriteLine(_myGame.hero.Money);
+                    _myGame._money += 5;
+                    Console.WriteLine(_myGame._money);
                 }
 
                 //------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -566,7 +566,7 @@ namespace SAE_DEV_PROJ
             _spriteBatch.DrawString(_police, $"Vie Boss : { _myGame.boss1.BossHP}", _positionPvBoss, _couleur);
             _spriteBatch.DrawString(_police, $"Score : {_myGame.hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), _couleur);
             _spriteBatch.Draw(_textureCoin2, new Vector2(5, _positionScore.Y), _couleur);
-            _spriteBatch.DrawString(_police, $"{_myGame.hero.Money}", new Vector2(60, _positionScore.Y+7), _couleur);
+            _spriteBatch.DrawString(_police, $"{_myGame._money}", new Vector2(60, _positionScore.Y+7), _couleur);
 
             //HP
             if (Math.Round((_myGame.hero.PvPerso / _pvDepart) * 100) > 80)

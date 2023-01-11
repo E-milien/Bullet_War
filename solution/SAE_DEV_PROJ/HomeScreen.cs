@@ -44,6 +44,7 @@ namespace SAE_DEV_PROJ
             _myGame._settingOk = false;
             _myGame._shopScreenOk = false;
             _myGame._playScreenOk = false;
+            _myGame._pause = false;
 
             _myGame._homescreenOk = true;
         }
