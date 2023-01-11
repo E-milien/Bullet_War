@@ -65,13 +65,7 @@ namespace SAE_DEV_PROJ
         private bool _redemption;
         public double _chrono;
         public double _chronoPause;
-        private int _i1;
-        private int _i2;
-        private double _var;
         private double _varCercle;
-        private bool _ok1;
-        private bool _ok2;
-        private int _var2;
         private float _angle;
         private double _pvDepart;
         private Vector2 _positionPv;
@@ -148,7 +142,7 @@ namespace SAE_DEV_PROJ
             _cheat1 = false;
             _bossAlive = true;
             _alive = true;
-            _chrono = 0;
+            _chrono = 90;
             _chronoPause = 0;
             _varCercle = 0;
             _angle = 0f;
@@ -882,7 +876,7 @@ namespace SAE_DEV_PROJ
                     }
                     else if (_chrono > Constantes._PATTERNFINAL)
                     {
-                        if (!(tabBulSpirale[i].BulletPosition.Y <= boss1.BossPosition.Y + Constantes._LARGEUR_BOSS / 2 - 1 || tabBulSpirale[i].BulletPosition.Y >= boss1.BossPosition.Y + Constantes._LARGEUR_BOSS / 2 + 1))
+                        if (!(tabBulSpirale[i].BulletPosition.Y <= _myGame.boss1.BossPosition.Y + Constantes._LARGEUR_BOSS / 2 - 1 || tabBulSpirale[i].BulletPosition.Y >= _myGame.boss1.BossPosition.Y + Constantes._LARGEUR_BOSS / 2 + 1))
                             tabBulSpirale[i].PasseOrigine = true;
                     }
 
@@ -953,7 +947,8 @@ namespace SAE_DEV_PROJ
     // redemption de 2 secondes après être touché
     public void Redemption(float deltaTime)
         {
-            if ((Collision(_redemption, _tabBulletsFourchette1) && _chrono < Constantes._DEBUTPAT3 - 1) || (Collision(_redemption, _tabBulletsFourchette2) && _chrono < Constantes._FINPAT7) || Collision(_redemption, _tabBulletsCercle) || (Collision(_redemption, _tabBulletsRandom) && _chrono > Constantes._DEBUTPAT4) || (Collision(_redemption, _tabBulletsCercleDesax1) && _chrono > Constantes._DEBUTPAT3) || (CollisionSpirale(_redemption, _tabBulletsSpirale1) && _chrono > Constantes._DEBUTPAT5) || (CollisionSpirale(_redemption, _tabBulletsSpirale2) && _chrono > Constantes._DEBUTPAT8) && _redemption == false)
+            if ((Collision(_redemption, _tabBulletsFourchette1) && _chrono < Constantes._DEBUTPAT3 - 1) || (Collision(_redemption, _tabBulletsFourchette2) && _chrono < Constantes._FINPAT7) || Collision(_redemption, _tabBulletsCercle) || (Collision(_redemption, _tabBulletsRandom) && _chrono > Constantes._DEBUTPAT4) || (Collision(_redemption, _tabBulletsCercleDesax1) && _chrono > Constantes._DEBUTPAT3) || (Collision(_redemption, _tabBulletsCercleDesax2) && _chrono > Constantes._DEBUTPAT6) || 
+                (CollisionSpirale(_redemption, _tabBulletsSpirale1) && _chrono > Constantes._DEBUTPAT5) || (CollisionSpirale(_redemption, _tabBulletsSpirale2) && _chrono > Constantes._DEBUTPAT8) || (CollisionSpirale(_redemption,_tabBulletsSpiraleFinal) || Collision(_redemption,_tabBulletsFourchetteFinal) || Collision(_redemption, _tabBulletsCercleFinal) || Collision(_redemption, _tabBulletsCercleDesaxFinal) && _chrono > Constantes._PATTERNFINAL) && _redemption == false)
             {
                 //_alive = true; // pour etre sur
                 _myGame.hero.PvPerso -= (int)_myGame.boss1.DamageBoss;
@@ -965,7 +960,6 @@ namespace SAE_DEV_PROJ
             {
                 _myGame.hero.PvPerso -= (int)_myGame.boss1.DamageBoss;
                 _redemption = true;
-                _couleurPerso = Color.Red;
             }
             if (_redemption)
             {
@@ -1021,7 +1015,7 @@ namespace SAE_DEV_PROJ
                 Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY);
 
                 if (moving == true)
-                    tabSpirale[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(i*5 + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2) - bulletDirection * i * 2, "bulletSpiral", false);
+                    tabSpirale[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(i*5 + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2) - bulletDirection * i * 2, "bulletSpiral", false);
                 else
                     tabSpirale[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2) - bulletDirection * i * 2, "bulletSpiral", false);
                 _angle += 10f;
@@ -1072,7 +1066,7 @@ namespace SAE_DEV_PROJ
             // Bullets pattern fourchette initialize
             for (int i = 0; i<tabFourchette.Length; i++)
             {
-                tabFourchette[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bullet");
+                tabFourchette[i] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bullet");
             }
         }
         private void InitializePatternCercle(Bullet[,] tabCercle)
@@ -1082,7 +1076,7 @@ namespace SAE_DEV_PROJ
             {
                 for (int j = 0; j<tabCercle.GetLength(1); j++)
                 {
-                    tabCercle[i, j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bulletCercle");
+                    tabCercle[i, j] = new Bullet(Constantes._VITESSE_BULLETS1, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), "bulletCercle");
                 }
             }
         }
@@ -1129,26 +1123,26 @@ namespace SAE_DEV_PROJ
         {
             for (int i = 0; i < _tabBulletFocus1.Length; i++)
             {
-                _tabBulletFocus1[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus2[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus3[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus4[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus5[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus6[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus7[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus8[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus9[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus10[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus11[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus12[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus13[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(Constantes._LARGEUR_FENETRE / 3, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus14[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(2 * Constantes._LARGEUR_FENETRE / 3, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus15[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(Constantes._LARGEUR_FENETRE / 3, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus16[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(2 * Constantes._LARGEUR_FENETRE / 3, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus17[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus18[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus19[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
-                _tabBulletFocus20[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus1[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus2[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus3[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus4[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus5[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus6[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus7[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus8[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus9[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus10[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus11[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus12[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus13[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(Constantes._LARGEUR_FENETRE / 3, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus14[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(2 * Constantes._LARGEUR_FENETRE / 3, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus15[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(Constantes._LARGEUR_FENETRE / 3, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus16[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(2 * Constantes._LARGEUR_FENETRE / 3, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus17[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus18[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus19[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
+                _tabBulletFocus20[i] = new Bullet(Constantes._VITESSE_BULLETS2, new Vector2(_myGame.boss1.BossPosition.X + Constantes._LARGEUR_BOSS / 2, _myGame.boss1.BossPosition.Y + Constantes._HAUTEUR_BOSS / 2), new Vector2(0, 0), "bulletFocus", false);
             }
         }
     }

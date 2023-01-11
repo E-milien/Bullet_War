@@ -74,7 +74,7 @@ namespace SAE_DEV_PROJ
         public const int _ESPACECONTOURSHOP = 20;
         public const int _GAIN_PAR_COIN = 1;
 
-        public const int _HPBOSS = 2000;
+        public const int _HPBOSS = 50000;
         public const int _HPERSO = 100;
         private bool _estMort;
 
