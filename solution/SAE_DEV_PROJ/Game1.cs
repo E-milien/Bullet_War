@@ -121,11 +121,9 @@ namespace SAE_DEV_PROJ
 
         public bool _keyUpdating;
 
-        public double _score;
-        public double _hpPerso;
-        public double _money;
         internal Boss boss1;
         internal Perso hero;
+        private int _money = 0;
 
         public SpriteBatch SpriteBatch { get; set; }
 
@@ -203,14 +201,10 @@ namespace SAE_DEV_PROJ
             
             _hitboxBruit = new Rectangle(100, 520, Constantes._LARGEUR_BRUIT, Constantes._HAUTEUR_BRUIT);
 
-            _hpPerso = 100;
-            _score = 0;
-            _money = 0;
-
             // initialisation boss & perso
-            boss1 = new Boss(500, 20, "bossMechant", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
-            hero = new Perso(false, _hpPerso, 5, _score, _money, "vaisseau", 1, 500, new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE * 2 / 3) - new Vector2(Constantes._LARGEUR_PERSO / 2, Constantes._HAUTEUR_PERSO / 2));
-
+            boss1 = new Boss(2000, 20, "bossMechant", new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE / 5) - new Vector2(Constantes._LARGEUR_BOSS / 2, 0));
+            hero = new Perso(false, 100, 5, 0, _money, "vaisseau", 1, 500, new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE * 2 / 3) - new Vector2(Constantes._LARGEUR_PERSO / 2, Constantes._HAUTEUR_PERSO / 2));
+            Console.WriteLine("test");
             base.Initialize();
         }
 
@@ -248,6 +242,7 @@ namespace SAE_DEV_PROJ
 
         protected override void Update(GameTime gameTime)
         {
+            //Console.WriteLine(hero.Money);
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             _chrono += deltaTime;
             if (!_loaded)

@@ -30,7 +30,7 @@ namespace SAE_DEV_PROJ
         private Texture2D _textureVaisseauTirs;
         private Texture2D _textureVaisseauTirs2;
         private Texture2D _textureTmpMenu;
-
+        private Texture2D _textureCoins;
         private Rectangle _hitboxHeart1;
         private Rectangle _hitboxHeart2;
         private Rectangle _hitboxBoutonPayer;
@@ -103,6 +103,7 @@ namespace SAE_DEV_PROJ
             _textureVaisseauTirs2 = Content.Load<Texture2D>("vaisseauTirs2");
             _textureCoutourVaisseau = Content.Load<Texture2D>("contourShop");
             _textureContourHeart = Content.Load<Texture2D>("contourShop2");
+            _textureCoins = Content.Load<Texture2D>("coin2");
 
             base.LoadContent();
         }
@@ -169,8 +170,8 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_textureVaisseauTirs2, new Vector2(20, 300), Color.White);
             _spriteBatch.DrawString(_police, "Ameliorer la rafale", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 330), Color.White);
 
-            //_spriteBatch.Draw(_)
-            _spriteBatch.DrawString(_police, _myGame.hero.Money + " g", new Vector2(Constantes._LARGEUR_FENETRE - 200, 20), Color.Yellow);
+            _spriteBatch.Draw(_textureCoins, new Vector2(Constantes._LARGEUR_FENETRE - 160, 10), Color.White);
+            _spriteBatch.DrawString(_police, _myGame.hero.Money.ToString(), new Vector2(Constantes._LARGEUR_FENETRE - 200, 20), Color.Yellow);
 
             _spriteBatch.Draw(_textureSkinVaisseau2, new Vector2(600, 500), Color.White);
             _spriteBatch.DrawString(_police, "Ameliorer la rafale", new Vector2(25 + Constantes._LARGEURVAISSEAUTIRS, 330), Color.White);
@@ -247,6 +248,7 @@ namespace SAE_DEV_PROJ
                 _rafalesButton = false;
                 _rafalesPoliceTmp1 = false;
                 _rafalesPoliceTmp2 = false;
+
             }
             
 
