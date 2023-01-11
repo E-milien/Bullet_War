@@ -227,7 +227,7 @@ namespace SAE_DEV_PROJ
             }
 
             // SKIN VAISSEAU2
-            if (_hitboxSkinVaisseau2.Contains(_ms.X, _ms.Y) && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false && _rafalesPoliceTmp1 == false && _skinDonald == false)
+            if (_hitboxSkinVaisseau2.Contains(_ms.X, _ms.Y) && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false && _rafalesPoliceTmp1 == false && _skinDonald == false && _skinDefault == false)
             {
                 _skinVaisseau2 = true;
                 _skinVaisseau2tmp = true;
@@ -281,7 +281,7 @@ namespace SAE_DEV_PROJ
 
 
             // SKIN DONALD
-            if (_hitboxSkinDonald.Contains(_ms.X, _ms.Y) && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false && _skinVaisseau2 == false && _rafalesPoliceTmp1 == false)
+            if (_hitboxSkinDonald.Contains(_ms.X, _ms.Y) && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false && _skinVaisseau2 == false && _rafalesPoliceTmp1 == false && _skinDefault == false)
             {
                 _skinDonald = true;
                 _skinDonaldtmp = true;
@@ -346,7 +346,7 @@ namespace SAE_DEV_PROJ
             
 
 
-            if (_rafalesPoliceTmp1 && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false && _skinVaisseau2 == false)
+            if (_rafalesPoliceTmp1 && _heartFillTmp1 == false && _spaceshipPoliceTmp1 == false && _skinVaisseau2 == false && _skinDefault == false && _skinDonald==false)
             {
                 _spriteBatch.Draw(_textureCoutourVaisseau, new Vector2(Constantes._ESPACESHOPBORD, 300 - Constantes._ESPACESHOPBORD), Color.White);
                 _spriteBatch.DrawString(_police, "Ameliorer la rafale dps x1.5 (100g)", new Vector2(Constantes._LARGEUR_FENETRE / 2 - 220, 450), Color.White);
@@ -402,7 +402,7 @@ namespace SAE_DEV_PROJ
 
 
             // VAISSEAU AMELIORATION 3 TIRS
-            if (_hitboxVaisseauTirs.Contains(_ms.X, _ms.Y) && _heartPoliceTmp1 == false && _rafalesPoliceTmp1 == false && _skinVaisseau2 == false)
+            if (_hitboxVaisseauTirs.Contains(_ms.X, _ms.Y) && _heartPoliceTmp1 == false && _rafalesPoliceTmp1 == false && _skinVaisseau2 == false && _skinDefault == false && _skinDonald == false)
             {
                 _spaceshipButton = true;
                 _spaceshipPoliceTmp1 = true;
@@ -465,7 +465,7 @@ namespace SAE_DEV_PROJ
 
 
             // SI SOURIS PAR DESSUS COEUR ROUGE 1 
-            if (_hitboxHeart1.Contains(_ms.X, _ms.Y) && _spaceshipPoliceTmp1 == false && _rafalesPoliceTmp1 == false && _skinVaisseau2 == false)
+            if (_hitboxHeart1.Contains(_ms.X, _ms.Y) && _spaceshipPoliceTmp1 == false && _rafalesPoliceTmp1 == false && _skinVaisseau2 == false && _skinDefault == false && _skinDonald == false)
                 {
                     _heartFillTmp1 = true;
                     _heartBoutons = true;
