@@ -31,6 +31,10 @@ namespace SAE_DEV_PROJ
             _myGame = game;
 
         }
+        public override void Initialize()
+        {
+            base.Initialize();
+        }
         public override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -45,8 +49,13 @@ namespace SAE_DEV_PROJ
 
         public override void Update(GameTime gameTime)
         {
-            _myGame._actif = false;
+            _myGame._screenDeathOk = false;
+            _myGame._homescreenOk = false;
+            _myGame._settingOk = false;
+            _myGame._shopScreenOk = false;
+            _myGame._playScreenOk = false;
 
+            _myGame._screenWinOk = true;
         }
         public override void Draw(GameTime gameTime)
         {
@@ -89,7 +98,7 @@ namespace SAE_DEV_PROJ
 
             // INFO SUR LA GAME
             _spriteBatch.Draw(_myGame._playScreen._textureCoin2, new Vector2(5, 700), Color.White);
-            _spriteBatch.DrawString(_police, $"{_myGame._playScreen.hero.Money}", new Vector2(60, 700), Color.White);
+            _spriteBatch.DrawString(_police, $"{_myGame.hero.Money}", new Vector2(60, 700), Color.White);
 
             _spriteBatch.DrawString(_police, $"Score : {_myGame._playScreen.hero.Score}", new Vector2(0, 500), Color.White);
 
