@@ -146,8 +146,7 @@ namespace SAE_DEV_PROJ
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-
-            //-_graphics.IsFullScreen = true;
+            _graphics.IsFullScreen = true;
         }
 
         protected override void Initialize()
