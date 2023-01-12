@@ -12,20 +12,6 @@ namespace SAE_DEV_PROJ
 {
     public class PlayScreen : GameScreen
     {
-        // VARAIBLES A RENOMMER (un vrai frère)
-        private int _i1;
-        private int _i2;
-        private int _i3;
-        private double _tmp48;
-        private double _tmpC;
-        private double _tmpC2;
-        private double _tmp;
-        private bool _ok1;
-        private bool _ok2;
-        private bool _ok3;
-        private int _var2;
-        private double _var;
-        
         private Game1 _myGame;
         private SpriteBatch _spriteBatch;
         private Texture2D _texturePerso;
@@ -93,6 +79,19 @@ namespace SAE_DEV_PROJ
         private int _allFocusUsedAdd;
         private int _allFocusUsedMult;
 
+        // VARIABLE INDISPENSABLE
+        private int _ecartPat1;
+        private int _ecartPat2;
+        private int _ecartPat3;
+        private double _tmpRedemption;
+        private double _tmpCoinCreation;
+        private double _tmpCoinSupression;
+        private double _tmpCooldownRedemption;
+        private bool _antiInfiniPat1;
+        private bool _antiInfiniPat2;
+        private bool _antiInfiniPat3;
+        private int _varPerteScoreTemporel;
+        private double _varChronoPatFinal;
 
         private int _largeurBarreHp;
         private int _damagePerso;
@@ -100,7 +99,6 @@ namespace SAE_DEV_PROJ
         public bool _bossAlive=true;
         private Color _couleur;
         private Color _couleurPerso;
-        private double _tmpVie;
 
         private int _sequenceTir;
 
@@ -172,15 +170,15 @@ namespace SAE_DEV_PROJ
             _boutonMenuHome = _textureButtonMenu;
             _boutonMenuExit = _textureButtonMenu;
             _compteurScoreReset = 0;
-            _tmpVie = Constantes._PATTERNFINALFIN;
-            _tmp48 = 0;
-            _var = 40;
-            _i1 = -1;
-            _i2 = -1;
-            _var2 = 2;
-            _ok1 = false;
-            _ok2 = false;
-            _tmpC = 6;
+            _tmpRedemption = 0;
+            _varChronoPatFinal = 40;
+            _ecartPat1 = -1;
+            _ecartPat2 = -1;
+            _varPerteScoreTemporel = 2;
+            _antiInfiniPat1 = false;
+            _antiInfiniPat2 = false;
+            _tmpCoinCreation = 6;
+            _redemption = false;
 
             _allFocusUsed = false;
             _allFocusUsedAdd = 0;
@@ -189,10 +187,10 @@ namespace SAE_DEV_PROJ
             // SETUP PERSO
 
             _myGame._score = 0;
-            
 
-            
 
+
+            _myGame.boss1.BossHP = _myGame._hpBoss;
             _myGame.hero = new Perso(false, _myGame._hpPerso, 5, _myGame._score, "vaisseau", 1, 500, new Vector2(Constantes._LARGEUR_FENETRE / 2, Constantes._HAUTEUR_FENETRE * 2 / 3) - new Vector2(Constantes._LARGEUR_PERSO / 2, Constantes._HAUTEUR_PERSO / 2));
 
             _largeurBarreHp = 578;
@@ -313,15 +311,14 @@ namespace SAE_DEV_PROJ
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (!_myGame._pause)
             {
-                if (_chrono>_tmpVie)
+                if (_chrono>= Constantes._PATTERNFINALFIN)
                 {
-                    _tmpVie = _chrono + 2;
-                    _myGame.hero.PvPerso -= 20;
+                    _myGame.hero.PvPerso = 0;
                 }
-                if(_chrono>=_tmp48 && !_redemption && _myGame.hero.PvPerso > 0)
+                if(_chrono>=_tmpRedemption && !_redemption && _myGame.hero.PvPerso > 0)
                 {
                     _myGame._soundShot.Play();
-                    _tmp48 = _chrono + 0.1;
+                    _tmpRedemption = _chrono + 0.1;
                 }
 
                 //pattern1 pour les différentes "vague de bullets"
@@ -329,11 +326,11 @@ namespace SAE_DEV_PROJ
                 _chronoPause = 0;
 
                 //perd du score a cause du temps
-                if (_chrono >= _var2)
+                if (_chrono >= _varPerteScoreTemporel)
                 {
                     if (_myGame.hero.Score >= 100 && _bossAlive && _myGame.hero.PvPerso > 0)
                         _myGame.hero.Score -= 100;
-                    _var2 += 3;
+                    _varPerteScoreTemporel += 3;
                 }
 
                 //tirs alliés
@@ -371,14 +368,14 @@ namespace SAE_DEV_PROJ
                 }
 
                 // COINS
-                if (_chrono >= _tmpC)
+                if (_chrono >= _tmpCoinCreation)
                 {
-                    _tmpC = _chrono + 8;
-                    _tmpC2 = _chrono + 3;
+                    _tmpCoinCreation = _chrono + 8;
+                    _tmpCoinSupression = _chrono + 3;
                     Random rnd = new Random();
                     _positionCoin = new Vector2(rnd.Next(0, Constantes._LARGEUR_FENETRE - 200), rnd.Next(0, Constantes._HAUTEUR_FENETRE - 200));
                 }
-                else if (_chrono>=_tmpC2)
+                else if (_chrono>=_tmpCoinSupression)
                 {
                     _positionCoin=new Vector2(-50, -50);
                 }
@@ -396,10 +393,10 @@ namespace SAE_DEV_PROJ
                 //active le 1er pattern (patterncercle)
                 if (_chrono > Constantes._DEBUTPAT1 && _chrono < Constantes._FINPAT1)
                 {
-                    PatternCercle(Constantes._DEBUTPAT4 - 1,_tabBulletsCercle,_i2,_angle);
-                    if (!_ok2)
+                    PatternCercle(Constantes._DEBUTPAT4 - 1,_tabBulletsCercle,_ecartPat2,_angle);
+                    if (!_antiInfiniPat2)
                         _varCercle = _chrono;
-                    _ok2 = true;
+                    _antiInfiniPat2 = true;
                 }
 
                 //lancer pattern fourchette (2e pattern)
@@ -413,9 +410,9 @@ namespace SAE_DEV_PROJ
                 if (_chrono > Constantes._DEBUTPAT4)
                 {
                     Pattern1(deltaTime);
-                    if (!_ok1)
-                        _var = _chrono;
-                    _ok1 = true;
+                    if (!_antiInfiniPat1)
+                        _varChronoPatFinal = _chrono;
+                    _antiInfiniPat1 = true;
                 }
 
                 //active le pattern spirale (5e pattern)
@@ -434,10 +431,10 @@ namespace SAE_DEV_PROJ
                 //PATTERN FINAL BOOM OMG IMPOSSIBLE QUE PASA
                 if (_chrono > Constantes._PATTERNFINAL)
                 {
-                    PatternCercle(Constantes._PATTERNFINALFIN,_tabBulletsCercleFinal,_i3,_angle);
-                    if (!_ok3)
+                    PatternCercle(Constantes._PATTERNFINALFIN,_tabBulletsCercleFinal,_ecartPat3,_angle);
+                    if (!_antiInfiniPat3)
                         _varCercle = _chrono;
-                    _ok3 = true;
+                    _antiInfiniPat3 = true;
                     PatternCercleDesax(_tabBulletsCercleDesaxFinal, _angle);
                 }
                 PatternFourchette(Constantes._PATTERNFINAL, Constantes._PATTERNFINALFIN, _tabBulletsFourchetteFinal, deltaTime);
@@ -480,6 +477,7 @@ namespace SAE_DEV_PROJ
                 {
                     _myGame._soundButton.Play();
                     _myGame._pause = false;
+                    MediaPlayer.Resume();
                 }
                 if (_hitboxResumeButton.Contains(_ms.X, _ms.Y))
                 {
@@ -531,7 +529,7 @@ namespace SAE_DEV_PROJ
             }
 
             //Bullets pattern 1 (random)
-            for (int z = 0; z <= _i1; z++)
+            for (int z = 0; z <= _ecartPat1; z++)
             {
                 for (int j = 0; j < _tabBulletsRandom.GetLength(1); j++)
                 {
@@ -545,8 +543,8 @@ namespace SAE_DEV_PROJ
             PatternFourchetteDraw(Constantes._PATTERNFINAL, Constantes._PATTERNFINALFIN, _tabBulletsFourchetteFinal);
 
             //Bullets patternCercle
-            PatternCercleDraw(Constantes._DEBUTPAT1, _i2, _tabBulletsCercle);
-            PatternCercleDraw(Constantes._PATTERNFINAL, _i3, _tabBulletsCercleFinal);
+            PatternCercleDraw(Constantes._DEBUTPAT1, _ecartPat2, _tabBulletsCercle);
+            PatternCercleDraw(Constantes._PATTERNFINAL, _ecartPat3, _tabBulletsCercleFinal);
 
             //Bullets patternSpiral
             PatternSpiraleDraw(Constantes._DEBUTPAT5, _tabBulletsSpirale1,Color.Purple);
@@ -586,7 +584,7 @@ namespace SAE_DEV_PROJ
 
             _spriteBatch.Draw(_textureBoss, _myGame.boss1.BossPosition, _couleur);
             _spriteBatch.Draw(_texturePerso, _myGame.hero.PositionPerso, _couleurPerso);
-            _spriteBatch.DrawString(_police, "Temps : " + Math.Round(_chrono)+"s", new Vector2(Constantes._LARGEUR_FENETRE - 175, 10), _couleur);
+            _spriteBatch.DrawString(_police, "Temps : " + Math.Round(_chrono)+"s", new Vector2(Constantes._LARGEUR_FENETRE - 205, 10), _couleur);
             _spriteBatch.DrawString(_police, $"Vie Boss : { _myGame.boss1.BossHP}", _positionPvBoss, _couleur);
             _spriteBatch.DrawString(_police, $"Score : {_myGame.hero.Score}", new Vector2(_positionScore.X, _positionScore.Y - 50), _couleur);
             _spriteBatch.Draw(_textureCoin2, new Vector2(5, _positionScore.Y), _couleur);
@@ -801,15 +799,15 @@ namespace SAE_DEV_PROJ
         // 1
         public void Pattern1(float deltaTime)
         {
-            if (_chrono >= _var && _i1 < _tabBulletsRandom.GetLength(0) - 1)
+            if (_chrono >= _varChronoPatFinal && _ecartPat1 < _tabBulletsRandom.GetLength(0) - 1)
             {
-                _var += 2;
-                _i1++;
+                _varChronoPatFinal += 2;
+                _ecartPat1++;
             }
             
             
             Random rdn = new Random();
-            for (int z = 0; z <= _i1; z++)
+            for (int z = 0; z <= _ecartPat1; z++)
             {
                 for (int j = 0; j < _tabBulletsRandom.GetLength(1) - 2; j++)
                 {
@@ -854,10 +852,10 @@ namespace SAE_DEV_PROJ
             if (_chrono >= _varCercle && compteur < tabBulletCercle.GetLength(0)-1)
             {
                 _varCercle += 3;
-                if (compteur == _i2)
-                    _i2++;
-                if (compteur == _i3)
-                    _i3++;
+                if (compteur == _ecartPat2)
+                    _ecartPat2++;
+                if (compteur == _ecartPat3)
+                    _ecartPat3++;
             }
             if (_chrono < fin)
             {
@@ -991,12 +989,12 @@ namespace SAE_DEV_PROJ
             {
                 _couleurPerso = Color.Red;
                 _myGame.hero.DamagePerso = 0;
-                _tmp += deltaTime;
+                _tmpCooldownRedemption += deltaTime;
             }
-            if (_tmp >= 2)
+            if (_tmpCooldownRedemption >= 2)
             {
                 _couleurPerso = Color.White;
-                _tmp = 0;
+                _tmpCooldownRedemption = 0;
                 _myGame.hero.DamagePerso = _damagePerso;
                 _redemption = false;
                 //on remet les bullets au dessus du perso

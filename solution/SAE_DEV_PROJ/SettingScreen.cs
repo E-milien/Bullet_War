@@ -94,7 +94,9 @@ namespace SAE_DEV_PROJ
 
             if(_hitboxBossFacile.Contains(_ms.X, _ms.Y) && _ms.LeftButton == ButtonState.Pressed)
             {
-                _myGame.boss1.BossHP = Constantes._HPBOSS_FACILE;
+                _myGame._hpBoss = Constantes._HPBOSS_FACILE;
+                _myGame.boss1.BossHP = _myGame._hpBoss;
+                
                 _myGame._initHp = true;
 
                 _boolButton1 = true;
@@ -104,7 +106,8 @@ namespace SAE_DEV_PROJ
             }
             if (_hitboxBossMoyen.Contains(_ms.X, _ms.Y) && _ms.LeftButton == ButtonState.Pressed)
             {
-                _myGame.boss1.BossHP = Constantes._HPBOSS_MOYEN;
+                _myGame._hpBoss = Constantes._HPBOSS_MOYEN;
+                _myGame.boss1.BossHP = _myGame._hpBoss;
                 _myGame._initHp = true;
 
                 _boolButton1 = false;
@@ -113,7 +116,8 @@ namespace SAE_DEV_PROJ
             }
             if (_hitboxBossHard.Contains(_ms.X, _ms.Y) && _ms.LeftButton == ButtonState.Pressed)
             {
-                _myGame.boss1.BossHP = Constantes._HPBOSS_DIFFICILE;
+                _myGame._hpBoss=Constantes._HPBOSS_DIFFICILE;
+                _myGame.boss1.BossHP = _myGame._hpBoss;
                 _myGame._initHp = true;
 
                 _boolButton1 = false;

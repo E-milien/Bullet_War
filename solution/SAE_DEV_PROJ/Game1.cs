@@ -12,7 +12,7 @@ namespace SAE_DEV_PROJ
 {
     public class Game1 : Game
     {
-        private double _tmp;
+        private double _tmpPauseChrono;
         public bool _pause;
         private readonly ScreenManager _screenManager;
         private GraphicsDeviceManager _graphics;
@@ -111,7 +111,6 @@ namespace SAE_DEV_PROJ
         public bool _skinD;
         public bool _skinO;
 
-
         // SON
         public SoundEffect _soundButton;
         public SoundEffect _soundButton2;
@@ -164,13 +163,14 @@ namespace SAE_DEV_PROJ
             _boutonSettings = _textureButton;
             _boutonQuit = _textureButton;
             _sonOff = false;
-            _tmp = 0;
+            _tmpPauseChrono = 0;
             _pause = false;
             // DEPLACEMENTS PERSO 
             _forward = Keys.Z;
             _right = Keys.D;
             _behind = Keys.S;
             _left = Keys.Q;
+            
 
             _screenDeathOk = false;
             _screenWinOk = false;
@@ -179,8 +179,6 @@ namespace SAE_DEV_PROJ
             _shopScreenOk = false;
             _playScreenOk = false;
             _initHp = false;
-
-
 
             SetupWindow();
             _textureFond = Content.Load<Texture2D>("fond1");
@@ -547,14 +545,14 @@ namespace SAE_DEV_PROJ
 
 
             // PAUSE
-            if (_keyboardState.IsKeyDown(Keys.Escape) && _pause == false && _playScreen._chrono >=_tmp+1)
+            if (_keyboardState.IsKeyDown(Keys.Escape) && _pause == false && _playScreen._chrono >=_tmpPauseChrono+1)
             {
                 _pause = true;
             }
             if (_keyboardState.IsKeyDown(Keys.Escape) && _pause == true && _playScreen._chronoPause >= 1)
             {
                 _pause = false;
-                _tmp=_playScreen._chrono;
+                _tmpPauseChrono=_playScreen._chrono;
             }
 
             // CHANGEMENTS DE TOUCHE Z 
