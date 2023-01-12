@@ -118,6 +118,7 @@ namespace SAE_DEV_PROJ
         public SoundEffect _soundButton3;
         public SoundEffect _soundTouched;
         public SoundEffect _noSound;
+        public Song _sonPlay;
         public Song _sonWin;
         public Song _sonDead;
         public Song _noSoundM;
@@ -246,6 +247,7 @@ namespace SAE_DEV_PROJ
             _soundButton = Content.Load<SoundEffect>("sondBouton");
             _soundButton2 = Content.Load<SoundEffect>("soundBouton2");
             _soundButton3 = Content.Load<SoundEffect>("sondBouton3");
+            _sonPlay = Content.Load<Song>("sonPlay");
             _sonWin = Content.Load<Song>("sonWin");
             _sonDead = Content.Load<Song>("sonDead");
             _musiqueHome = Content.Load<Song>("musiqueHome");
@@ -282,6 +284,7 @@ namespace SAE_DEV_PROJ
 
             if (!_playScreen._alive && !_screenDeathOk)
             {
+                MediaPlayer.Stop();
                 MediaPlayer.Play(_sonDead);
                 _screenManager.LoadScreen(_deadScreen, new FadeTransition(GraphicsDevice, Color.Black));
                 _screenDeathOk = true;
@@ -289,6 +292,7 @@ namespace SAE_DEV_PROJ
             }
             if (!_playScreen._bossAlive && !_screenWinOk && _playScreenOk)
             {
+                MediaPlayer.Stop();
                 MediaPlayer.Play(_sonWin);
                 _screenManager.LoadScreen(_winScreen, new FadeTransition(GraphicsDevice, Color.Black));
                 _screenWinOk = true;
@@ -303,6 +307,7 @@ namespace SAE_DEV_PROJ
             {
                 _soundButton.Play();
                 MediaPlayer.Stop();
+                MediaPlayer.Play(_sonPlay);
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
 
@@ -361,6 +366,7 @@ namespace SAE_DEV_PROJ
             // SHOP
             if(_shopScreenOk && _ms.LeftButton == ButtonState.Pressed && _hitboxMainMenuShop.Contains(_ms.X, _ms.Y))
             {
+                MediaPlayer.Resume();
                 _soundButton.Play();
                 _screenManager.LoadScreen(_homeScreen, new FadeTransition(GraphicsDevice, Color.Black));
             }
@@ -408,6 +414,7 @@ namespace SAE_DEV_PROJ
                 MediaPlayer.Stop();
                 _soundButton.Play();
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
+                MediaPlayer.Play(_sonPlay);
             }
             if (_screenDeathOk && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))
             {
@@ -427,6 +434,7 @@ namespace SAE_DEV_PROJ
             {
                 MediaPlayer.Stop();
                 _screenManager.LoadScreen(_playScreen, new FadeTransition(GraphicsDevice, Color.Black));
+                MediaPlayer.Play(_sonPlay);
             }
             if (_screenWinOk && _ms.LeftButton == ButtonState.Pressed && _hitboxMenuButton.Contains(_ms.X, _ms.Y))
             {
@@ -457,6 +465,7 @@ namespace SAE_DEV_PROJ
                 _soundTouched = Content.Load<SoundEffect>("noSound");
                 _sonWin = Content.Load<Song>("noSoundM");
                 _sonDead = Content.Load<Song>("noSoundM");
+                _sonPlay = Content.Load<Song>("noSoundM");
                 MediaPlayer.Pause();
             }
             if (_settingOk && _ms.LeftButton == ButtonState.Pressed && _hitboxBruit.Contains(_ms.X, _ms.Y) && _sonOff == true && _chrono >= _tmp69temps) 
@@ -472,6 +481,7 @@ namespace SAE_DEV_PROJ
                 _soundShot = Content.Load<SoundEffect>("shot");
                 _sonWin = Content.Load<Song>("sonWin");
                 _sonDead = Content.Load<Song>("sonDead");
+                _sonPlay = Content.Load<Song>("sonPlay");
             }
 
             // FONDS SUPERIEURS 

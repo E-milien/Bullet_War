@@ -474,6 +474,7 @@ namespace SAE_DEV_PROJ
             }
             else
             {
+                MediaPlayer.Pause();
                 _chronoPause += deltaTime;
                 if(_ms.LeftButton == ButtonState.Pressed && _hitboxResumeButton.Contains(_ms.X, _ms.Y))
                 {

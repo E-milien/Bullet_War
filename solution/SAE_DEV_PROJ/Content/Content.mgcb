@@ -638,6 +638,12 @@
 /processorParam:Quality=Best
 /build:sonDead.mp3
 
+#begin sonPlay.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:sonPlay.mp3
+
 #begin sonWin.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
