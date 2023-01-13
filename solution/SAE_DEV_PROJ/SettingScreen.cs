@@ -175,20 +175,6 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_texturePic7, new Vector2(1350, 240), Color.White);
             _spriteBatch.Draw(_texturePic8, new Vector2(1650, 240), Color.White);
 
-            
-            
-
-            if (_myGame._tmpToucheZ == true || _myGame._tmpToucheD == true || _myGame._tmpToucheQ == true || _myGame._tmpToucheS == true)
-            {
-                _myGame._keyUpdating = true;
-                _spriteBatch.Draw(_textureFondPause, new Vector2(0, 0), Color.White * 0.8f);
-                _spriteBatch.Draw(_bindKey, new Vector2(Constantes._LARGEUR_FENETRE/2-500, Constantes._HAUTEUR_FENETRE/2-280), Color.White);
-                _spriteBatch.DrawString(_police, "Touchez sur une touche pour l'assigner", new Vector2(600, 450), Color.Black);
-            }
-            else
-            {
-                _myGame._keyUpdating = false;
-            }
             if(_myGame._touche == true)
             {
                 _spriteBatch.DrawString(_police, _myGame._toucheAssignee + " est deja assignee, cliquez sur une autre...", new Vector2(600, 600), Color.Red);
@@ -208,7 +194,18 @@ namespace SAE_DEV_PROJ
             _spriteBatch.DrawString(_police, "Facile", new Vector2(1400 + Constantes._HAUTEUR_BOUTON / 2 + 110, 635), Color.Green);
             _spriteBatch.DrawString(_police, "Moyen", new Vector2(1400 + Constantes._HAUTEUR_BOUTON / 2 + 110, 635 + Constantes._HAUTEUR_BOUTON + 20), Color.Yellow);
             _spriteBatch.DrawString(_police, "Difficile", new Vector2(1400 + Constantes._HAUTEUR_BOUTON / 2 + 110, 635 + 2 * Constantes._HAUTEUR_BOUTON + 40), Color.Red);
-
+            
+            if (_myGame._tmpToucheZ == true || _myGame._tmpToucheD == true || _myGame._tmpToucheQ == true || _myGame._tmpToucheS == true)
+            {
+                _myGame._keyUpdating = true;
+                _spriteBatch.Draw(_textureFondPause, new Vector2(0, 0), Color.White * 0.8f);
+                _spriteBatch.Draw(_bindKey, new Vector2(Constantes._LARGEUR_FENETRE/2-500, Constantes._HAUTEUR_FENETRE/2-280), Color.White);
+                _spriteBatch.DrawString(_police, "Touchez sur une touche pour l'assigner", new Vector2(600, 450), Color.Black);
+            }
+            else
+            {
+                _myGame._keyUpdating = false;
+            }
             _spriteBatch.End();
         }
     }
