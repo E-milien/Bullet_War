@@ -175,10 +175,7 @@ namespace SAE_DEV_PROJ
             _spriteBatch.Draw(_texturePic7, new Vector2(1350, 240), Color.White);
             _spriteBatch.Draw(_texturePic8, new Vector2(1650, 240), Color.White);
 
-            if(_myGame._touche == true)
-            {
-                _spriteBatch.DrawString(_police, _myGame._toucheAssignee + " est deja assignee, cliquez sur une autre...", new Vector2(600, 600), Color.Red);
-            }
+            
             _spriteBatch.Draw(_textureLeaveButton, new Vector2(1400, 600), Color.White);
             _spriteBatch.Draw(_textureLeaveButtonPressed, new Vector2(1400, 600 + Constantes._HAUTEUR_BOUTON + 20), Color.White);
             _spriteBatch.Draw(_textureLeaveButton, new Vector2(1400, 600 + 2 * Constantes._HAUTEUR_BOUTON + 40), Color.White);
@@ -205,6 +202,10 @@ namespace SAE_DEV_PROJ
             else
             {
                 _myGame._keyUpdating = false;
+            }
+            if (_myGame._touche == true)
+            {
+                _spriteBatch.DrawString(_police, _myGame._toucheAssignee + " est deja assignee, cliquez sur une autre...", new Vector2(600, 600), Color.Red);
             }
             _spriteBatch.End();
         }
